@@ -5,8 +5,10 @@
 
 <!-- badges: start -->
 
+[![Lifecycle:
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![Travis build
-status](https://travis-ci.org/poissonconsulting/bayesims.svg?branch=master)](https://travis-ci.org/poissonconsulting/bayesims)
+status](https://travis-ci.com/poissonconsulting/bayesims.svg?branch=master)](https://travis-ci.com/poissonconsulting/bayesims)
 [![AppVeyor build
 status](https://ci.appveyor.com/api/projects/status/github/poissonconsulting/bayesims?branch=master&svg=true)](https://ci.appveyor.com/project/poissonconsulting/bayesims)
 [![Codecov test
