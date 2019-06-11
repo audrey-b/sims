@@ -6,7 +6,7 @@ model_to_data_block <- function(model) {
 set_parameters <- function(model, parameters) {
   for(i in seq_along(parameters)) {
     par <- parameters[i]
-    pattern <- str_c(names(par), "\\s*~\\s*[^\n]+") 
+    pattern <- str_c(names(par), "\\s*~\\s*[^\n}]+") 
     replacement <- str_c(names(par), " <- ", par)
     model %<>% str_replace(pattern, replacement)
   }
