@@ -6,9 +6,12 @@ Authors@R: c(
   person("Joe", "Thorley", email = "joe@poissonconsulting.ca", role = "aut", comment = c(ORCID = "0000-0002-7683-4592")))
 Description: What the package does (one paragraph).
 License: GPL-3
+Imports:
+  stringr,
+  magrittr
+Suggests: 
+  covr,
+  testthat
 Encoding: UTF-8
 LazyData: true
-Suggests: 
-    covr,
-    testthat
 RoxygenNote: 6.1.1
