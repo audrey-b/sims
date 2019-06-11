@@ -12,3 +12,24 @@ set_parameters <- function(code, parameters) {
   }
   code
 }
+
+set_seed <- function(inits) {
+  inits$.RNG.name <- "base::Wichmann-Hill"
+  inits$.RNG.seed <- floor(runif(1, -2147483647, 2147483647))
+  inits
+}
+
+generate_data <- function(code, monitor, parameters, data, inits) {
+  code %<>% model_to_data_block() %>% 
+    set_parameters(parameters)
+  
+  tempfile <- tempfile()
+  writeLines(code, con = tempfile)
+  
+  inits %<>% set_seed()
+  rjags::jags.model(tempfile, data, list(inits), n.adapt = 0, quiet = TRUE) %>%
+  rjags::jags.samples(variable.names = monitor, n.iter = 1) %>%
+    lapply(mcmcr::as.mcmcarray) %>%
+    as.mcmcr() %>%
+    estimates()
+}
