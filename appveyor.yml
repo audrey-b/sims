@@ -7,8 +7,6 @@ init:
         Invoke-WebRequest http://raw.github.com/krlmlr/r-appveyor/master/scripts/appveyor-tool.ps1 -OutFile "..\appveyor-tool.ps1"
         Import-Module '..\appveyor-tool.ps1'
 
-platform: x64
-
 environment:
   NOT_CRAN: true
   # env vars that may need to be set, at least temporarily, from time to time
