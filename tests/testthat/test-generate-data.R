@@ -53,6 +53,5 @@ test_that("generate_data", {
   expect_identical(names(data), "beta")
   expect_gte(data$beta, 0)
   expect_lte(data$beta, 1)
-  
 })
 

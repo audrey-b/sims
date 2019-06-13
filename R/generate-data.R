@@ -24,10 +24,10 @@ generate_data <- function(code, monitor, parameters, data, inits) {
     set_parameters(parameters)
 
   inits %<>% set_seed()
-  model <- rjags::jags.model(textConnection(code), data, inits = list(inits), 
+  model <- rjags::jags.model(textConnection(code), data, inits = inits, 
                              n.adapt = 0, quiet = TRUE)
-  rjags::jags.samples(model, variable.names = monitor, n.iter = 1) %>%
-    lapply(mcmcr::as.mcmcarray) %>%
-    as.mcmcr() %>%
-    estimates()
+  rjags::jags.samples(model, variable.names = monitor, n.iter = 1)  %>%
+   lapply(mcmcr::as.mcmcarray) %>%
+   as.mcmcr() %>%
+   estimates()
 }
