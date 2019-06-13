@@ -40,7 +40,7 @@ test_that("set_parameters", {
 test_that("set_seed", {
   set.seed(101)
   expect_identical(set_seed(list()), 
-                   list(.RNG.name = "base::Wichmann-Hill", .RNG.seed = -548903794))
+                   list(.RNG.name = "base::Wichmann-Hill", .RNG.seed = 799289926))
 })
 
 test_that("generate_data", {
