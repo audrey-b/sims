@@ -15,7 +15,7 @@ set_parameters <- function(code, parameters) {
 
 set_seed <- function(inits) {
   inits$.RNG.name <- "base::Wichmann-Hill"
-  inits$.RNG.seed <- floor(runif(1, 0, 2147483647))
+  inits$.RNG.seed <- as.integer(runif(1, 0, 2147483647))
   inits
 }
 
