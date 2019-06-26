@@ -10,5 +10,5 @@
 #' @examples
 #' bsm_strip_comments("x <- 1 # a comment")
 bsm_strip_comments <- function(x) {
-  gsub(pattern = "\\s*#[^\\\n]*", replacement = "", x = x)
+  str_replace_all(x, pattern = "\\s*#[^\\\n]*", replacement = "")
 }
