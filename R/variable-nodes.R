@@ -1,4 +1,4 @@
-#' Names Variable Nodes
+#' Variable Nodes
 #' 
 #' Gets names of variable (as opposed to constant) nodes in JAGS model code.
 #' 
@@ -7,7 +7,9 @@
 #' deterministic (FALSE) or both types (NA) of variable node.
 #' @return A sorted character vector of the variable node names.
 #' @export
-bsm_names_variable_nodes <- function (x, stochastic = NA) {
+#' @examples 
+#' bsm_variable_nodes("a[1,1:i] ~ dunif(0, 1)")
+bsm_variable_nodes <- function (x, stochastic = NA) {
   check_string(x)
   check_scalar(stochastic, c(TRUE, NA))
 
@@ -20,10 +22,12 @@ bsm_names_variable_nodes <- function (x, stochastic = NA) {
   } else
     pattern <- "(?=\\s*([~]|([<][-])))"
   
-  pattern <- p0("\\w", pattern, collapse = "")
-  pattern
+  index <- "\\[[^\\]]*\\]"
+  
+  pattern <- p0("\\w+(", index, "){0,1}", pattern, collapse = "")
   nodes <- str_extract_all(x, pattern)
   nodes <- unlist(nodes)
+  nodes <- str_replace(nodes, pattern = index, "")
   nodes <- unique(nodes)
   sort(nodes)
 }
