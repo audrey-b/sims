@@ -2,7 +2,7 @@ context("simulate-data")
 
 test_that("test inputs",{
   expect_error(bsm_simulate_data(1), 
-               "jags_code must be class character")
+               "code must be class character")
   
   expect_error(bsm_simulate_data("x <- y", 1), 
                "constants must be a list")
@@ -59,4 +59,13 @@ test_that("not in model or data block",{
                "jags code must not be in a data or model block")
   expect_error(bsm_simulate_data("\n data\n{a ~ dunif(1)}", list(x = 1), list(y = 1), monitor = "a"),
                "jags code must not be in a data or model block")
+})
+
+test_that("generates data with replicability",{
+  set.seed(101)
+  expect_equal(bsm_simulate_data("a ~ dunif(0,1)", list(x = 1), list(y = 1)),
+               list(a = 0.3289872), tolerance = 1e-06)
+  set.seed(101)
+  expect_equal(bsm_simulate_data("a ~ dunif(0,1)", list(x = 1), list(y = 1)),
+               list(a = 0.3289872), tolerance = 1e-06)
 })

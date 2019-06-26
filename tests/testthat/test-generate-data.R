@@ -1,42 +1,5 @@
 context("generate-data")
 
-test_that("model_to_data_block", {
-  expect_identical(model_to_data_block("model{}"), 
-                   "data {}\nmodel {\n  dummy <- 0 \n}")
-  expect_identical(model_to_data_block("model { x <- 1 }"), 
-                   "data { x <- 1 }\nmodel {\n  dummy <- 0 \n}")
-  expect_identical(model_to_data_block("model  { for(i in 1:n) {b[i] ~ 1}}"), 
-                   "data { for(i in 1:n) {b[i] ~ 1}}\nmodel {\n  dummy <- 0 \n}")
-  expect_identical(model_to_data_block("
-  model{
-    for(i in 1:n) {
-      b[i] ~ 1
-    }
-  }"), 
-                   "\n  data {\n    for(i in 1:n) {\n      b[i] ~ 1\n    }\n  }\nmodel {\n  dummy <- 0 \n}")
-})
-
-test_that("remove_priors", {
-  expect_identical(remove_priors("alpha ~ dunif(0, 1)\n", 
-                                  c(alpha = 0.5)), 
-                   "\n\n")
-  expect_identical(remove_priors("data{alpha ~ dunif(0, 1)}\n", 
-                                  c(alpha = 0.5)), 
-                   "data{\n}\n")
-  expect_identical(remove_priors("data{alpha ~ dunif(0, 1)}\n", 
-                                  c(beta = 0.5)), 
-                   "data{alpha ~ dunif(0, 1)}\n")
-  expect_identical(remove_priors("data{alpha[1] ~ dunif(0, 1)}\n", 
-                                  c(alpha = 0.5)), 
-                   "data{alpha[1] ~ dunif(0, 1)}\n")
-  expect_identical(remove_priors("data{alpha ~ dunif(0, 1)\nbeta <- alpha}\n", 
-                                  c(alpha = 0.5)), 
-                   "data{\n\nbeta <- alpha}\n")
-  expect_identical(remove_priors("data{alpha ~ dunif(0, 1)\nbeta <- alpha}\n", 
-                                  c(alph = 0.2, alpha = 0.5)), 
-                   "data{\n\nbeta <- alpha}\n")
-})
-
 test_that("set_seed", {
   set.seed(101)
   expect_identical(set_seed(list()), 
@@ -47,8 +10,7 @@ test_that("set_seed", {
 test_that("generate_data", {
   set.seed(102)
   data <- generate_data("model{beta ~ dunif(0,1)}", monitor = "beta", 
-                        inits = list(),
-                parameters = list(), data = list())
+                variables = list())
   expect_is(data, "list")
   expect_identical(names(data), "beta")
   expect_gte(data$beta, 0)

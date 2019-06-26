@@ -1,5 +1,5 @@
-set_monitor <- function(monitor, jags_code) {
-  stochastic_nodes <- bsm_variable_nodes(jags_code, stochastic = TRUE)
+set_monitor <- function(monitor, code) {
+  stochastic_nodes <- bsm_variable_nodes(code, stochastic = TRUE)
   if(!length(stochastic_nodes)) 
     err("jags code must include at least one stochastic variable")
   to_monitor <- stochastic_nodes[str_detect(stochastic_nodes, monitor)]

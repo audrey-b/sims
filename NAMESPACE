@@ -3,7 +3,6 @@
 export(bsm_simulate_data)
 export(bsm_strip_comments)
 export(bsm_variable_nodes)
-export(place_holder)
 import(checkr)
 import(err)
 import(stringr)
