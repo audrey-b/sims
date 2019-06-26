@@ -20,4 +20,7 @@ bsm_simulate_data <- function(jags_code, constants, parameters, monitor = ".*") 
   check_string(monitor)
   check_distinct_names(constants = constants, parameters = parameters)
   
+  jags_code <- bsm_strip_comments(jags_code)
+  
+  
 }
