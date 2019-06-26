@@ -7,7 +7,8 @@
 bsm_simulate_data(jags_code, constants, parameters, monitor = ".*")
 }
 \arguments{
-\item{jags_code}{A string of the jags code to simulate the data.}
+\item{jags_code}{A string of the jags code to simulate the data.
+It must not be in a data or model block.}
 
 \item{constants}{A uniquely named list of numeric vectors, matrices and arrays
 specifying constant values.}

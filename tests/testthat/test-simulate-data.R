@@ -51,3 +51,12 @@ test_that("test at least one stochastic node",{
   expect_error(bsm_simulate_data("a ~ dunif(1)", list(x = 1), list(y = 1), monitor = "b"),
                "monitor must match at least one of the following stochastic nodes: 'a'")
 })
+
+test_that("not in model or data block",{
+  expect_error(bsm_simulate_data("a <- dunif(1)", list(x = 1), list(y = 1)),
+               "jags code must include at least one stochastic variable")
+  expect_error(bsm_simulate_data("model {a ~ dunif(1)}", list(x = 1), list(y = 1), monitor = "a"),
+               "jags code must not be in a data or model block")
+  expect_error(bsm_simulate_data("\n data\n{a ~ dunif(1)}", list(x = 1), list(y = 1), monitor = "a"),
+               "jags code must not be in a data or model block")
+})
