@@ -19,8 +19,9 @@ bsm_simulate_data <- function(jags_code, constants, parameters, monitor = ".*") 
   check_data_list(parameters)
   check_string(monitor)
   check_distinct_names(constants = constants, parameters = parameters)
+  check_variable_nodes(jags_code, constants)
+  check_variable_nodes(jags_code, parameters)
   
-  jags_code <- bsm_strip_comments(jags_code)
-  
-  
+  monitor <- set_monitor(monitor, jags_code)
+  monitor
 }

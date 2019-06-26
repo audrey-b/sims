@@ -37,3 +37,17 @@ test_that("test inputs",{
   expect_error(bsm_simulate_data("x <- y", list(x = 1), list(y = 1), 1),
                "monitor must be class character")
 })
+
+test_that("test variable nodes not already defined",{
+  expect_error(bsm_simulate_data("a ~ dunif(1)", list(a = 1), list(y = 1)),
+               "the following 1 variable node is defined in constants: 'a'")
+  expect_error(bsm_simulate_data("a ~ dunif(1)", list(y = 1), list(a = 1)),
+               "the following 1 variable node is defined in parameters: 'a'")
+})
+
+test_that("test at least one stochastic node",{
+  expect_error(bsm_simulate_data("a <- dunif(1)", list(x = 1), list(y = 1)),
+               "jags code must include at least one stochastic variable")
+  expect_error(bsm_simulate_data("a ~ dunif(1)", list(x = 1), list(y = 1), monitor = "b"),
+               "monitor must match at least one of the following stochastic nodes: 'a'")
+})
