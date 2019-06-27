@@ -5,7 +5,7 @@
 \title{Simulate Data}
 \usage{
 bsm_simulate_data(code, fixed = named_list(), monitor = ".*",
-  nsamples = 100L)
+  nsamples = 100L, silent = FALSE)
 }
 \arguments{
 \item{code}{A string of the JAGS code to simulate the data.
@@ -15,10 +15,13 @@ The code must not be in a data or model block.}
 specifying known non-missing values. 
 The names cannot match variable (stochastic or deterministic) nodes in code.}
 
-\item{monitor}{A regular expression that specifying the stochastic nodes to simulate.
-Monitor must match at least one stochastic node in code.}
+\item{monitor}{A character vector specifying the names of the stochastic nodes 
+to simulate or if a string (length one character vector) a regular expression 
+that must match at least one stochastic node in code.}
 
 \item{nsamples}{A positive integer of the number of samples to simulate.}
+
+\item{silent}{A flag specifying whether to suppress messages and warnings.}
 }
 \value{
 The simulated data values in the form of a single chain 

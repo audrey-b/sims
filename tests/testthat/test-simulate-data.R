@@ -49,6 +49,29 @@ test_that("generates data with replicability",{
                  0.3289872, .Dim = c(1L, 1L, 1L), class = "mcmcarray")), 
                  class = "mcmcr"), tolerance = 1e-06)
   set.seed(101)
-  expect_equal(mcmcr::estimates(bsm_simulate_data("a ~ dunif(0,1)", list(x = 1), nsamples = 1L)),
-               list(a = 0.3289872), tolerance = 1e-06)
+  expect_equal(bsm_simulate_data("a ~ dunif(0,1)", nsamples = 1L),
+               structure(list(a = structure(
+                 0.3289872, .Dim = c(1L, 1L, 1L), class = "mcmcarray")), 
+                 class = "mcmcr"), tolerance = 1e-06)
+})
+
+test_that("nsamples can take numeric",{
+  set.seed(101)
+  expect_equal(bsm_simulate_data("a ~ dunif(0,1)", nsamples = 1),
+               structure(list(a = structure(
+                 0.3289872, .Dim = c(1L, 1L, 1L), class = "mcmcarray")), 
+                 class = "mcmcr"), tolerance = 1e-06)
+})
+
+test_that("monitor",{
+  set.seed(101)
+  expect_equal(bsm_simulate_data("a ~ dunif(0,1)", nsamples = 1L, monitor = "a"),
+               structure(list(a = structure(
+                 0.3289872, .Dim = c(1L, 1L, 1L), class = "mcmcarray")), 
+                 class = "mcmcr"), tolerance = 1e-06)
+  expect_error(bsm_simulate_data("ab ~ dunif(0,1)", nsamples = 1L, monitor = c("a", "a")),
+                "monitor must include at least one of the following stochastic nodes: 'ab'")
+  
+  expect_warning(bsm_simulate_data("ab ~ dunif(0,1)", nsamples = 1L, monitor = c("ab", "a")),
+                "the following in monitor are not stochastic variables: 'a'")
 })
