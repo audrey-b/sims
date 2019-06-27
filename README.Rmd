@@ -16,48 +16,31 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
-[![Travis Build Status](https://travis-ci.com/poissonconsulting/bayesims.svg?token=LCuTqqVUfUECxm1xTQLb&branch=master)](https://travis-ci.com/poissonconsulting/bayesims)
-[![Build status](https://ci.appveyor.com/api/projects/status/scemknc9gj54kcsi/branch/master?svg=true)](https://ci.appveyor.com/project/poissonconsulting/bayesims/branch/master)
-[![codecov](https://codecov.io/gh/poissonconsulting/bayesims/branch/master/graph/badge.svg?token=QOMtuCmnQd)](https://codecov.io/gh/poissonconsulting/bayesims)
-<!-- badges: end -->
+[![Travis-CI Build Status](https://travis-ci.org/poissonconsulting/bayesims.svg?branch=master)](https://travis-ci.org/poissonconsulting/bayesims)
+[![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/poissonconsulting/bayesims?branch=master&svg=true)](https://ci.appveyor.com/project/poissonconsulting/bayesims)
+[![Coverage Status](https://img.shields.io/codecov/c/github/poissonconsulting/bayesims/master.svg)](https://codecov.io/github/poissonconsulting/bayesims?branch=master)<!-- badges: end -->
 
-The goal of bayesims is to ...
+bayesims is an R package to simulate data using JAGS code.
 
 ## Installation
 
-You can install the released version of bayesims from [CRAN](https://CRAN.R-project.org) with:
-
+To install the development version from the Poisson drat [repository](https://github.com/poissonconsulting/drat)
 ``` r
-install.packages("bayesims")
+install.packages("bayesims", repos = "http://poissonconsulting.github.io/drat")
 ```
 
-And the development version from [GitHub](https://github.com/) with:
+## Demonstration
 
-``` r
-# install.packages("devtools")
-devtools::install_github("poissonconsulting/bayesims")
-```
-## Example
+### Simulate Data
 
-This is a basic example which shows you how to solve a common problem:
+The `bsm_simulate_data()` function allows the user to simulate data 
+using JAGS model code.
+
+It returns the simulated data values in the form of a single chain `bayesims::bayesims` 
+object where each iteration represents one sample.
 
 ```{r example}
 library(bayesims)
-## basic example code
+set.seed(10L)
+bsm_simulate_data("a ~ dunif(0,1)", nsamples = 1L)
 ```
-
-What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
-
-```{r cars}
-summary(cars)
-```
-
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date.
-
-You can also embed plots, for example:
-
-```{r pressure, echo = FALSE}
-plot(pressure)
-```
-
-In that case, don't forget to commit and push the resulting figure files, so they display on GitHub!

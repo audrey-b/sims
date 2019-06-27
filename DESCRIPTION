@@ -10,7 +10,6 @@ Imports:
   err,
   checkr,
   stats,
-  magrittr,
   stringr,
   rjags,
   mcmcr

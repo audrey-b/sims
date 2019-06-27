@@ -16,7 +16,7 @@ test_that("test inputs",{
                "element x of fixed must be mode numeric")
   expect_error(bsm_simulate_data("x <- y", list(x = NA_real_)), 
                "element x of fixed must not include missing values")
-
+  
   expect_error(bsm_simulate_data("x <- y", list(x = 1), 1),
                "monitor must be class character")
 })
@@ -44,9 +44,11 @@ test_that("not in model or data block",{
 
 test_that("generates data with replicability",{
   set.seed(101)
-  expect_equal(bsm_simulate_data("a ~ dunif(0,1)"),
-               list(a = 0.3289872), tolerance = 1e-06)
+  expect_equal(bsm_simulate_data("a ~ dunif(0,1)", nsamples = 1L),
+               structure(list(a = structure(
+                 0.3289872, .Dim = c(1L, 1L, 1L), class = "mcmcarray")), 
+                 class = "mcmcr"), tolerance = 1e-06)
   set.seed(101)
-  expect_equal(bsm_simulate_data("a ~ dunif(0,1)", list(x = 1)),
+  expect_equal(mcmcr::estimates(bsm_simulate_data("a ~ dunif(0,1)", list(x = 1), nsamples = 1L)),
                list(a = 0.3289872), tolerance = 1e-06)
 })

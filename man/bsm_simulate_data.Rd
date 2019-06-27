@@ -4,7 +4,8 @@
 \alias{bsm_simulate_data}
 \title{Simulate Data}
 \usage{
-bsm_simulate_data(code, fixed = named_list(), monitor = ".*")
+bsm_simulate_data(code, fixed = named_list(), monitor = ".*",
+  nsamples = 100L)
 }
 \arguments{
 \item{code}{A string of the JAGS code to simulate the data.
@@ -16,15 +17,17 @@ The names cannot match variable (stochastic or deterministic) nodes in code.}
 
 \item{monitor}{A regular expression that specifying the stochastic nodes to simulate.
 Monitor must match at least one stochastic node in code.}
+
+\item{nsamples}{A positive integer of the number of samples to simulate.}
 }
 \value{
-A uniquely named list of numeric vectors, matrices and arrays of the 
-simulated data values.
+The simulated data values in the form of a single chain 
+\code{\link[mcmcr]{mcmcr}} object where each iteration represents one sample.
 }
 \description{
 Simulate Data
 }
 \examples{
 set.seed(101)
-bsm_simulate_data("a ~ dunif(0, 1)")
+bsm_simulate_data("a ~ dunif(0, 1)", nsamples = 1L)
 }
