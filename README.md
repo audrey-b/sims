@@ -6,15 +6,16 @@
 <!-- badges: start -->
 
 [![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.com/lifecycle/#experimental)
 [![Travis-CI Build
-Status](https://travis-ci.org/poissonconsulting/bayesims.svg?branch=master)](https://travis-ci.org/poissonconsulting/bayesims)
+Status](https://travis-ci.com/poissonconsulting/bayesims.svg?branch=master)](https://travis-ci.com/poissonconsulting/bayesims)
 [![AppVeyor build
 status](https://ci.appveyor.com/api/projects/status/github/poissonconsulting/bayesims?branch=master&svg=true)](https://ci.appveyor.com/project/poissonconsulting/bayesims)
 [![Coverage
-Status](https://img.shields.io/codecov/c/github/poissonconsulting/bayesims/master.svg)](https://codecov.io/github/poissonconsulting/bayesims?branch=master)<!-- badges: end -->
+Status](https://img.shields.io/codecov/c/github/poissonconsulting/bayesims/master.svg)](https://codecov.io/github/poissonconsulting/bayesims?branch=master)
+<!-- badges: end -->
 
-bayesims is an R package to simulate data using JAGS code.
+bayesims is an R package to simulate and analyse data using JAGS.
 
 ## Installation
 
@@ -33,7 +34,7 @@ The `bsm_simulate_data()` function allows the user to simulate data
 using JAGS model code.
 
 It returns the simulated data values in the form of a single chain
-`bayesims::bayesims` object where each iteration represents one sample.
+`mcmcr::mcmcr` object where each iteration represents one sample.
 
 ``` r
 library(bayesims)
