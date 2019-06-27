@@ -21,6 +21,7 @@ bsm_simulate_data <- function(code, fixed = named_list(), monitor = ".*",
   check_data_list(fixed)
   check_string(monitor)
   check_variable_nodes(code, fixed)
+  nsamples <- check_int(nsamples, coerce = TRUE)
   check_scalar(nsamples, c(1L, chk_max_int()))
 
   monitor <- set_monitor(monitor, code)
