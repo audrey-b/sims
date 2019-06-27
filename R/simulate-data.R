@@ -3,14 +3,18 @@
 #' @param code A string of the JAGS code to simulate the data.
 #' The code must not be in a data or model block.
 #' @param fixed A uniquely named list of numeric vectors, matrices and arrays
-#'  specifying known values. It cannot include missing values or variable nodes.
+#'  specifying known non-missing values. 
+#'  The names cannot match variable (stochastic or deterministic) nodes in code.
 #' @param monitor A regular expression that specifying the stochastic nodes to simulate.
-#' Monitor must match at least one stochastic node.
+#' Monitor must match at least one stochastic node in code.
 #'
 #' @return A uniquely named list of numeric vectors, matrices and arrays of the 
 #' simulated data values.
 #' @export
-bsm_simulate_data <- function(code, fixed, monitor = ".*") {
+#' @examples
+#' set.seed(101)
+#' bsm_simulate_data("a ~ dunif(0, 1)")
+bsm_simulate_data <- function(code, fixed = named_list(), monitor = ".*") {
   check_string(code)
   check_data_list(fixed)
   check_string(monitor)

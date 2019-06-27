@@ -7,7 +7,7 @@ test_that("test inputs",{
   expect_error(bsm_simulate_data("x <- y", 1), 
                "fixed must be a list")
   expect_error(bsm_simulate_data("x <- y", list()), 
-               "fixed must have at least 1 element")
+               "fixed must be named")
   expect_error(bsm_simulate_data("x <- y", list(1)), 
                "fixed must be named")
   expect_error(bsm_simulate_data("x <- y", list(x = 1, x = 1)), 
@@ -44,7 +44,7 @@ test_that("not in model or data block",{
 
 test_that("generates data with replicability",{
   set.seed(101)
-  expect_equal(bsm_simulate_data("a ~ dunif(0,1)", list(x = 1)),
+  expect_equal(bsm_simulate_data("a ~ dunif(0,1)"),
                list(a = 0.3289872), tolerance = 1e-06)
   set.seed(101)
   expect_equal(bsm_simulate_data("a ~ dunif(0,1)", list(x = 1)),
