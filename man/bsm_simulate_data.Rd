@@ -4,17 +4,14 @@
 \alias{bsm_simulate_data}
 \title{Simulate Data}
 \usage{
-bsm_simulate_data(code, constants, parameters, monitor = ".*")
+bsm_simulate_data(code, fixed, monitor = ".*")
 }
 \arguments{
 \item{code}{A string of the JAGS code to simulate the data.
 The code must not be in a data or model block.}
 
-\item{constants}{A uniquely named list of numeric vectors, matrices and arrays
-specifying constant values. It cannot include missing values or variable nodes.}
-
-\item{parameters}{A uniquely named list of numeric vectors, matrices and arrays
-specifying parameter values. It cannot include missing values or variable nodes.}
+\item{fixed}{A uniquely named list of numeric vectors, matrices and arrays
+specifying known values. It cannot include missing values or variable nodes.}
 
 \item{monitor}{A regular expression that specifying the stochastic nodes to simulate.
 Monitor must match at least one stochastic node.}

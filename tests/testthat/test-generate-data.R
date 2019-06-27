@@ -10,7 +10,7 @@ test_that("set_seed", {
 test_that("generate_data", {
   set.seed(102)
   data <- generate_data("model{beta ~ dunif(0,1)}", monitor = "beta", 
-                variables = list())
+                fixed = list())
   expect_is(data, "list")
   expect_identical(names(data), "beta")
   expect_gte(data$beta, 0)
