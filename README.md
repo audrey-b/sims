@@ -19,12 +19,16 @@ bayesims is an R package to simulate and analyse data using JAGS.
 
 ## Installation
 
-To install the development version from the Poisson drat
+To install the latest development version from
+[GitHub](https://github.com/poissonconsulting/bayessims)
+
+    remotes::install_github("poissonconsulting/bayessims")
+
+To install the latest development version from the Poisson drat
 [repository](https://github.com/poissonconsulting/drat)
 
-``` r
-install.packages("bayesims", repos = "http://poissonconsulting.github.io/drat")
-```
+    drat::addRepo("poissonconsulting")
+    install.packages("bayessims")
 
 ## Demonstration
 
