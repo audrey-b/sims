@@ -1,4 +1,4 @@
 library(testthat)
-library(bayesims)
+library(sims)
 
-test_check("bayesims")
+test_check("sims")
