@@ -90,85 +90,49 @@ likelihood <- "
 #> [1]  0.3628946 -0.7469995  1.2548191  1.0910107  0.1170109
  
  #Now I want to present those in the following format so I can pass them as data to JAGS for the analysis
-
-listres<-vector("list", nsims)
-within <- vector("list", length(names(results)))
-names(within) <- names(results)
-listres <- lapply(listres, function(x)within)
-listres
+ 
+  f1<- function(r){
+     n <- length(names(results))
+     lst <- lapply(1:n, function(i) results[[i]][1,r,])
+     names(lst) <- names(results)
+     return(lst)}
+  lapply(1:nsims, f1)
 #> [[1]]
 #> [[1]]$C
-#> NULL
+#> [1] 42 40 26 30 31
 #> 
 #> [[1]]$rand
-#> NULL
+#> [1] 0.3628946
 #> 
 #> 
 #> [[2]]
 #> [[2]]$C
-#> NULL
+#> [1] 28 33 23 25 32
 #> 
 #> [[2]]$rand
-#> NULL
+#> [1] -0.7469995
 #> 
 #> 
 #> [[3]]
 #> [[3]]$C
-#> NULL
+#> [1] 28 33 32 25 34
 #> 
 #> [[3]]$rand
-#> NULL
+#> [1] 1.254819
 #> 
 #> 
 #> [[4]]
 #> [[4]]$C
-#> NULL
+#> [1] 24 25 28 37 22
 #> 
 #> [[4]]$rand
-#> NULL
+#> [1] 1.091011
 #> 
 #> 
 #> [[5]]
 #> [[5]]$C
-#> NULL
-#> 
-#> [[5]]$rand
-#> NULL
-
-#But I can only get them in the following unlisted format:
-
- f<- function(x) results[[x[1]]][1,x[2],]
- unlisted <- apply(expand.grid(1:length(monitor),1:nsims), 1, f)
- unlisted
-#> [[1]]
-#> [1] 42 40 26 30 31
-#> 
-#> [[2]]
-#> [1] 0.3628946
-#> 
-#> [[3]]
-#> [1] 28 33 23 25 32
-#> 
-#> [[4]]
-#> [1] -0.7469995
-#> 
-#> [[5]]
-#> [1] 28 33 32 25 34
-#> 
-#> [[6]]
-#> [1] 1.254819
-#> 
-#> [[7]]
-#> [1] 24 25 28 37 22
-#> 
-#> [[8]]
-#> [1] 1.091011
-#> 
-#> [[9]]
 #> [1] 33 27 25 25 13
 #> 
-#> [[10]]
+#> [[5]]$rand
 #> [1] 0.1170109
- 
- #How can I match those?
 ```

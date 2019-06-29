@@ -83,19 +83,14 @@ likelihood <- "
  results$rand[1,,]
  
  #Now I want to present those in the following format so I can pass them as data to JAGS for the analysis
-
-listres<-vector("list", nsims)
-within <- vector("list", length(names(results)))
-names(within) <- names(results)
-listres <- lapply(listres, function(x)within)
-listres
-
-#But I can only get them in the following unlisted format:
-
- f<- function(x) results[[x[1]]][1,x[2],]
- unlisted <- apply(expand.grid(1:length(monitor),1:nsims), 1, f)
- unlisted
  
- #How can I match those?
+  f1<- function(r){
+     n <- length(names(results))
+     lst <- lapply(1:n, function(i) results[[i]][1,r,])
+     names(lst) <- names(results)
+     return(lst)}
+  lapply(1:nsims, f1)
+
+ 
 ```
 
