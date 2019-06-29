@@ -47,13 +47,11 @@ sims_nlist <- function(code,
   nsims <- as.integer(nsims)
   check_scalar(nsims, c(1L, 100000L))
 
-  data <- c(constants, parameters)
-
   check_variable_nodes(code, constants)
   check_variable_nodes(code, parameters)
   
   monitor <- set_monitor(monitor, code, silent = silent)
-  data <- generate_data(code, data, monitor, nsims)
-  # need to add constants
+  data <- generate_data(code, c(constants, parameters), monitor, nsims)
+  # data <- append_constants(data, constants)
   data
 }

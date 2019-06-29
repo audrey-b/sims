@@ -72,3 +72,10 @@ generate_data <- function(code, data, monitor, nsims) {
   sample <-  lapply(sample, mcmcr::as.mcmcarray)
   as.mcmcr(sample)
 }
+
+append_constants <- function(data, constants) {
+  if(!length(constants)) return(data)
+  data <- lapply(data, function(x) c(x, constants))
+  class(data) <- "nlists"
+  data
+}
