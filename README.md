@@ -22,31 +22,29 @@ sims is an R package to simulate and analyse data using JAGS.
 To install the latest development version from
 [GitHub](https://github.com/poissonconsulting/bayessims)
 
-    remotes::install_github("poissonconsulting/bayessims")
+    remotes::install_github("poissonconsulting/sims")
 
 To install the latest development version from the Poisson drat
 [repository](https://github.com/poissonconsulting/drat)
 
     drat::addRepo("poissonconsulting")
-    install.packages("bayessims")
+    install.packages("sims")
 
 ## Demonstration
 
 ### Simulate Data
 
-The `bsm_simulate_data()` function allows the user to simulate data
-using JAGS model code.
+The `sims_nlist()` function allows the user to simulate data using JAGS
+model code.
 
-It returns the simulated data values in the form of a single chain
-`mcmcr::mcmcr` object where each iteration represents one sample.
+It returns the simulated data values in the form of a nlists object.
 
 ``` r
 library(sims)
 set.seed(10L)
-bsm_simulate_data("a ~ dunif(0,1)", nsamples = 1L)
+sims_nlist("a ~ dunif(0,1)")
 #> $a
-#> [1] 0.2132815
+#> [1] 0.5372814
 #> 
-#> nchains:  1 
-#> niters:  1
+#> an nlists object of 100 nlist objects each with 1 natomic element
 ```

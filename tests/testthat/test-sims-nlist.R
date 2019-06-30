@@ -16,8 +16,8 @@ test_that("test inputs",{
                "element x of constants must be a numeric [(]integer or double[)] object")
   expect_error(sims_nlist("x <- y", list(x = NA_real_)), 
                "element x of constants must not include missing values")
-
-   expect_error(sims_nlist("x <- y", parameters = 1), 
+  
+  expect_error(sims_nlist("x <- y", parameters = 1), 
                "parameters must be a list")
   expect_error(sims_nlist("x <- y", parameters = list()), 
                "parameters must be named")
@@ -58,14 +58,10 @@ test_that("not in model or data block",{
 test_that("generates data with replicability",{
   set.seed(101)
   expect_equal(sims_nlist("a ~ dunif(0,1)", nsims = 1L),
-               structure(list(a = structure(
-                 0.3289872, .Dim = c(1L, 1L, 1L), class = "mcmcarray")), 
-                 class = "mcmcr"), tolerance = 1e-06)
+               structure(list(structure(list(a = 0.328987247921853), class = "nlist")), class = "nlists"))
   set.seed(101)
   expect_equal(sims_nlist("a ~ dunif(0,1)", nsims = 1L),
-               structure(list(a = structure(
-                 0.3289872, .Dim = c(1L, 1L, 1L), class = "mcmcarray")), 
-                 class = "mcmcr"), tolerance = 1e-06)
+               structure(list(structure(list(a = 0.328987247921853), class = "nlist")), class = "nlists"))
 })
 
 test_that("issue if values in constants or parameters not in code",{
@@ -79,34 +75,26 @@ test_that("issue if values in constants or parameters not in code",{
 test_that("nsims can take numeric",{
   set.seed(101)
   expect_equal(sims_nlist("a ~ dunif(0,1)", nsims = 1),
-               structure(list(a = structure(
-                 0.3289872, .Dim = c(1L, 1L, 1L), class = "mcmcarray")), 
-                 class = "mcmcr"), tolerance = 1e-06)
+               structure(list(structure(list(a = 0.328987247921853), class = "nlist")), class = "nlists"))
 })
 
 test_that("monitor",{
   set.seed(101)
-  expect_equal(sims_nlist("a ~ dunif(0,1)", nsims = 1L, monitor = "a"),
-               structure(list(a = structure(
-                 0.3289872, .Dim = c(1L, 1L, 1L), class = "mcmcarray")), 
-                 class = "mcmcr"), tolerance = 1e-06)
+  expect_equal(sims_nlist("a ~ dunif(0,1)", nsims = 1),
+               structure(list(structure(list(a = 0.328987247921853), class = "nlist")), class = "nlists"))
+
   expect_error(sims_nlist("ab ~ dunif(0,1)", nsims = 1L, monitor = c("a", "a")),
-                "monitor must include at least one of the following stochastic nodes: 'ab'")
+               "monitor must include at least one of the following stochastic nodes: 'ab'")
   
   expect_warning(sims_nlist("ab ~ dunif(0,1)", nsims = 1L, monitor = c("ab", "a")),
-                "the following in monitor are not stochastic variables: 'a'")
+                 "the following in monitor are not stochastic variables: 'a'")
 })
 
 test_that("append constants",{
-  set.seed(101)
-  expect_equal(sims_nlist("a ~ dunif(0,1)", nsims = 1L, monitor = "a"),
-               structure(list(a = structure(
-                 0.3289872, .Dim = c(1L, 1L, 1L), class = "mcmcarray")), 
-                 class = "mcmcr"), tolerance = 1e-06)
   expect_error(sims_nlist("ab ~ dunif(0,1)", nsims = 1L, monitor = c("a", "a")),
-                "monitor must include at least one of the following stochastic nodes: 'ab'")
+               "monitor must include at least one of the following stochastic nodes: 'ab'")
   
   expect_warning(sims_nlist("ab ~ dunif(0,1)", nsims = 1L, monitor = c("ab", "a")),
-                "the following in monitor are not stochastic variables: 'a'")
+                 "the following in monitor are not stochastic variables: 'a'")
 })
 

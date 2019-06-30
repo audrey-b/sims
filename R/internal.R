@@ -70,7 +70,8 @@ generate_data <- function(code, data, monitor, nsims) {
   sample <- rjags::jags.samples(model, variable.names = monitor, n.iter = nsims, 
                       progress.bar = "none")
   sample <-  lapply(sample, mcmcr::as.mcmcarray)
-  as.mcmcr(sample)
+  sample <- as.mcmcr(sample)
+  as.nlists(sample)
 }
 
 append_constants <- function(data, constants) {
