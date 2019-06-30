@@ -25,7 +25,7 @@ sims is an R package to simulate and analyse data using JAGS.
 
 ## Installation
 
-To install the latest development version from [GitHub](https://github.com/poissonconsulting/bayessims)
+To install the latest development version from [GitHub](https://github.com/poissonconsulting/sims)
 ```
 remotes::install_github("poissonconsulting/sims")
 ```
@@ -50,3 +50,42 @@ library(sims)
 set.seed(10L)
 sims_nlist("a ~ dunif(0,1)")
 ```
+
+
+```{r example2}
+library(sims)
+set.seed(10L)
+
+likelihood <- "
+ # Likelihood: Note key components of a GLM on one line each
+ rand ~ dnorm(0,1)
+ for (i in 1:n){
+   C[i] ~ dpois(lambda[i])          # 1. Distribution for random part
+   log(lambda[i]) <- log.lambda[i]  # 2. Link function
+   log.lambda[i] <- alpha + beta1 * year[i] + beta2 * pow(year[i],2) + beta3 * pow(year[i],3)                      # 3. Linear predictor
+   } #i
+ "
+ monitor=c("C", "rand")
+
+ values <- list(alpha = 3.5576,
+                beta1 = -0.0912,
+                beta2 = 0.0091,
+                beta3 = -0.00014,
+                n = 5,
+                year = 1:5)
+ 
+ nsims=5
+ 
+ results <- sims_nlist(code=likelihood, constants=values, monitor=monitor, nsims=nsims)
+ 
+ results
+ 
+ results[,"C"]
+ results[,"rand"]
+ 
+ #Now I want to present those in the following format so I can pass them as data to JAGS for the analysis
+ # nlist objects should be able to be feed in element by element to JAGs models.
+ 
+  str(results)
+```
+
