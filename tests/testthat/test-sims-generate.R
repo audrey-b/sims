@@ -92,8 +92,7 @@ test_that("nsims > 1",{
 test_that("write replicable",{
   tempdir <- tempdir()
   unlink(tempdir, recursive = TRUE)
-  teardown(unlink(tempdir, recursive = TRUE))
-  
+
   set.seed(101)
   expect_equal(sims_generate("a ~ dunif(0,1)", nsims = 1L, path = tempdir, write = NA),
                structure(list(structure(list(a = 0.0844208442995482), class = "nlist")), class = "nlists"))
@@ -120,8 +119,7 @@ test_that("write replicable",{
 test_that("write replicable > 1",{
   tempdir <- tempdir()
   unlink(tempdir, recursive = TRUE)
-  teardown(unlink(tempdir, recursive = TRUE))
-  
+
   set.seed(101)
   expect_equal(sims_generate("a ~ dunif(0,1)", nsims = 2L, path = tempdir, write = NA),
                structure(list(structure(list(a = 0.0844208442995482), class = "nlist"), 

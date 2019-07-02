@@ -7,6 +7,10 @@ strip_comments <- function(x) {
   str_replace_all(x, pattern = "\\s*#[^\\\n]*", replacement = "")
 }
 
+sims_data_files <- function(path_dir) {
+  list.files(path_dir, pattern = "^data\\d{7,7}.rds$")
+}
+
 prepare_code <- function(code) {
   code <- strip_comments(code)
   if(str_detect(code, "^\\s*(data)|(model)\\s*[{]"))
@@ -63,7 +67,7 @@ set_monitor <- function(monitor, code, silent) {
 
 create_path_dir <- function(path, dir, write, exists) {
   path_dir <- file.path(path, dir)
-  
+
   if(!isFALSE(write)) {
     dir_exists <- dir.exists(path_dir)
     if(isFALSE(exists) && dir_exists) 
@@ -79,7 +83,7 @@ create_path_dir <- function(path, dir, write, exists) {
 set_seed_inits <- function(seed, inits = list()) {
   set.seed(seed)
   inits$.RNG.name <- "base::Wichmann-Hill"
-  inits$.RNG.seed <- as.integer(runif(1, 0, 2147483647))
+  inits$.RNG.seed <- as.integer(runif(1, 0, .max_integer))
   inits
 }
 
