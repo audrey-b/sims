@@ -34,17 +34,17 @@ To install the latest development version from the Poisson drat
 
 ### Simulate Data
 
-The `sims_nlist()` function allows the user to simulate data using JAGS
-model code.
+The `sims_generate()` function allows the user to simulate data using
+JAGS model code.
 
 It returns the simulated data values in the form of a nlists object.
 
 ``` r
 library(sims)
 set.seed(10L)
-sims_nlist("a ~ dunif(0,1)")
+sims_generate("a ~ dunif(0,1)")
 #> $a
-#> [1] 0.5372814
+#> [1] 0.4977968
 #> 
 #> an nlists object of 100 nlist objects each with 1 natomic element
 ```
@@ -73,25 +73,43 @@ likelihood <- "
  
  nsims=5
  
- results <- sims_nlist(code=likelihood, constants=values, monitor=monitor, nsims=nsims)
+ results <- sims_generate(code=likelihood, constants=values, monitor=monitor, nsims=nsims)
  
  results
 #> $C
-#> [1] 31.0 31.6 26.8 28.4 26.4
+#> [1] 35.4 29.4 28.6 27.2 21.2
 #> 
 #> $rand
-#> [1] 0.4157472
+#> [1] -0.110703
 #> 
-#> an nlists object of 5 nlist objects each with 2 natomic elements
+#> $alpha
+#> [1] 3.5576
+#> 
+#> $beta1
+#> [1] -0.0912
+#> 
+#> $beta2
+#> [1] 0.0091
+#> 
+#> $beta3
+#> [1] -0.00014
+#> 
+#> $n
+#> [1] 5
+#> 
+#> $year
+#> [1] 1 2 3 4 5
+#> 
+#> an nlists object of 5 nlist objects each with 8 natomic elements
  
  results[,"C"]
 #> $C
-#> [1] 31.0 31.6 26.8 28.4 26.4
+#> [1] 35.4 29.4 28.6 27.2 21.2
 #> 
 #> an nlists object of 5 nlist objects each with 1 natomic element
  results[,"rand"]
 #> $rand
-#> [1] 0.4157472
+#> [1] -0.110703
 #> 
 #> an nlists object of 5 nlist objects each with 1 natomic element
  
@@ -100,25 +118,55 @@ likelihood <- "
  
   str(results)
 #> List of 5
-#>  $ :List of 2
-#>   ..$ C   : num [1:5] 42 40 26 30 31
-#>   ..$ rand: num 0.363
+#>  $ :List of 8
+#>   ..$ C    : num [1:5] 39 31 24 23 21
+#>   ..$ rand : num 0.84
+#>   ..$ alpha: num 3.56
+#>   ..$ beta1: num -0.0912
+#>   ..$ beta2: num 0.0091
+#>   ..$ beta3: num -0.00014
+#>   ..$ n    : num 5
+#>   ..$ year : int [1:5] 1 2 3 4 5
 #>   ..- attr(*, "class")= chr "nlist"
-#>  $ :List of 2
-#>   ..$ C   : num [1:5] 28 33 23 25 32
-#>   ..$ rand: num -0.747
+#>  $ :List of 8
+#>   ..$ C    : num [1:5] 38 34 31 34 15
+#>   ..$ rand : num -0.0843
+#>   ..$ alpha: num 3.56
+#>   ..$ beta1: num -0.0912
+#>   ..$ beta2: num 0.0091
+#>   ..$ beta3: num -0.00014
+#>   ..$ n    : num 5
+#>   ..$ year : int [1:5] 1 2 3 4 5
 #>   ..- attr(*, "class")= chr "nlist"
-#>  $ :List of 2
-#>   ..$ C   : num [1:5] 28 33 32 25 34
-#>   ..$ rand: num 1.25
+#>  $ :List of 8
+#>   ..$ C    : num [1:5] 33 29 32 28 29
+#>   ..$ rand : num -0.318
+#>   ..$ alpha: num 3.56
+#>   ..$ beta1: num -0.0912
+#>   ..$ beta2: num 0.0091
+#>   ..$ beta3: num -0.00014
+#>   ..$ n    : num 5
+#>   ..$ year : int [1:5] 1 2 3 4 5
 #>   ..- attr(*, "class")= chr "nlist"
-#>  $ :List of 2
-#>   ..$ C   : num [1:5] 24 25 28 37 22
-#>   ..$ rand: num 1.09
+#>  $ :List of 8
+#>   ..$ C    : num [1:5] 39 24 34 22 21
+#>   ..$ rand : num -1.04
+#>   ..$ alpha: num 3.56
+#>   ..$ beta1: num -0.0912
+#>   ..$ beta2: num 0.0091
+#>   ..$ beta3: num -0.00014
+#>   ..$ n    : num 5
+#>   ..$ year : int [1:5] 1 2 3 4 5
 #>   ..- attr(*, "class")= chr "nlist"
-#>  $ :List of 2
-#>   ..$ C   : num [1:5] 33 27 25 25 13
-#>   ..$ rand: num 0.117
+#>  $ :List of 8
+#>   ..$ C    : num [1:5] 28 29 22 29 20
+#>   ..$ rand : num 0.0522
+#>   ..$ alpha: num 3.56
+#>   ..$ beta1: num -0.0912
+#>   ..$ beta2: num 0.0091
+#>   ..$ beta3: num -0.00014
+#>   ..$ n    : num 5
+#>   ..$ year : int [1:5] 1 2 3 4 5
 #>   ..- attr(*, "class")= chr "nlist"
 #>  - attr(*, "class")= chr "nlists"
 ```

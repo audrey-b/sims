@@ -40,7 +40,7 @@ install.packages("sims")
 
 ### Simulate Data
 
-The `sims_nlist()` function allows the user to simulate data 
+The `sims_generate()` function allows the user to simulate data 
 using JAGS model code.
 
 It returns the simulated data values in the form of a nlists object.
@@ -48,7 +48,7 @@ It returns the simulated data values in the form of a nlists object.
 ```{r example}
 library(sims)
 set.seed(10L)
-sims_nlist("a ~ dunif(0,1)")
+sims_generate("a ~ dunif(0,1)")
 ```
 
 
@@ -76,7 +76,7 @@ likelihood <- "
  
  nsims=5
  
- results <- sims_nlist(code=likelihood, constants=values, monitor=monitor, nsims=nsims)
+ results <- sims_generate(code=likelihood, constants=values, monitor=monitor, nsims=nsims)
  
  results
  
