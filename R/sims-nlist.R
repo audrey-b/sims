@@ -2,7 +2,7 @@
 #' 
 #' Simulates datasets using JAGS code. The user can specify whether to
 #' return the datasets as an nlists object (each element is an nlist object
-#' of a dataset) and/or write the datasets to a directory as individual \code{.rda}
+#' of a dataset) and/or write the datasets to a directory as individual \code{.rds}
 #' files.
 #'
 #' Both constants and parameters must be nlist objects or 
@@ -15,9 +15,9 @@
 #' have elements with the same name.
 #' Elements which are not in code are dropped with a warning.
 #' 
-#' Each set of simulated data set is written as a separate .rda file. 
-#' The files are labelled \code{data0000001.rda}, \code{data0000002.rda},
-#' \code{data0000003.rda} etc.
+#' Each set of simulated data set is written as a separate .rds file. 
+#' The files are labelled \code{data0000001.rds}, \code{data0000002.rds},
+#' \code{data0000003.rds} etc.
 #'
 #' @param code A string of the JAGS code to generate the data.
 #' The code must not be in a data or model block.

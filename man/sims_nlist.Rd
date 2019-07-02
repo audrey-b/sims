@@ -57,7 +57,7 @@ Otherwise the full path to the directory, ie, \code{file.path(path, dir)}.
 \description{
 Simulates datasets using JAGS code. The user can specify whether to
 return the datasets as an nlists object (each element is an nlist object
-of a dataset) and/or write the datasets to a directory as individual \code{.rda}
+of a dataset) and/or write the datasets to a directory as individual \code{.rds}
 files.
 }
 \details{
@@ -71,9 +71,9 @@ Neither constants or parameters can include missing values nor can they
 have elements with the same name.
 Elements which are not in code are dropped with a warning.
 
-Each set of simulated data set is written as a separate .rda file. 
-The files are labelled \code{data0000001.rda}, \code{data0000002.rda},
-\code{data0000003.rda} etc.
+Each set of simulated data set is written as a separate .rds file. 
+The files are labelled \code{data0000001.rds}, \code{data0000002.rds},
+\code{data0000003.rds} etc.
 }
 \examples{
 set.seed(101)

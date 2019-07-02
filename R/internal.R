@@ -70,7 +70,7 @@ create_path_dir <- function(path, dir, write, exists) {
       err("directory '", path_dir, "' must not already exist") 
     if(isTRUE(exists) && !dir_exists) 
       err("directory '", path_dir, "' must already exist")
-    if(dir_exists) unlink(path_dir)
+    if(dir_exists) unlink(path_dir, recursive = TRUE)
     dir.create(path_dir, recursive = TRUE)
   }
   path_dir
@@ -91,9 +91,9 @@ as_natomic_mcarray <- function(x) {
   x
 }
 
-data_file_name <- function(seed) p0("data", sprintf("%07", seed), ".rds")
+data_file_name <- function(sim) p0("data", sprintf("%07d", sim), ".rds")
 
-generate_dataset <- function(seed, code, constants, parameters, monitor, write, path_dir) {
+generate_dataset <- function(sim, seed, code, constants, parameters, monitor, write, path_dir) {
   code <- textConnection(code)
   inits <- set_seed_inits(seed)
   data <- c(constants, parameters)
@@ -103,7 +103,7 @@ generate_dataset <- function(seed, code, constants, parameters, monitor, write, 
                                 progress.bar = "none")
   nlist <-  set_class(lapply(sample, as_natomic_mcarray), "nlist")
   nlist <- c(nlist, constants)
-  if(!isFALSE(write)) saveRDS(nlist, file.path(path_dir, data_file_name(seed)))
+  if(!isFALSE(write)) saveRDS(nlist, file.path(path_dir, data_file_name(sim)))
   if(isTRUE(write)) return(NULL)
   nlist
 }
@@ -112,10 +112,12 @@ generate_datasets <- function(code, constants, parameters, monitor, nsims, seed,
                               write, path_dir) {
   seeds <- sims_rcount(nsims)
   
-  nlists <- lapply(seeds, generate_dataset, code = code, 
+  nlists <- mapply(FUN = generate_dataset, 1:nsims, seeds,  
+                   MoreArgs = list(code = code, 
                    constants = constants, parameters = parameters, 
                    monitor = monitor, 
-                   write = write, path_dir = path_dir)
+                   write = write, path_dir = path_dir),
+                   SIMPLIFY = FALSE)
   if(isTRUE(write)) return(path_dir)
   set_class(nlists, "nlists")
 }

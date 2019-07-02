@@ -3,7 +3,7 @@ context("sims-nlist")
 test_that("test inputs",{
   expect_error(sims_nlist(1),
                "code must be class character")
-
+  
   expect_error(sims_nlist("x <- y", 1),
                "constants must be a list")
   expect_error(sims_nlist("x <- y", list()),
@@ -16,7 +16,7 @@ test_that("test inputs",{
                "element x of constants must be a numeric [(]integer or double[)] object")
   expect_error(sims_nlist("x <- y", list(x = NA_real_)),
                "element x of constants must not include missing values")
-
+  
   expect_error(sims_nlist("x <- y", parameters = 1),
                "parameters must be a list")
   expect_error(sims_nlist("x <- y", parameters = list()),
@@ -29,7 +29,7 @@ test_that("test inputs",{
                "element x of parameters must be a numeric [(]integer or double[)] object")
   expect_error(sims_nlist("x <- y", parameters = list(x = NA_real_)),
                "element x of parameters must not include missing values")
-
+  
   expect_error(sims_nlist("x <- y", list(x = 1), monitor = 1),
                "monitor must be class character")
 })
@@ -82,21 +82,40 @@ test_that("nsims > 1",{
   set.seed(101)
   expect_equal(sims_nlist("a ~ dunif(0,1)", nsims = 2L),
                structure(list(structure(list(a = 0.0979623612132019), class = "nlist"), 
-    structure(list(a = 0.292819217930848), class = "nlist")), class = "nlists"))
+                              structure(list(a = 0.292819217930848), class = "nlist")), class = "nlists"))
   set.seed(101)
   expect_equal(sims_nlist("a ~ dunif(0,1)", nsims = 2L),
                structure(list(structure(list(a = 0.0979623612132019), class = "nlist"), 
-    structure(list(a = 0.292819217930848), class = "nlist")), class = "nlists"))
+                              structure(list(a = 0.292819217930848), class = "nlist")), class = "nlists"))
+})
+
+test_that("write replicable",{
+  tempdir <- tempdir()
+  teardown(unlink(tempdir, recursive = TRUE))
+  
+  set.seed(101)
+  expect_equal(sims_nlist("a ~ dunif(0,1)", nsims = 1L, path = tempdir, write = NA),
+               structure(list(structure(list(a = 0.0979623612132019), class = "nlist")), class = "nlists"))
+  set.seed(101)
+  expect_error(sims_nlist("a ~ dunif(0,1)", nsims = 1L, path = tempdir, write = NA),
+               "must not already exist")
+  set.seed(101)
+  expect_identical(sims_nlist("a ~ dunif(0,1)", nsims = 1L, path = tempdir, write = TRUE, exists = TRUE),
+                   file.path(tempdir, "sims799289926"))
+  set.seed(101)
+  expect_identical(sims_nlist("a ~ dunif(0,1)", nsims = 1L, path = tempdir, write = TRUE, exists = TRUE),
+                   file.path(tempdir, "sims799289926"))
+  expect_identical(list.files(file.path(tempdir, "sims799289926")), "data0000001.rds")
 })
 
 test_that("monitor",{
   set.seed(101)
   expect_equal(sims_nlist("a ~ dunif(0,1)", nsims = 1),
                structure(list(structure(list(a = 0.0979623612132019), class = "nlist")), class = "nlists"))
-
+  
   expect_error(sims_nlist("ab ~ dunif(0,1)", nsims = 1L, monitor = c("a", "a")),
                "monitor must include at least one of the following stochastic nodes: 'ab'")
-
+  
   expect_warning(sims_nlist("ab ~ dunif(0,1)", nsims = 1L, monitor = c("ab", "a")),
                  "the following in monitor are not stochastic variables: 'a'")
 })
@@ -104,7 +123,7 @@ test_that("monitor",{
 test_that("append constants",{
   expect_error(sims_nlist("ab ~ dunif(0,1)", nsims = 1L, monitor = c("a", "a")),
                "monitor must include at least one of the following stochastic nodes: 'ab'")
-
+  
   expect_warning(sims_nlist("ab ~ dunif(0,1)", nsims = 1L, monitor = c("ab", "a")),
                  "the following in monitor are not stochastic variables: 'a'")
 })
