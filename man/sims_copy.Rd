@@ -21,5 +21,5 @@ error is thrown.}
 An invisible character vector of the names of the files copied.
 }
 \description{
-Copy Simulated Datasets
+Does not check the sims.
 }
