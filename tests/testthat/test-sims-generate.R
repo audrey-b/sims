@@ -102,16 +102,16 @@ test_that("write replicable",{
                "must not already exist")
   set.seed(101)
   expect_identical(sims_generate("a ~ dunif(0,1)", nsims = 1L, path = tempdir, write = TRUE, exists = TRUE),
-                   file.path(tempdir, "sims799289926"))
+                   file.path(tempdir, "sims"))
   set.seed(101)
   expect_identical(sims_generate("a ~ dunif(0,1)", nsims = 1L, path = tempdir, write = TRUE, exists = TRUE),
-                   file.path(tempdir, "sims799289926"))
-  expect_identical(list.files(file.path(tempdir, "sims799289926")), 
+                   file.path(tempdir, "sims"))
+  expect_identical(list.files(file.path(tempdir, "sims")), 
                    c("argsims.rds", "data0000001.rds"))
-  expect_equal(readRDS(file.path(tempdir, "sims799289926", "data0000001.rds")),
+  expect_equal(readRDS(file.path(tempdir, "sims", "data0000001.rds")),
                    structure(list(a = 0.0844208442995482), class = "nlist"))
   
-  expect_identical(readRDS(file.path(tempdir, "sims799289926", "argsims.rds")),
+  expect_identical(readRDS(file.path(tempdir, "sims", "argsims.rds")),
                    list(code = "model{a ~ dunif(0,1)}\n", constants = structure(list(), .Names = character(0), class = "nlist"), 
     parameters = structure(list(), .Names = character(0), class = "nlist"), 
     monitor = "a", nsims = 1L, seed = 799289926L))
@@ -131,18 +131,18 @@ test_that("write replicable > 1",{
                "must not already exist")
   set.seed(101)
   expect_identical(sims_generate("a ~ dunif(0,1)", nsims = 2L, path = tempdir, write = TRUE, exists = TRUE),
-                   file.path(tempdir, "sims799289926"))
+                   file.path(tempdir, "sims"))
   set.seed(101)
   expect_identical(sims_generate("a ~ dunif(0,1)", nsims = 2L, path = tempdir, write = TRUE, exists = TRUE),
-                   file.path(tempdir, "sims799289926"))
-  expect_identical(list.files(file.path(tempdir, "sims799289926")), 
+                   file.path(tempdir, "sims"))
+  expect_identical(list.files(file.path(tempdir, "sims")), 
                    c("argsims.rds", "data0000001.rds", "data0000002.rds"))
-  expect_equal(readRDS(file.path(tempdir, "sims799289926", "data0000001.rds")),
+  expect_equal(readRDS(file.path(tempdir, "sims", "data0000001.rds")),
                    structure(list(a = 0.0844208442995482), class = "nlist"))
-  expect_equal(readRDS(file.path(tempdir, "sims799289926", "data0000002.rds")),
+  expect_equal(readRDS(file.path(tempdir, "sims", "data0000002.rds")),
                    structure(list(a = 0.332673775219176), class = "nlist"))
   
-  expect_identical(readRDS(file.path(tempdir, "sims799289926", "argsims.rds")),
+  expect_identical(readRDS(file.path(tempdir, "sims", "argsims.rds")),
                    list(code = "model{a ~ dunif(0,1)}\n", constants = structure(list(), .Names = character(0), class = "nlist"), 
     parameters = structure(list(), .Names = character(0), class = "nlist"), 
     monitor = "a", nsims = 2L, seed = 799289926L))

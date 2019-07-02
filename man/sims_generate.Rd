@@ -7,8 +7,8 @@
 sims_generate(code, constants = nlist::nlist(),
   parameters = nlist::nlist(), monitor = ".*",
   nsims = getOption("sims.nsims", 100L), seed = sims_rcount(),
-  write = FALSE, exists = FALSE, dir = paste0("sims", seed),
-  path = ".", silent = FALSE)
+  write = FALSE, exists = FALSE, dir = "sims", path = ".",
+  silent = FALSE)
 }
 \arguments{
 \item{code}{A string of the JAGS code to generate the data.

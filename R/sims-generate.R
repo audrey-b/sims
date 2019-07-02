@@ -62,7 +62,7 @@ sims_generate <- function(code,
                        seed = sims_rcount(),
                        write = FALSE,
                        exists = FALSE,
-                       dir = paste0("sims", seed),
+                       dir = "sims",
                        path = ".",
                        silent = FALSE) {
   check_string(code)
