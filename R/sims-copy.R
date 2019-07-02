@@ -8,7 +8,7 @@
 #' If \code{exists = NA} it doesn't matter. If the directory already exists it is 
 #' overwritten if \code{exists = TRUE} or \code{exists = NA} otherwise an
 #' error is thrown.
-#' @return An invisible character vector of the names of the files copied.
+#' @return A character vector of the names of the files copied.
 #' @export
 sims_copy <- function(path_from = "sims", path_to = paste0(path_from, "_copy"), 
                       exists = FALSE) {
@@ -19,5 +19,5 @@ sims_copy <- function(path_from = "sims", path_to = paste0(path_from, "_copy"),
   create_path(path_to, exists = exists)
   files <- sims_files(path_from)
   file.copy(file.path(path_from, files), to = path_to)
-  invisible(files) 
+  files
 }

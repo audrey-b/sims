@@ -18,7 +18,7 @@ overwritten if \code{exists = TRUE} or \code{exists = NA} otherwise an
 error is thrown.}
 }
 \value{
-An invisible character vector of the names of the files copied.
+A character vector of the names of the files copied.
 }
 \description{
 Does not check the sims.

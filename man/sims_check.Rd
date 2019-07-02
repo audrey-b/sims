@@ -10,7 +10,7 @@ sims_check(path = "sims")
 \item{path}{A string of the path to he directory with the simulated data.}
 }
 \value{
-An invisible list of the values in \code{file.path(path, 'argsims.rds')}.
+A list of the values in \code{file.path(path, 'argsims.rds')}.
 }
 \description{
 Checks that \code{path} includes an 'argsims.rds' file and 

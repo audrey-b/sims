@@ -15,7 +15,7 @@ status](https://ci.appveyor.com/api/projects/status/github/poissonconsulting/sim
 Status](https://img.shields.io/codecov/c/github/poissonconsulting/sims/master.svg)](https://codecov.io/github/poissonconsulting/sims?branch=master)
 <!-- badges: end -->
 
-sims is an R package to simulate and analyse data using JAGS.
+sims is an R package to simulate and manipulate datasets.
 
 ## Installation
 
@@ -37,16 +37,65 @@ To install the latest development version from the Poisson drat
 The `sims_generate()` function allows the user to simulate data using
 JAGS model code.
 
-It returns the simulated data values in the form of a nlists object.
+By default, it returns the simulated datasets in the form of a nlists
+object.
 
 ``` r
 library(sims)
-set.seed(10L)
-sims_generate("a ~ dunif(0,1)")
+set.seed(10)
+sims_generate("a ~ dunif(0,1)", nsims = 2L)
 #> $a
-#> [1] 0.4977968
+#> [1] 0.6837434
 #> 
-#> an nlists object of 100 nlist objects each with 1 natomic element
+#> an nlists object of 2 nlist objects each with 1 natomic element
+```
+
+If `write = TRUE` then the datasets are saved as `.rds` files. The key
+sims\_generate function arguments are saved in `argsims.rds`.
+
+``` r
+set.seed(10)
+sims_generate("a ~ dunif(0,1)", nsims = 2L,
+                       write = TRUE, path = tempdir(), exists = NA)
+#> [1] "argsims.rds"     "data0000001.rds" "data0000002.rds"
+```
+
+Additional datasets can be generated using `sims_add()`
+
+``` r
+sims_add(path = tempdir(), nsims = 3L)
+#> [1] "argsims.rds"     "data0000003.rds" "data0000004.rds" "data0000005.rds"
+```
+
+And the argsims and data files copied to a new directory using
+`sims_copy()`
+
+``` r
+sims_copy(path_from = tempdir(), path_to = paste0(tempdir(), "_copy"))
+#> [1] "argsims.rds"     "data0000001.rds" "data0000002.rds" "data0000003.rds"
+#> [5] "data0000004.rds" "data0000005.rds"
+```
+
+The internal consistency of a set of generated data can be queried using
+`sims_check()`.
+
+``` r
+sims_check(path = paste0(tempdir(), "_copy"))
+#> $code
+#> [1] "model{a ~ dunif(0,1)}\n"
+#> 
+#> $constants
+#> an nlist object with 0 natomic elements
+#> $parameters
+#> an nlist object with 0 natomic elements
+#> $monitor
+#> [1] "a"
+#> 
+#> $nsims
+#> [1] 5
+#> 
+#> $seed
+#> [1] 1089801142
 ```
 
 ``` r

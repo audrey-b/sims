@@ -6,7 +6,7 @@
 #'
 #' @param path A string of the path to he directory with the simulated data.
 #'
-#' @return An invisible list of the values in \code{file.path(path, 'argsims.rds')}.
+#' @return A list of the values in \code{file.path(path, 'argsims.rds')}.
 #' @export
 sims_check <- function(path = "sims") {
   check_string(path)
@@ -36,5 +36,5 @@ sims_check <- function(path = "sims") {
     err("data file names are not consistent with",
         "the number of simulations (", nsims, ")")
   }
-  invisible(argsims.rds)
+  argsims.rds
 }
