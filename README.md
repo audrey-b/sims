@@ -15,7 +15,8 @@ status](https://ci.appveyor.com/api/projects/status/github/poissonconsulting/sim
 Status](https://img.shields.io/codecov/c/github/poissonconsulting/sims/master.svg)](https://codecov.io/github/poissonconsulting/sims?branch=master)
 <!-- badges: end -->
 
-sims is an R package to simulate and manipulate datasets.
+sims is an R package to simulate, save and manipulate datasets. The
+generative model is specified using a fragment of JAGS code.
 
 ## Installation
 
@@ -32,13 +33,63 @@ To install the latest development version from the Poisson drat
 
 ## Demonstration
 
+``` r
+library(sims)
+set.seed(10L)
+
+generative_model <- "
+rand ~ dnorm(0,1)
+for (i in 1:nYear){
+  C[i] ~ dpois(lambda[i])
+  log(lambda[i]) <- alpha + beta1 * Year[i]
+}
+"
+monitor <- c("C", "rand")
+
+parameters <- list(alpha = 3.5576, beta1 = -0.0912)
+
+constants <- list(nYear = 5, Year = 1:5)
+
+results <- sims_generate(generative_model, 
+                         constants = constants,
+                         parameters = parameters,
+                         monitor = monitor)
+
+results
+#> $C
+#> [1] 32.09 29.10 27.44 24.06 21.88
+#> 
+#> $rand
+#> [1] 0.1313937
+#> 
+#> $nYear
+#> [1] 5
+#> 
+#> $Year
+#> [1] 1 2 3 4 5
+#> 
+#> an nlists object of 100 nlist objects each with 4 natomic elements
+
+results[1]
+#> $C
+#> [1] 38 30 22 20 17
+#> 
+#> $rand
+#> [1] 0.8400557
+#> 
+#> $nYear
+#> [1] 5
+#> 
+#> $Year
+#> [1] 1 2 3 4 5
+#> 
+#> an nlists object of an nlist object with 4 natomic elements
+```
+
 ### Simulate Data
 
-The `sims_generate()` function allows the user to simulate data using
-JAGS model code.
-
-By default, it returns the simulated datasets in the form of a nlists
-object.
+By default, `sims_generate()` returns the simulated datasets in the form
+of a nlists object.
 
 ``` r
 library(sims)
@@ -50,25 +101,30 @@ sims_generate("a ~ dunif(0,1)", nsims = 2L)
 #> an nlists object of 2 nlist objects each with 1 natomic element
 ```
 
-If `write = TRUE` then the datasets are saved as `.rds` files. The key
-sims\_generate function arguments are saved in `argsims.rds`.
+If, however, `write = TRUE` then each nlist object is saved as an `.rds`
+files. The information used to generate the datasets is saved in
+`argsims.rds`.
 
 ``` r
 set.seed(10)
 sims_generate("a ~ dunif(0,1)", nsims = 2L,
-                       write = TRUE, path = tempdir(), exists = NA)
+              write = TRUE, path = tempdir(), exists = NA)
 #> [1] "argsims.rds"     "data0000001.rds" "data0000002.rds"
 ```
 
-Additional datasets can be generated using `sims_add()`
+The fact that the arguments to sims\_generate() are saved in
+`argsims.rds` allows additional datasets to be generated using
+`sims_add()`.
 
 ``` r
 sims_add(path = tempdir(), nsims = 3L)
 #> [1] "argsims.rds"     "data0000003.rds" "data0000004.rds" "data0000005.rds"
 ```
 
-And the argsims and data files copied to a new directory using
-`sims_copy()`
+If the user wishes to duplicate the datasets then can either regenerate
+them by specifying a different path but the same key. Alternatively,
+they can copy the existing argsims and datasets files to a new directory
+using `sims_copy()`
 
 ``` r
 sims_copy(path_from = tempdir(), path_to = paste0(tempdir(), "_copy"))
@@ -76,8 +132,8 @@ sims_copy(path_from = tempdir(), path_to = paste0(tempdir(), "_copy"))
 #> [5] "data0000004.rds" "data0000005.rds"
 ```
 
-The internal consistency of a set of generated data can be queried using
-`sims_check()`.
+A user can check that all the datasets specified in `argsims.rds` are
+present using `sims_check()`.
 
 ``` r
 sims_check(path = paste0(tempdir(), "_copy"))
@@ -96,126 +152,25 @@ sims_check(path = paste0(tempdir(), "_copy"))
 #> 
 #> $seed
 #> [1] 1089801142
+
+file.remove(file.path(paste0(tempdir(), "_copy"), "data0000005.rds"))
+#> [1] TRUE
 ```
 
 ``` r
-library(sims)
-set.seed(10L)
-
-likelihood <- "
- # Likelihood: Note key components of a GLM on one line each
- rand ~ dnorm(0,1)
- for (i in 1:n){
-   C[i] ~ dpois(lambda[i])          # 1. Distribution for random part
-   log(lambda[i]) <- log.lambda[i]  # 2. Link function
-   log.lambda[i] <- alpha + beta1 * year[i] + beta2 * pow(year[i],2) + beta3 * pow(year[i],3)                      # 3. Linear predictor
-   } #i
- "
- monitor=c("C", "rand")
-
- values <- list(alpha = 3.5576,
-                beta1 = -0.0912,
-                beta2 = 0.0091,
-                beta3 = -0.00014,
-                n = 5,
-                year = 1:5)
- 
- nsims=5
- 
- results <- sims_generate(code=likelihood, constants=values, monitor=monitor, nsims=nsims)
- 
- results
-#> $C
-#> [1] 35.4 29.4 28.6 27.2 21.2
-#> 
-#> $rand
-#> [1] -0.110703
-#> 
-#> $alpha
-#> [1] 3.5576
-#> 
-#> $beta1
-#> [1] -0.0912
-#> 
-#> $beta2
-#> [1] 0.0091
-#> 
-#> $beta3
-#> [1] -0.00014
-#> 
-#> $n
-#> [1] 5
-#> 
-#> $year
-#> [1] 1 2 3 4 5
-#> 
-#> an nlists object of 5 nlist objects each with 8 natomic elements
- 
- results[,"C"]
-#> $C
-#> [1] 35.4 29.4 28.6 27.2 21.2
-#> 
-#> an nlists object of 5 nlist objects each with 1 natomic element
- results[,"rand"]
-#> $rand
-#> [1] -0.110703
-#> 
-#> an nlists object of 5 nlist objects each with 1 natomic element
- 
- #Now I want to present those in the following format so I can pass them as data to JAGS for the analysis
- # nlist objects should be able to be feed in element by element to JAGs models.
- 
-  str(results)
-#> List of 5
-#>  $ :List of 8
-#>   ..$ C    : num [1:5] 39 31 24 23 21
-#>   ..$ rand : num 0.84
-#>   ..$ alpha: num 3.56
-#>   ..$ beta1: num -0.0912
-#>   ..$ beta2: num 0.0091
-#>   ..$ beta3: num -0.00014
-#>   ..$ n    : num 5
-#>   ..$ year : int [1:5] 1 2 3 4 5
-#>   ..- attr(*, "class")= chr "nlist"
-#>  $ :List of 8
-#>   ..$ C    : num [1:5] 38 34 31 34 15
-#>   ..$ rand : num -0.0843
-#>   ..$ alpha: num 3.56
-#>   ..$ beta1: num -0.0912
-#>   ..$ beta2: num 0.0091
-#>   ..$ beta3: num -0.00014
-#>   ..$ n    : num 5
-#>   ..$ year : int [1:5] 1 2 3 4 5
-#>   ..- attr(*, "class")= chr "nlist"
-#>  $ :List of 8
-#>   ..$ C    : num [1:5] 33 29 32 28 29
-#>   ..$ rand : num -0.318
-#>   ..$ alpha: num 3.56
-#>   ..$ beta1: num -0.0912
-#>   ..$ beta2: num 0.0091
-#>   ..$ beta3: num -0.00014
-#>   ..$ n    : num 5
-#>   ..$ year : int [1:5] 1 2 3 4 5
-#>   ..- attr(*, "class")= chr "nlist"
-#>  $ :List of 8
-#>   ..$ C    : num [1:5] 39 24 34 22 21
-#>   ..$ rand : num -1.04
-#>   ..$ alpha: num 3.56
-#>   ..$ beta1: num -0.0912
-#>   ..$ beta2: num 0.0091
-#>   ..$ beta3: num -0.00014
-#>   ..$ n    : num 5
-#>   ..$ year : int [1:5] 1 2 3 4 5
-#>   ..- attr(*, "class")= chr "nlist"
-#>  $ :List of 8
-#>   ..$ C    : num [1:5] 28 29 22 29 20
-#>   ..$ rand : num 0.0522
-#>   ..$ alpha: num 3.56
-#>   ..$ beta1: num -0.0912
-#>   ..$ beta2: num 0.0091
-#>   ..$ beta3: num -0.00014
-#>   ..$ n    : num 5
-#>   ..$ year : int [1:5] 1 2 3 4 5
-#>   ..- attr(*, "class")= chr "nlist"
-#>  - attr(*, "class")= chr "nlists"
+sims_check(path = paste0(tempdir(), "_copy"))
+#> Error: number of data files (4) does not match number of simulations (5)
 ```
+
+# Contribution
+
+Please report any
+[issues](https://github.com/poissonconsulting/sims/issues).
+
+[Pull requests](https://github.com/poissonconsulting/sims/pulls) are
+always welcome.
+
+Please note that the ‘sims’ project is released with a [Contributor Code
+of
+Conduct](https://poissonconsulting.github.io/sims/CODE_OF_CONDUCT.md).
+By contributing to this project, you agree to abide by its terms.

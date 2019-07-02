@@ -5,3 +5,8 @@
 ^\.travis\.yml$
 ^appveyor\.yml$
 ^codecov\.yml$
+^CODE_OF_CONDUCT\.md$
+^build\.R$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
