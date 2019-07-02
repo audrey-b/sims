@@ -7,6 +7,10 @@ test_that("sims_add",{
   set.seed(101)
   expect_identical(sims_generate("a ~ dunif(0,1)", nsims = 1L, path = tempdir, write = TRUE),
                    c("argsims.rds", "data0000001.rds"))
+  
+  expect_error(sims_add(nsims = 1000000L, path = tempdir),
+               "adding the simulations would result in more than 1,000,000 datasets")
+                   
   expect_identical(sims_add(nsims = 2L, path = tempdir), 
                    c("argsims.rds", "data0000002.rds", "data0000003.rds"))
   
