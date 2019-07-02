@@ -1,3 +1,8 @@
+set_class <- function(x, class) {
+  class(x) <- class
+  x
+}
+
 strip_comments <- function(x) {
   str_replace_all(x, pattern = "\\s*#[^\\\n]*", replacement = "")
 }
@@ -56,27 +61,61 @@ set_monitor <- function(monitor, code, silent) {
   intersect(monitor, stochastic_nodes)
 }
 
-set_seed <- function(inits) {
+create_path_dir <- function(path, dir, write, exists) {
+  path_dir <- file.path(path, dir)
+  
+  if(!isFALSE(write)) {
+    dir_exists <- dir.exists(path_dir)
+    if(isFALSE(exists) && dir_exists) 
+      err("directory '", path_dir, "' must not already exist") 
+    if(isTRUE(exists) && !dir_exists) 
+      err("directory '", path_dir, "' must already exist")
+    if(dir_exists) unlink(path_dir)
+    dir.create(path_dir, recursive = TRUE)
+  }
+  path_dir
+}
+
+set_seed_inits <- function(seed, inits = list()) {
+  set.seed(seed)
   inits$.RNG.name <- "base::Wichmann-Hill"
   inits$.RNG.seed <- as.integer(runif(1, 0, 2147483647))
   inits
 }
 
-generate_data <- function(code, data, monitor, nsims) {
-  code <- prepare_code(code)
-  inits <- set_seed(list())
-  model <- rjags::jags.model(textConnection(code), data = data, inits = inits, 
-                             n.adapt = 0, quiet = TRUE)
-  sample <- rjags::jags.samples(model, variable.names = monitor, n.iter = nsims, 
-                      progress.bar = "none")
-  sample <-  lapply(sample, mcmcr::as.mcmcarray)
-  sample <- as.mcmcr(sample)
-  as.nlists(sample)
+as_natomic_mcarray <- function(x) {
+  dim <- dim(x)
+  ndim <- length(dim)
+  x <- as.vector(x)
+  dim(x) <- dim(x)[-c(ndim-1L,ndim)]
+  x
 }
 
-append_constants <- function(data, constants) {
-  if(!length(constants)) return(data)
-  data <- lapply(data, function(x) c(x, constants))
-  class(data) <- "nlists"
-  data
+data_file_name <- function(seed) p0("data", sprintf("%07", seed), ".rds")
+
+generate_dataset <- function(seed, code, constants, parameters, monitor, write, path_dir) {
+  code <- textConnection(code)
+  inits <- set_seed_inits(seed)
+  data <- c(constants, parameters)
+  model <- rjags::jags.model(code, data = data, inits = inits, 
+                             n.adapt = 0, quiet = TRUE)
+  sample <- rjags::jags.samples(model, variable.names = monitor, n.iter = 1L, 
+                                progress.bar = "none")
+  nlist <-  set_class(lapply(sample, as_natomic_mcarray), "nlist")
+  nlist <- c(nlist, constants)
+  if(!isFALSE(write)) saveRDS(nlist, file.path(path_dir, data_file_name(seed)))
+  if(isTRUE(write)) return(NULL)
+  nlist
+}
+
+generate_datasets <- function(code, constants, parameters, monitor, nsims, seed, 
+                              write, path_dir) {
+  seeds <- sims_rcount(nsims)
+  
+  nlists <- lapply(seeds, generate_dataset, code = code, 
+                   constants = constants, parameters = parameters, 
+                   monitor = monitor, 
+                   write = write, path_dir = path_dir)
+  if(isTRUE(write)) return(path_dir)
+  set_class(nlists, "nlists")
 }
