@@ -12,8 +12,7 @@ sims_check(dir = "sims", path = ".")
 \item{path}{A string of the path to \code{dir}.}
 }
 \value{
-A invisible copy of a list of the values in 'argsims.rds'
-if all checks are passed. Otherwise it throws an error.
+An invisible list of the values in 'argsims.rds'.
 }
 \description{
 Checks that \code{dir} includes an 'argsims.rds' file and 

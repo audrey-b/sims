@@ -7,8 +7,7 @@
 #' @param dir A string of the name of the directory with the simulated data.
 #' @param path A string of the path to \code{dir}.
 #'
-#' @return A invisible copy of a list of the values in 'argsims.rds'
-#' if all checks are passed. Otherwise it throws an error.
+#' @return An invisible list of the values in 'argsims.rds'.
 #' @export
 sims_check <- function(dir = "sims", path = ".") {
   check_string(dir)
@@ -31,7 +30,7 @@ sims_check <- function(dir = "sims", path = ".") {
 
   nsims <- argsims.rds$nsims
   
-  files <- sims_data_files(path_dir)
+  files <- sims_files(path_dir, args = FALSE)
   if(!identical(length(files), nsims)) {
     err("number of data files (", length(files), 
         ") does not match number of simulations (", nsims, ")")

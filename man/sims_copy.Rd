@@ -23,7 +23,7 @@ overwritten if \code{exists = TRUE} or \code{exists = NA} otherwise an
 error is thrown.}
 }
 \value{
-A string of the path to the new directory, ie \code{file.path(path_to, dir_to)}.
+An invisible character vector of the names of the files copied.
 }
 \description{
 Copy Simulated Datasets
