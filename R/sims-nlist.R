@@ -90,7 +90,7 @@ sims_nlist <- function(code,
   
   monitor <- set_monitor(monitor, code, silent = silent)
   code <- prepare_code(code)
-  
+
   generate_datasets(code, constants, parameters, 
                     monitor = monitor, 
                     nsims = nsims,

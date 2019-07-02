@@ -58,10 +58,10 @@ test_that("not in model or data block",{
 test_that("generates data with replicability",{
   set.seed(101)
   expect_equal(sims_nlist("a ~ dunif(0,1)", nsims = 1L),
-               structure(list(structure(list(a = 0.0979623612132019), class = "nlist")), class = "nlists"))
+               structure(list(structure(list(a = 0.0844208442995482), class = "nlist")), class = "nlists"))
   set.seed(101)
   expect_equal(sims_nlist("a ~ dunif(0,1)", nsims = 1L),
-               structure(list(structure(list(a = 0.0979623612132019), class = "nlist")), class = "nlists"))
+               structure(list(structure(list(a = 0.0844208442995482), class = "nlist")), class = "nlists"))
 })
 
 test_that("issue if values in constants or parameters not in code",{
@@ -75,27 +75,28 @@ test_that("issue if values in constants or parameters not in code",{
 test_that("nsims can take numeric",{
   set.seed(101)
   expect_equal(sims_nlist("a ~ dunif(0,1)", nsims = 1),
-               structure(list(structure(list(a = 0.0979623612132019), class = "nlist")), class = "nlists"))
+               structure(list(structure(list(a = 0.0844208442995482), class = "nlist")), class = "nlists"))
 })
 
 test_that("nsims > 1",{
   set.seed(101)
   expect_equal(sims_nlist("a ~ dunif(0,1)", nsims = 2L),
-               structure(list(structure(list(a = 0.0979623612132019), class = "nlist"), 
-                              structure(list(a = 0.292819217930848), class = "nlist")), class = "nlists"))
+               structure(list(structure(list(a = 0.0844208442995482), class = "nlist"), 
+                              structure(list(a = 0.332673775219176), class = "nlist")), class = "nlists"))
   set.seed(101)
   expect_equal(sims_nlist("a ~ dunif(0,1)", nsims = 2L),
-               structure(list(structure(list(a = 0.0979623612132019), class = "nlist"), 
-                              structure(list(a = 0.292819217930848), class = "nlist")), class = "nlists"))
+               structure(list(structure(list(a = 0.0844208442995482), class = "nlist"), 
+                              structure(list(a = 0.332673775219176), class = "nlist")), class = "nlists"))
 })
 
 test_that("write replicable",{
   tempdir <- tempdir()
+  unlink(tempdir, recursive = TRUE)
   teardown(unlink(tempdir, recursive = TRUE))
   
   set.seed(101)
   expect_equal(sims_nlist("a ~ dunif(0,1)", nsims = 1L, path = tempdir, write = NA),
-               structure(list(structure(list(a = 0.0979623612132019), class = "nlist")), class = "nlists"))
+               structure(list(structure(list(a = 0.0844208442995482), class = "nlist")), class = "nlists"))
   set.seed(101)
   expect_error(sims_nlist("a ~ dunif(0,1)", nsims = 1L, path = tempdir, write = NA),
                "must not already exist")
@@ -105,13 +106,21 @@ test_that("write replicable",{
   set.seed(101)
   expect_identical(sims_nlist("a ~ dunif(0,1)", nsims = 1L, path = tempdir, write = TRUE, exists = TRUE),
                    file.path(tempdir, "sims799289926"))
-  expect_identical(list.files(file.path(tempdir, "sims799289926")), "data0000001.rds")
+  expect_identical(list.files(file.path(tempdir, "sims799289926")), 
+                   c("argsims.rds", "data0000001.rds"))
+  expect_equal(readRDS(file.path(tempdir, "sims799289926", "data0000001.rds")),
+                   structure(list(a = 0.0844208442995482), class = "nlist"))
+  
+  expect_identical(readRDS(file.path(tempdir, "sims799289926", "argsims.rds")),
+                   list(code = "model{a ~ dunif(0,1)}\n", constants = structure(list(), .Names = character(0), class = "nlist"), 
+    parameters = structure(list(), .Names = character(0), class = "nlist"), 
+    monitor = "a", nsims = 1L, seed = 799289926L))
 })
 
 test_that("monitor",{
   set.seed(101)
   expect_equal(sims_nlist("a ~ dunif(0,1)", nsims = 1),
-               structure(list(structure(list(a = 0.0979623612132019), class = "nlist")), class = "nlists"))
+               structure(list(structure(list(a = 0.0844208442995482), class = "nlist")), class = "nlists"))
   
   expect_error(sims_nlist("ab ~ dunif(0,1)", nsims = 1L, monitor = c("a", "a")),
                "monitor must include at least one of the following stochastic nodes: 'ab'")

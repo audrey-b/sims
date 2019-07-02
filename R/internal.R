@@ -108,15 +108,27 @@ generate_dataset <- function(sim, seed, code, constants, parameters, monitor, wr
   nlist
 }
 
+save_args <- function(path_dir, ...) {
+  args <- list(...)
+  saveRDS(args, file.path(path_dir, "argsims.rds"))
+}
+
 generate_datasets <- function(code, constants, parameters, monitor, nsims, seed, 
                               write, path_dir) {
+  set.seed(seed)
   seeds <- sims_rcount(nsims)
+  
+  if(!isFALSE(write)) {
+    save_args(path_dir, code = code, 
+              constants = constants, parameters = parameters, 
+              monitor = monitor, nsims = nsims, seed = seed)
+  }
   
   nlists <- mapply(FUN = generate_dataset, 1:nsims, seeds,  
                    MoreArgs = list(code = code, 
-                   constants = constants, parameters = parameters, 
-                   monitor = monitor, 
-                   write = write, path_dir = path_dir),
+                                   constants = constants, parameters = parameters, 
+                                   monitor = monitor, 
+                                   write = write, path_dir = path_dir),
                    SIMPLIFY = FALSE)
   if(isTRUE(write)) return(path_dir)
   set_class(nlists, "nlists")
