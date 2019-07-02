@@ -1,25 +1,22 @@
 #' Check Simulated Data
 #' 
-#' Checks that \code{dir} includes an 'argsims.rds' file and 
+#' Checks that \code{path} includes an 'argsims.rds' file and 
 #' that the number and names of the data files are consistent with the 
 #' number of simulations.
 #'
-#' @param dir A string of the name of the directory with the simulated data.
-#' @param path A string of the path to \code{dir}.
+#' @param path A string of the path to he directory with the simulated data.
 #'
-#' @return An invisible list of the values in 'argsims.rds'.
+#' @return An invisible list of the values in \code{file.path(path, 'argsims.rds')}.
 #' @export
-sims_check <- function(dir = "sims", path = ".") {
-  check_string(dir)
+sims_check <- function(path = "sims") {
   check_string(path)
   
-  path_dir <- file.path(path, dir)
-  if(!dir.exists(path_dir)) err("directory '", path_dir, "' must already exist")
+  if(!dir.exists(path)) err("directory '", path, "' must already exist")
   
-  if(!file.exists(file.path(path_dir, "argsims.rds")))
-    err("directory '", path_dir, "' must contain 'argsims.rds'")
+  if(!file.exists(file.path(path, "argsims.rds")))
+    err("directory '", path, "' must contain 'argsims.rds'")
   
-  argsims.rds <- readRDS(file.path(path_dir, "argsims.rds"))
+  argsims.rds <- readRDS(file.path(path, "argsims.rds"))
   
   check_scalar(argsims.rds$code, "")
   check_inherits(argsims.rds$constants, "nlist")
@@ -30,7 +27,7 @@ sims_check <- function(dir = "sims", path = ".") {
 
   nsims <- argsims.rds$nsims
   
-  files <- sims_files(path_dir, args = FALSE)
+  files <- sims_files(path, args = FALSE)
   if(!identical(length(files), nsims)) {
     err("number of data files (", length(files), 
         ") does not match number of simulations (", nsims, ")")

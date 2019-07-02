@@ -6,6 +6,6 @@ test_that("sims_copy",{
 
   set.seed(101)
   expect_identical(sims_generate("a ~ dunif(0,1)", nsims = 2L, path = tempdir, write = TRUE),
-               file.path(tempdir, "sims"))
+               c("argsims.rds", "data0000001.rds", "data0000002.rds"))
 #  sims_copy(path_from = tempdir)
 })

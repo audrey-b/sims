@@ -4,20 +4,15 @@
 \alias{sims_copy}
 \title{Copy Simulated Datasets}
 \usage{
-sims_copy(dir_from = "sims", path_from = ".",
-  dir_to = paste0(dir_from, "_copy"), path_to = path_from,
+sims_copy(path_from = "sims", path_to = paste0(path_from, "_copy"),
   exists = FALSE)
 }
 \arguments{
-\item{dir_from}{A string of the name of the directory containing the simulated datasets.}
+\item{path_from}{A string of the path to the directory containing the simulated datasets.}
 
-\item{path_from}{A string of the path to \code{dir_from}.}
+\item{path_to}{A string of the path to the directory to copy the simulated dataset to.}
 
-\item{dir_to}{A string of the name of the directory to copy the simulated dataset to.}
-
-\item{path_to}{A string of the path to \code{dir_to}.}
-
-\item{exists}{A flag specifying whether \code{dir_to} should already exist.
+\item{exists}{A flag specifying whether \code{path_to} should already exist.
 If \code{exists = NA} it doesn't matter. If the directory already exists it is 
 overwritten if \code{exists = TRUE} or \code{exists = NA} otherwise an
 error is thrown.}

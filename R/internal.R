@@ -7,10 +7,10 @@ strip_comments <- function(x) {
   str_replace_all(x, pattern = "\\s*#[^\\\n]*", replacement = "")
 }
 
-sims_files <- function(path_dir, args = TRUE) {
+sims_files <- function(path, args = TRUE) {
   if(!isTRUE(args))
-    return(list.files(path_dir, pattern = "^data\\d{7,7}.rds$"))
-  list.files(path_dir, pattern = "^((argsims)|(data\\d{7,7})).rds$")
+    return(list.files(path, pattern = "^data\\d{7,7}.rds$"))
+  list.files(path, pattern = "^((argsims)|(data\\d{7,7})).rds$")
 }
 
 prepare_code <- function(code) {
@@ -67,19 +67,14 @@ set_monitor <- function(monitor, code, silent) {
   intersect(monitor, stochastic_nodes)
 }
 
-create_path_dir <- function(path, dir, write, exists) {
-  path_dir <- file.path(path, dir)
-  
-  if(!isFALSE(write)) {
-    dir_exists <- dir.exists(path_dir)
-    if(isFALSE(exists) && dir_exists) 
-      err("directory '", path_dir, "' must not already exist") 
-    if(isTRUE(exists) && !dir_exists) 
-      err("directory '", path_dir, "' must already exist")
-    if(dir_exists) unlink(path_dir, recursive = TRUE)
-    dir.create(path_dir, recursive = TRUE)
-  }
-  path_dir
+create_path <- function(path, exists) {
+  dir_exists <- dir.exists(path)
+  if(isFALSE(exists) && dir_exists) 
+    err("directory '", path, "' must not already exist") 
+  if(isTRUE(exists) && !dir_exists) 
+    err("directory '", path, "' must already exist")
+  if(dir_exists) unlink(path, recursive = TRUE)
+  dir.create(path, recursive = TRUE)
 }
 
 set_seed_inits <- function(seed, inits = list()) {
@@ -99,7 +94,7 @@ as_natomic_mcarray <- function(x) {
 
 data_file_name <- function(sim) p0("data", sprintf("%07d", sim), ".rds")
 
-generate_dataset <- function(sim, seed, code, constants, parameters, monitor, write, path_dir) {
+generate_dataset <- function(sim, seed, code, constants, parameters, monitor, write, path) {
   code <- textConnection(code)
   inits <- set_seed_inits(seed)
   data <- c(constants, parameters)
@@ -109,23 +104,23 @@ generate_dataset <- function(sim, seed, code, constants, parameters, monitor, wr
                                 progress.bar = "none")
   nlist <-  set_class(lapply(sample, as_natomic_mcarray), "nlist")
   nlist <- c(nlist, constants)
-  if(!isFALSE(write)) saveRDS(nlist, file.path(path_dir, data_file_name(sim)))
+  if(!isFALSE(write)) saveRDS(nlist, file.path(path, data_file_name(sim)))
   if(isTRUE(write)) return(NULL)
   nlist
 }
 
-save_args <- function(path_dir, ...) {
+save_args <- function(path, ...) {
   args <- list(...)
-  saveRDS(args, file.path(path_dir, "argsims.rds"))
+  saveRDS(args, file.path(path, "argsims.rds"))
 }
 
 generate_datasets <- function(code, constants, parameters, monitor, nsims, seed, 
-                              write, path_dir) {
+                              write, path) {
   set.seed(seed)
   seeds <- sims_rcount(nsims)
   
   if(!isFALSE(write)) {
-    save_args(path_dir, code = code, 
+    save_args(path, code = code, 
               constants = constants, parameters = parameters, 
               monitor = monitor, nsims = nsims, seed = seed)
   }
@@ -134,8 +129,8 @@ generate_datasets <- function(code, constants, parameters, monitor, nsims, seed,
                    MoreArgs = list(code = code, 
                                    constants = constants, parameters = parameters, 
                                    monitor = monitor, 
-                                   write = write, path_dir = path_dir),
+                                   write = write, path = path),
                    SIMPLIFY = FALSE)
-  if(isTRUE(write)) return(path_dir)
+  if(isTRUE(write)) return(sims_files(path))
   set_class(nlists, "nlists")
 }

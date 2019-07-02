@@ -7,8 +7,7 @@
 sims_generate(code, constants = nlist::nlist(),
   parameters = nlist::nlist(), monitor = ".*",
   nsims = getOption("sims.nsims", 100L), seed = sims_rcount(),
-  write = FALSE, exists = FALSE, dir = "sims", path = ".",
-  silent = FALSE)
+  path = "sims", write = FALSE, exists = FALSE, silent = FALSE)
 }
 \arguments{
 \item{code}{A string of the JAGS code to generate the data.
@@ -31,6 +30,8 @@ the number of data sets to simulate. By default 100 data sets are simulated.}
 simulating the data. By default it is also used to name the directory 
 in which the data are saved if \code{write = TRUE}.}
 
+\item{path}{A string specifying the path to the directory to save the data sets in.}
+
 \item{write}{A flag specifying whether to write the nlists object to 
 individual files in the (as opposed to returning them). If \code{write = NA}
 then the nlists object is both written and returned.}
@@ -40,19 +41,12 @@ If \code{exists = NA} it doesn't matter. If the directory already exists it is
 overwritten if \code{exists = TRUE} or \code{exists = NA} otherwise an
 error is thrown.}
 
-\item{dir}{If \code{write = TRUE} or \code{write = NA} 
-a string specifying the name of the directory to save the data sets in.
-By default the name is \code{paste0("sims", seed)}, 
-ie if \code{seed = 10}, \code{dir = "sims10"}.}
-
-\item{path}{A string specifying the file path to \code{dir}.}
-
 \item{silent}{A flag specifying whether to suppress warnings.}
 }
 \value{
 If \code{write != TRUE} an \code{\link[nlist]{nlists}} 
 object where each element represents a simulated data set.
-Otherwise the full path to the directory, ie, \code{file.path(path, dir)}.
+Otherwise a character vector of the names of the files created.
 }
 \description{
 Simulates datasets using JAGS code. The user can specify whether to

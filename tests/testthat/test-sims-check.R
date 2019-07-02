@@ -13,14 +13,14 @@ test_that("sims_check",{
     parameters = structure(list(), .Names = character(0), class = "nlist"), 
     monitor = "a", nsims = 2L, seed = 799289926L))
   
-  file.remove(file.path(tempdir, "sims", "data0000001.rds"))
+  file.remove(file.path(tempdir, "data0000001.rds"))
   expect_error(sims_check(path = tempdir), 
                "number of data files [(]1[)] does not match number of simulations [(]2[)]")
-  file.remove(file.path(tempdir, "sims", "data0000002.rds"))
+  file.remove(file.path(tempdir, "data0000002.rds"))
   expect_error(sims_check(path = tempdir), 
                "number of data files [(]0[)] does not match number of simulations [(]2[)]")
-  file.create(file.path(tempdir, "sims", "data0000001.rds"))
-  file.create(file.path(tempdir, "sims", "data0000003.rds"))
+  file.create(file.path(tempdir, "data0000001.rds"))
+  file.create(file.path(tempdir, "data0000003.rds"))
   expect_error(sims_check(path = tempdir),
                "data file names are not consistent withthe number of simulations [(]2[)]")
 })

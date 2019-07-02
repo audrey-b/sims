@@ -33,6 +33,7 @@
 #' @param seed A positive integer specifying the random seed to use for 
 #' simulating the data. By default it is also used to name the directory 
 #' in which the data are saved if \code{write = TRUE}.
+#' @param path A string specifying the path to the directory to save the data sets in.
 #' @param write A flag specifying whether to write the nlists object to 
 #' individual files in the (as opposed to returning them). If \code{write = NA}
 #' then the nlists object is both written and returned. 
@@ -40,16 +41,11 @@
 #' If \code{exists = NA} it doesn't matter. If the directory already exists it is 
 #' overwritten if \code{exists = TRUE} or \code{exists = NA} otherwise an
 #' error is thrown.
-#' @param dir If \code{write = TRUE} or \code{write = NA} 
-#' a string specifying the name of the directory to save the data sets in.
-#' By default the name is \code{paste0("sims", seed)}, 
-#' ie if \code{seed = 10}, \code{dir = "sims10"}.
-#' @param path A string specifying the file path to \code{dir}.
 #' @param silent A flag specifying whether to suppress warnings.
 #'
 #' @return If \code{write != TRUE} an \code{\link[nlist]{nlists}} 
 #' object where each element represents a simulated data set.
-#' Otherwise the full path to the directory, ie, \code{file.path(path, dir)}.
+#' Otherwise a character vector of the names of the files created.
 #' @export
 #' @examples
 #' set.seed(101)
@@ -60,10 +56,9 @@ sims_generate <- function(code,
                        monitor = ".*",
                        nsims = getOption("sims.nsims", 100L), 
                        seed = sims_rcount(),
+                       path = "sims",
                        write = FALSE,
                        exists = FALSE,
-                       dir = "sims",
-                       path = ".",
                        silent = FALSE) {
   check_string(code)
   check_nlist(constants, nas = FALSE, class = NA)
@@ -74,7 +69,6 @@ sims_generate <- function(code,
   check_scalar(write, c(TRUE, NA))
   check_scalar(exists, c(TRUE, NA))
   check_string(path)
-  check_string(dir)
   check_flag(silent)
   
   nsims <- as.integer(nsims)
@@ -86,7 +80,7 @@ sims_generate <- function(code,
   check_variable_nodes(code, constants)
   check_variable_nodes(code, parameters)
   
-  path_dir <- create_path_dir(path, dir, write, exists)
+  if(!isFALSE(write)) create_path(path, exists)
   
   monitor <- set_monitor(monitor, code, silent = silent)
   code <- prepare_code(code)
@@ -96,5 +90,5 @@ sims_generate <- function(code,
                     nsims = nsims,
                     seed = seed,
                     write = write,
-                    path_dir = path_dir)
+                    path = path)
 }

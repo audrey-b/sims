@@ -4,18 +4,16 @@
 \alias{sims_check}
 \title{Check Simulated Data}
 \usage{
-sims_check(dir = "sims", path = ".")
+sims_check(path = "sims")
 }
 \arguments{
-\item{dir}{A string of the name of the directory with the simulated data.}
-
-\item{path}{A string of the path to \code{dir}.}
+\item{path}{A string of the path to he directory with the simulated data.}
 }
 \value{
-An invisible list of the values in 'argsims.rds'.
+An invisible list of the values in \code{file.path(path, 'argsims.rds')}.
 }
 \description{
-Checks that \code{dir} includes an 'argsims.rds' file and 
+Checks that \code{path} includes an 'argsims.rds' file and 
 that the number and names of the data files are consistent with the 
 number of simulations.
 }
