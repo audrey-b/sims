@@ -46,30 +46,28 @@ set.seed(10L)
 
 generative_model <- "
 rand ~ dnorm(0,1)
-for (i in 1:nYear){
+for (i in 1:length(Year)){
   C[i] ~ dpois(lambda[i])
   log(lambda[i]) <- alpha + beta1 * Year[i]
 }
 "
-monitor <- c("C", "rand")
 
 parameters <- list(alpha = 3.5576, beta1 = -0.0912)
 
-constants <- list(nYear = 5, Year = 1:5)
+constants <- list(Year = 1:5)
 
 results <- sims_generate(generative_model, 
                          constants = constants,
-                         parameters = parameters,
-                         monitor = monitor)
+                         parameters = parameters)
 
 results
 
-results[1]
+results[[1]]
 ```
 
 ### Simulate Data
 
-By default, `sims_generate()` returns the simulated datasets in the form of a nlists object.
+By default, `sims_generate()` returns the simulated datasets in the form of an nlists object.
 
 ```{r example}
 library(sims)

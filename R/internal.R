@@ -32,39 +32,41 @@ variable_nodes <- function (x, stochastic = NA) {
     pattern <- "(?=\\s*([~]|([<][-])))"
   
   index <- "\\[[^\\]]*\\]"
-  
-  pattern <- p0("\\w+(", index, "){0,1}", pattern, collapse = "")
+
+  pattern <- p0("\\w+(", index, "){0,1}\\s*[)]{0,1}", pattern, collapse = "")
   nodes <- str_extract_all(x, pattern)
   nodes <- unlist(nodes)
+  nodes <- str_replace(nodes, pattern = "[)]$", "")
+  nodes <- str_replace(nodes, pattern = "\\s*$", "")
   nodes <- str_replace(nodes, pattern = index, "")
   nodes <- unique(nodes)
   sort(nodes)
 }
 
 set_monitor <- function(monitor, code, silent) {
-  stochastic_nodes <- variable_nodes(code, stochastic = TRUE)
-  if(!length(stochastic_nodes)) 
-    err("jags code must include at least one stochastic variable")
+  variable_nodes <- variable_nodes(code)
+  if(!length(variable_nodes)) 
+    err("jags code must include at least one variable node")
   
   if(length(monitor) == 1) {
-    monitor <- stochastic_nodes[str_detect(stochastic_nodes, monitor)]
+    monitor <- variable_nodes[str_detect(variable_nodes, monitor)]
     if(!length(monitor)) 
-      err(co_or(stochastic_nodes, 
-                "monitor must match at least one of the following stochastic nodes: %c"))
+      err(co_or(variable_nodes, 
+                "monitor must match at least one of the following variable nodes: %c"))
     return(monitor)
   }
   monitor <- unique(monitor)
-  missing <- setdiff(monitor, stochastic_nodes)
+  missing <- setdiff(monitor, variable_nodes)
   if(!length(missing)) return(monitor)
   
   if(length(missing) == length(monitor)) {
-    err(co_or(stochastic_nodes, 
-              "monitor must include at least one of the following stochastic nodes: %c"))
+    err(co_or(variable_nodes, 
+              "monitor must include at least one of the following variable nodes: %c"))
   }
   if(!silent)
-    wrn(co_or(missing, "the following in monitor are not stochastic variables: %c"))
+    wrn(co_or(missing, "the following in monitor are not variable nodes: %c"))
   
-  intersect(monitor, stochastic_nodes)
+  intersect(monitor, variable_nodes)
 }
 
 create_path <- function(path, exists) {
