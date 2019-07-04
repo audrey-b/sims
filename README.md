@@ -25,12 +25,6 @@ To install the latest development version from
 
     remotes::install_github("poissonconsulting/sims")
 
-To install the latest development version from the Poisson drat
-[repository](https://github.com/poissonconsulting/drat)
-
-    drat::addRepo("poissonconsulting")
-    install.packages("sims")
-
 ## Demonstration
 
 ``` r
@@ -101,36 +95,36 @@ sims_generate("a ~ dunif(0,1)", nsims = 2L)
 
 If, however, `write = TRUE` then each nlist object is saved as an `.rds`
 files. The information used to generate the datasets is saved in
-`argsims.rds`.
+`.argsims.rds`.
 
 ``` r
 set.seed(10)
 sims_generate("a ~ dunif(0,1)", nsims = 2L,
               write = TRUE, path = tempdir(), exists = NA)
-#> [1] "argsims.rds"     "data0000001.rds" "data0000002.rds"
+#> [1] "data0000001.rds" "data0000002.rds"
 ```
 
 The fact that the arguments to sims\_generate() are saved in
-`argsims.rds` allows additional datasets to be generated using
+`.argsims.rds` allows additional datasets to be generated using
 `sims_add()`.
 
 ``` r
 sims_add(path = tempdir(), nsims = 3L)
-#> [1] "argsims.rds"     "data0000003.rds" "data0000004.rds" "data0000005.rds"
+#> [1] "data0000003.rds" "data0000004.rds" "data0000005.rds"
 ```
 
-If the user wishes to duplicate the datasets then can either regenerate
-them by specifying a different path but the same key. Alternatively,
-they can copy the existing argsims and datasets files to a new directory
-using `sims_copy()`
+If the user wishes to duplicate the datasets then they can either
+regenerate them by specifying a different path but the same key.
+Alternatively, they can copy the existing `.argsims.rds` and datasets
+files to a new directory using `sims_copy()`
 
 ``` r
 sims_copy(path_from = tempdir(), path_to = paste0(tempdir(), "_copy"))
-#> [1] "argsims.rds"     "data0000001.rds" "data0000002.rds" "data0000003.rds"
-#> [5] "data0000004.rds" "data0000005.rds"
+#> [1] "data0000001.rds" "data0000002.rds" "data0000003.rds" "data0000004.rds"
+#> [5] "data0000005.rds"
 ```
 
-A user can check that all the datasets specified in `argsims.rds` are
+A user can check that all the datasets specified in `.argsims.rds` are
 present using `sims_check()`.
 
 ``` r
