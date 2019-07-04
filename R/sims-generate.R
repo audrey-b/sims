@@ -33,6 +33,7 @@
 #' @param seed A positive integer specifying the random seed to use for 
 #' simulating the data. By default it is also used to name the directory 
 #' in which the data are saved if \code{write = TRUE}.
+#' @param parallel A flag specifying whether to generate the datasets in parallel. 
 #' @param path A string specifying the path to the directory to save the data sets in.
 #' @param write A flag specifying whether to write the nlists object to 
 #' individual files in the (as opposed to returning them). If \code{write = NA}
@@ -56,6 +57,7 @@ sims_generate <- function(code,
                        monitor = ".*",
                        nsims = getOption("sims.nsims", 100L), 
                        seed = sims_rcount(),
+                       parallel = FALSE,
                        path = "sims",
                        write = FALSE,
                        exists = FALSE,
@@ -66,11 +68,14 @@ sims_generate <- function(code,
   check_vector(monitor, "", length = TRUE)
   check_int(nsims, coerce = TRUE)
   check_scalar(seed, c(1L, .max_integer))
+  check_flag(parallel)
   check_scalar(write, c(TRUE, NA))
   check_scalar(exists, c(TRUE, NA))
   check_string(path)
   check_flag(silent)
   
+  if(!isFALSE(parallel)) .NotYetUsed("parallel")
+
   nsims <- as.integer(nsims)
   check_scalar(nsims, c(1L, 1000000L))
   

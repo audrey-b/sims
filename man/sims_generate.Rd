@@ -7,7 +7,8 @@
 sims_generate(code, constants = nlist::nlist(),
   parameters = nlist::nlist(), monitor = ".*",
   nsims = getOption("sims.nsims", 100L), seed = sims_rcount(),
-  path = "sims", write = FALSE, exists = FALSE, silent = FALSE)
+  parallel = FALSE, path = "sims", write = FALSE, exists = FALSE,
+  silent = FALSE)
 }
 \arguments{
 \item{code}{A string of the JAGS code to generate the data.
@@ -29,6 +30,8 @@ the number of data sets to simulate. By default 100 data sets are simulated.}
 \item{seed}{A positive integer specifying the random seed to use for 
 simulating the data. By default it is also used to name the directory 
 in which the data are saved if \code{write = TRUE}.}
+
+\item{parallel}{A flag specifying whether to generate the datasets in parallel.}
 
 \item{path}{A string specifying the path to the directory to save the data sets in.}
 
