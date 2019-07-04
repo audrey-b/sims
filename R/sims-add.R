@@ -24,7 +24,7 @@ sims_add <- function(nsims = getOption("sims.nsims", 100L), path = "sims") {
   sims <- (argsims$nsims - nsims + 1L):argsims$nsims
   seeds <- seeds[sims]
   
-  saveRDS(argsims, file.path(path, "argsims.rds"))
+  saveRDS(argsims, file.path(path, ".argsims.rds"))
   
   nlists <- mapply(FUN = generate_dataset, sims, seeds,  
                    MoreArgs = list(code = argsims$code, 
@@ -33,5 +33,5 @@ sims_add <- function(nsims = getOption("sims.nsims", 100L), path = "sims") {
                                    monitor = argsims$monitor, 
                                    write = TRUE, path = path),
                    SIMPLIFY = FALSE)
-  sims_files(path)[c(1L, sims + 1L)]
+  data_files(path)[sims]
 }

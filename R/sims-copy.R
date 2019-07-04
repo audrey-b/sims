@@ -1,7 +1,5 @@
 #' Copy Simulated Datasets
 #' 
-#' Does not check the sims.
-#'
 #' @param path_from A string of the path to the directory containing the simulated datasets.
 #' @param path_to A string of the path to the directory to copy the simulated dataset to.
 #' @param exists A flag specifying whether \code{path_to} should already exist.
@@ -15,9 +13,10 @@ sims_copy <- function(path_from = "sims", path_to = paste0(path_from, "_copy"),
   check_string(path_to)
   check_string(path_from)
   check_flag(exists)
+  sims_check(path_from)
 
   create_path(path_to, exists = exists)
-  files <- sims_files(path_from)
-  file.copy(file.path(path_from, files), to = path_to)
+  files <- data_files(path_from)
+  file.copy(file.path(path_from, c(.argsims, files)), to = path_to)
   files
 }

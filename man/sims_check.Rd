@@ -7,13 +7,12 @@
 sims_check(path = "sims")
 }
 \arguments{
-\item{path}{A string of the path to he directory with the simulated data.}
+\item{path}{A string of the path to the directory with the simulated data.}
 }
 \value{
-A list of the values in \code{file.path(path, 'argsims.rds')}.
+A list of the values in \code{file.path(path, '.argsims.rds')}.
 }
 \description{
-Checks that \code{path} includes an 'argsims.rds' file and 
-that the number and names of the data files are consistent with the 
-number of simulations.
+Checks that the number and names of the data files are consistent with the 
+number of simulations in the '.argsims.rds' file.
 }

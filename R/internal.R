@@ -7,10 +7,8 @@ strip_comments <- function(x) {
   str_replace_all(x, pattern = "\\s*#[^\\\n]*", replacement = "")
 }
 
-sims_files <- function(path, args = TRUE) {
-  if(!isTRUE(args))
-    return(list.files(path, pattern = "^data\\d{7,7}.rds$"))
-  list.files(path, pattern = "^((argsims)|(data\\d{7,7})).rds$")
+data_files <- function(path, args = TRUE) {
+  list.files(path, pattern = "^data\\d{7,7}.rds$")
 }
 
 prepare_code <- function(code) {
@@ -113,7 +111,7 @@ generate_dataset <- function(sim, seed, code, constants, parameters, monitor, wr
 
 save_args <- function(path, ...) {
   args <- list(...)
-  saveRDS(args, file.path(path, "argsims.rds"))
+  saveRDS(args, file.path(path, ".argsims.rds"))
 }
 
 generate_datasets <- function(code, constants, parameters, monitor, nsims, seed, 
@@ -133,7 +131,7 @@ generate_datasets <- function(code, constants, parameters, monitor, nsims, seed,
                                    monitor = monitor, 
                                    write = write, path = path),
                    SIMPLIFY = FALSE)
-  if(isTRUE(write)) return(sims_files(path))
+  if(isTRUE(write)) return(data_files(path))
   set_class(nlists, "nlists")
 }
 
