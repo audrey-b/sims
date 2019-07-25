@@ -2,7 +2,7 @@
 % Please edit documentation in R/sims-args.R
 \name{sims_args}
 \alias{sims_args}
-\title{Simulated Data Arguments}
+\title{Simulated Data Argument Values}
 \usage{
 sims_args(path = "sims")
 }
@@ -10,15 +10,13 @@ sims_args(path = "sims")
 \item{path}{A string of the path to the directory with the simulated data.}
 }
 \value{
-A list of the values in \code{file.path(path, '.sims_args.rds')}.
+A named list of the values in \code{file.path(path, '.sims_args.rds')}.
 }
 \description{
-Checks that the number and names of the data files are consistent with the 
-number of simulations in the '.sims_args.rds' file.
+Gets the simulated data argument values in the '.sims_args.rds' file.
 }
 \examples{
 set.seed(10)
-sims_simulate("a ~ dunif(0,1)", nsims = 2L, 
-  write = TRUE, path = tempdir(), exists = NA)
+sims_simulate("a ~ dunif(0,1)", write = TRUE, path = tempdir(), exists = NA)
 sims_args(tempdir())
 }

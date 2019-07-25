@@ -44,12 +44,12 @@
 #' @param silent A flag specifying whether to suppress warnings.
 #'
 #' @return An \code{\link[nlist]{nlists_object}} unless 
-#' \code{write = FALSE} in which case a character vector of the 
+#' \code{write = FALSE} in which a list of the case a character vector of the 
 #' names of the files created.
 #' @export
 #' @examples
 #' set.seed(101)
-#' sims_simulate("a ~ dunif(0, 1)")
+#' sims_simulate("a ~ dunif(0, 1)", path = tempdir())
 sims_simulate <- function(code, 
                        constants = nlist::nlist(), 
                        parameters = nlist::nlist(), 

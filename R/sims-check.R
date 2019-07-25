@@ -1,12 +1,19 @@
 #' Check Simulated Data
 #' 
-#' Checks that the number and names of the data files are consistent with the 
-#' number of simulations in the '.sims_args.rds' file.
+#' Checks the simulated data argument values in the '.sims_args.rds' file.
+#' 
+#' The checks include whether number and names of the data files 
+#' in the directory are consistent with the number of simulations.
 #'
 #' @param path A string of the path to the directory with the simulated data.
 #'
-#' @return A list of the values in \code{file.path(path, '.sims_args.rds')}.
+#' @return An informative error or invisible list of the argument values.
 #' @export
+#' 
+#' @examples
+#' set.seed(10)
+#' sims_simulate("a ~ dunif(0,1)", write = TRUE, path = tempdir(), exists = NA)
+#' print(sims_check(tempdir()))
 sims_check <- function(path = "sims") {
   sims_args <- sims_args(path)
 
@@ -28,5 +35,5 @@ sims_check <- function(path = "sims") {
     err("data file names are not consistent with",
         "the number of simulations (", nsims, ")")
   }
-  sims_args
+  invisible(sims_args)
 }

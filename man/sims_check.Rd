@@ -10,9 +10,17 @@ sims_check(path = "sims")
 \item{path}{A string of the path to the directory with the simulated data.}
 }
 \value{
-A list of the values in \code{file.path(path, '.sims_args.rds')}.
+An informative error or invisible list of the argument values.
 }
 \description{
-Checks that the number and names of the data files are consistent with the 
-number of simulations in the '.sims_args.rds' file.
+Checks the simulated data argument values in the '.sims_args.rds' file.
+}
+\details{
+The checks include whether number and names of the data files 
+in the directory are consistent with the number of simulations.
+}
+\examples{
+set.seed(10)
+sims_simulate("a ~ dunif(0,1)", write = TRUE, path = tempdir(), exists = NA)
+print(sims_check(tempdir()))
 }
