@@ -2,6 +2,7 @@
 
 export(rcount)
 export(sims_add)
+export(sims_args)
 export(sims_check)
 export(sims_copy)
 export(sims_simulate)

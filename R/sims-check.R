@@ -1,30 +1,23 @@
 #' Check Simulated Data
 #' 
 #' Checks that the number and names of the data files are consistent with the 
-#' number of simulations in the '.argsims.rds' file.
+#' number of simulations in the '.sims_args.rds' file.
 #'
 #' @param path A string of the path to the directory with the simulated data.
 #'
-#' @return A list of the values in \code{file.path(path, '.argsims.rds')}.
+#' @return A list of the values in \code{file.path(path, '.sims_args.rds')}.
 #' @export
 sims_check <- function(path = "sims") {
-  check_string(path)
-  
-  if(!dir.exists(path)) err("directory '", path, "' must already exist")
-  
-  if(!file.exists(file.path(path, .argsims)))
-    err("directory '", path, "' must contain '", .argsims, "'")
-  
-  argsims <- readRDS(file.path(path, .argsims))
-  
-  check_scalar(argsims$code, "")
-  check_inherits(argsims$constants, "nlist")
-  check_inherits(argsims$parameters, "nlist")
-  check_scalar(argsims$monitor, "")
-  check_scalar(argsims$nsims, c(1L, 1000000L))
-  check_scalar(argsims$seed, c(0L, .max_integer))
+  sims_args <- sims_args(path)
 
-  nsims <- argsims$nsims
+  check_scalar(sims_args$code, "")
+  check_inherits(sims_args$constants, "nlist")
+  check_inherits(sims_args$parameters, "nlist")
+  check_scalar(sims_args$monitor, "")
+  check_scalar(sims_args$nsims, c(1L, 1000000L))
+  check_scalar(sims_args$seed, c(0L, .max_integer))
+
+  nsims <- sims_args$nsims
   
   files <- data_files(path)
   if(!identical(length(files), nsims)) {
@@ -35,5 +28,5 @@ sims_check <- function(path = "sims") {
     err("data file names are not consistent with",
         "the number of simulations (", nsims, ")")
   }
-  argsims
+  sims_args
 }
