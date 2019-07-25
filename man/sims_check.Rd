@@ -4,7 +4,7 @@
 \alias{sims_check}
 \title{Check Simulated Data}
 \usage{
-sims_check(path = "sims")
+sims_check(path)
 }
 \arguments{
 \item{path}{A string of the path to the directory with the simulated data.}

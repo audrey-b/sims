@@ -10,7 +10,7 @@
 #' set.seed(10)
 #' sims_simulate("a ~ dunif(0,1)", path = tempdir(), exists = NA)
 #' sims_args(tempdir())
-sims_args <- function(path = "sims") {
+sims_args <- function(path) {
   check_string(path)
   
   if(!dir.exists(path)) err("directory '", path, "' must already exist")

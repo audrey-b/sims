@@ -1,12 +1,12 @@
 #' Add Simulated Datasets
 #'
+#' @param path A string specifying the path to the directory to add the data sets to.
 #' @param nsims A count of the number of additional datasets to generate.
 #' By default 100 datasets are added.
-#' @param path A string specifying the path to the directory to add the data sets to.
 #' @return A character vector of the names of the files created 
 #' (and in the case of argsism, created).
 #' @export
-sims_add <- function(nsims = getOption("sims.nsims", 100L), path = "sims") {
+sims_add <- function(path, nsims = getOption("sims.nsims", 100L)) {
   check_int(nsims, coerce = TRUE)
   nsims <- as.integer(nsims)
   check_scalar(nsims, c(1L, 1000000L))

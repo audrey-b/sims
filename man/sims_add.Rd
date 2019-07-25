@@ -4,13 +4,13 @@
 \alias{sims_add}
 \title{Add Simulated Datasets}
 \usage{
-sims_add(nsims = getOption("sims.nsims", 100L), path = "sims")
+sims_add(path, nsims = getOption("sims.nsims", 100L))
 }
 \arguments{
+\item{path}{A string specifying the path to the directory to add the data sets to.}
+
 \item{nsims}{A count of the number of additional datasets to generate.
 By default 100 datasets are added.}
-
-\item{path}{A string specifying the path to the directory to add the data sets to.}
 }
 \value{
 A character vector of the names of the files created 

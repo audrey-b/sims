@@ -14,7 +14,7 @@
 #' set.seed(10)
 #' sims_simulate("a ~ dunif(0,1)", path = tempdir(), exists = NA)
 #' print(sims_check(tempdir()))
-sims_check <- function(path = "sims") {
+sims_check <- function(path) {
   sims_args <- sims_args(path)
 
   check_scalar(sims_args$code, "")

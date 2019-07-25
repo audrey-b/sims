@@ -60,23 +60,43 @@ sims_simulate("a ~ dunif(0,1)", nsims = 2L)
 #> an nlists object of 2 nlist objects each with 1 natomic element
 ```
 
-If, however, `write = TRUE` then each nlist object is saved as an `.rds`
-files. The information used to generate the datasets is saved in
+If, however, `path` is provided then each nlist object is saved as an
+`.rds` files. The information used to generate the datasets is saved in
 `.sims_args.rds`.
 
 ``` r
 set.seed(10)
-sims_simulate("a ~ dunif(0,1)", nsims = 2L,
-              write = TRUE, path = tempdir(), exists = NA)
+sims_simulate("a ~ dunif(0,1)", nsims = 2L, path = tempdir(), exists = NA)
+#> $code
+#> [1] "model{a ~ dunif(0,1)}\n"
+#> 
+#> $constants
+#> an nlist object with 0 natomic elements
+#> 
+#> $parameters
+#> an nlist object with 0 natomic elements
+#> 
+#> $monitor
+#> [1] "a"
+#> 
+#> $nsims
+#> [1] 2
+#> 
+#> $seed
+#> [1] 1089801142
+sims_data_files(tempdir())
 #> [1] "data0000001.rds" "data0000002.rds"
 ```
 
-The fact that the arguments to sims\_simulate() are to file allows
-additional datasets to be generated using `sims_add()`.
+The fact that the arguments to `sims_simulate()` are saved to file
+allows additional datasets to be generated using `sims_add()`.
 
 ``` r
-sims_add(path = tempdir(), nsims = 3L)
+sims_add(tempdir(), nsims = 3L)
 #> [1] "data0000003.rds" "data0000004.rds" "data0000005.rds"
+sims_data_files(tempdir())
+#> [1] "data0000001.rds" "data0000002.rds" "data0000003.rds" "data0000004.rds"
+#> [5] "data0000005.rds"
 ```
 
 If the user wishes to duplicate the datasets then they can either
@@ -95,29 +115,12 @@ present using `sims_check()`.
 
 ``` r
 sims_check(path = paste0(tempdir(), "_copy"))
-#> $code
-#> [1] "model{a ~ dunif(0,1)}\n"
-#> 
-#> $constants
-#> an nlist object with 0 natomic elements
-#> 
-#> $parameters
-#> an nlist object with 0 natomic elements
-#> 
-#> $monitor
-#> [1] "a"
-#> 
-#> $nsims
-#> [1] 5
-#> 
-#> $seed
-#> [1] 1089801142
-
-file.remove(file.path(paste0(tempdir(), "_copy"), "data0000005.rds"))
-#> [1] TRUE
 ```
 
 ``` r
+file.remove(file.path(paste0(tempdir(), "_copy"), "data0000005.rds"))
+#> [1] TRUE
+
 sims_check(path = paste0(tempdir(), "_copy"))
 #> Error: number of data files (4) does not match number of simulations (5)
 ```
