@@ -42,49 +42,24 @@ remotes::install_github("poissonconsulting/sims")
 
 ## Demonstration
 
-```{r example2}
-library(sims)
-set.seed(10L)
-
-generative_model <- "
-rand ~ dnorm(0,1)
-for (i in 1:length(Year)){
-  C[i] ~ dpois(lambda[i])
-  log(lambda[i]) <- alpha + beta1 * Year[i]
-}
-"
-
-parameters <- list(alpha = 3.5576, beta1 = -0.0912)
-
-constants <- list(Year = 1:5)
-
-results <- sims_generate(generative_model, 
-                         constants = constants,
-                         parameters = parameters)
-
-results
-
-results[[1]]
-```
-
 ### Simulate Data
 
-By default, `sims_generate()` returns the simulated datasets in the form of an nlists object.
+By default, `sims_simulate()` returns the simulated datasets in the form of an [nlists](https://github.com/poissonconsulting/nlist) object.
 
 ```{r example}
 library(sims)
 set.seed(10)
-sims_generate("a ~ dunif(0,1)", nsims = 2L)
+sims_simulate("a ~ dunif(0,1)", nsims = 2L)
 ```
 
 If, however, `write = TRUE` then each nlist object is saved as an `.rds` files.
 The information used to generate the datasets is saved in `.argsims.rds`.
 ```{r}
 set.seed(10)
-sims_generate("a ~ dunif(0,1)", nsims = 2L,
+sims_simulate("a ~ dunif(0,1)", nsims = 2L,
               write = TRUE, path = tempdir(), exists = NA)
 ```
-The fact that the arguments to sims_generate() are saved in `.argsims.rds` allows additional datasets to be generated using `sims_add()`.
+The fact that the arguments to sims_simulate() are saved in `.argsims.rds` allows additional datasets to be generated using `sims_add()`.
 ```{r}
 sims_add(path = tempdir(), nsims = 3L)
 ```

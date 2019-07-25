@@ -45,66 +45,15 @@ remotes::install_github("poissonconsulting/sims")
 
 ## Demonstration
 
-``` r
-library(sims)
-set.seed(10L)
-
-generative_model <- "
-rand ~ dnorm(0,1)
-for (i in 1:length(Year)){
-  C[i] ~ dpois(lambda[i])
-  log(lambda[i]) <- alpha + beta1 * Year[i]
-}
-"
-
-parameters <- list(alpha = 3.5576, beta1 = -0.0912)
-
-constants <- list(Year = 1:5)
-
-results <- sims_generate(generative_model, 
-                         constants = constants,
-                         parameters = parameters)
-
-results
-#> $C
-#> [1] 32.09 29.10 27.44 24.06 21.88
-#> 
-#> $lambda
-#> [1] 32.02126 29.23013 26.68229 24.35653 22.23350
-#> 
-#> $rand
-#> [1] 0.1313937
-#> 
-#> $Year
-#> [1] 1 2 3 4 5
-#> 
-#> an nlists object of 100 nlist objects each with 4 natomic elements
-
-results[[1]]
-#> $C
-#> [1] 38 30 22 20 17
-#> 
-#> $lambda
-#> [1] 32.02126 29.23013 26.68229 24.35653 22.23350
-#> 
-#> $rand
-#> [1] 0.8400557
-#> 
-#> $Year
-#> [1] 1 2 3 4 5
-#> 
-#> an nlist object with 4 natomic elements
-```
-
 ### Simulate Data
 
-By default, `sims_generate()` returns the simulated datasets in the form
-of an nlists object.
+By default, `sims_simulate()` returns the simulated datasets in the form
+of an [nlists](https://github.com/poissonconsulting/nlist) object.
 
 ``` r
 library(sims)
 set.seed(10)
-sims_generate("a ~ dunif(0,1)", nsims = 2L)
+sims_simulate("a ~ dunif(0,1)", nsims = 2L)
 #> $a
 #> [1] 0.6837434
 #> 
@@ -117,12 +66,12 @@ files. The information used to generate the datasets is saved in
 
 ``` r
 set.seed(10)
-sims_generate("a ~ dunif(0,1)", nsims = 2L,
+sims_simulate("a ~ dunif(0,1)", nsims = 2L,
               write = TRUE, path = tempdir(), exists = NA)
 #> [1] "data0000001.rds" "data0000002.rds"
 ```
 
-The fact that the arguments to sims\_generate() are saved in
+The fact that the arguments to sims\_simulate() are saved in
 `.argsims.rds` allows additional datasets to be generated using
 `sims_add()`.
 
