@@ -7,8 +7,7 @@
 sims_simulate(code, constants = nlist::nlist(),
   parameters = nlist::nlist(), monitor = ".*",
   nsims = getOption("sims.nsims", 100L), seed = rcount(),
-  parallel = FALSE, path = "sims", write = FALSE, exists = FALSE,
-  silent = FALSE)
+  parallel = FALSE, path = NULL, exists = FALSE, silent = FALSE)
 }
 \arguments{
 \item{code}{A string of the JAGS code to generate the data.
@@ -32,11 +31,9 @@ simulating the data.}
 
 \item{parallel}{A flag specifying whether to generate the datasets in parallel.}
 
-\item{path}{A string specifying the path to the directory to save the data sets in.}
-
-\item{write}{A flag specifying whether to write the nlists object to 
-individual files in the (as opposed to returning them). If \code{write = NA}
-then the nlists object is both written and returned.}
+\item{path}{A string specifying the path to the directory to save the data sets in.
+By default \code{path = NULL } the data sets are not saved but are returned 
+as an nlists object.}
 
 \item{exists}{A flag specifying whether the directory should already exist.
 If \code{exists = NA} it doesn't matter. If the directory already exists it is 
@@ -46,14 +43,14 @@ error is thrown.}
 \item{silent}{A flag specifying whether to suppress warnings.}
 }
 \value{
-If \code{write = TRUE} an invisible copy of 
-the simulated data argument values
-otherwise an \code{\link[nlist]{nlists_object}} of the simulated data.
+By default an \code{\link[nlist]{nlists_object}} of the simulated data.
+Otherwise if \code{path} is defined the simulated data argument values.
 }
 \description{
-Simulates datasets using JAGS code. The user can specify whether to
-return the datasets as an \code{\link[nlist]{nlists_object}} and/or 
-write the datasets to a directory as individual \code{.rds} files.
+Simulates datasets using JAGS code. By defaults 
+return the datasets as an \code{\link[nlist]{nlists_object}}.
+If \code{path} is provided then the datasets are written to the directory 
+as individual \code{.rds} files.
 }
 \details{
 Both constants and parameters must be \code{\link[nlist]{nlist_object}s} or 
@@ -73,5 +70,5 @@ The files are labelled \code{data0000001.rds}, \code{data0000002.rds},
 }
 \examples{
 set.seed(101)
-sims_simulate("a ~ dunif(0, 1)", path = tempdir())
+sims_simulate("a ~ dunif(0, 1)", path = tempdir(), exists = NA)
 }

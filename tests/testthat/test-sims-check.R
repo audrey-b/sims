@@ -5,13 +5,14 @@ test_that("sims_check",{
   unlink(tempdir, recursive = TRUE)
   
   expect_error(sims_simulate("a ~ dunif(0,1)", nsims = 2L, path = tempdir, 
-                             write = NA, exists = TRUE),
+                             exists = TRUE),
                "must already exist")
   
   set.seed(101)
-  expect_equal(sims_simulate("a ~ dunif(0,1)", nsims = 2L, path = tempdir, write = NA),
-               structure(list(structure(list(a = 0.0844208442995482), class = "nlist"), 
-                              structure(list(a = 0.332673775219176), class = "nlist")), class = "nlists"))
+  expect_equal(sims_simulate("a ~ dunif(0,1)", nsims = 2L, path = tempdir),
+               list(code = "model{a ~ dunif(0,1)}\n", constants = structure(list(), .Names = character(0), class = "nlist"), 
+    parameters = structure(list(), .Names = character(0), class = "nlist"), 
+    monitor = "a", nsims = 2L, seed = 799289926L))
   expect_identical(sims_check(path = tempdir), 
                    list(code = "model{a ~ dunif(0,1)}\n", constants = structure(list(), .Names = character(0), class = "nlist"), 
     parameters = structure(list(), .Names = character(0), class = "nlist"), 

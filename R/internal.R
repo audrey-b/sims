@@ -94,7 +94,7 @@ as_natomic_mcarray <- function(x) {
 
 data_file_name <- function(sim) p0("data", sprintf("%07d", sim), ".rds")
 
-generate_dataset <- function(sim, seed, code, constants, parameters, monitor, write, path) {
+generate_dataset <- function(sim, seed, code, constants, parameters, monitor, path) {
   code <- textConnection(code)
   inits <- set_seed_inits(seed)
   data <- c(constants, parameters)
@@ -104,9 +104,9 @@ generate_dataset <- function(sim, seed, code, constants, parameters, monitor, wr
                                 progress.bar = "none")
   nlist <-  set_class(lapply(sample, as_natomic_mcarray), "nlist")
   nlist <- c(nlist, constants)
-  if(!isFALSE(write)) saveRDS(nlist, file.path(path, data_file_name(sim)))
-  if(isTRUE(write)) return(NULL)
-  nlist
+  if(is.null(path)) return(nlist)
+  saveRDS(nlist, file.path(path, data_file_name(sim)))
+  NULL
 }
 
 save_args <- function(path, ...) {
@@ -115,11 +115,11 @@ save_args <- function(path, ...) {
 }
 
 generate_datasets <- function(code, constants, parameters, monitor, nsims, seed, 
-                              write, path) {
+                              path) {
   set.seed(seed)
   seeds <- rcount(nsims)
   
-  if(!isFALSE(write)) {
+  if(!is.null(path)) {
     save_args(path, code = code, 
               constants = constants, parameters = parameters, 
               monitor = monitor, nsims = nsims, seed = seed)
@@ -129,8 +129,8 @@ generate_datasets <- function(code, constants, parameters, monitor, nsims, seed,
                    MoreArgs = list(code = code, 
                                    constants = constants, parameters = parameters, 
                                    monitor = monitor, 
-                                   write = write, path = path),
+                                   path = path),
                    SIMPLIFY = FALSE)
-  if(!isTRUE(write)) return(set_class(nlists, "nlists"))
-  sims_args(path)
+  if(!is.null(path)) return(sims_args(path))
+  set_class(nlists, "nlists")
 }

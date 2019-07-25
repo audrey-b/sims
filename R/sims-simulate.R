@@ -1,8 +1,9 @@
 #' Simulate Datasets
 #' 
-#' Simulates datasets using JAGS code. The user can specify whether to
-#' return the datasets as an \code{\link[nlist]{nlists_object}} and/or 
-#' write the datasets to a directory as individual \code{.rds} files.
+#' Simulates datasets using JAGS code. By defaults 
+#' return the datasets as an \code{\link[nlist]{nlists_object}}.
+#' If \code{path} is provided then the datasets are written to the directory 
+#' as individual \code{.rds} files.
 #'
 #' Both constants and parameters must be \code{\link[nlist]{nlist_object}s} or 
 #' uniquely named lists of numeric vectors, matrices and arrays that can be
@@ -34,22 +35,20 @@
 #' simulating the data.
 #' @param parallel A flag specifying whether to generate the datasets in parallel. 
 #' @param path A string specifying the path to the directory to save the data sets in.
-#' @param write A flag specifying whether to write the nlists object to 
-#' individual files in the (as opposed to returning them). If \code{write = NA}
-#' then the nlists object is both written and returned. 
+#' By default \code{path = NULL } the data sets are not saved but are returned 
+#' as an nlists object.
 #' @param exists A flag specifying whether the directory should already exist.
 #' If \code{exists = NA} it doesn't matter. If the directory already exists it is 
 #' overwritten if \code{exists = TRUE} or \code{exists = NA} otherwise an
 #' error is thrown.
 #' @param silent A flag specifying whether to suppress warnings.
 #'
-#' @return If \code{write = TRUE} an invisible copy of 
-#' the simulated data argument values
-#' otherwise an \code{\link[nlist]{nlists_object}} of the simulated data.
+#' @return By default an \code{\link[nlist]{nlists_object}} of the simulated data.
+#' Otherwise if \code{path} is defined the simulated data argument values.
 #' @export
 #' @examples
 #' set.seed(101)
-#' sims_simulate("a ~ dunif(0, 1)", path = tempdir())
+#' sims_simulate("a ~ dunif(0, 1)", path = tempdir(), exists = NA)
 sims_simulate <- function(code, 
                        constants = nlist::nlist(), 
                        parameters = nlist::nlist(), 
@@ -57,8 +56,7 @@ sims_simulate <- function(code,
                        nsims = getOption("sims.nsims", 100L), 
                        seed = rcount(),
                        parallel = FALSE,
-                       path = "sims",
-                       write = FALSE,
+                       path = NULL,
                        exists = FALSE,
                        silent = FALSE) {
   check_string(code)
@@ -68,9 +66,8 @@ sims_simulate <- function(code,
   check_int(nsims, coerce = TRUE)
   check_scalar(seed, c(1L, .max_integer))
   check_flag(parallel)
-  check_scalar(write, c(TRUE, NA))
+  if(!is.null(path)) check_string(path)
   check_scalar(exists, c(TRUE, NA))
-  check_string(path)
   check_flag(silent)
   
   if(!isFALSE(parallel)) .NotYetUsed("parallel")
@@ -84,7 +81,7 @@ sims_simulate <- function(code,
   check_variable_nodes(code, constants)
   check_variable_nodes(code, parameters)
   
-  if(!isFALSE(write)) create_path(path, exists)
+  if(!is.null(path)) create_path(path, exists)
   
   monitor <- set_monitor(monitor, code, silent = silent)
   code <- prepare_code(code)
@@ -93,6 +90,5 @@ sims_simulate <- function(code,
                     monitor = monitor, 
                     nsims = nsims,
                     seed = seed,
-                    write = write,
                     path = path)
 }

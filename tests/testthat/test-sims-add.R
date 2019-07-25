@@ -5,7 +5,7 @@ test_that("sims_add",{
   unlink(tempdir, recursive = TRUE)
   
   set.seed(101)
-  expect_identical(sims_simulate("a ~ dunif(0,1)", nsims = 1L, path = tempdir, write = TRUE),
+  expect_identical(sims_simulate("a ~ dunif(0,1)", nsims = 1L, path = tempdir),
                    list(code = "model{a ~ dunif(0,1)}\n", constants = structure(list(), .Names = character(0), class = "nlist"), 
     parameters = structure(list(), .Names = character(0), class = "nlist"), 
     monitor = "a", nsims = 1L, seed = 799289926L))

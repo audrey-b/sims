@@ -31,7 +31,7 @@ sims_add <- function(nsims = getOption("sims.nsims", 100L), path = "sims") {
                                    constants = argsims$constants, 
                                    parameters = argsims$parameters, 
                                    monitor = argsims$monitor, 
-                                   write = TRUE, path = path),
+                                   path = path),
                    SIMPLIFY = FALSE)
   data_files(path)[sims]
 }

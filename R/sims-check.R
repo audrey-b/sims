@@ -12,7 +12,7 @@
 #' 
 #' @examples
 #' set.seed(10)
-#' sims_simulate("a ~ dunif(0,1)", write = TRUE, path = tempdir(), exists = NA)
+#' sims_simulate("a ~ dunif(0,1)", path = tempdir(), exists = NA)
 #' print(sims_check(tempdir()))
 sims_check <- function(path = "sims") {
   sims_args <- sims_args(path)
