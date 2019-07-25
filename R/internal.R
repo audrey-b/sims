@@ -134,4 +134,3 @@ generate_datasets <- function(code, constants, parameters, monitor, nsims, seed,
   if(isTRUE(write)) return(data_files(path))
   set_class(nlists, "nlists")
 }
-

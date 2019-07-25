@@ -50,8 +50,8 @@
 #' @export
 #' @examples
 #' set.seed(101)
-#' sims_generate("a ~ dunif(0, 1)")
-sims_generate <- function(code, 
+#' sims_simulate("a ~ dunif(0, 1)")
+sims_simulate <- function(code, 
                        constants = nlist::nlist(), 
                        parameters = nlist::nlist(), 
                        monitor = ".*",

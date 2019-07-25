@@ -5,7 +5,7 @@ test_that("sims_add",{
   unlink(tempdir, recursive = TRUE)
   
   set.seed(101)
-  expect_identical(sims_generate("a ~ dunif(0,1)", nsims = 1L, path = tempdir, write = TRUE),
+  expect_identical(sims_simulate("a ~ dunif(0,1)", nsims = 1L, path = tempdir, write = TRUE),
                    "data0000001.rds")
   
   expect_error(sims_add(nsims = 1000000L, path = tempdir),

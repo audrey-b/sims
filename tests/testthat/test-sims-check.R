@@ -4,12 +4,12 @@ test_that("sims_check",{
   tempdir <- tempdir()
   unlink(tempdir, recursive = TRUE)
   
-  expect_error(sims_generate("a ~ dunif(0,1)", nsims = 2L, path = tempdir, 
+  expect_error(sims_simulate("a ~ dunif(0,1)", nsims = 2L, path = tempdir, 
                              write = NA, exists = TRUE),
                "must already exist")
   
   set.seed(101)
-  expect_equal(sims_generate("a ~ dunif(0,1)", nsims = 2L, path = tempdir, write = NA),
+  expect_equal(sims_simulate("a ~ dunif(0,1)", nsims = 2L, path = tempdir, write = NA),
                structure(list(structure(list(a = 0.0844208442995482), class = "nlist"), 
                               structure(list(a = 0.332673775219176), class = "nlist")), class = "nlists"))
   expect_identical(sims_check(path = tempdir), 
