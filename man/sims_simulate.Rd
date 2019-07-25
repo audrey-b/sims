@@ -14,10 +14,10 @@ sims_simulate(code, constants = nlist::nlist(),
 \item{code}{A string of the JAGS code to generate the data.
 The code must not be in a data or model block.}
 
-\item{constants}{An nlist specifying the values of nodes in code. 
+\item{constants}{An nlist object specifying the values of nodes in code. 
 The values are included in the output data.}
 
-\item{parameters}{An nlist specifying the values of nodes in code. 
+\item{parameters}{An nlist object specifying the values of nodes in code. 
 The values are not included in the output data.}
 
 \item{monitor}{A character vector (or regular expression if a string) 
@@ -47,18 +47,17 @@ error is thrown.}
 \item{silent}{A flag specifying whether to suppress warnings.}
 }
 \value{
-If \code{write != TRUE} an \code{\link[nlist]{nlists}} 
-object where each element represents a simulated data set.
-Otherwise a character vector of the names of the files created.
+An \code{\link[nlist]{nlists_object}} unless 
+\code{write = FALSE} in which case a character vector of the 
+names of the files created.
 }
 \description{
 Simulates datasets using JAGS code. The user can specify whether to
-return the datasets as an nlists object (each element is an nlist object
-of a dataset) and/or write the datasets to a directory as individual \code{.rds}
-files.
+return the datasets as an \code{\link[nlist]{nlists_object}} and/or 
+write the datasets to a directory as individual \code{.rds} files.
 }
 \details{
-Both constants and parameters must be nlist objects or 
+Both constants and parameters must be \code{\link[nlist]{nlist_object}s} or 
 uniquely named lists of numeric vectors, matrices and arrays that can be
 coerced to nlist objects.
 The only difference between constants and parameters is that the values in 
@@ -66,7 +65,8 @@ constants are appended to the output data while the values in parameters
 are not.
 Neither constants or parameters can include missing values nor can they 
 have elements with the same name.
-Elements which are not in code are dropped with a warning.
+Elements which are not in code are dropped with a warning 
+(unless \code{silent = TRUE} in which case the warning is suppressed).
 
 Each set of simulated data set is written as a separate .rds file. 
 The files are labelled \code{data0000001.rds}, \code{data0000002.rds},
