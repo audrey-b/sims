@@ -31,8 +31,7 @@
 #' @param nsims An integer between 1 and 1,000,000 specifying 
 #' the number of data sets to simulate. By default 100 data sets are simulated.
 #' @param seed A positive integer specifying the random seed to use for 
-#' simulating the data. By default it is also used to name the directory 
-#' in which the data are saved if \code{write = TRUE}.
+#' simulating the data.
 #' @param parallel A flag specifying whether to generate the datasets in parallel. 
 #' @param path A string specifying the path to the directory to save the data sets in.
 #' @param write A flag specifying whether to write the nlists object to 

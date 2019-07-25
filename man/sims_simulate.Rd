@@ -28,8 +28,7 @@ By default all stochastic nodes are included.}
 the number of data sets to simulate. By default 100 data sets are simulated.}
 
 \item{seed}{A positive integer specifying the random seed to use for 
-simulating the data. By default it is also used to name the directory 
-in which the data are saved if \code{write = TRUE}.}
+simulating the data.}
 
 \item{parallel}{A flag specifying whether to generate the datasets in parallel.}
 
