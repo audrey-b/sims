@@ -62,7 +62,7 @@ sims_simulate("a ~ dunif(0,1)", nsims = 2L)
 
 If, however, `write = TRUE` then each nlist object is saved as an `.rds`
 files. The information used to generate the datasets is saved in
-`.argsims.rds`.
+`.sims_args.rds`.
 
 ``` r
 set.seed(10)
@@ -71,9 +71,8 @@ sims_simulate("a ~ dunif(0,1)", nsims = 2L,
 #> [1] "data0000001.rds" "data0000002.rds"
 ```
 
-The fact that the arguments to sims\_simulate() are saved in
-`.argsims.rds` allows additional datasets to be generated using
-`sims_add()`.
+The fact that the arguments to sims\_simulate() are to file allows
+additional datasets to be generated using `sims_add()`.
 
 ``` r
 sims_add(path = tempdir(), nsims = 3L)
@@ -82,7 +81,7 @@ sims_add(path = tempdir(), nsims = 3L)
 
 If the user wishes to duplicate the datasets then they can either
 regenerate them by specifying a different path but the same key.
-Alternatively, they can copy the existing `.argsims.rds` and datasets
+Alternatively, they can copy the existing `.sims_args.rds` and datasets
 files to a new directory using `sims_copy()`
 
 ``` r
@@ -91,7 +90,7 @@ sims_copy(path_from = tempdir(), path_to = paste0(tempdir(), "_copy"))
 #> [5] "data0000005.rds"
 ```
 
-A user can check that all the datasets specified in `.argsims.rds` are
+A user can check that all the datasets specified in `.sims_args.rds` are
 present using `sims_check()`.
 
 ``` r
