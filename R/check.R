@@ -5,5 +5,5 @@ check_variable_nodes <- function(x, y, y_name = substitute(y)) {
     err(co_and(defined, p0("the following %n variable node%s %r defined in ", 
                            y_name, ": %c")))
   }
-  return(x)
+  x
 }
