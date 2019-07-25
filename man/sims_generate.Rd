@@ -6,7 +6,7 @@
 \usage{
 sims_generate(code, constants = nlist::nlist(),
   parameters = nlist::nlist(), monitor = ".*",
-  nsims = getOption("sims.nsims", 100L), seed = sims_rcount(),
+  nsims = getOption("sims.nsims", 100L), seed = rcount(),
   parallel = FALSE, path = "sims", write = FALSE, exists = FALSE,
   silent = FALSE)
 }

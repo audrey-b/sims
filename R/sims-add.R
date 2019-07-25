@@ -19,7 +19,7 @@ sims_add <- function(nsims = getOption("sims.nsims", 100L), path = "sims") {
     err("adding the simulations would result in more than 1,000,000 datasets")
   
   set.seed(argsims$seed)
-  seeds <- sims_rcount(argsims$nsims)
+  seeds <- rcount(argsims$nsims)
   
   sims <- (argsims$nsims - nsims + 1L):argsims$nsims
   seeds <- seeds[sims]

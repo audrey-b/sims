@@ -117,7 +117,7 @@ save_args <- function(path, ...) {
 generate_datasets <- function(code, constants, parameters, monitor, nsims, seed, 
                               write, path) {
   set.seed(seed)
-  seeds <- sims_rcount(nsims)
+  seeds <- rcount(nsims)
   
   if(!isFALSE(write)) {
     save_args(path, code = code, 
