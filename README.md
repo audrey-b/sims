@@ -13,17 +13,35 @@ Status](https://travis-ci.com/poissonconsulting/sims.svg?branch=master)](https:/
 status](https://ci.appveyor.com/api/projects/status/github/poissonconsulting/sims?branch=master&svg=true)](https://ci.appveyor.com/project/poissonconsulting/sims)
 [![Coverage
 Status](https://img.shields.io/codecov/c/github/poissonconsulting/sims/master.svg)](https://codecov.io/github/poissonconsulting/sims?branch=master)
+[![License:
+GPL3](https://img.shields.io/badge/License-GPL3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.html)
+[![Tinyverse
+status](https://tinyverse.netlify.com/badge/sims)](https://CRAN.R-project.org/package=sims)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/sims)](https://cran.r-project.org/package=sims)
+![CRAN downloads](http://cranlogs.r-pkg.org/badges/sims)
 <!-- badges: end -->
 
-sims is an R package to simulate, save and manipulate datasets. The
-generative model is specified using a fragment of JAGS code.
+sims is an R package to simulate datasets (in the form of an
+[nlists](https://github.com/poissonconsulting/nlist) object) from JAGS
+model code.
 
 ## Installation
+
+To install the latest release version from
+[CRAN](https://cran.r-project.org)
+
+``` r
+install.packages("sims")
+```
 
 To install the latest development version from
 [GitHub](https://github.com/poissonconsulting/sims)
 
-    remotes::install_github("poissonconsulting/sims")
+``` r
+# install.packages("remotes")
+remotes::install_github("poissonconsulting/sims")
+```
 
 ## Demonstration
 
@@ -134,8 +152,10 @@ sims_check(path = paste0(tempdir(), "_copy"))
 #> 
 #> $constants
 #> an nlist object with 0 natomic elements
+#> 
 #> $parameters
 #> an nlist object with 0 natomic elements
+#> 
 #> $monitor
 #> [1] "a"
 #> 
@@ -154,7 +174,7 @@ sims_check(path = paste0(tempdir(), "_copy"))
 #> Error: number of data files (4) does not match number of simulations (5)
 ```
 
-# Contribution
+## Contribution
 
 Please report any
 [issues](https://github.com/poissonconsulting/sims/issues).
@@ -162,7 +182,6 @@ Please report any
 [Pull requests](https://github.com/poissonconsulting/sims/pulls) are
 always welcome.
 
-Please note that the ‘sims’ project is released with a [Contributor Code
-of
-Conduct](https://poissonconsulting.github.io/sims/CODE_OF_CONDUCT.md).
-By contributing to this project, you agree to abide by its terms.
+Please note that this project is released with a [Contributor Code of
+Conduct](https://github.com/poissonconsulting/sims/blob/master/CODE_OF_CONDUCT.md).
+By contributing, you agree to abide by its terms.
