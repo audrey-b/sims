@@ -43,9 +43,9 @@
 #' error is thrown.
 #' @param silent A flag specifying whether to suppress warnings.
 #'
-#' @return An \code{\link[nlist]{nlists_object}} unless 
-#' \code{write = FALSE} in which a list of the case a character vector of the 
-#' names of the files created.
+#' @return If \code{write = TRUE} an invisible copy of 
+#' the simulated data argument values
+#' otherwise an \code{\link[nlist]{nlists_object}} of the simulated data.
 #' @export
 #' @examples
 #' set.seed(101)

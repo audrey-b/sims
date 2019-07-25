@@ -7,7 +7,7 @@ strip_comments <- function(x) {
   str_replace_all(x, pattern = "\\s*#[^\\\n]*", replacement = "")
 }
 
-data_files <- function(path, args = TRUE) {
+data_files <- function(path) {
   list.files(path, pattern = "^data\\d{7,7}.rds$")
 }
 
@@ -30,7 +30,7 @@ variable_nodes <- function (x, stochastic = NA) {
     pattern <- "(?=\\s*([~]|([<][-])))"
   
   index <- "\\[[^\\]]*\\]"
-
+  
   pattern <- p0("\\w+(", index, "){0,1}\\s*[)]{0,1}", pattern, collapse = "")
   nodes <- str_extract_all(x, pattern)
   nodes <- unlist(nodes)
@@ -131,6 +131,6 @@ generate_datasets <- function(code, constants, parameters, monitor, nsims, seed,
                                    monitor = monitor, 
                                    write = write, path = path),
                    SIMPLIFY = FALSE)
-  if(isTRUE(write)) return(data_files(path))
-  set_class(nlists, "nlists")
+  if(!isTRUE(write)) return(set_class(nlists, "nlists"))
+  sims_args(path)
 }

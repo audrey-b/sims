@@ -6,7 +6,9 @@ test_that("sims_add",{
   
   set.seed(101)
   expect_identical(sims_simulate("a ~ dunif(0,1)", nsims = 1L, path = tempdir, write = TRUE),
-                   "data0000001.rds")
+                   list(code = "model{a ~ dunif(0,1)}\n", constants = structure(list(), .Names = character(0), class = "nlist"), 
+    parameters = structure(list(), .Names = character(0), class = "nlist"), 
+    monitor = "a", nsims = 1L, seed = 799289926L))
   
   expect_error(sims_add(nsims = 1000000L, path = tempdir),
                "adding the simulations would result in more than 1,000,000 datasets")
@@ -14,7 +16,7 @@ test_that("sims_add",{
   expect_identical(sims_add(nsims = 2L, path = tempdir), 
                    c("data0000002.rds", "data0000003.rds"))
   
-  expect_identical(readRDS(file.path(tempdir, .argsims)),
+  expect_identical(sims_args(tempdir),
                    list(code = "model{a ~ dunif(0,1)}\n", constants = 
                           structure(list(), .Names = character(0), class = "nlist"), 
                         parameters = structure(list(), .Names = character(0), class = "nlist"), 

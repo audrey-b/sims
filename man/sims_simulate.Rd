@@ -46,9 +46,9 @@ error is thrown.}
 \item{silent}{A flag specifying whether to suppress warnings.}
 }
 \value{
-An \code{\link[nlist]{nlists_object}} unless 
-\code{write = FALSE} in which a list of the case a character vector of the 
-names of the files created.
+If \code{write = TRUE} an invisible copy of 
+the simulated data argument values
+otherwise an \code{\link[nlist]{nlists_object}} of the simulated data.
 }
 \description{
 Simulates datasets using JAGS code. The user can specify whether to
