@@ -34,9 +34,7 @@
 
 <meta property="og:title" content="Check Simulated Data — sims_check" />
 
-<meta property="og:description" content="Checks that path includes an 'argsims.rds' file and 
-that the number and names of the data files are consistent with the 
-number of simulations." />
+<meta property="og:description" content="Checks the simulated data argument values in the '.sims_args.rds' file." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -68,7 +66,7 @@ number of simulations." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">sims</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9002</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9004</span>
       </span>
     </div>
 
@@ -82,6 +80,9 @@ number of simulations." />
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -107,28 +108,68 @@ number of simulations." />
 
     <div class="ref-description">
     
-    <p>Checks that <code>path</code> includes an 'argsims.rds' file and 
-that the number and names of the data files are consistent with the 
-number of simulations.</p>
+    <p>Checks the simulated data argument values in the '.sims_args.rds' file.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>sims_check</span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"sims"</span>)</pre>
+    <pre class="usage"><span class='fu'>sims_check</span>(<span class='no'>path</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>path</th>
-      <td><p>A string of the path to he directory with the simulated data.</p></td>
+      <td><p>A string of the path to the directory with the simulated data.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A list of the values in <code><a href='https://rdrr.io/r/base/file.path.html'>file.path(path, 'argsims.rds')</a></code>.</p>
+    <p>An informative error or invisible list of the argument values.</p>
+    
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>The checks include whether number and names of the data files 
+in the directory are consistent with the number of simulations.</p>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>10</span>)
+<span class='fu'><a href='sims_simulate.html'>sims_simulate</a></span>(<span class='st'>"a ~ dunif(0,1)"</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span>(), <span class='kw'>exists</span> <span class='kw'>=</span> <span class='fl'>NA</span>)</div><div class='output co'>#&gt; $code
+#&gt; [1] "model{a ~ dunif(0,1)}\n"
+#&gt; 
+#&gt; $constants
+#&gt; an nlist object with 0 natomic elements
+#&gt; 
+#&gt; $parameters
+#&gt; an nlist object with 0 natomic elements
+#&gt; 
+#&gt; $monitor
+#&gt; [1] "a"
+#&gt; 
+#&gt; $nsims
+#&gt; [1] 100
+#&gt; 
+#&gt; $seed
+#&gt; [1] 1089801142
+#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='fu'>sims_check</span>(<span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span>()))</div><div class='output co'>#&gt; $code
+#&gt; [1] "model{a ~ dunif(0,1)}\n"
+#&gt; 
+#&gt; $constants
+#&gt; an nlist object with 0 natomic elements
+#&gt; 
+#&gt; $parameters
+#&gt; an nlist object with 0 natomic elements
+#&gt; 
+#&gt; $monitor
+#&gt; [1] "a"
+#&gt; 
+#&gt; $nsims
+#&gt; [1] 100
+#&gt; 
+#&gt; $seed
+#&gt; [1] 1089801142
+#&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -136,7 +177,11 @@ number of simulations.</p>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-          </ul>
+
+      <li><a href="#details">Details</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

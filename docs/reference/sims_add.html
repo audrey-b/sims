@@ -66,7 +66,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">sims</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9002</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9004</span>
       </span>
     </div>
 
@@ -80,6 +80,9 @@
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -109,19 +112,19 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>sims_add</span>(<span class='kw'>nsims</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"sims.nsims"</span>, <span class='fl'>100L</span>), <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"sims"</span>)</pre>
+    <pre class="usage"><span class='fu'>sims_add</span>(<span class='no'>path</span>, <span class='kw'>nsims</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"sims.nsims"</span>, <span class='fl'>100L</span>))</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
+      <th>path</th>
+      <td><p>A string specifying the path to the directory to add the data sets to.</p></td>
+    </tr>
+    <tr>
       <th>nsims</th>
       <td><p>A count of the number of additional datasets to generate.
 By default 100 datasets are added.</p></td>
-    </tr>
-    <tr>
-      <th>path</th>
-      <td><p>A string specifying the path to the directory to add the data sets to.</p></td>
     </tr>
     </table>
     
