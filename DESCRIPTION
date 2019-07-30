@@ -1,6 +1,6 @@
 Package: sims
 Title: Simulate Datasets from 'JAGS' Model Code
-Version: 0.0.0.9003
+Version: 0.0.0.9004
 Authors@R: c(
     person("Audrey", "Beliveau", , "audrey.beliveau@uwaterloo.ca", "aut"),
     person("Joe", "Thorley", , "joe@poissonconsulting.ca", c("aut", "cre"), comment = c(ORCID = "0000-0002-7683-4592"))
@@ -12,7 +12,7 @@ Imports:
   checkr,
   stats,
   stringr,
-  nlist,
+  nlist (>= 0.0.0.9100),
   rjags
 Suggests: 
   covr,
@@ -23,4 +23,3 @@ Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.1
 Language: en-US
-
