@@ -83,6 +83,7 @@ for (i in 1:length(Year)){
   
   constants <- list(Year = 1:5)
   
+  skip_on_os("windows")
   expect_equal(sims_simulate(generative_model, 
                              constants = constants,
                              parameters = parameters,
