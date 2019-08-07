@@ -16,7 +16,7 @@ test_that("sims_add",{
   expect_identical(sims_add(nsims = 2L, path = tempdir), 
                    c("data0000002.rds", "data0000003.rds"))
   
-  expect_identical(sims_args(tempdir),
+  expect_identical(sims_info(tempdir),
                    list(code = "model{a ~ dunif(0,1)}\n", constants = 
                           structure(list(), .Names = character(0), class = "nlist"), 
                         parameters = structure(list(), .Names = character(0), class = "nlist"), 

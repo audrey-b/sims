@@ -145,7 +145,7 @@ test_that("write replicable",{
   expect_equal(readRDS(file.path(tempdir, "data0000001.rds")),
                structure(list(a = 0.0844208442995482), class = "nlist"))
   
-  expect_identical(sims_args(tempdir),
+  expect_identical(sims_info(tempdir),
                    list(code = "model{a ~ dunif(0,1)}\n", constants = structure(list(), .Names = character(0), class = "nlist"), 
                         parameters = structure(list(), .Names = character(0), class = "nlist"), 
                         monitor = "a", nsims = 1L, seed = 799289926L))
@@ -180,7 +180,7 @@ test_that("write replicable > 1",{
   expect_equal(readRDS(file.path(tempdir, "data0000002.rds")),
                structure(list(a = 0.332673775219176), class = "nlist"))
   
-  expect_identical(sims_args(tempdir),
+  expect_identical(sims_info(tempdir),
                    list(code = "model{a ~ dunif(0,1)}\n", constants = structure(list(), .Names = character(0), class = "nlist"), 
                         parameters = structure(list(), .Names = character(0), class = "nlist"), 
                         monitor = "a", nsims = 2L, seed = 799289926L))

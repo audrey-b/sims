@@ -1,6 +1,6 @@
 #' Check Simulated Data
 #' 
-#' Checks the simulated data argument values in the '.sims_args.rds' file.
+#' Checks the simulated data argument values in the '.sims_info.rds' file.
 #' 
 #' The checks include whether number and names of the data files 
 #' in the directory are consistent with the number of simulations.
@@ -15,16 +15,16 @@
 #' sims_simulate("a ~ dunif(0,1)", path = tempdir(), exists = NA)
 #' print(sims_check(tempdir()))
 sims_check <- function(path) {
-  sims_args <- sims_args(path)
+  sims_info <- sims_info(path)
 
-  check_scalar(sims_args$code, "")
-  check_inherits(sims_args$constants, "nlist")
-  check_inherits(sims_args$parameters, "nlist")
-  check_scalar(sims_args$monitor, "")
-  check_scalar(sims_args$nsims, c(1L, 1000000L))
-  check_scalar(sims_args$seed, c(0L, .max_integer))
+  check_scalar(sims_info$code, "")
+  check_inherits(sims_info$constants, "nlist")
+  check_inherits(sims_info$parameters, "nlist")
+  check_scalar(sims_info$monitor, "")
+  check_scalar(sims_info$nsims, c(1L, 1000000L))
+  check_scalar(sims_info$seed, c(0L, .max_integer))
 
-  nsims <- sims_args$nsims
+  nsims <- sims_info$nsims
   
   files <- data_files(path)
   if(!identical(length(files), nsims)) {
@@ -35,5 +35,5 @@ sims_check <- function(path) {
     err("data file names are not consistent with",
         "the number of simulations (", nsims, ")")
   }
-  invisible(sims_args)
+  invisible(sims_info)
 }

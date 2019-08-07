@@ -131,6 +131,6 @@ generate_datasets <- function(code, constants, parameters, monitor, nsims, seed,
                                    monitor = monitor, 
                                    path = path),
                    SIMPLIFY = FALSE)
-  if(!is.null(path)) return(sims_args(path))
+  if(!is.null(path)) return(sims_info(path))
   set_class(nlists, "nlists")
 }

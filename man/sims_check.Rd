@@ -13,7 +13,7 @@ sims_check(path)
 An informative error or invisible list of the argument values.
 }
 \description{
-Checks the simulated data argument values in the '.sims_args.rds' file.
+Checks the simulated data argument values in the '.sims_info.rds' file.
 }
 \details{
 The checks include whether number and names of the data files 

@@ -11,6 +11,6 @@
 #' sims_simulate("a ~ dunif(0,1)", nsims = 10L, path = tempdir(), exists = NA)
 #' sims_data_files(tempdir())
 sims_data_files <- function(path) {
-  sims_args(path)
+  sims_info(path)
   data_files(path)
 }
