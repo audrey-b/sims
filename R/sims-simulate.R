@@ -70,8 +70,6 @@ sims_simulate <- function(code,
   check_scalar(exists, c(TRUE, NA))
   check_flag(silent)
   
-  if(!isFALSE(parallel)) .NotYetUsed("parallel")
-  
   nsims <- as.integer(nsims)
   check_scalar(nsims, c(1L, 1000000L))
   
@@ -94,5 +92,5 @@ sims_simulate <- function(code,
                     monitor = monitor, 
                     nsims = nsims,
                     seed = seed,
-                    path = path)
+                    path = path, parallel = parallel)
 }

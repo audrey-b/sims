@@ -86,10 +86,10 @@ generate_dataset <- function(sim, code, constants, parameters, monitor,
                              path, seed) {
   code <- textConnection(code)
   
-  inits <- list(.RNG.name = "base::Wichmann-Hill")
   set.seed(seed)
+  inits <- list(.RNG.name = "base::Wichmann-Hill")
   inits$.RNG.seed <- abs(last(rinteger(sim)))
-
+  
   data <- c(constants, parameters)
   model <- rjags::jags.model(code, data = data, inits = inits, 
                              n.adapt = 0, quiet = TRUE)
@@ -108,18 +108,32 @@ save_args <- function(path, ...) {
 }
 
 generate_datasets <- function(code, constants, parameters, monitor, nsims, seed, 
-                              path) {
+                              path, parallel) {
   if(!is.null(path)) {
     save_args(path, code = code, 
               constants = constants, parameters = parameters, 
               monitor = monitor, nsims = nsims, seed = seed)
   }
-
-  nlists <- lapply(1:nsims, FUN = generate_dataset,
-                   code = code, 
-                   constants = constants, parameters = parameters, 
-                   monitor = monitor, 
-                   path = path, seed = seed)
+  if(!dir.exists(tempdir())) { 
+    dir.create(tempdir(), showWarnings = FALSE, recursive = TRUE)
+  }
+  
+  if(parallel) {
+    if(!requireNamespace("plyr", quietly = TRUE))
+      err("Package plyr is required to batch process files in parallel.")
+    nlists <- plyr::llply(1:nsims, FUN = generate_dataset,
+                          code = code, 
+                          constants = constants, parameters = parameters, 
+                          monitor = monitor, 
+                          path = path, seed = seed)
+    
+  } else {
+    nlists <- lapply(1:nsims, FUN = generate_dataset,
+                     code = code, 
+                     constants = constants, parameters = parameters, 
+                     monitor = monitor, 
+                     path = path, seed = seed)
+  }
   
   if(!is.null(path)) return(sims_info(path))
   set_class(nlists, "nlists")
