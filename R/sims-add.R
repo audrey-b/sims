@@ -19,7 +19,7 @@ sims_add <- function(path, nsims = getOption("sims.nsims", 100L)) {
   
   sims <- (argsims$nsims - nsims + 1L):argsims$nsims
 
-  saveRDS(argsims, file.path(path, .argsims))
+  saveRDS(argsims, file.path(path, .sims))
   
   nlists <- lapply(sims, generate_dataset,  code = argsims$code, 
                                    constants = argsims$constants, 

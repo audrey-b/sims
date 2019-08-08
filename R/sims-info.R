@@ -1,10 +1,10 @@
 #' Simulated Data Argument Values
 #' 
-#' Gets the simulated data argument values in the '.sims_info.rds' file.
+#' Gets the simulated data argument values in the '.sims.rds' file.
 #'
 #' @param path A string of the path to the directory with the simulated data.
 #'
-#' @return A named list of the values in \code{file.path(path, '.sims_info.rds')}.
+#' @return A named list of the values in \code{file.path(path, '.sims.rds')}.
 #' @export
 #' @examples 
 #' set.seed(10)
@@ -15,8 +15,8 @@ sims_info <- function(path) {
   
   if(!dir.exists(path)) err("directory '", path, "' must already exist")
   
-  if(!file.exists(file.path(path, .argsims)))
-    err("directory '", path, "' must contain '", .argsims, "'")
+  if(!file.exists(file.path(path, .sims)))
+    err("directory '", path, "' must contain '", .sims, "'")
   
-  readRDS(file.path(path, .argsims))
+  readRDS(file.path(path, .sims))
 }
