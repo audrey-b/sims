@@ -50,15 +50,15 @@
 #' set.seed(101)
 #' sims_simulate("a ~ dunif(0, 1)", path = tempdir(), exists = NA)
 sims_simulate <- function(code, 
-                       constants = nlist::nlist(), 
-                       parameters = nlist::nlist(), 
-                       monitor = ".*",
-                       nsims = getOption("sims.nsims", 100L), 
-                       seed = NULL,
-                       parallel = FALSE,
-                       path = NULL,
-                       exists = FALSE,
-                       silent = FALSE) {
+                          constants = nlist::nlist(), 
+                          parameters = nlist::nlist(), 
+                          monitor = ".*",
+                          nsims = getOption("sims.nsims", 100L), 
+                          seed = NULL,
+                          parallel = FALSE,
+                          path = NULL,
+                          exists = FALSE,
+                          silent = FALSE) {
   check_string(code)
   check_nlist(constants, nas = FALSE, class = NA)
   check_nlist(parameters, nas = FALSE, class = NA)
@@ -71,7 +71,7 @@ sims_simulate <- function(code,
   check_flag(silent)
   
   if(!isFALSE(parallel)) .NotYetUsed("parallel")
-
+  
   nsims <- as.integer(nsims)
   check_scalar(nsims, c(1L, 1000000L))
   
@@ -83,9 +83,13 @@ sims_simulate <- function(code,
   
   if(!is.null(path)) create_path(path, exists)
   
+  if(is.null(seed))
+    seed <- rinteger()
+  seed <- as.integer(seed)
+  
   monitor <- set_monitor(monitor, code, silent = silent)
   code <- prepare_code(code)
-
+  
   generate_datasets(code, constants, parameters, 
                     monitor = monitor, 
                     nsims = nsims,

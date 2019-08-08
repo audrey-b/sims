@@ -1,8 +1,3 @@
-set_class <- function(x, class) {
-  class(x) <- class
-  x
-}
-
 strip_comments <- function(x) {
   str_replace_all(x, pattern = "\\s*#[^\\\n]*", replacement = "")
 }
@@ -17,17 +12,6 @@ prepare_code <- function(code) {
     err("jags code must not be in a data or model block")
   code <- p0("model{", code, "}\n", collapse = "\n")
   code
-}
-
-sum2intswrap <- function(x, y) {
-  sum <- as.double(x) + as.double(y)
-  mx <- .max_integer
-  if(sum < -mx) {
-    sum <- sum %% mx
-  } else if(sum > mx) {
-    sum <- sum %% -mx
-  }
-  as.integer(sum)
 }
 
 variable_nodes <- function (x, stochastic = NA) {
@@ -102,9 +86,9 @@ generate_dataset <- function(sim, code, constants, parameters, monitor,
                              path, seed) {
   code <- textConnection(code)
   
-  if(is.null(seed)) seed <- runif(1, -.max_integer, .max_integer)
   inits <- list(.RNG.name = "base::Wichmann-Hill")
-  inits$.RNG.seed <- abs(sum2intswrap(seed, sim))
+  set.seed(seed)
+  inits$.RNG.seed <- abs(last(rinteger(sim)))
 
   data <- c(constants, parameters)
   model <- rjags::jags.model(code, data = data, inits = inits, 

@@ -55,7 +55,7 @@ library(sims)
 set.seed(10)
 sims_simulate("a ~ dunif(0,1)", nsims = 2L)
 #> $a
-#> [1] 0.6837434
+#> [1] 0.372341
 #> 
 #> an nlists object of 2 nlist objects each with 1 natomic element
 ```
@@ -83,7 +83,7 @@ sims_simulate("a ~ dunif(0,1)", nsims = 2L, path = tempdir(), exists = NA)
 #> [1] 2
 #> 
 #> $seed
-#> [1] 1089801142
+#> [1] 32118637
 sims_data_files(tempdir())
 #> [1] "data0000001.rds" "data0000002.rds"
 ```
@@ -101,8 +101,8 @@ sims_data_files(tempdir())
 
 If the user wishes to duplicate the datasets then they can either
 regenerate them by specifying a different path but the same key.
-Alternatively, they can copy the existing `.sims_args.rds` and datasets
-files to a new directory using `sims_copy()`
+Alternatively, they can copy the existing `.sims.rds` and datasets files
+to a new directory using `sims_copy()`
 
 ``` r
 sims_copy(path_from = tempdir(), path_to = paste0(tempdir(), "_copy"))
@@ -110,7 +110,7 @@ sims_copy(path_from = tempdir(), path_to = paste0(tempdir(), "_copy"))
 #> [5] "data0000005.rds"
 ```
 
-A user can check that all the datasets specified in `.sims_args.rds` are
+A user can check that all the datasets specified in `.sims.rds` are
 present using `sims_check()`.
 
 ``` r

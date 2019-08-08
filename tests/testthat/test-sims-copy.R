@@ -17,9 +17,9 @@ test_that("sims_copy",{
   expect_identical(sims_data_files(paste0(tempdir, "_copy")), 
                    c("data0000001.rds", "data0000002.rds"))
   expect_equal(readRDS(file.path(paste0(tempdir, "_copy"), "data0000001.rds")),
-                   structure(list(a = 0.196232239673644), class = "nlist"))
+                   structure(list(a = 0.960206513635135), class = "nlist"))
   expect_equal(readRDS(file.path(paste0(tempdir, "_copy"), "data0000002.rds")),
-                   structure(list(a = 0.621699164408606), class = "nlist"))
+                   structure(list(a = 0.404198580821789), class = "nlist"))
   
   expect_identical(sims_info(paste0(tempdir, "_copy")),
                    list(code = "model{a ~ dunif(0,1)}\n", constants = structure(list(), .Names = character(0), class = "nlist"), 
