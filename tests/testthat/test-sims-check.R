@@ -12,11 +12,11 @@ test_that("sims_check",{
   expect_equal(sims_simulate("a ~ dunif(0,1)", nsims = 2L, path = tempdir),
                list(code = "model{a ~ dunif(0,1)}\n", constants = structure(list(), .Names = character(0), class = "nlist"), 
     parameters = structure(list(), .Names = character(0), class = "nlist"), 
-    monitor = "a", nsims = 2L, seed = 799289926L))
+    monitor = "a", nsims = 2L, seed = NULL))
   expect_identical(sims_check(path = tempdir), 
                    list(code = "model{a ~ dunif(0,1)}\n", constants = structure(list(), .Names = character(0), class = "nlist"), 
     parameters = structure(list(), .Names = character(0), class = "nlist"), 
-    monitor = "a", nsims = 2L, seed = 799289926L))
+    monitor = "a", nsims = 2L, seed = NULL))
   
   file.remove(file.path(tempdir, "data0000001.rds"))
   expect_error(sims_check(path = tempdir), 

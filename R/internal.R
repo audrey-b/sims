@@ -19,6 +19,17 @@ prepare_code <- function(code) {
   code
 }
 
+sum2intswrap <- function(x, y) {
+  sum <- as.double(x) + as.double(y)
+  mx <- .max_integer
+  if(sum < -mx) {
+    sum <- sum %% mx
+  } else if(sum > mx) {
+    sum <- sum %% -mx
+  }
+  as.integer(sum)
+}
+
 variable_nodes <- function (x, stochastic = NA) {
   x <- strip_comments(x)
   
@@ -77,13 +88,6 @@ create_path <- function(path, exists) {
   dir.create(path, recursive = TRUE)
 }
 
-set_seed_inits <- function(seed, inits = list()) {
-  set.seed(seed)
-  inits$.RNG.name <- "base::Wichmann-Hill"
-  inits$.RNG.seed <- as.integer(runif(1, 0, .max_integer))
-  inits
-}
-
 as_natomic_mcarray <- function(x) {
   dim <- dim(x)
   ndim <- length(dim)
@@ -94,9 +98,14 @@ as_natomic_mcarray <- function(x) {
 
 data_file_name <- function(sim) p0("data", sprintf("%07d", sim), ".rds")
 
-generate_dataset <- function(sim, seed, code, constants, parameters, monitor, path) {
+generate_dataset <- function(sim, code, constants, parameters, monitor, 
+                             path, seed) {
   code <- textConnection(code)
-  inits <- set_seed_inits(seed)
+  
+  if(is.null(seed)) seed <- runif(1, -.max_integer, .max_integer)
+  inits <- list(.RNG.name = "base::Wichmann-Hill")
+  inits$.RNG.seed <- abs(sum2intswrap(seed, sim))
+
   data <- c(constants, parameters)
   model <- rjags::jags.model(code, data = data, inits = inits, 
                              n.adapt = 0, quiet = TRUE)
@@ -116,21 +125,18 @@ save_args <- function(path, ...) {
 
 generate_datasets <- function(code, constants, parameters, monitor, nsims, seed, 
                               path) {
-  set.seed(seed)
-  seeds <- rcount(nsims)
-  
   if(!is.null(path)) {
     save_args(path, code = code, 
               constants = constants, parameters = parameters, 
               monitor = monitor, nsims = nsims, seed = seed)
   }
+
+  nlists <- lapply(1:nsims, FUN = generate_dataset,
+                   code = code, 
+                   constants = constants, parameters = parameters, 
+                   monitor = monitor, 
+                   path = path, seed = seed)
   
-  nlists <- mapply(FUN = generate_dataset, 1:nsims, seeds,  
-                   MoreArgs = list(code = code, 
-                                   constants = constants, parameters = parameters, 
-                                   monitor = monitor, 
-                                   path = path),
-                   SIMPLIFY = FALSE)
   if(!is.null(path)) return(sims_info(path))
   set_class(nlists, "nlists")
 }

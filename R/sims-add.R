@@ -12,26 +12,19 @@ sims_add <- function(path, nsims = getOption("sims.nsims", 100L)) {
   check_scalar(nsims, c(1L, 1000000L))
   
   argsims <- sims_check(path)
-
   argsims$nsims <- argsims$nsims + nsims
   
   if(argsims$nsims > 1000000L)
     err("adding the simulations would result in more than 1,000,000 datasets")
   
-  set.seed(argsims$seed)
-  seeds <- rcount(argsims$nsims)
-  
   sims <- (argsims$nsims - nsims + 1L):argsims$nsims
-  seeds <- seeds[sims]
-  
+
   saveRDS(argsims, file.path(path, .argsims))
   
-  nlists <- mapply(FUN = generate_dataset, sims, seeds,  
-                   MoreArgs = list(code = argsims$code, 
+  nlists <- lapply(sims, generate_dataset,  code = argsims$code, 
                                    constants = argsims$constants, 
                                    parameters = argsims$parameters, 
                                    monitor = argsims$monitor, 
-                                   path = path),
-                   SIMPLIFY = FALSE)
+                                   path = path, seed = argsims$seed)
   data_files(path)[sims]
 }

@@ -22,7 +22,7 @@ sims_check <- function(path) {
   check_inherits(sims_info$parameters, "nlist")
   check_scalar(sims_info$monitor, "")
   check_scalar(sims_info$nsims, c(1L, 1000000L))
-  check_scalar(sims_info$seed, c(0L, .max_integer))
+  if(!is.null(sims_info$seed)) chk_whole_number(sims_info$seed)
 
   nsims <- sims_info$nsims
   

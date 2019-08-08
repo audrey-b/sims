@@ -31,8 +31,8 @@
 #' By default all stochastic nodes are included.
 #' @param nsims An integer between 1 and 1,000,000 specifying 
 #' the number of data sets to simulate. By default 100 data sets are simulated.
-#' @param seed A positive integer specifying the random seed to use for 
-#' simulating the data.
+#' @param seed A whole number specifying the seed to use for 
+#' simulating the data (or NULL).
 #' @param parallel A flag specifying whether to generate the datasets in parallel. 
 #' @param path A string specifying the path to the directory to save the data sets in.
 #' By default \code{path = NULL } the data sets are not saved but are returned 
@@ -54,7 +54,7 @@ sims_simulate <- function(code,
                        parameters = nlist::nlist(), 
                        monitor = ".*",
                        nsims = getOption("sims.nsims", 100L), 
-                       seed = rcount(),
+                       seed = NULL,
                        parallel = FALSE,
                        path = NULL,
                        exists = FALSE,
@@ -64,7 +64,7 @@ sims_simulate <- function(code,
   check_nlist(parameters, nas = FALSE, class = NA)
   check_vector(monitor, "", length = TRUE)
   check_int(nsims, coerce = TRUE)
-  check_scalar(seed, c(1L, .max_integer))
+  if(!is.null(seed)) chk_whole_number(seed)
   check_flag(parallel)
   if(!is.null(path)) check_string(path)
   check_scalar(exists, c(TRUE, NA))

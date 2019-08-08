@@ -52,12 +52,19 @@ test_that("not in model or data block",{
 })
 
 test_that("generates data with replicability",{
-  set.seed(101)
+  expect_equal(sims_simulate("a ~ dunif(0,1)", nsims = 1L, seed = 3L),
+               structure(list(structure(list(a = 0.92991132860141), class = "nlist")), class = "nlists"))
+  expect_equal(sims_simulate("a ~ dunif(0,1)", nsims = 1L, seed = 3L),
+               structure(list(structure(list(a = 0.92991132860141), class = "nlist")), class = "nlists"))
+})
+
+test_that("generates data with replicability by setting seed",{
+  set.seed(7L)
   expect_equal(sims_simulate("a ~ dunif(0,1)", nsims = 1L),
-               structure(list(structure(list(a = 0.0844208442995482), class = "nlist")), class = "nlists"))
-  set.seed(101)
+               structure(list(structure(list(a = 0.659166083668135), class = "nlist")), class = "nlists"))
+  set.seed(7L)
   expect_equal(sims_simulate("a ~ dunif(0,1)", nsims = 1L),
-               structure(list(structure(list(a = 0.0844208442995482), class = "nlist")), class = "nlists"))
+               structure(list(structure(list(a = 0.659166083668135), class = "nlist")), class = "nlists"))
 })
 
 test_that("issue if values in constants or parameters not in code",{
@@ -89,33 +96,30 @@ for (i in 1:length(Year)){
                              parameters = parameters,
                              monitor = monitor, nsims = 3L,
                              seed = 2L),
-               structure(list(structure(list(C = c(40, 24, 18, 19, 24), lambda = c(32.0212581683725, 
-                                                                                   29.2301292225158, 26.6822886806137, 24.3565303394963, 22.2334964320294
-               ), rand = 1.27926545901677, Year = 1:5), class = "nlist"), structure(list(
-                 C = c(33, 31, 18, 25, 15), lambda = c(32.0212581683725, 29.2301292225158, 
-                                                       26.6822886806137, 24.3565303394963, 22.2334964320294), rand = 1.29633543073257, 
-                 Year = 1:5), class = "nlist"), structure(list(C = c(36, 20, 
-                                                                     30, 28, 17), lambda = c(32.0212581683725, 29.2301292225158, 26.6822886806137, 
-                                                                                             24.3565303394963, 22.2334964320294), rand = 1.13001728245729, 
-                                                               Year = 1:5), class = "nlist")), class = "nlists"))
+               structure(list(structure(list(C = c(37, 26, 26, 23, 12), lambda = c(32.0212581683725, 
+29.2301292225158, 26.6822886806137, 24.3565303394963, 22.2334964320294
+), rand = 1.3200018398645, Year = 1:5), class = "nlist"), structure(list(
+    C = c(31, 25, 30, 20, 20), lambda = c(32.0212581683725, 29.2301292225158, 
+    26.6822886806137, 24.3565303394963, 22.2334964320294), rand = -0.54727102461885, 
+    Year = 1:5), class = "nlist"), structure(list(C = c(29, 36, 
+28, 18, 20), lambda = c(32.0212581683725, 29.2301292225158, 26.6822886806137, 
+24.3565303394963, 22.2334964320294), rand = -0.49669350915448, 
+    Year = 1:5), class = "nlist")), class = "nlists"))
   
 })
 
 test_that("nsims can take numeric",{
-  set.seed(101)
-  expect_equal(sims_simulate("a ~ dunif(0,1)", nsims = 1),
-               structure(list(structure(list(a = 0.0844208442995482), class = "nlist")), class = "nlists"))
+  expect_equal(sims_simulate("a ~ dunif(0,1)", nsims = 1, seed = 5L),
+               structure(list(structure(list(a = 0.421897079356477), class = "nlist")), class = "nlists"))
 })
 
 test_that("nsims > 1",{
-  set.seed(101)
-  expect_equal(sims_simulate("a ~ dunif(0,1)", nsims = 2L),
-               structure(list(structure(list(a = 0.0844208442995482), class = "nlist"), 
-                              structure(list(a = 0.332673775219176), class = "nlist")), class = "nlists"))
-  set.seed(101)
-  expect_equal(sims_simulate("a ~ dunif(0,1)", nsims = 2L),
-               structure(list(structure(list(a = 0.0844208442995482), class = "nlist"), 
-                              structure(list(a = 0.332673775219176), class = "nlist")), class = "nlists"))
+  expect_equal(sims_simulate("a ~ dunif(0,1)", nsims = 2L, seed = 6L),
+               structure(list(structure(list(a = 0.0890573422641381), class = "nlist"), 
+    structure(list(a = 0.155576168284243), class = "nlist")), class = "nlists"))
+  expect_equal(sims_simulate("a ~ dunif(0,1)", nsims = 2L, seed = 6L),
+               structure(list(structure(list(a = 0.0890573422641381), class = "nlist"), 
+    structure(list(a = 0.155576168284243), class = "nlist")), class = "nlists"))
 })
 
 test_that("write replicable",{
@@ -126,7 +130,7 @@ test_that("write replicable",{
   expect_equal(sims_simulate("a ~ dunif(0,1)", nsims = 1L, path = tempdir),
                list(code = "model{a ~ dunif(0,1)}\n", constants = structure(list(), .Names = character(0), class = "nlist"), 
     parameters = structure(list(), .Names = character(0), class = "nlist"), 
-    monitor = "a", nsims = 1L, seed = 799289926L))
+    monitor = "a", nsims = 1L, seed = NULL))
   set.seed(101)
   expect_error(sims_simulate("a ~ dunif(0,1)", nsims = 1L, path = tempdir),
                "must not already exist")
@@ -134,21 +138,21 @@ test_that("write replicable",{
   expect_identical(sims_simulate("a ~ dunif(0,1)", nsims = 1L, path = tempdir, exists = TRUE),
                    list(code = "model{a ~ dunif(0,1)}\n", constants = structure(list(), .Names = character(0), class = "nlist"), 
                         parameters = structure(list(), .Names = character(0), class = "nlist"), 
-                        monitor = "a", nsims = 1L, seed = 799289926L))
+                        monitor = "a", nsims = 1L, seed = NULL))
   set.seed(101)
   expect_identical(sims_simulate("a ~ dunif(0,1)", nsims = 1L, path = tempdir, exists = TRUE),
                    list(code = "model{a ~ dunif(0,1)}\n", constants = structure(list(), .Names = character(0), class = "nlist"), 
                         parameters = structure(list(), .Names = character(0), class = "nlist"), 
-                        monitor = "a", nsims = 1L, seed = 799289926L))
+                        monitor = "a", nsims = 1L, seed = NULL))
   expect_identical(sims_data_files(tempdir), 
                    "data0000001.rds")
   expect_equal(readRDS(file.path(tempdir, "data0000001.rds")),
-               structure(list(a = 0.0844208442995482), class = "nlist"))
+               structure(list(a = 0.822227693227313), class = "nlist"))
   
   expect_identical(sims_info(tempdir),
                    list(code = "model{a ~ dunif(0,1)}\n", constants = structure(list(), .Names = character(0), class = "nlist"), 
                         parameters = structure(list(), .Names = character(0), class = "nlist"), 
-                        monitor = "a", nsims = 1L, seed = 799289926L))
+                        monitor = "a", nsims = 1L, seed = NULL))
 })
 
 test_that("write replicable > 1",{
@@ -159,7 +163,7 @@ test_that("write replicable > 1",{
   expect_equal(sims_simulate("a ~ dunif(0,1)", nsims = 2L, path = tempdir),
                list(code = "model{a ~ dunif(0,1)}\n", constants = structure(list(), .Names = character(0), class = "nlist"), 
     parameters = structure(list(), .Names = character(0), class = "nlist"), 
-    monitor = "a", nsims = 2L, seed = 799289926L))
+    monitor = "a", nsims = 2L, seed = NULL))
   set.seed(101)
   expect_error(sims_simulate("a ~ dunif(0,1)", nsims = 2L, path = tempdir),
                "must not already exist")
@@ -167,29 +171,29 @@ test_that("write replicable > 1",{
   expect_identical(sims_simulate("a ~ dunif(0,1)", nsims = 2L, path = tempdir, exists = TRUE),
                    list(code = "model{a ~ dunif(0,1)}\n", constants = structure(list(), .Names = character(0), class = "nlist"), 
     parameters = structure(list(), .Names = character(0), class = "nlist"), 
-    monitor = "a", nsims = 2L, seed = 799289926L))
+    monitor = "a", nsims = 2L, seed = NULL))
   set.seed(101)
   expect_identical(sims_simulate("a ~ dunif(0,1)", nsims = 2L, path = tempdir, exists = TRUE),
                    list(code = "model{a ~ dunif(0,1)}\n", constants = structure(list(), .Names = character(0), class = "nlist"), 
     parameters = structure(list(), .Names = character(0), class = "nlist"), 
-    monitor = "a", nsims = 2L, seed = 799289926L))
+    monitor = "a", nsims = 2L, seed = NULL))
   expect_identical(sims_data_files(tempdir), 
                    c("data0000001.rds", "data0000002.rds"))
   expect_equal(readRDS(file.path(tempdir, "data0000001.rds")),
-               structure(list(a = 0.0844208442995482), class = "nlist"))
+               structure(list(a = 0.822227693227313), class = "nlist"))
   expect_equal(readRDS(file.path(tempdir, "data0000002.rds")),
-               structure(list(a = 0.332673775219176), class = "nlist"))
+               structure(list(a = 0.459532991857986), class = "nlist"))
   
   expect_identical(sims_info(tempdir),
                    list(code = "model{a ~ dunif(0,1)}\n", constants = structure(list(), .Names = character(0), class = "nlist"), 
                         parameters = structure(list(), .Names = character(0), class = "nlist"), 
-                        monitor = "a", nsims = 2L, seed = 799289926L))
+                        monitor = "a", nsims = 2L, seed = NULL))
 })
 
 test_that("monitor",{
   set.seed(101)
   expect_equal(sims_simulate("a ~ dunif(0,1)", nsims = 1),
-               structure(list(structure(list(a = 0.0844208442995482), class = "nlist")), class = "nlists"))
+               structure(list(structure(list(a = 0.822227693227313), class = "nlist")), class = "nlists"))
   
   expect_error(sims_simulate("ab ~ dunif(0,1)", nsims = 1L, monitor = c("a", "a")),
                "monitor must include at least one of the following variable nodes: 'ab'")

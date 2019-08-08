@@ -8,16 +8,18 @@ Authors@R: c(
 Description: Simulates datasets (in the form of an 'nlists' object) from 'JAGS' model code.
 License: GPL-3
 Imports:
+  chk,
   err,
   checkr,
-  stats,
   stringr,
+  stats,
   nlist (>= 0.0.0.9100),
   rjags
 Suggests: 
   covr,
   testthat
 Remotes:
+  poissonconsulting/chk,
   poissonconsulting/nlist
 Encoding: UTF-8
 LazyData: true
