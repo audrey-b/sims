@@ -31,8 +31,6 @@
 #' By default all stochastic nodes are included.
 #' @param nsims An integer between 1 and 1,000,000 specifying 
 #' the number of data sets to simulate. By default 100 data sets are simulated.
-#' @param seed A whole number specifying the seed to use for 
-#' simulating the data (or NULL).
 #' @param parallel A flag specifying whether to generate the datasets in parallel. 
 #' @param path A string specifying the path to the directory to save the data sets in.
 #' By default \code{path = NULL } the data sets are not saved but are returned 
@@ -44,7 +42,7 @@
 #' @param silent A flag specifying whether to suppress warnings.
 #'
 #' @return By default an \code{\link[nlist]{nlists_object}} of the simulated data.
-#' Otherwise if \code{path} is defined the simulated data argument values.
+#' Otherwise if \code{path} it returns TRUE.
 #' @export
 #' @examples
 #' set.seed(101)
@@ -54,7 +52,6 @@ sims_simulate <- function(code,
                           parameters = nlist::nlist(), 
                           monitor = ".*",
                           nsims = getOption("sims.nsims", 100L), 
-                          seed = NULL,
                           parallel = FALSE,
                           path = NULL,
                           exists = FALSE,
@@ -64,7 +61,6 @@ sims_simulate <- function(code,
   check_nlist(parameters, nas = FALSE, class = NA)
   check_vector(monitor, "", length = TRUE)
   check_int(nsims, coerce = TRUE)
-  if(!is.null(seed)) chk_whole_number(seed)
   check_flag(parallel)
   if(!is.null(path)) check_string(path)
   check_scalar(exists, c(TRUE, NA))
@@ -81,16 +77,11 @@ sims_simulate <- function(code,
   
   if(!is.null(path)) create_path(path, exists)
   
-  if(is.null(seed))
-    seed <- rinteger()
-  seed <- as.integer(seed)
-  
   monitor <- set_monitor(monitor, code, silent = silent)
   code <- prepare_code(code)
   
   generate_datasets(code, constants, parameters, 
                     monitor = monitor, 
                     nsims = nsims,
-                    seed = seed,
                     path = path, parallel = parallel)
 }

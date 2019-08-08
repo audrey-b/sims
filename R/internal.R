@@ -86,8 +86,8 @@ generate_dataset <- function(sim, code, constants, parameters, monitor,
                              path, seed) {
   code <- textConnection(code)
   
-  set.seed(seed)
   inits <- list(.RNG.name = "base::Wichmann-Hill")
+  .Random.seed <- seed
   inits$.RNG.seed <- abs(last(rinteger(sim)))
   
   data <- c(constants, parameters)
@@ -107,8 +107,9 @@ save_args <- function(path, ...) {
   saveRDS(args, file.path(path, .sims))
 }
 
-generate_datasets <- function(code, constants, parameters, monitor, nsims, seed, 
+generate_datasets <- function(code, constants, parameters, monitor, nsims, 
                               path, parallel) {
+  seed <- .Random.seed
   if(!is.null(path)) {
     save_args(path, code = code, 
               constants = constants, parameters = parameters, 
@@ -135,6 +136,6 @@ generate_datasets <- function(code, constants, parameters, monitor, nsims, seed,
                      path = path, seed = seed)
   }
   
-  if(!is.null(path)) return(sims_info(path))
+  if(!is.null(path)) return(TRUE)
   set_class(nlists, "nlists")
 }

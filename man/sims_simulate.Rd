@@ -6,8 +6,8 @@
 \usage{
 sims_simulate(code, constants = nlist::nlist(),
   parameters = nlist::nlist(), monitor = ".*",
-  nsims = getOption("sims.nsims", 100L), seed = NULL,
-  parallel = FALSE, path = NULL, exists = FALSE, silent = FALSE)
+  nsims = getOption("sims.nsims", 100L), parallel = FALSE,
+  path = NULL, exists = FALSE, silent = FALSE)
 }
 \arguments{
 \item{code}{A string of the JAGS code to generate the data.
@@ -26,9 +26,6 @@ By default all stochastic nodes are included.}
 \item{nsims}{An integer between 1 and 1,000,000 specifying 
 the number of data sets to simulate. By default 100 data sets are simulated.}
 
-\item{seed}{A whole number specifying the seed to use for 
-simulating the data (or NULL).}
-
 \item{parallel}{A flag specifying whether to generate the datasets in parallel.}
 
 \item{path}{A string specifying the path to the directory to save the data sets in.
@@ -44,7 +41,7 @@ error is thrown.}
 }
 \value{
 By default an \code{\link[nlist]{nlists_object}} of the simulated data.
-Otherwise if \code{path} is defined the simulated data argument values.
+Otherwise if \code{path} it returns TRUE.
 }
 \description{
 Simulates datasets using JAGS code. By defaults 
