@@ -22,5 +22,5 @@ in the directory are consistent with the number of simulations.
 \examples{
 set.seed(10)
 sims_simulate("a ~ dunif(0,1)", path = tempdir(), exists = NA)
-print(sims_check(tempdir()))
+(sims_check(tempdir()))
 }

@@ -82,6 +82,15 @@ file.remove(file.path(paste0(tempdir(), "_copy"), "data0000005.rds"))
 sims_check(path = paste0(tempdir(), "_copy"))
 ```
 
+### Parallel Chains
+
+To generate simulations in parallel:
+
+1) Ensure plyr and doParallel are installed using `install.packages(c("plyr", "doParallel"))`.
+2) Register a parallel backend using `doParallel::registerDoParallel(n)`
+where `n` is the number of cores you want it to use.
+3) Set `parallel = TRUE` in the call to `sims_simulate()`.
+
 ## Contribution
 
 Please report any [issues](https://github.com/poissonconsulting/sims/issues).

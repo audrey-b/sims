@@ -17,7 +17,7 @@ test_that("sims_add",{
   expect_equal(readRDS(file.path(tempdir, "data0000001.rds")),
                structure(list(a = 0.247694617962275), class = "nlist"))
   expect_equal(readRDS(file.path(tempdir, "data0000002.rds")),
-               structure(list(a = 0.042773205241931), class = "nlist"))
+               structure(list(a = 0.951518742613052), class = "nlist"))
   
   expect_identical(sims_info(tempdir),
                    list(code = "model{a ~ dunif(0,1)}\n", constants = 

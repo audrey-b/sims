@@ -83,11 +83,11 @@ as_natomic_mcarray <- function(x) {
 data_file_name <- function(sim) p0("data", sprintf("%07d", sim), ".rds")
 
 generate_dataset <- function(sim, code, constants, parameters, monitor, 
-                             path, seed) {
+                             path, seed, parallel) {
   code <- textConnection(code)
   
   inits <- list(.RNG.name = "base::Wichmann-Hill")
-  .Random.seed <- seed
+  .Random.seed <<- seed
   inits$.RNG.seed <- abs(last(rinteger(sim)))
   
   data <- c(constants, parameters)
@@ -122,20 +122,19 @@ generate_datasets <- function(code, constants, parameters, monitor, nsims,
   if(parallel) {
     if(!requireNamespace("plyr", quietly = TRUE))
       err("Package plyr is required to batch process files in parallel.")
-    nlists <- plyr::llply(1:nsims, FUN = generate_dataset,
+    nlists <- plyr::llply(1:nsims, generate_dataset,
                           code = code, 
                           constants = constants, parameters = parameters, 
                           monitor = monitor, 
-                          path = path, seed = seed)
-    
+                          path = path, seed = seed, parallel = parallel, 
+                          .parallel = TRUE)
   } else {
-    nlists <- lapply(1:nsims, FUN = generate_dataset,
+    nlists <- lapply(1:nsims, generate_dataset,
                      code = code, 
                      constants = constants, parameters = parameters, 
                      monitor = monitor, 
-                     path = path, seed = seed)
+                     path = path, seed = seed, parallel = parallel)
   }
-  
   if(!is.null(path)) return(TRUE)
   set_class(nlists, "nlists")
 }

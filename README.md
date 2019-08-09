@@ -55,7 +55,7 @@ library(sims)
 set.seed(10)
 sims_simulate("a ~ dunif(0,1)", nsims = 2L)
 #> $a
-#> [1] 0.372341
+#> [1] 0.228673
 #> 
 #> an nlists object of 2 nlist objects each with 1 natomic element
 ```
@@ -67,23 +67,7 @@ If, however, `path` is provided then each nlist object is saved as an
 ``` r
 set.seed(10)
 sims_simulate("a ~ dunif(0,1)", nsims = 2L, path = tempdir(), exists = NA)
-#> $code
-#> [1] "model{a ~ dunif(0,1)}\n"
-#> 
-#> $constants
-#> an nlist object with 0 natomic elements
-#> 
-#> $parameters
-#> an nlist object with 0 natomic elements
-#> 
-#> $monitor
-#> [1] "a"
-#> 
-#> $nsims
-#> [1] 2
-#> 
-#> $seed
-#> [1] 32118637
+#> [1] TRUE
 sims_data_files(tempdir())
 #> [1] "data0000001.rds" "data0000002.rds"
 ```
@@ -124,6 +108,17 @@ file.remove(file.path(paste0(tempdir(), "_copy"), "data0000005.rds"))
 sims_check(path = paste0(tempdir(), "_copy"))
 #> Error: number of data files (4) does not match number of simulations (5)
 ```
+
+### Parallel Chains
+
+To generate simulations in parallel:
+
+1)  Ensure plyr and doParallel are installed using
+    `install.packages(c("plyr", "doParallel"))`.
+2)  Register a parallel backend using
+    `doParallel::registerDoParallel(n)` where `n` is the number of cores
+    you want it to use.
+3)  Set `parallel = TRUE` in the call to `sims_simulate()`.
 
 ## Contribution
 
