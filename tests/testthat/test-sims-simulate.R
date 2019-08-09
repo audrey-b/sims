@@ -329,31 +329,33 @@ test_that("append constants",{
 })
 
 test_that("parallel with registered", {
-  # tempdir <- file.path(tempdir(), "sims")
-  # unlink(tempdir, recursive = TRUE)
-  # 
-  # doParallel::registerDoParallel(2)
-  # teardown(doParallel::stopImplicitCluster())
-  # 
-  # set.seed(101)
-  # expect_identical(sims_simulate("a ~ dunif(0,1)", nsims = 1L, seed parallel = FALSE),
-  #              list(code = "model{a ~ dunif(0,1)}\n", constants = structure(list(), .Names = character(0), class = "nlist"), 
-  #   parameters = structure(list(), .Names = character(0), class = "nlist"), 
-  #   monitor = "a", nsims = 2L, seed = -548903793L))
-  # 
-  # set.seed(101)
-  # expect_identical(sims_simulate("a ~ dunif(0,1)", nsims = 2L, parallel = TRUE, path = tempdir),
-  #              list(code = "model{a ~ dunif(0,1)}\n", constants = structure(list(), .Names = character(0), class = "nlist"), 
-  #   parameters = structure(list(), .Names = character(0), class = "nlist"), 
-  #   monitor = "a", nsims = 2L, seed = -548903793L))
-  # 
-  # 
-  # expect_identical(sims_data_files(tempdir), 
-  #                  c("data0000001.rds", "data0000002.rds"))
-  # 
-  # expect_equal(readRDS(file.path(tempdir, "data0000001.rds")),
-  #              structure(list(a = 0.209508333947602), class = "nlist"))
-  # expect_equal(readRDS(file.path(tempdir, "data0000002.rds")),
-  #              structure(list(a = 0.585330878314009), class = "nlist"))
+  tempdir <- file.path(tempdir(), "sims")
+  unlink(tempdir, recursive = TRUE)
+
+  doParallel::registerDoParallel(2)
+  teardown(doParallel::stopImplicitCluster())
+
+  set.seed(101)
+  expect_equal(sims_simulate("a ~ dunif(0,1)", nsims = 1L, parallel = FALSE),
+                   structure(list(structure(list(a = 0.247694617962275), class = "nlist")), class = "nlists"))
+# 
+#   set.seed(101)
+#   expect_equal(sims_simulate("a ~ dunif(0,1)", nsims = 1L, parallel = TRUE),
+#                    structure(list(structure(list(a = 0.247694617962275), class = "nlist")), class = "nlists"))
+# 
+#   set.seed(101)
+#   expect_identical(sims_simulate("a ~ dunif(0,1)", nsims = 2L, parallel = TRUE, path = tempdir),
+#                list(code = "model{a ~ dunif(0,1)}\n", constants = structure(list(), .Names = character(0), class = "nlist"),
+#     parameters = structure(list(), .Names = character(0), class = "nlist"),
+#     monitor = "a", nsims = 2L, seed = -548903793L))
+# 
+# 
+#   expect_identical(sims_data_files(tempdir),
+#                    c("data0000001.rds", "data0000002.rds"))
+# 
+#   expect_equal(readRDS(file.path(tempdir, "data0000001.rds")),
+#                structure(list(a = 0.209508333947602), class = "nlist"))
+#   expect_equal(readRDS(file.path(tempdir, "data0000002.rds")),
+#                structure(list(a = 0.585330878314009), class = "nlist"))
 })
 

@@ -18,7 +18,8 @@ Imports:
 Suggests: 
   covr,
   testthat,
-  plyr
+  plyr,
+  doParallel
 Remotes:
   poissonconsulting/chk,
   poissonconsulting/nlist
