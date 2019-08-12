@@ -9,10 +9,9 @@ test_that("sims_add",{
 
   expect_error(sims_add(nsims = 1000000L, path = tempdir),
                "adding the simulations would result in more than 1,000,000 datasets")
-                   
+
   expect_identical(sims_add(nsims = 2L, path = tempdir), 
                    c("data0000002.rds", "data0000003.rds"))
-  
   
   expect_equal(readRDS(file.path(tempdir, "data0000001.rds")),
                structure(list(a = 0.247694617962275), class = "nlist"))

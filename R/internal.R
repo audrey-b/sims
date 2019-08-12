@@ -109,6 +109,7 @@ save_args <- function(path, ...) {
 
 generate_datasets <- function(code, constants, parameters, monitor, nsims, 
                               path, parallel) {
+  if (!exists(".Random.seed")) runif(1)
   seed <- .Random.seed
   if(!is.null(path)) {
     save_args(path, code = code, 
