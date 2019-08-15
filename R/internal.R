@@ -62,14 +62,25 @@ set_monitor <- function(monitor, code, silent) {
   intersect(monitor, variable_nodes)
 }
 
-create_path <- function(path, exists, ask) {
+create_path <- function(path, exists, ask, silent) {
   dir_exists <- dir.exists(path)
   if(isFALSE(exists) && dir_exists) 
-    err("directory '", path, "' must not already exist") 
+    err("Directory '", path, "' must not already exist.") 
   if(isTRUE(exists) && !dir_exists) 
-    err("directory '", path, "' must already exist")
-  if(dir_exists) unlink(path, recursive = TRUE)
-  dir.create(path, recursive = TRUE)
+    err("Directory '", path, "' must already exist.")
+  if(!dir_exists) {
+    dir.create(path, recursive = TRUE)
+    return(TRUE)    
+  }
+  files <- list.files(path, pattern = "^data\\d{7,7}[.]rds$")
+  if(length(files)) {
+    if(ask && !yesno("Delete ", length(files), " sims data files in '", path, "'?"))
+      err(length(files), " existing sims data files in '", path, "'.")
+    if(!silent) wrn("Deleted ", length(files), " sims data files in '", path, "'.")
+    unlink(file.path(path, files))
+    if(file.exists(file.path(path, ".sims.rds")))
+      unlink(file.path(path, ".sims.rds"))
+  }
 }
 
 as_natomic_mcarray <- function(x) {

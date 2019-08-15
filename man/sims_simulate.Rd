@@ -75,5 +75,5 @@ sims compatible files are those matching the regular expression
 }
 \examples{
 set.seed(101)
-sims_simulate("a ~ dunif(0, 1)", path = tempdir(), exists = NA)
+sims_simulate("a ~ dunif(0, 1)", path = tempdir(), exists = NA, ask = FALSE)
 }

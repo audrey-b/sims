@@ -126,10 +126,12 @@ test_that("write replicable",{
   expect_error(sims_simulate("a ~ dunif(0,1)", nsims = 1L, path = tempdir),
                "must not already exist")
   set.seed(101)
-  expect_true(sims_simulate("a ~ dunif(0,1)", nsims = 1L, path = tempdir, exists = TRUE))
+  expect_true(sims_simulate("a ~ dunif(0,1)", nsims = 1L, path = tempdir, 
+                            exists = TRUE, ask = FALSE, silent = TRUE))
   
   set.seed(101)
-  expect_true(sims_simulate("a ~ dunif(0,1)", nsims = 1L, path = tempdir, exists = TRUE))
+  expect_true(sims_simulate("a ~ dunif(0,1)", nsims = 1L, path = tempdir, 
+                            exists = TRUE, ask = FALSE, silent = TRUE))
   expect_identical(sims_data_files(tempdir), 
                    "data0000001.rds")
   expect_equal(readRDS(file.path(tempdir, "data0000001.rds")),
@@ -280,24 +282,28 @@ test_that("write replicable > 1",{
   expect_error(sims_simulate("a ~ dunif(0,1)", nsims = 2L, path = tempdir),
                "must not already exist")
   set.seed(101)
-  expect_true(sims_simulate("a ~ dunif(0,1)", nsims = 2L, path = tempdir, exists = TRUE))
+  expect_true(sims_simulate("a ~ dunif(0,1)", nsims = 2L, path = tempdir, 
+                            exists = TRUE, ask = FALSE, silent = TRUE))
   expect_equal(readRDS(file.path(tempdir, "data0000001.rds")),
                structure(list(a = 0.247694617962275), class = "nlist"))
   expect_equal(readRDS(file.path(tempdir, "data0000002.rds")),
                structure(list(a = 0.951518742613052), class = "nlist"))
   set.seed(100)
-  expect_true(sims_simulate("a ~ dunif(0,1)", nsims = 1L, path = tempdir, exists = TRUE))
+  expect_true(sims_simulate("a ~ dunif(0,1)", nsims = 1L, path = tempdir, 
+                            exists = TRUE, ask = FALSE, silent = TRUE))
   expect_equal(readRDS(file.path(tempdir, "data0000001.rds")),
                structure(list(a = 0.22130195651164), class = "nlist"))
   expect_identical(list.files(tempdir), "data0000001.rds")
   set.seed(100)
-  expect_true(sims_simulate("a ~ dunif(0,1)", nsims = 2L, path = tempdir, exists = TRUE))
+  expect_true(sims_simulate("a ~ dunif(0,1)", nsims = 2L, path = tempdir, 
+                            exists = TRUE, ask = FALSE, silent = TRUE))
   expect_equal(readRDS(file.path(tempdir, "data0000001.rds")),
                structure(list(a = 0.22130195651164), class = "nlist"))
   expect_equal(readRDS(file.path(tempdir, "data0000002.rds")),
                structure(list(a = 0.385538176912215), class = "nlist"))
   set.seed(101)
-  expect_true(sims_simulate("a ~ dunif(0,1)", nsims = 1L, path = tempdir, exists = TRUE))
+  expect_true(sims_simulate("a ~ dunif(0,1)", nsims = 1L, path = tempdir, 
+                            exists = TRUE, ask = FALSE, silent = TRUE))
   expect_equal(readRDS(file.path(tempdir, "data0000001.rds")),
                structure(list(a = 0.247694617962275), class = "nlist"))
 })
@@ -366,13 +372,13 @@ test_that("parallel with registered files", {
   expect_identical(list.files(tempdir), c("data0000001.rds", "data0000002.rds"))
   set.seed(100)
   expect_true(sims_simulate("a ~ dunif(0,1)", nsims = 1L, path = tempdir, 
-                             parallel = FALSE, exists = TRUE))
+                             parallel = FALSE, exists = TRUE, ask = FALSE, silent = TRUE))
   expect_identical(list.files(tempdir), "data0000001.rds")
   expect_equal(readRDS(file.path(tempdir, "data0000001.rds")),
                structure(list(a = 0.22130195651164), class = "nlist"))
   set.seed(101)
   expect_true(sims_simulate("a ~ dunif(0,1)", nsims = 2L, path = tempdir, 
-                             parallel = TRUE, exists = TRUE))
+                             parallel = TRUE, exists = TRUE, ask = FALSE, silent = TRUE))
   expect_identical(list.files(tempdir), c("data0000001.rds", "data0000002.rds"))
 
   expect_equal(readRDS(file.path(tempdir, "data0000001.rds")),
@@ -381,3 +387,31 @@ test_that("parallel with registered files", {
                structure(list(a = 0.951518742613052), class = "nlist"))
 })
 
+
+test_that("write existing with random file not touched",{
+  tempdir <- file.path(tempdir(), "sims")
+  unlink(tempdir, recursive = TRUE)
+  
+  set.seed(101)
+  expect_true(sims_simulate("a ~ dunif(0,1)", nsims = 2L, path = tempdir))
+  expect_identical(list.files(tempdir), c("data0000001.rds", "data0000002.rds"))
+  expect_error(sims_simulate("a ~ dunif(0,1)", nsims = 2L, path = tempdir),
+               "^Directory '.*sims' must not already exist[.]$")
+
+  expect_warning(sims_simulate("a ~ dunif(0,1)", nsims = 1L, path = tempdir, 
+                             exists = TRUE, ask = FALSE),
+               "^Deleted 2 sims data files in '.*sims'[.]$")
+  expect_identical(list.files(tempdir), c("data0000001.rds"))
+
+  expect_warning(sims_simulate("a ~ dunif(0,1)", nsims = 3L, path = tempdir, 
+                             exists = TRUE, ask = FALSE),
+               "^Deleted 1 sims data files in '.*sims'[.]$")
+  expect_identical(list.files(tempdir), c("data0000001.rds", "data0000002.rds", "data0000003.rds"))
+  
+  x <- 1
+  saveRDS(x, file.path(tempdir, "data000003.rds"))
+
+  expect_true(sims_simulate("a ~ dunif(0,1)", nsims = 1L, path = tempdir, 
+                             exists = TRUE, ask = FALSE, silent = TRUE))
+  expect_identical(list.files(tempdir), c("data0000001.rds", "data000003.rds"))
+})

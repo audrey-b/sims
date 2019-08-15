@@ -8,15 +8,15 @@
 #' @export
 #' @examples 
 #' set.seed(10)
-#' sims_simulate("a ~ dunif(0,1)", path = tempdir(), exists = NA)
+#' sims_simulate("a ~ dunif(0,1)", path = tempdir(), exists = NA, ask = FALSE)
 #' sims_info(tempdir())
 sims_info <- function(path) {
   chk_string(path)
   
-  if(!dir.exists(path)) err("directory '", path, "' must already exist")
+  if(!dir.exists(path)) err("Directory '", path, "' must already exist.")
   
   if(!file.exists(file.path(path, ".sims.rds")))
-    err("directory '", path, "' must contain '.sims.rds'")
+    err("Directory '", path, "' must contain '.sims.rds'.")
   
   readRDS(file.path(path, ".sims.rds"))
 }

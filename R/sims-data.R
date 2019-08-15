@@ -9,7 +9,7 @@
 #' @export
 #' @examples 
 #' set.seed(10)
-#' sims_simulate("a ~ dunif(0,1)", nsims = 10L, path = tempdir(), exists = NA)
+#' sims_simulate("a ~ dunif(0,1)", nsims = 10L, path = tempdir(), exists = NA, ask = FALSE)
 #' sims_data(tempdir())
 sims_data <- function(path) {
   data_files <- sims_data_files(path)

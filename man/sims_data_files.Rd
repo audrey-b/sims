@@ -17,6 +17,6 @@ Gets the names of the simulated data files.
 }
 \examples{
 set.seed(10)
-sims_simulate("a ~ dunif(0,1)", nsims = 10L, path = tempdir(), exists = NA)
+sims_simulate("a ~ dunif(0,1)", nsims = 10L, path = tempdir(), exists = NA, ask = FALSE)
 sims_data_files(tempdir())
 }
