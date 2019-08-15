@@ -149,3 +149,66 @@ test_that("sims_copy",{
     295724777L, -1449837162L, -1640435937L, -2032464172L, 738173893L, 
     -624155198L, -1188620709L, 1456113120L)))
 })
+
+test_that("sims_copy only deletes existing sims compatible files",{
+  tempdir <- file.path(tempdir(), "sims")
+  unlink(tempdir, recursive = TRUE)
+  unlink(paste0(tempdir, "_copy"), recursive = TRUE)
+
+  set.seed(101)
+  expect_true(sims_simulate("a ~ dunif(0,1)", nsims = 2L, path = tempdir))
+  expect_identical(sims_copy(path_from = tempdir),
+                   c("data0000001.rds", "data0000002.rds"))
+  expect_error(sims_copy(path_from = tempdir),
+               "_copy' must not already exist")
+  
+  expect_identical(sims_copy(path_from = tempdir, exists = NA, ask = FALSE, silent = TRUE),
+                   c("data0000001.rds", "data0000002.rds"))
+
+  expect_warning(sims_copy(path_from = tempdir, exists = NA, ask = FALSE),
+                   "Deleted 2 sims data files in '.*sims_copy'[.]$")
+  
+  expect_true(sims_simulate("a ~ dunif(0,1)", nsims = 3L, path = tempdir,
+                            exists = TRUE, ask = FALSE, silent = TRUE))
+
+  expect_warning(sims_copy(path_from = tempdir, exists = NA, ask = FALSE),
+                   "Deleted 2 sims data files in '.*sims_copy'[.]$")
+  
+  expect_identical(list.files(paste0(tempdir, "_copy")),
+                   c("data0000001.rds", "data0000002.rds", "data0000003.rds"))
+  
+  x <- 1
+  saveRDS(x, file.path(paste0(tempdir, "_copy"), "data000003.rds"))
+  
+  expect_true(sims_simulate("a ~ dunif(0,1)", nsims = 1L, path = tempdir,
+                            exists = TRUE, ask = FALSE, silent = TRUE))
+
+  expect_warning(sims_copy(path_from = tempdir, exists = NA, ask = FALSE),
+                   "Deleted 3 sims data files in '.*sims_copy'[.]$")
+  
+  expect_identical(list.files(paste0(tempdir, "_copy")),
+                   c("data0000001.rds", "data000003.rds"))
+})
+
+test_that("sims_copy does not copy sims incompatible files",{
+  tempdir <- file.path(tempdir(), "sims")
+  unlink(tempdir, recursive = TRUE)
+  unlink(paste0(tempdir, "_copy"), recursive = TRUE)
+
+  set.seed(101)
+  expect_true(sims_simulate("a ~ dunif(0,1)", nsims = 2L, path = tempdir))
+  
+  x <- 1
+  saveRDS(x, file.path(tempdir, "data000001.rds"))
+  
+  expect_identical(list.files(tempdir),
+                   c("data0000001.rds", "data0000002.rds", "data000001.rds"))
+  
+  expect_identical(sims_copy(path_from = tempdir),
+                   c("data0000001.rds", "data0000002.rds"))
+
+  expect_identical(list.files(paste0(tempdir, "_copy")),
+                   c("data0000001.rds", "data0000002.rds"))
+})
+
+
