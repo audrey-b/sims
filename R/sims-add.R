@@ -7,9 +7,9 @@
 #' (and in the case of argsism, created).
 #' @export
 sims_add <- function(path, nsims = getOption("sims.nsims", 100L)) {
-  check_int(nsims, coerce = TRUE)
+  chk_whole_number(nsims)
+  chk_range(nsims, c(1, 1000000))
   nsims <- as.integer(nsims)
-  check_scalar(nsims, c(1L, 1000000L))
   
   argsims <- sims_check(path)
   argsims$nsims <- argsims$nsims + nsims

@@ -44,8 +44,8 @@ set_monitor <- function(monitor, code, silent) {
   if(length(monitor) == 1) {
     monitor <- variable_nodes[str_detect(variable_nodes, monitor)]
     if(!length(monitor)) 
-      err(co_or(variable_nodes, 
-                "monitor must match at least one of the following variable nodes: %c"))
+      err("monitor must match at least one of the following variable nodes: ", 
+          cc(variable_nodes, " or "))
     return(monitor)
   }
   monitor <- unique(monitor)
@@ -53,11 +53,11 @@ set_monitor <- function(monitor, code, silent) {
   if(!length(missing)) return(monitor)
   
   if(length(missing) == length(monitor)) {
-    err(co_or(variable_nodes, 
-              "monitor must include at least one of the following variable nodes: %c"))
+    err("monitor must include at least one of the following variable nodes: ", 
+        cc(variable_nodes, " or "))
   }
   if(!silent)
-    wrn(co_or(missing, "the following in monitor are not variable nodes: %c"))
+    wrn("the following in monitor are not variable nodes: ", cc(missing, " or "))
   
   intersect(monitor, variable_nodes)
 }

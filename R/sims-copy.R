@@ -10,9 +10,9 @@
 #' @export
 sims_copy <- function(path_from = "sims", path_to = paste0(path_from, "_copy"), 
                       exists = FALSE) {
-  check_string(path_to)
-  check_string(path_from)
-  check_flag(exists)
+  chk_string(path_to)
+  chk_string(path_from)
+  chk_flag(exists)
   sims_check(path_from)
 
   create_path(path_to, exists = exists)

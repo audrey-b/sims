@@ -9,8 +9,6 @@ Description: Simulates datasets (in the form of an 'nlists' object) from 'JAGS' 
 License: GPL-3
 Imports:
   chk,
-  err,
-  checkr,
   yesno,
   stringr,
   stats,

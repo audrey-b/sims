@@ -11,7 +11,7 @@
 #' sims_simulate("a ~ dunif(0,1)", path = tempdir(), exists = NA)
 #' sims_info(tempdir())
 sims_info <- function(path) {
-  check_string(path)
+  chk_string(path)
   
   if(!dir.exists(path)) err("directory '", path, "' must already exist")
   

@@ -58,20 +58,22 @@ sims_simulate <- function(code,
                           exists = FALSE,
                           ask = getOption("sims.ask", TRUE),
                           silent = FALSE) {
-  check_string(code)
-  check_nlist(constants, nas = FALSE, class = NA)
-  check_nlist(parameters, nas = FALSE, class = NA)
-  check_vector(monitor, "", length = TRUE)
-  check_int(nsims, coerce = TRUE)
-  check_flag(parallel)
-  if(!is.null(path)) check_string(path)
-  check_flag(ask)
-  check_scalar(exists, c(TRUE, NA))
-  check_flag(silent)
-  
+  if(is_chk_on()) {
+    chk_string(code)
+    check_nlist(constants, nas = FALSE, class = NA)
+    check_nlist(parameters, nas = FALSE, class = NA)
+    chk_is(monitor, "character")
+    chk_gt(length(monitor))
+    chk_whole_number(nsims)
+    chk_range(nsims, c(1, 1000000))
+    chk_flag(parallel)
+    if(!is.null(path)) chk_string(path)
+    chk_flag(ask)
+    chk_lgl(exists)
+    chk_flag(silent)
+  }
   nsims <- as.integer(nsims)
-  check_scalar(nsims, c(1L, 1000000L))
-  
+
   constants <- as.nlist(constants)
   parameters <- as.nlist(parameters)
   

@@ -1,4 +1,3 @@
-#' @import err checkr stringr nlist
-#' @importFrom chk chk_is chk_gt
+#' @import chk stringr nlist
 #' @importFrom stats runif
 NULL

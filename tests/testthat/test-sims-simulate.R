@@ -2,7 +2,7 @@ context("sims-simulate")
 
 test_that("test inputs",{
   expect_error(sims_simulate(1),
-               "code must be class character")
+               "`code` must be a string [(]non-missing character scalar[)].")
   
   expect_error(sims_simulate("x <- y", 1),
                "constants must be a list")
@@ -31,12 +31,12 @@ test_that("test inputs",{
                "element x of parameters must not include missing values")
   
   expect_error(sims_simulate("x <- y", list(x = 1), monitor = 1),
-               "monitor must be class character")
+               "`monitor` must inherit from class 'character'")
 })
 
 test_that("test nodes not already defined",{
   expect_error(sims_simulate("a ~ dunif(1)", list(a = 1)),
-               "the following 1 variable node is defined in constants: 'a'")
+               "the following variable nodes are defined in constants: 'a'")
 })
 
 test_that("test match at least one node",{
