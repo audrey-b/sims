@@ -17,6 +17,6 @@ sims_copy <- function(path_from = "sims", path_to = paste0(path_from, "_copy"),
 
   create_path(path_to, exists = exists)
   files <- data_files(path_from)
-  file.copy(file.path(path_from, c(.sims, files)), to = path_to)
+  file.copy(file.path(path_from, c(".sims.rds", files)), to = path_to)
   files
 }

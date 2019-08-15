@@ -104,7 +104,7 @@ generate_dataset <- function(sim, code, constants, parameters, monitor,
 
 save_args <- function(path, ...) {
   args <- list(...)
-  saveRDS(args, file.path(path, .sims))
+  saveRDS(args, file.path(path, ".sims.rds"))
 }
 
 generate_datasets <- function(code, constants, parameters, monitor, nsims, 

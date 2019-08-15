@@ -15,8 +15,8 @@ sims_info <- function(path) {
   
   if(!dir.exists(path)) err("directory '", path, "' must already exist")
   
-  if(!file.exists(file.path(path, .sims)))
-    err("directory '", path, "' must contain '", .sims, "'")
+  if(!file.exists(file.path(path, ".sims.rds")))
+    err("directory '", path, "' must contain '.sims.rds'")
   
-  readRDS(file.path(path, .sims))
+  readRDS(file.path(path, ".sims.rds"))
 }

@@ -153,7 +153,7 @@ test_that("sims_check",{
   file.create(file.path(tempdir, "data0000003.rds"))
   expect_error(sims_check(path = tempdir),
                "data file names are not consistent withthe number of simulations [(]2[)]")
-  file.remove(file.path(tempdir, .sims))
+  file.remove(file.path(tempdir, ".sims.rds"))
   expect_error(sims_check(path = tempdir),
-               p0("must contain '", .sims, "'"))
+               p0("must contain '.sims.rds'"))
 })

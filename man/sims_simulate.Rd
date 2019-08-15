@@ -7,7 +7,8 @@
 sims_simulate(code, constants = nlist::nlist(),
   parameters = nlist::nlist(), monitor = ".*",
   nsims = getOption("sims.nsims", 100L), parallel = FALSE,
-  path = NULL, exists = FALSE, silent = FALSE)
+  path = NULL, exists = FALSE, ask = getOption("sims.ask", TRUE),
+  silent = FALSE)
 }
 \arguments{
 \item{code}{A string of the JAGS code to generate the data.
@@ -33,9 +34,11 @@ By default \code{path = NULL } the data sets are not saved but are returned
 as an nlists object.}
 
 \item{exists}{A flag specifying whether the directory should already exist.
-If \code{exists = NA} it doesn't matter. If the directory already exists it is 
-overwritten if \code{exists = TRUE} or \code{exists = NA} otherwise an
-error is thrown.}
+If \code{exists = NA} it doesn't matter. If the directory already exists 
+all sims related file are deleted if \code{exists = TRUE} or \code{exists = NA} 
+otherwise an error is thrown.}
+
+\item{ask}{A flag specifying whether to ask before deleting files.}
 
 \item{silent}{A flag specifying whether to suppress warnings.}
 }

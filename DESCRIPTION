@@ -11,6 +11,7 @@ Imports:
   chk,
   err,
   checkr,
+  yesno,
   stringr,
   stats,
   nlist (>= 0.0.0.9100),

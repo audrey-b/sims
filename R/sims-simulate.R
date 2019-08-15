@@ -36,9 +36,10 @@
 #' By default \code{path = NULL } the data sets are not saved but are returned 
 #' as an nlists object.
 #' @param exists A flag specifying whether the directory should already exist.
-#' If \code{exists = NA} it doesn't matter. If the directory already exists it is 
-#' overwritten if \code{exists = TRUE} or \code{exists = NA} otherwise an
-#' error is thrown.
+#' If \code{exists = NA} it doesn't matter. If the directory already exists 
+#' all sims related file are deleted if \code{exists = TRUE} or \code{exists = NA} 
+#' otherwise an error is thrown.
+#' @param ask A flag specifying whether to ask before deleting files.
 #' @param silent A flag specifying whether to suppress warnings.
 #'
 #' @return By default an \code{\link[nlist]{nlists_object}} of the simulated data.
@@ -55,6 +56,7 @@ sims_simulate <- function(code,
                           parallel = FALSE,
                           path = NULL,
                           exists = FALSE,
+                          ask = getOption("sims.ask", TRUE),
                           silent = FALSE) {
   check_string(code)
   check_nlist(constants, nas = FALSE, class = NA)
@@ -63,6 +65,7 @@ sims_simulate <- function(code,
   check_int(nsims, coerce = TRUE)
   check_flag(parallel)
   if(!is.null(path)) check_string(path)
+  check_flag(ask)
   check_scalar(exists, c(TRUE, NA))
   check_flag(silent)
   
