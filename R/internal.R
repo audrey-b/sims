@@ -8,7 +8,7 @@ data_files <- function(path) {
 
 prepare_code <- function(code) {
   code <- strip_comments(code)
-  if(str_detect(code, "^\\s*(data)|(model)\\s*[{]"))
+  if(grepl("^\\s*(data)|(model)\\s*[{]", code))
     err("jags code must not be in a data or model block")
   code <- p0("model{", code, "}\n", collapse = "\n")
   code
@@ -42,7 +42,7 @@ set_monitor <- function(monitor, code, silent) {
     err("jags code must include at least one variable node")
   
   if(length(monitor) == 1) {
-    monitor <- variable_nodes[str_detect(variable_nodes, monitor)]
+    monitor <- variable_nodes[grepl(monitor, variable_nodes)]
     if(!length(monitor)) 
       err("monitor must match at least one of the following variable nodes: ", 
           cc(variable_nodes, " or "))
