@@ -128,10 +128,7 @@ generate_datasets <- function(code, constants, parameters, monitor, nsims,
               constants = constants, parameters = parameters, 
               monitor = monitor, nsims = nsims, seed = seed)
   }
-  if(!dir.exists(tempdir())) { 
-    dir.create(tempdir(), showWarnings = FALSE, recursive = TRUE)
-  }
-  
+
   if(parallel) {
     if(!requireNamespace("plyr", quietly = TRUE))
       err("Package plyr is required to batch process files in parallel.")
