@@ -9,7 +9,7 @@ data_files <- function(path) {
 prepare_code <- function(code) {
   code <- strip_comments(code)
   if(grepl("^\\s*(data)|(model)\\s*[{]", code))
-    err("jags code must not be in a data or model block")
+    err("jags code must not be in a data or model block.")
   code <- p0("model{", code, "}\n", collapse = "\n")
   code
 }
@@ -39,13 +39,13 @@ variable_nodes <- function (x, stochastic = NA) {
 set_monitor <- function(monitor, code, silent) {
   variable_nodes <- variable_nodes(code)
   if(!length(variable_nodes)) 
-    err("jags code must include at least one variable node")
+    err("jags code must include at least one variable node.")
   
   if(length(monitor) == 1) {
     monitor <- variable_nodes[grepl(monitor, variable_nodes)]
     if(!length(monitor)) 
-      err("monitor must match at least one of the following variable nodes: ", 
-          cc(variable_nodes, " or "))
+      err("`monitor` must match at least one of the following variable nodes: ", 
+          cc(variable_nodes, " or "), ".")
     return(monitor)
   }
   monitor <- unique(monitor)
@@ -53,11 +53,11 @@ set_monitor <- function(monitor, code, silent) {
   if(!length(missing)) return(monitor)
   
   if(length(missing) == length(monitor)) {
-    err("monitor must include at least one of the following variable nodes: ", 
-        cc(variable_nodes, " or "))
+    err("`monitor` must include at least one of the following variable nodes: ", 
+        cc(variable_nodes, " or "), ".")
   }
   if(!silent)
-    wrn("the following in monitor are not variable nodes: ", cc(missing, " or "))
+    wrn("The following in `monitor` are not variable nodes: ", cc(missing, " or "), ".")
   
   intersect(monitor, variable_nodes)
 }

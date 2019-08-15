@@ -8,7 +8,7 @@ test_that("sims_add",{
   expect_true(sims_simulate("a ~ dunif(0,1)", nsims = 1L, path = tempdir))
 
   expect_error(sims_add(nsims = 1000000L, path = tempdir),
-               "adding the simulations would result in more than 1,000,000 datasets")
+               "^Adding the simulations would result in more than 1,000,000 datasets[.]$")
 
   expect_identical(sims_add(nsims = 2L, path = tempdir), 
                    c("data0000002.rds", "data0000003.rds"))

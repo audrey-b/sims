@@ -36,12 +36,12 @@ test_that("test inputs",{
 
 test_that("test nodes not already defined",{
   expect_error(sims_simulate("a ~ dunif(1)", list(a = 1)),
-               "the following variable nodes are defined in constants: 'a'")
+               "^The following variable nodes are defined in constants: 'a'[.]$")
 })
 
 test_that("test match at least one node",{
   expect_error(sims_simulate("a ~ dunif(1)", list(x = 1), monitor = "b"),
-               "monitor must match at least one of the following variable nodes: 'a'")
+               "^`monitor` must match at least one of the following variable nodes: 'a'[.]$")
 })
 
 test_that("not in model or data block",{
@@ -314,18 +314,18 @@ test_that("monitor",{
                structure(list(structure(list(a = 0.247694617962275), class = "nlist")), class = "nlists"))
   
   expect_error(sims_simulate("ab ~ dunif(0,1)", nsims = 1L, monitor = c("a", "a")),
-               "monitor must include at least one of the following variable nodes: 'ab'")
+               "^`monitor` must include at least one of the following variable nodes: 'ab'[.]$")
   
   expect_warning(sims_simulate("ab ~ dunif(0,1)", nsims = 1L, monitor = c("ab", "a")),
-                 "the following in monitor are not variable nodes: 'a'")
+                 "^The following in `monitor` are not variable nodes: 'a'[.]$")
 })
 
 test_that("append constants",{
   expect_error(sims_simulate("ab ~ dunif(0,1)", nsims = 1L, monitor = c("a", "a")),
-               "monitor must include at least one of the following variable nodes: 'ab'")
+               "^`monitor` must include at least one of the following variable nodes: 'ab'[.]")
   
   expect_warning(sims_simulate("ab ~ dunif(0,1)", nsims = 1L, monitor = c("ab", "a")),
-                 "the following in monitor are not variable nodes: 'a'")
+                 "^The following in `monitor` are not variable nodes: 'a'[.]$")
 })
 
 test_that("parallel with registered", {

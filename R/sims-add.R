@@ -15,7 +15,7 @@ sims_add <- function(path, nsims = getOption("sims.nsims", 100L)) {
   argsims$nsims <- argsims$nsims + nsims
   
   if(argsims$nsims > 1000000L)
-    err("adding the simulations would result in more than 1,000,000 datasets")
+    err("Adding the simulations would result in more than 1,000,000 datasets.")
   
   sims <- (argsims$nsims - nsims + 1L):argsims$nsims
 

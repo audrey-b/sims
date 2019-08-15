@@ -12,9 +12,8 @@
 #' sims_info(tempdir())
 sims_info <- function(path) {
   chk_string(path)
-  
-  if(!dir.exists(path)) err("Directory '", path, "' must already exist.")
-  
+  chk_dir(path)
+
   if(!file.exists(file.path(path, ".sims.rds")))
     err("Directory '", path, "' must contain '.sims.rds'.")
   

@@ -30,12 +30,12 @@ sims_check <- function(path) {
   
   files <- data_files(path)
   if(!identical(length(files), nsims)) {
-    err("number of data files (", length(files), 
-        ") does not match number of simulations (", nsims, ")")
+    err("Number of data files (", length(files), 
+        ") does not match number of simulations (", nsims, ").")
   }
   if(!identical(files, data_file_name(1:nsims))) {
-    err("data file names are not consistent with",
-        "the number of simulations (", nsims, ")")
+    err("Data file names are not consistent with",
+        "the number of simulations (", nsims, ").")
   }
   invisible(sims_info)
 }
