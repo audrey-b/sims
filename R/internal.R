@@ -62,7 +62,7 @@ set_monitor <- function(monitor, code, silent) {
   intersect(monitor, variable_nodes)
 }
 
-create_path <- function(path, exists) {
+create_path <- function(path, exists, ask) {
   dir_exists <- dir.exists(path)
   if(isFALSE(exists) && dir_exists) 
     err("directory '", path, "' must not already exist") 

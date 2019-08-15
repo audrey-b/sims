@@ -5,7 +5,7 @@
 \title{Copy Simulated Datasets}
 \usage{
 sims_copy(path_from = "sims", path_to = paste0(path_from, "_copy"),
-  exists = FALSE)
+  exists = FALSE, ask = getOption("sims.ask", TRUE))
 }
 \arguments{
 \item{path_from}{A string of the path to the directory containing the simulated datasets.}
@@ -13,9 +13,11 @@ sims_copy(path_from = "sims", path_to = paste0(path_from, "_copy"),
 \item{path_to}{A string of the path to the directory to copy the simulated dataset to.}
 
 \item{exists}{A flag specifying whether \code{path_to} should already exist.
-If \code{exists = NA} it doesn't matter. If the directory already exists it is 
-overwritten if \code{exists = TRUE} or \code{exists = NA} otherwise an
+If \code{exists = NA} it doesn't matter. If the directory already exists 
+sims compatbile files are  \code{exists = TRUE} or \code{exists = NA} otherwise an
 error is thrown.}
+
+\item{ask}{A flag specifying whether to ask before deleting files.}
 }
 \value{
 A character vector of the names of the files copied.

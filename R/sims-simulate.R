@@ -80,7 +80,7 @@ sims_simulate <- function(code,
   check_variable_nodes(code, constants)
   check_variable_nodes(code, parameters)
   
-  if(!is.null(path)) create_path(path, exists)
+  if(!is.null(path)) create_path(path, exists, ask)
   
   monitor <- set_monitor(monitor, code, silent = silent)
   code <- prepare_code(code)
