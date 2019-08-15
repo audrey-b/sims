@@ -30,12 +30,13 @@ the number of data sets to simulate. By default 100 data sets are simulated.}
 \item{parallel}{A flag specifying whether to generate the datasets in parallel.}
 
 \item{path}{A string specifying the path to the directory to save the data sets in.
-By default \code{path = NULL } the data sets are not saved but are returned 
+By default \code{path = NULL} the data sets are not saved but are returned 
 as an nlists object.}
 
-\item{exists}{A flag specifying whether the directory should already exist.
+\item{exists}{A \code{path} is provided , 
+flag specifying whether the directory should already exist.
 If \code{exists = NA} it doesn't matter. If the directory already exists 
-all sims related file are deleted if \code{exists = TRUE} or \code{exists = NA} 
+all sims compatible files are deleted if \code{exists = TRUE} or \code{exists = NA} 
 otherwise an error is thrown.}
 
 \item{ask}{A flag specifying whether to ask before deleting files.}
@@ -67,6 +68,10 @@ Elements which are not in code are dropped with a warning
 Each set of simulated data set is written as a separate .rds file. 
 The files are labelled \code{data0000001.rds}, \code{data0000002.rds},
 \code{data0000003.rds} etc.
+The argument values are saved in the hidden file \code{.sims.rds}.
+
+sims compatible files are those matching the regular expression 
+"^((data\\\\d\{7,7\})|([.]sims))[.]rds$".
 }
 \examples{
 set.seed(101)
