@@ -1,5 +1,5 @@
 strip_comments <- function(x) {
-  str_replace_all(x, pattern = "\\s*#[^\\\n]*", replacement = "")
+  gsub("\\s*#[^\\\n]*", "", x)
 }
 
 data_files <- function(path) {
@@ -29,8 +29,8 @@ variable_nodes <- function (x, stochastic = NA) {
   pattern <- p0("\\w+(", index, "){0,1}\\s*[)]{0,1}", pattern, collapse = "")
   nodes <- str_extract_all(x, pattern)
   nodes <- unlist(nodes)
-  nodes <- str_replace(nodes, pattern = "[)]$", "")
-  nodes <- str_replace(nodes, pattern = "\\s*$", "")
+  nodes <- sub("[)]$", "", nodes)
+  nodes <- sub("\\s*$", "", nodes)
   nodes <- str_replace(nodes, pattern = index, "")
   nodes <- unique(nodes)
   sort(nodes)
