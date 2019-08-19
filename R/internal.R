@@ -26,7 +26,7 @@ variable_nodes <- function (x, stochastic = NA) {
   
   index <- "\\[[^\\]]*\\]"
   
-  pattern <- p0("\\w+(", index, "){0,1}\\s*[)]{0,1}", pattern, collapse = "")
+  pattern <- p0("[\\w[.]]+(", index, "){0,1}\\s*[)]{0,1}", pattern, collapse = "")
   nodes <- str_extract_all(x, pattern)
   nodes <- unlist(nodes)
   nodes <- sub("[)]$", "", nodes)

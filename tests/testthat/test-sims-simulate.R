@@ -415,3 +415,15 @@ test_that("write existing with random file not touched",{
                              exists = TRUE, ask = FALSE, silent = TRUE))
   expect_identical(list.files(tempdir), c("data0000001.rds", "data000003.rds"))
 })
+
+
+test_that("names with dots and underscores",{
+  set.seed(101)
+  expect_equal(sims_simulate("x.y ~ dunif(0,1)", nsims = 2L),
+               structure(list(structure(list(x.y = 0.247694617962275), class = "nlist"), 
+    structure(list(x.y = 0.951518742613052), class = "nlist")), class = "nlists"))
+  set.seed(101)
+  expect_equal(sims_simulate("x_y ~ dunif(0,1)", nsims = 2L),
+               structure(list(structure(list(x_y = 0.247694617962275), class = "nlist"), 
+    structure(list(x_y = 0.951518742613052), class = "nlist")), class = "nlists"))
+})
