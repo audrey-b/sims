@@ -14,7 +14,7 @@ prepare_code <- function(code) {
   code
 }
 
-variable_nodes <- function (x, stochastic = NA) {
+variable_nodes <- function (x, stochastic, observed) {
   x <- strip_comments(x)
   
   if(isTRUE(stochastic)) {
@@ -36,15 +36,25 @@ variable_nodes <- function (x, stochastic = NA) {
   sort(nodes)
 }
 
-set_monitor <- function(monitor, code, silent) {
-  variable_nodes <- variable_nodes(code)
+variable_nodes_description <- function(stochastic, observed) {
+  desc <- "variable node"
+  if(!is.na(stochastic)) 
+    desc <- p(if(stochastic) "stochastic" else "deterministic", desc)
+  if(!is.na(observed)) 
+    desc <- p(if(observed) "observed" else "latent", desc)
+  desc
+}
+
+set_monitor <- function(monitor, code, stochastic, observed, silent) {
+  variable_nodes <- variable_nodes(code, stochastic, observed)
+  desc <- variable_nodes_description(stochastic, observed)
   if(!length(variable_nodes)) 
-    err("jags code must include at least one variable node.")
+    err("jags code must include at least one ", desc, ".")
   
   if(length(monitor) == 1) {
     monitor <- variable_nodes[grepl(monitor, variable_nodes)]
     if(!length(monitor)) 
-      err("`monitor` must match at least one of the following variable nodes: ", 
+      err("`monitor` must match at least one of the following ", desc, "s: ", 
           cc(variable_nodes, " or "), ".")
     return(monitor)
   }
@@ -53,11 +63,11 @@ set_monitor <- function(monitor, code, silent) {
   if(!length(missing)) return(monitor)
   
   if(length(missing) == length(monitor)) {
-    err("`monitor` must include at least one of the following variable nodes: ", 
+    err("`monitor` must include at least one of the following ", desc, "s: ", 
         cc(variable_nodes, " or "), ".")
   }
   if(!silent)
-    wrn("The following in `monitor` are not variable nodes: ", cc(missing, " or "), ".")
+    wrn("The following in `monitor` are not ", desc, "s: ", cc(missing, " or "), ".")
   
   intersect(monitor, variable_nodes)
 }

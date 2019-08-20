@@ -41,7 +41,15 @@ test_that("test nodes not already defined",{
 
 test_that("test match at least one node",{
   expect_error(sims_simulate("a ~ dunif(1)", list(x = 1), monitor = "b"),
-               "^`monitor` must match at least one of the following variable nodes: 'a'[.]$")
+               "^`monitor` must match at least one of the following observed stochastic variable nodes: 'a'[.]$")
+  expect_error(sims_simulate("a ~ dunif(1)", list(x = 1), monitor = "b", stochastic = FALSE),
+               "^jags code must include at least one observed deterministic variable node[.]$")
+  expect_error(sims_simulate("a ~ dunif(1)
+                             a2 <- a", list(x = 1), monitor = "b", stochastic = FALSE),
+               "^`monitor` must match at least one of the following observed deterministic variable nodes: 'a2'[.]$")
+  expect_error(sims_simulate("a ~ dunif(1)
+                             a2 <- a", list(x = 1), monitor = "b", stochastic = NA),
+               "^`monitor` must match at least one of the following observed variable nodes: 'a' or 'a2'[.]$")
 })
 
 test_that("not in model or data block",{
@@ -94,10 +102,10 @@ for (i in 1:length(Year)){
   expect_equal(sims_simulate(generative_model, 
                              constants = constants,
                              parameters = parameters,
-                             monitor = monitor, nsims = 1L),
+                             monitor = monitor, nsims = 1L, stochastic = NA),
                structure(list(structure(list(C = c(31, 34, 26, 20, 16), lambda = c(32.0212581683725, 
-29.2301292225158, 26.6822886806137, 24.3565303394963, 22.2334964320294
-), rand = -0.0227419291174858, Year = 1:5), class = "nlist")), class = "nlists"))
+                                                                                   29.2301292225158, 26.6822886806137, 24.3565303394963, 22.2334964320294
+               ), rand = -0.0227419291174858, Year = 1:5), class = "nlist")), class = "nlists"))
 })
 
 test_that("nsims can take numeric",{
@@ -314,18 +322,24 @@ test_that("monitor",{
                structure(list(structure(list(a = 0.247694617962275), class = "nlist")), class = "nlists"))
   
   expect_error(sims_simulate("ab ~ dunif(0,1)", nsims = 1L, monitor = c("a", "a")),
-               "^`monitor` must include at least one of the following variable nodes: 'ab'[.]$")
+               "^`monitor` must include at least one of the following observed stochastic variable nodes: 'ab'[.]$")
+
+  expect_error(sims_simulate("ab ~ dunif(0,1)", nsims = 1L, monitor = c("a", "a"), stochastic = FALSE),
+               "^jags code must include at least one observed deterministic variable node[.]$")
+
+  expect_error(sims_simulate("ab ~ dunif(0,1)", nsims = 1L, monitor = c("a", "a"), stochastic = FALSE, observed = NA),
+               "^jags code must include at least one deterministic variable node[.]$")
   
   expect_warning(sims_simulate("ab ~ dunif(0,1)", nsims = 1L, monitor = c("ab", "a")),
-                 "^The following in `monitor` are not variable nodes: 'a'[.]$")
+                 "^The following in `monitor` are not observed stochastic variable nodes: 'a'[.]$")
 })
 
 test_that("append constants",{
   expect_error(sims_simulate("ab ~ dunif(0,1)", nsims = 1L, monitor = c("a", "a")),
-               "^`monitor` must include at least one of the following variable nodes: 'ab'[.]")
+               "^`monitor` must include at least one of the following observed stochastic variable nodes: 'ab'[.]")
   
   expect_warning(sims_simulate("ab ~ dunif(0,1)", nsims = 1L, monitor = c("ab", "a")),
-                 "^The following in `monitor` are not variable nodes: 'a'[.]$")
+                 "^The following in `monitor` are not observed stochastic variable nodes: 'a'[.]$")
 })
 
 test_that("parallel with registered", {
@@ -343,16 +357,16 @@ test_that("parallel with registered", {
   set.seed(101)
   expect_equal(sims_simulate("a ~ dunif(0,1)", nsims = 1, parallel = TRUE),
                structure(list(structure(list(a = 0.247694617962275), class = "nlist")), class = "nlists"))
-
+  
   set.seed(101)
   expect_equal(sims_simulate("a ~ dunif(0,1)", nsims = 2, parallel = FALSE),
                structure(list(structure(list(a = 0.247694617962275), class = "nlist"), 
-    structure(list(a = 0.951518742613052), class = "nlist")), class = "nlists"))
-
+                              structure(list(a = 0.951518742613052), class = "nlist")), class = "nlists"))
+  
   set.seed(101)
   expect_equal(sims_simulate("a ~ dunif(0,1)", nsims = 2, parallel = TRUE),
                structure(list(structure(list(a = 0.247694617962275), class = "nlist"), 
-    structure(list(a = 0.951518742613052), class = "nlist")), class = "nlists"))
+                              structure(list(a = 0.951518742613052), class = "nlist")), class = "nlists"))
 })
 
 test_that("parallel with registered files", {
@@ -365,22 +379,22 @@ test_that("parallel with registered files", {
                structure(list(a = 0.247694617962275), class = "nlist"))
   expect_equal(readRDS(file.path(tempdir, "data0000002.rds")),
                structure(list(a = 0.951518742613052), class = "nlist"))
-
+  
   doParallel::registerDoParallel(2)
   teardown(doParallel::stopImplicitCluster())
- 
+  
   expect_identical(list.files(tempdir), c("data0000001.rds", "data0000002.rds"))
   set.seed(100)
   expect_true(sims_simulate("a ~ dunif(0,1)", nsims = 1L, path = tempdir, 
-                             parallel = FALSE, exists = TRUE, ask = FALSE, silent = TRUE))
+                            parallel = FALSE, exists = TRUE, ask = FALSE, silent = TRUE))
   expect_identical(list.files(tempdir), "data0000001.rds")
   expect_equal(readRDS(file.path(tempdir, "data0000001.rds")),
                structure(list(a = 0.22130195651164), class = "nlist"))
   set.seed(101)
   expect_true(sims_simulate("a ~ dunif(0,1)", nsims = 2L, path = tempdir, 
-                             parallel = TRUE, exists = TRUE, ask = FALSE, silent = TRUE))
+                            parallel = TRUE, exists = TRUE, ask = FALSE, silent = TRUE))
   expect_identical(list.files(tempdir), c("data0000001.rds", "data0000002.rds"))
-
+  
   expect_equal(readRDS(file.path(tempdir, "data0000001.rds")),
                structure(list(a = 0.247694617962275), class = "nlist"))
   expect_equal(readRDS(file.path(tempdir, "data0000002.rds")),
@@ -397,22 +411,22 @@ test_that("write existing with random file not touched",{
   expect_identical(list.files(tempdir), c("data0000001.rds", "data0000002.rds"))
   expect_error(sims_simulate("a ~ dunif(0,1)", nsims = 2L, path = tempdir),
                "^Directory '.*sims' must not already exist[.]$")
-
+  
   expect_warning(sims_simulate("a ~ dunif(0,1)", nsims = 1L, path = tempdir, 
-                             exists = TRUE, ask = FALSE),
-               "^Deleted 2 sims data files in '.*sims'[.]$")
+                               exists = TRUE, ask = FALSE),
+                 "^Deleted 2 sims data files in '.*sims'[.]$")
   expect_identical(list.files(tempdir), c("data0000001.rds"))
-
+  
   expect_warning(sims_simulate("a ~ dunif(0,1)", nsims = 3L, path = tempdir, 
-                             exists = TRUE, ask = FALSE),
-               "^Deleted 1 sims data files in '.*sims'[.]$")
+                               exists = TRUE, ask = FALSE),
+                 "^Deleted 1 sims data files in '.*sims'[.]$")
   expect_identical(list.files(tempdir), c("data0000001.rds", "data0000002.rds", "data0000003.rds"))
   
   x <- 1
   saveRDS(x, file.path(tempdir, "data000003.rds"))
-
+  
   expect_true(sims_simulate("a ~ dunif(0,1)", nsims = 1L, path = tempdir, 
-                             exists = TRUE, ask = FALSE, silent = TRUE))
+                            exists = TRUE, ask = FALSE, silent = TRUE))
   expect_identical(list.files(tempdir), c("data0000001.rds", "data000003.rds"))
 })
 
@@ -421,9 +435,24 @@ test_that("names with dots and underscores",{
   set.seed(101)
   expect_equal(sims_simulate("x.y ~ dunif(0,1)", nsims = 2L),
                structure(list(structure(list(x.y = 0.247694617962275), class = "nlist"), 
-    structure(list(x.y = 0.951518742613052), class = "nlist")), class = "nlists"))
+                              structure(list(x.y = 0.951518742613052), class = "nlist")), class = "nlists"))
   set.seed(101)
   expect_equal(sims_simulate("x_y ~ dunif(0,1)", nsims = 2L),
                structure(list(structure(list(x_y = 0.247694617962275), class = "nlist"), 
-    structure(list(x_y = 0.951518742613052), class = "nlist")), class = "nlists"))
+                              structure(list(x_y = 0.951518742613052), class = "nlist")), class = "nlists"))
+})
+
+test_that("stochastic nodes",{
+  set.seed(101)
+  expect_equal(sims_simulate("x ~ dunif(0,1)
+                             y <- x", stochastic = NA, nsims = 1L),
+               structure(list(structure(list(x = 0.247694617962275, y = 0.247694617962275), class = "nlist")), class = "nlists"))
+  set.seed(101)
+  expect_equal(sims_simulate("x ~ dunif(0,1)
+                             y <- x", stochastic = TRUE, nsims = 1L),
+               structure(list(structure(list(x = 0.247694617962275), class = "nlist")), class = "nlists"))
+  set.seed(101)
+  expect_equal(sims_simulate("x ~ dunif(0,1)
+                             y <- x", stochastic = FALSE, nsims = 1L),
+               structure(list(structure(list(y = 0.247694617962275), class = "nlist")), class = "nlists"))
 })

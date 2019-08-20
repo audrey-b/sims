@@ -5,24 +5,32 @@
 \title{Simulate Datasets}
 \usage{
 sims_simulate(code, constants = nlist::nlist(),
-  parameters = nlist::nlist(), monitor = ".*",
-  nsims = getOption("sims.nsims", 100L), parallel = FALSE,
-  path = NULL, exists = FALSE, ask = getOption("sims.ask", TRUE),
-  silent = FALSE)
+  parameters = nlist::nlist(), monitor = ".*", stochastic = TRUE,
+  observed = TRUE, nsims = getOption("sims.nsims", 100L),
+  parallel = FALSE, path = NULL, exists = FALSE,
+  ask = getOption("sims.ask", TRUE), silent = FALSE)
 }
 \arguments{
 \item{code}{A string of the JAGS code to generate the data.
 The code must not be in a data or model block.}
 
 \item{constants}{An nlist object specifying the values of nodes in code. 
-The values are included in the output data.}
+The values are included in the output dataset.}
 
 \item{parameters}{An nlist object specifying the values of nodes in code. 
-The values are not included in the output data.}
+The values are not included in the output dataset.}
 
 \item{monitor}{A character vector (or regular expression if a string) 
-specifying the names of the stochastic nodes in code to include in the data.
-By default all stochastic nodes are included.}
+specifying the names of the nodes in code to include in the dataset.
+By default all nodes are included.}
+
+\item{stochastic}{A logical scalar specifying whether to monitor 
+deterministic and stochastic (NA), only deterministic (FALSE) 
+or only stochastic nodes (TRUE).}
+
+\item{observed}{A logical scalar specifying whether to monitor 
+latent and observed (NA), only latent (FALSE) 
+or only observed nodes (TRUE).}
 
 \item{nsims}{An integer between 1 and 1,000,000 specifying 
 the number of data sets to simulate. By default 100 data sets are simulated.}
