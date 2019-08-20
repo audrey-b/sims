@@ -14,9 +14,7 @@ prepare_code <- function(code) {
   code
 }
 
-variable_nodes <- function (x, stochastic, observed) {
-  x <- strip_comments(x)
-  
+stochastic_nodes <- function(x, stochastic) {
   if(isTRUE(stochastic)) {
     pattern <- "(?=\\s*[~])"
   } else if (isFALSE(stochastic)) {
@@ -36,18 +34,34 @@ variable_nodes <- function (x, stochastic, observed) {
   sort(nodes)
 }
 
-variable_nodes_description <- function(stochastic, observed) {
+latent_nodes <- function(x, nodes, latent) {
+  if(is.na(latent) || !length(nodes)) return(nodes)
+  nodes. <- gsub("[.]", "[.]", nodes)
+  patterns <- p0("([~]|([<][-]))[^\n;]*", nodes., "(\\W|\n|$)")
+  lateo <- vapply(patterns, grepl, TRUE, x = x)
+  if(latent) return(nodes[lateo])
+  nodes[!lateo]
+}
+
+variable_nodes <- function (x, stochastic, latent) {
+  x <- strip_comments(x)
+  nodes <- stochastic_nodes(x, stochastic)
+  nodes <- latent_nodes(x, nodes, latent)
+  nodes
+}
+
+variable_nodes_description <- function(stochastic, latent) {
   desc <- "variable node"
   if(!is.na(stochastic)) 
     desc <- p(if(stochastic) "stochastic" else "deterministic", desc)
-  if(!is.na(observed)) 
-    desc <- p(if(observed) "observed" else "latent", desc)
+  if(!is.na(latent)) 
+    desc <- p(if(latent) "latent" else "observed", desc)
   desc
 }
 
-set_monitor <- function(monitor, code, stochastic, observed, silent) {
-  variable_nodes <- variable_nodes(code, stochastic, observed)
-  desc <- variable_nodes_description(stochastic, observed)
+set_monitor <- function(monitor, code, stochastic, latent, silent) {
+  variable_nodes <- variable_nodes(code, stochastic, latent)
+  desc <- variable_nodes_description(stochastic, latent)
   if(!length(variable_nodes)) 
     err("jags code must include at least one ", desc, ".")
   

@@ -48,8 +48,8 @@ test_that("test match at least one node",{
                              a2 <- a", list(x = 1), monitor = "b", stochastic = FALSE),
                "^`monitor` must match at least one of the following observed deterministic variable nodes: 'a2'[.]$")
   expect_error(sims_simulate("a ~ dunif(1)
-                             a2 <- a", list(x = 1), monitor = "b", stochastic = NA),
-               "^`monitor` must match at least one of the following observed variable nodes: 'a' or 'a2'[.]$")
+                             a2 <- a", list(x = 1), monitor = "b", stochastic = NA, latent = NA),
+               "^`monitor` must match at least one of the following variable nodes: 'a' or 'a2'[.]$")
 })
 
 test_that("not in model or data block",{
@@ -102,7 +102,7 @@ for (i in 1:length(Year)){
   expect_equal(sims_simulate(generative_model, 
                              constants = constants,
                              parameters = parameters,
-                             monitor = monitor, nsims = 1L, stochastic = NA),
+                             monitor = monitor, nsims = 1L, stochastic = NA, latent = NA),
                structure(list(structure(list(C = c(31, 34, 26, 20, 16), lambda = c(32.0212581683725, 
                                                                                    29.2301292225158, 26.6822886806137, 24.3565303394963, 22.2334964320294
                ), rand = -0.0227419291174858, Year = 1:5), class = "nlist")), class = "nlists"))
@@ -327,7 +327,7 @@ test_that("monitor",{
   expect_error(sims_simulate("ab ~ dunif(0,1)", nsims = 1L, monitor = c("a", "a"), stochastic = FALSE),
                "^jags code must include at least one observed deterministic variable node[.]$")
 
-  expect_error(sims_simulate("ab ~ dunif(0,1)", nsims = 1L, monitor = c("a", "a"), stochastic = FALSE, observed = NA),
+  expect_error(sims_simulate("ab ~ dunif(0,1)", nsims = 1L, monitor = c("a", "a"), stochastic = FALSE, latent = NA),
                "^jags code must include at least one deterministic variable node[.]$")
   
   expect_warning(sims_simulate("ab ~ dunif(0,1)", nsims = 1L, monitor = c("ab", "a")),
@@ -445,14 +445,88 @@ test_that("names with dots and underscores",{
 test_that("stochastic nodes",{
   set.seed(101)
   expect_equal(sims_simulate("x ~ dunif(0,1)
-                             y <- x", stochastic = NA, nsims = 1L),
+                             y <- x", stochastic = NA, latent = NA, nsims = 1L),
                structure(list(structure(list(x = 0.247694617962275, y = 0.247694617962275), class = "nlist")), class = "nlists"))
   set.seed(101)
   expect_equal(sims_simulate("x ~ dunif(0,1)
-                             y <- x", stochastic = TRUE, nsims = 1L),
+                             y <- x", stochastic = TRUE, latent = NA, nsims = 1L),
                structure(list(structure(list(x = 0.247694617962275), class = "nlist")), class = "nlists"))
   set.seed(101)
   expect_equal(sims_simulate("x ~ dunif(0,1)
-                             y <- x", stochastic = FALSE, nsims = 1L),
+                             y <- x", stochastic = FALSE, latent = NA, nsims = 1L),
                structure(list(structure(list(y = 0.247694617962275), class = "nlist")), class = "nlists"))
+})
+
+test_that("latent nodes",{
+  set.seed(101)
+  expect_equal(sims_simulate("x ~ dunif(0,1)
+                             y <- x", stochastic = NA, latent = NA, nsims = 1L),
+               structure(list(structure(list(x = 0.247694617962275, y = 0.247694617962275), class = "nlist")), class = "nlists"))
+  set.seed(101)
+  expect_equal(sims_simulate("x ~ dunif(0,1)
+                             y <- x", stochastic = NA, latent = FALSE, nsims = 1L),
+               structure(list(structure(list(y = 0.247694617962275), class = "nlist")), class = "nlists"))
+  set.seed(101)
+  expect_equal(sims_simulate("x ~ dunif(0,1)
+                             y <- x", stochastic = NA, latent = TRUE, nsims = 1L),
+               structure(list(structure(list(x = 0.247694617962275), class = "nlist")), class = "nlists"))
+})
+
+test_that("latent, stochastic nodes",{
+  set.seed(101)
+  expect_equal(sims_simulate("x ~ dunif(0,1)
+                              x2 ~ dnorm(y,1)
+                              y <- 2
+                              y2 <- x2", stochastic = NA, latent = NA, nsims = 1L),
+               structure(list(structure(list(x = 0.371956459153842, x2 = 1.24014825655557, 
+    y = 2, y2 = 1.24014825655557), class = "nlist")), class = "nlists"))
+  set.seed(101)
+  expect_equal(sims_simulate("x ~ dunif(0,1)
+                              x2 ~ dnorm(y,1)
+                              y <- 2
+                              y2 <- x2", stochastic = TRUE, latent = NA, nsims = 1L),
+               structure(list(structure(list(x = 0.371956459153842, x2 = 1.24014825655557), class = "nlist")), class = "nlists"))
+  set.seed(101)
+  expect_equal(sims_simulate("x ~ dunif(0,1)
+                              x2 ~ dnorm(y,1)
+                              y <- 2
+                              y2 <- x2", stochastic = FALSE, latent = NA, nsims = 1L),
+               structure(list(structure(list(y = 2, y2 = 1.24014825655557), class = "nlist")), class = "nlists"))
+  set.seed(101)
+  expect_equal(sims_simulate("x ~ dunif(0,1)
+                              x2 ~ dnorm(y,1)
+                              y <- 2
+                              y2 <- x2", stochastic = NA, latent = FALSE, nsims = 1L),
+               structure(list(structure(list(x = 0.371956459153842, y2 = 1.24014825655557), class = "nlist")), class = "nlists"))
+    set.seed(101)
+  expect_equal(sims_simulate("x ~ dunif(0,1)
+                              x2 ~ dnorm(y,1)
+                              y <- 2
+                              y2 <- x2", stochastic = NA, latent = TRUE, nsims = 1L),
+               structure(list(structure(list(x2 = 1.24014825655557, y = 2), class = "nlist")), class = "nlists"))
+  # note the nodes monitored affects the random draws
+  set.seed(101)
+  expect_equal(sims_simulate("x ~ dunif(0,1)
+                              x2 ~ dnorm(y,1)
+                              y <- 2
+                              y2 <- x2", stochastic = TRUE, latent = FALSE, nsims = 1L),
+               structure(list(structure(list(x = 0.247694617962275), class = "nlist")), class = "nlists"))
+    set.seed(101)
+  expect_equal(sims_simulate("x ~ dunif(0,1)
+                              x2 ~ dnorm(y,1)
+                              y <- 2
+                              y2 <- x2", stochastic = TRUE, latent = TRUE, nsims = 1L),
+               structure(list(structure(list(x2 = 1.24014825655557), class = "nlist")), class = "nlists"))
+  set.seed(101)
+  expect_equal(sims_simulate("x ~ dunif(0,1)
+                              x2 ~ dnorm(y,1)
+                              y <- 2
+                              y2 <- x2", stochastic = FALSE, latent = FALSE, nsims = 1L),
+               structure(list(structure(list(y2 = 1.24014825655557), class = "nlist")), class = "nlists"))
+    set.seed(101)
+  expect_equal(sims_simulate("x ~ dunif(0,1)
+                              x2 ~ dnorm(y,1)
+                              y <- 2
+                              y2 <- x2", stochastic = FALSE, latent = TRUE, nsims = 1L),
+               structure(list(structure(list(y = 2), class = "nlist")), class = "nlists"))
 })

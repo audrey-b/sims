@@ -6,7 +6,7 @@
 \usage{
 sims_simulate(code, constants = nlist::nlist(),
   parameters = nlist::nlist(), monitor = ".*", stochastic = TRUE,
-  observed = TRUE, nsims = getOption("sims.nsims", 100L),
+  latent = FALSE, nsims = getOption("sims.nsims", 100L),
   parallel = FALSE, path = NULL, exists = FALSE,
   ask = getOption("sims.ask", TRUE), silent = FALSE)
 }
@@ -28,9 +28,9 @@ By default all nodes are included.}
 deterministic and stochastic (NA), only deterministic (FALSE) 
 or only stochastic nodes (TRUE).}
 
-\item{observed}{A logical scalar specifying whether to monitor 
-latent and observed (NA), only latent (FALSE) 
-or only observed nodes (TRUE).}
+\item{latent}{A logical scalar specifying whether to monitor 
+observed and latent (NA), only latent (TRUE) 
+or only observed nodes (FALSE).}
 
 \item{nsims}{An integer between 1 and 1,000,000 specifying 
 the number of data sets to simulate. By default 100 data sets are simulated.}

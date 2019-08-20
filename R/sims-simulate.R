@@ -36,9 +36,9 @@
 #' @param stochastic A logical scalar specifying whether to monitor 
 #' deterministic and stochastic (NA), only deterministic (FALSE) 
 #' or only stochastic nodes (TRUE).
-#' @param observed A logical scalar specifying whether to monitor 
-#' latent and observed (NA), only latent (FALSE) 
-#' or only observed nodes (TRUE).
+#' @param latent A logical scalar specifying whether to monitor 
+#' observed and latent (NA), only latent (TRUE) 
+#' or only observed nodes (FALSE).
 #' @param nsims An integer between 1 and 1,000,000 specifying 
 #' the number of data sets to simulate. By default 100 data sets are simulated.
 #' @param parallel A flag specifying whether to generate the datasets in parallel. 
@@ -64,7 +64,7 @@ sims_simulate <- function(code,
                           parameters = nlist::nlist(), 
                           monitor = ".*",
                           stochastic = TRUE,
-                          observed = TRUE,
+                          latent = FALSE,
                           nsims = getOption("sims.nsims", 100L), 
                           parallel = FALSE,
                           path = NULL,
@@ -78,7 +78,7 @@ sims_simulate <- function(code,
     chk_is(monitor, "character")
     chk_gt(length(monitor))
     chk_lgl(stochastic)
-    chk_lgl(observed)
+    chk_lgl(latent)
     chk_whole_number(nsims)
     chk_range(nsims, c(1, 1000000))
     chk_flag(parallel)
@@ -97,7 +97,7 @@ sims_simulate <- function(code,
   
   if(!is.null(path)) create_path(path, exists, ask, silent)
   
-  monitor <- set_monitor(monitor, code, stochastic, observed, silent = silent)
+  monitor <- set_monitor(monitor, code, stochastic, latent, silent = silent)
   code <- prepare_code(code)
   
   generate_datasets(code, constants, parameters, 
