@@ -530,3 +530,62 @@ test_that("latent, stochastic nodes",{
                               y2 <- x2", stochastic = FALSE, latent = TRUE, nsims = 1L),
                structure(list(structure(list(y = 2), class = "nlist")), class = "nlists"))
 })
+
+test_that("latent, stochastic nodes with dots",{
+  set.seed(101)
+  expect_equal(sims_simulate("x. ~ dunif(0,1)
+                              x2. ~ dnorm(y.,1)
+                              y. <- 2
+                              y2. <- x2.", stochastic = NA, latent = NA, nsims = 1L),
+               structure(list(structure(list(x. = 0.371956459153842, x2. = 1.24014825655557, 
+    y. = 2, y2. = 1.24014825655557), class = "nlist")), class = "nlists"))
+  set.seed(101)
+  expect_equal(sims_simulate("x. ~ dunif(0,1)
+                              x2. ~ dnorm(y.,1)
+                              y. <- 2
+                              y2. <- x2.", stochastic = TRUE, latent = NA, nsims = 1L),
+               structure(list(structure(list(x. = 0.371956459153842, x2. = 1.24014825655557), class = "nlist")), class = "nlists"))
+  set.seed(101)
+  expect_equal(sims_simulate("x. ~ dunif(0,1)
+                              x2. ~ dnorm(y.,1)
+                              y. <- 2
+                              y2. <- x2.", stochastic = FALSE, latent = NA, nsims = 1L),
+               structure(list(structure(list(y. = 2, y2. = 1.24014825655557), class = "nlist")), class = "nlists"))
+  set.seed(101)
+  expect_equal(sims_simulate("x. ~ dunif(0,1)
+                              x2. ~ dnorm(y.,1)
+                              y. <- 2
+                              y2. <- x2.", stochastic = NA, latent = FALSE, nsims = 1L),
+               structure(list(structure(list(x. = 0.371956459153842, y2. = 1.24014825655557), class = "nlist")), class = "nlists"))
+    set.seed(101)
+  expect_equal(sims_simulate("x. ~ dunif(0,1)
+                              x2. ~ dnorm(y.,1)
+                              y. <- 2
+                              y2. <- x2.", stochastic = NA, latent = TRUE, nsims = 1L),
+               structure(list(structure(list(x2. = 1.24014825655557, y. = 2), class = "nlist")), class = "nlists"))
+  # note the nodes monitored affects the random draws
+  set.seed(101)
+  expect_equal(sims_simulate("x. ~ dunif(0,1)
+                              x2. ~ dnorm(y.,1)
+                              y. <- 2
+                              y2. <- x2.", stochastic = TRUE, latent = FALSE, nsims = 1L),
+               structure(list(structure(list(x. = 0.247694617962275), class = "nlist")), class = "nlists"))
+    set.seed(101)
+  expect_equal(sims_simulate("x. ~ dunif(0,1)
+                              x2. ~ dnorm(y.,1)
+                              y. <- 2
+                              y2. <- x2.", stochastic = TRUE, latent = TRUE, nsims = 1L),
+               structure(list(structure(list(x2. = 1.24014825655557), class = "nlist")), class = "nlists"))
+  set.seed(101)
+  expect_equal(sims_simulate("x. ~ dunif(0,1)
+                              x2. ~ dnorm(y.,1)
+                              y. <- 2
+                              y2. <- x2.", stochastic = FALSE, latent = FALSE, nsims = 1L),
+               structure(list(structure(list(y2. = 1.24014825655557), class = "nlist")), class = "nlists"))
+    set.seed(101)
+  expect_equal(sims_simulate("x. ~ dunif(0,1)
+                              x2. ~ dnorm(y.,1)
+                              y. <- 2
+                              y2. <- x2.", stochastic = FALSE, latent = TRUE, nsims = 1L),
+               structure(list(structure(list(y. = 2), class = "nlist")), class = "nlists"))
+})
