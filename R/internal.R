@@ -23,8 +23,8 @@ stochastic_nodes <- function(x, stochastic) {
     pattern <- "(?=\\s*([~]|([<][-])))"
   
   index <- "\\[[^\\]]*\\]"
-  
-  pattern <- p0("[\\w[.]]+(", index, "){0,1}\\s*[)]{0,1}", pattern, collapse = "")
+ 
+  pattern <- p0("[[:alnum:]_.]+(", index, "){0,1}\\s*[)]{0,1}", pattern, collapse = "")
   nodes <- str_extract_all(x, pattern)
   nodes <- unlist(nodes)
   nodes <- sub("[)]$", "", nodes)
@@ -37,7 +37,7 @@ stochastic_nodes <- function(x, stochastic) {
 latent_nodes <- function(x, nodes, latent) {
   if(is.na(latent) || !length(nodes)) return(nodes)
   nodes. <- gsub("[.]", "[.]", nodes)
-  patterns <- p0("([~]|([<][-]))[^\n;]*", nodes., "(\\W|\n|$)")
+  patterns <- p0("([~]|([<][-]))[^\n;]*", nodes., "([^[:alnum:]_.]|\n|$)")
   lateo <- vapply(patterns, grepl, TRUE, x = x)
   if(latent) return(nodes[lateo])
   nodes[!lateo]
