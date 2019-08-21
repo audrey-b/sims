@@ -73,8 +73,10 @@ sims_simulate <- function(code,
                           silent = FALSE) {
   if(is_chk_on()) {
     chk_string(code)
-    check_nlist(constants, nas = FALSE, class = NA)
-    check_nlist(parameters, nas = FALSE, class = NA)
+    chk_nlist(constants)
+    chk_no_missing(constants)
+    chk_nlist(parameters)
+    chk_no_missing(parameters)
     chk_is(monitor, "character")
     chk_gt(length(monitor))
     chk_lgl(stochastic)

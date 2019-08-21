@@ -1,6 +1,6 @@
 Package: sims
 Title: Simulate Datasets from 'JAGS' Model Code
-Version: 0.0.0.9007
+Version: 0.0.0.9008
 Authors@R: c(
     person("Audrey", "Beliveau", , "audrey.beliveau@uwaterloo.ca", "aut"),
     person("Joe", "Thorley", , "joe@poissonconsulting.ca", c("aut", "cre"), comment = c(ORCID = "0000-0002-7683-4592"))
@@ -12,7 +12,7 @@ Imports:
   yesno,
   stringr,
   stats,
-  nlist (>= 0.0.0.9100),
+  nlist (>= 0.0.0.9104),
   rjags
 Suggests: 
   covr,

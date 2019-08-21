@@ -5,30 +5,30 @@ test_that("test inputs",{
                "`code` must be a string [(]non-missing character scalar[)].")
   
   expect_error(sims_simulate("x <- y", 1),
-               "constants must be a list")
+               "^`constants` must be a uniquely named list of numeric [(]integer or double[)] atomic [(]vector, matrix or array[)] objects[.]$")
   expect_error(sims_simulate("x <- y", list()),
-               "constants must be named")
+               "^`constants` must be a uniquely named list of numeric [(]integer or double[)] atomic [(]vector, matrix or array[)] objects[.]$")
   expect_error(sims_simulate("x <- y", list(1)),
-               "constants must be named")
+               "^`constants` must be a uniquely named list of numeric [(]integer or double[)] atomic [(]vector, matrix or array[)] objects[.]$")
   expect_error(sims_simulate("x <- y", list(x = 1, x = 1)),
-               "names of constants must be unique")
+               "^`constants` must be a uniquely named list of numeric [(]integer or double[)] atomic [(]vector, matrix or array[)] objects[.]$")
   expect_error(sims_simulate("x <- y", list(x = TRUE)),
-               "element x of constants must be a numeric [(]integer or double[)] object")
+               "^`constants` must be a uniquely named list of numeric [(]integer or double[)] atomic [(]vector, matrix or array[)] objects[.]$")
   expect_error(sims_simulate("x <- y", list(x = NA_real_)),
-               "element x of constants must not include missing values")
+               "^`constants` must not have missing values[.]$")
   
   expect_error(sims_simulate("x <- y", parameters = 1),
-               "parameters must be a list")
+               "^`parameters` must be a uniquely named list of numeric [(]integer or double[)] atomic [(]vector, matrix or array[)] objects[.]$")
   expect_error(sims_simulate("x <- y", parameters = list()),
-               "parameters must be named")
+               "^`parameters` must be a uniquely named list of numeric [(]integer or double[)] atomic [(]vector, matrix or array[)] objects[.]$")
   expect_error(sims_simulate("x <- y", parameters = list(1)),
-               "parameters must be named")
+               "^`parameters` must be a uniquely named list of numeric [(]integer or double[)] atomic [(]vector, matrix or array[)] objects[.]$")
   expect_error(sims_simulate("x <- y", parameters = list(x = 1, x = 1)),
-               "names of parameters must be unique")
+               "^`parameters` must be a uniquely named list of numeric [(]integer or double[)] atomic [(]vector, matrix or array[)] objects[.]$")
   expect_error(sims_simulate("x <- y", parameters = list(x = TRUE)),
-               "element x of parameters must be a numeric [(]integer or double[)] object")
+               "^`parameters` must be a uniquely named list of numeric [(]integer or double[)] atomic [(]vector, matrix or array[)] objects[.]$")
   expect_error(sims_simulate("x <- y", parameters = list(x = NA_real_)),
-               "element x of parameters must not include missing values")
+               "^`parameters` must not have missing values[.]$")
   
   expect_error(sims_simulate("x <- y", list(x = 1), monitor = 1),
                "`monitor` must inherit from class 'character'")
@@ -323,10 +323,10 @@ test_that("monitor",{
   
   expect_error(sims_simulate("ab ~ dunif(0,1)", nsims = 1L, monitor = c("a", "a")),
                "^`monitor` must include at least one of the following observed stochastic variable nodes: 'ab'[.]$")
-
+  
   expect_error(sims_simulate("ab ~ dunif(0,1)", nsims = 1L, monitor = c("a", "a"), stochastic = FALSE),
                "^jags code must include at least one observed deterministic variable node[.]$")
-
+  
   expect_error(sims_simulate("ab ~ dunif(0,1)", nsims = 1L, monitor = c("a", "a"), stochastic = FALSE, latent = NA),
                "^jags code must include at least one deterministic variable node[.]$")
   
@@ -479,7 +479,7 @@ test_that("latent, stochastic nodes",{
                               y <- 2
                               y2 <- x2", stochastic = NA, latent = NA, nsims = 1L),
                structure(list(structure(list(x = 0.371956459153842, x2 = 1.24014825655557, 
-    y = 2, y2 = 1.24014825655557), class = "nlist")), class = "nlists"))
+                                             y = 2, y2 = 1.24014825655557), class = "nlist")), class = "nlists"))
   set.seed(101)
   expect_equal(sims_simulate("x ~ dunif(0,1)
                               x2 ~ dnorm(y,1)
@@ -498,7 +498,7 @@ test_that("latent, stochastic nodes",{
                               y <- 2
                               y2 <- x2", stochastic = NA, latent = FALSE, nsims = 1L),
                structure(list(structure(list(x = 0.371956459153842, y2 = 1.24014825655557), class = "nlist")), class = "nlists"))
-    set.seed(101)
+  set.seed(101)
   expect_equal(sims_simulate("x ~ dunif(0,1)
                               x2 ~ dnorm(y,1)
                               y <- 2
@@ -511,7 +511,7 @@ test_that("latent, stochastic nodes",{
                               y <- 2
                               y2 <- x2", stochastic = TRUE, latent = FALSE, nsims = 1L),
                structure(list(structure(list(x = 0.247694617962275), class = "nlist")), class = "nlists"))
-    set.seed(101)
+  set.seed(101)
   expect_equal(sims_simulate("x ~ dunif(0,1)
                               x2 ~ dnorm(y,1)
                               y <- 2
@@ -523,7 +523,7 @@ test_that("latent, stochastic nodes",{
                               y <- 2
                               y2 <- x2", stochastic = FALSE, latent = FALSE, nsims = 1L),
                structure(list(structure(list(y2 = 1.24014825655557), class = "nlist")), class = "nlists"))
-    set.seed(101)
+  set.seed(101)
   expect_equal(sims_simulate("x ~ dunif(0,1)
                               x2 ~ dnorm(y,1)
                               y <- 2
