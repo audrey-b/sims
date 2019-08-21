@@ -539,3 +539,25 @@ test_that("latent, stochastic nodes with dots on end",{
                               y. <- x.", stochastic = NA, latent = TRUE, nsims = 1L),
                structure(list(structure(list(x. = 1.24014825655557, y = 2), class = "nlist")), class = "nlists"))
 })
+
+test_that("handles =",{
+  set.seed(101)
+  expect_error(sims_simulate("Y = beta + epsilon
+      beta ~ dnorm(0,1)
+      epsilon ~ dnorm(0,1)", nsim = 1),
+               "^jags code must include at least one observed stochastic variable node[.]$")
+  
+  set.seed(101)
+  expect_equal(sims_simulate("Y = beta + epsilon
+      beta ~ dnorm(0,1)
+      epsilon ~ dnorm(0,1)", nsim = 1, latent = TRUE),
+               structure(list(structure(list(beta = -0.954537139505518, epsilon = -0.759851743444426), class = "nlist")), class = "nlists"))
+  
+  set.seed(101)
+  expect_equal(sims_simulate("Y = beta + epsilon
+      beta ~ dnorm(0,1)
+      epsilon ~ dnorm(0,1)", nsim = 1, latent = NA, stochastic = NA),
+               structure(list(structure(list(Y = -1.71438888294994, beta = -0.954537139505518, 
+    epsilon = -0.759851743444426), class = "nlist")), class = "nlists"))
+
+})
