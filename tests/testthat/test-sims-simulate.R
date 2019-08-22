@@ -558,6 +558,13 @@ test_that("handles =",{
       beta ~ dnorm(0,1)
       epsilon ~ dnorm(0,1)", nsim = 1, latent = NA, stochastic = NA),
                structure(list(structure(list(Y = -1.71438888294994, beta = -0.954537139505518, 
-    epsilon = -0.759851743444426), class = "nlist")), class = "nlists"))
+                                             epsilon = -0.759851743444426), class = "nlist")), class = "nlists"))
+  
+})
 
+test_that("with [] latent variables",{
+  set.seed(101)
+  expect_equal(sims_simulate("a ~ dt(theta[1],theta[2],df)", 
+                             nsims = 1, parameters = list(df=1, theta=c(1,1))),
+                   structure(list(structure(list(a = -0.220090850895796), class = "nlist")), class = "nlists"))
 })

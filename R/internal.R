@@ -37,7 +37,7 @@ stochastic_nodes <- function(x, stochastic) {
 latent_nodes <- function(x, nodes, latent) {
   if(is.na(latent) || !length(nodes)) return(nodes)
   nodes. <- gsub("[.]", "[.]", nodes)
-  patterns <- p0("([~]|([<][-])|(=))[^\n;]*", nodes., 
+  patterns <- p0("([~]|([<][-])|(=))[^\n;]*\\b", nodes., 
                  "([^[:alnum:]_.]|\n|$)")
   lateo <- vapply(patterns, grepl, TRUE, x = x)
   if(latent) return(nodes[lateo])
