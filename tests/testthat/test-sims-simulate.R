@@ -5,28 +5,28 @@ test_that("test inputs",{
                "`code` must be a string [(]non-missing character scalar[)].")
   
   expect_error(sims_simulate("x <- y", 1),
-               "^`constants` must be a uniquely named list of numeric [(]integer or double[)] atomic [(]vector, matrix or array[)] objects[.]$")
+               "^`constants` must be a list[.]$")
   expect_error(sims_simulate("x <- y", list()),
-               "^`constants` must be a uniquely named list of numeric [(]integer or double[)] atomic [(]vector, matrix or array[)] objects[.]$")
+               "^`constants` must be named[.]$")
   expect_error(sims_simulate("x <- y", list(1)),
-               "^`constants` must be a uniquely named list of numeric [(]integer or double[)] atomic [(]vector, matrix or array[)] objects[.]$")
+               "^`constants` must be named[.]$")
   expect_error(sims_simulate("x <- y", list(x = 1, x = 1)),
-               "^`constants` must be a uniquely named list of numeric [(]integer or double[)] atomic [(]vector, matrix or array[)] objects[.]$")
+               "^names[(]`constants`[)] must be unique[.]$")
   expect_error(sims_simulate("x <- y", list(x = TRUE)),
-               "^`constants` must be a uniquely named list of numeric [(]integer or double[)] atomic [(]vector, matrix or array[)] objects[.]$")
+               "^All elements of `constants` must be a numeric [(]integer or double[)] atomic [(]vector, matrix or array[)] object[.]$")
   expect_error(sims_simulate("x <- y", list(x = NA_real_)),
                "^`constants` must not have missing values[.]$")
   
   expect_error(sims_simulate("x <- y", parameters = 1),
-               "^`parameters` must be a uniquely named list of numeric [(]integer or double[)] atomic [(]vector, matrix or array[)] objects[.]$")
+               "^`parameters` must be a list[.]$")
   expect_error(sims_simulate("x <- y", parameters = list()),
-               "^`parameters` must be a uniquely named list of numeric [(]integer or double[)] atomic [(]vector, matrix or array[)] objects[.]$")
+               "^`parameters` must be named[.]$")
   expect_error(sims_simulate("x <- y", parameters = list(1)),
-               "^`parameters` must be a uniquely named list of numeric [(]integer or double[)] atomic [(]vector, matrix or array[)] objects[.]$")
+               "^`parameters` must be named[.]$")
   expect_error(sims_simulate("x <- y", parameters = list(x = 1, x = 1)),
-               "^`parameters` must be a uniquely named list of numeric [(]integer or double[)] atomic [(]vector, matrix or array[)] objects[.]$")
+               "^names[(]`parameters`[)] must be unique[.]$")
   expect_error(sims_simulate("x <- y", parameters = list(x = TRUE)),
-               "^`parameters` must be a uniquely named list of numeric [(]integer or double[)] atomic [(]vector, matrix or array[)] objects[.]$")
+               "^All elements of `parameters` must be a numeric [(]integer or double[)] atomic [(]vector, matrix or array[)] object[.]$")
   expect_error(sims_simulate("x <- y", parameters = list(x = NA_real_)),
                "^`parameters` must not have missing values[.]$")
   
