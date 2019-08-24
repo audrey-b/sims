@@ -62,9 +62,7 @@ If \code{path} is provided then the datasets are written to the directory
 as individual \code{.rds} files.
 }
 \details{
-Both constants and parameters must be \code{\link[nlist]{nlist_object}s} or 
-uniquely named lists of numeric vectors, matrices and arrays that can be
-coerced to nlist objects.
+Both constants and parameters must be \code{\link[nlist]{nlist_object}s}.
 The only difference between constants and parameters is that the values in 
 constants are appended to the output data while the values in parameters 
 are not.

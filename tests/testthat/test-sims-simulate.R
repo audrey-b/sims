@@ -5,57 +5,39 @@ test_that("test inputs",{
                "`code` must be a string [(]non-missing character scalar[)].")
   
   expect_error(sims_simulate("x <- y", 1),
-               "^`constants` must be a list[.]$")
-  expect_error(sims_simulate("x <- y", list()),
-               "^`constants` must be named[.]$")
-  expect_error(sims_simulate("x <- y", list(1)),
-               "^`constants` must be named[.]$")
-  expect_error(sims_simulate("x <- y", list(x = 1, x = 1)),
-               "^names[(]`constants`[)] must be unique[.]$")
-  expect_error(sims_simulate("x <- y", list(x = TRUE)),
-               "^All elements of `constants` must be a numeric [(]integer or double[)] atomic [(]vector, matrix or array[)] object[.]$")
-  expect_error(sims_simulate("x <- y", list(x = NA_real_)),
+               "^`constants` must inherit from class 'nlist'[.]$")
+  expect_error(sims_simulate("x <- y", nlist::nlist(x = NA_real_)),
                "^`constants` must not have missing values[.]$")
-  
-  expect_error(sims_simulate("x <- y", parameters = 1),
-               "^`parameters` must be a list[.]$")
-  expect_error(sims_simulate("x <- y", parameters = list()),
-               "^`parameters` must be named[.]$")
-  expect_error(sims_simulate("x <- y", parameters = list(1)),
-               "^`parameters` must be named[.]$")
-  expect_error(sims_simulate("x <- y", parameters = list(x = 1, x = 1)),
-               "^names[(]`parameters`[)] must be unique[.]$")
   expect_error(sims_simulate("x <- y", parameters = list(x = TRUE)),
-               "^All elements of `parameters` must be a numeric [(]integer or double[)] atomic [(]vector, matrix or array[)] object[.]$")
-  expect_error(sims_simulate("x <- y", parameters = list(x = NA_real_)),
+               "^`parameters` must inherit from class 'nlist'[.]$")
+  expect_error(sims_simulate("x <- y", parameters = nlist(x = NA_real_)),
                "^`parameters` must not have missing values[.]$")
-  
-  expect_error(sims_simulate("x <- y", list(x = 1), monitor = 1),
+  expect_error(sims_simulate("x <- y", nlist(x = 1), monitor = 1),
                "`monitor` must inherit from class 'character'")
 })
 
 test_that("test nodes not already defined",{
-  expect_error(sims_simulate("a ~ dunif(1)", list(a = 1)),
+  expect_error(sims_simulate("a ~ dunif(1)", nlist(a = 1)),
                "^The following variable nodes are defined in constants: 'a'[.]$")
 })
 
 test_that("test match at least one node",{
-  expect_error(sims_simulate("a ~ dunif(1)", list(x = 1), monitor = "b"),
+  expect_error(sims_simulate("a ~ dunif(1)", nlist(x = 1), monitor = "b"),
                "^`monitor` must match at least one of the following observed stochastic variable nodes: 'a'[.]$")
-  expect_error(sims_simulate("a ~ dunif(1)", list(x = 1), monitor = "b", stochastic = FALSE),
+  expect_error(sims_simulate("a ~ dunif(1)", nlist(x = 1), monitor = "b", stochastic = FALSE),
                "^jags code must include at least one observed deterministic variable node[.]$")
   expect_error(sims_simulate("a ~ dunif(1)
-                             a2 <- a", list(x = 1), monitor = "b", stochastic = FALSE),
+                             a2 <- a", nlist(x = 1), monitor = "b", stochastic = FALSE),
                "^`monitor` must match at least one of the following observed deterministic variable nodes: 'a2'[.]$")
   expect_error(sims_simulate("a ~ dunif(1)
-                             a2 <- a", list(x = 1), monitor = "b", stochastic = NA, latent = NA),
+                             a2 <- a", nlist(x = 1), monitor = "b", stochastic = NA, latent = NA),
                "^`monitor` must match at least one of the following variable nodes: 'a' or 'a2'[.]$")
 })
 
 test_that("not in model or data block",{
-  expect_error(sims_simulate("model {a ~ dunif(1)}", list(x = 1), monitor = "a"),
+  expect_error(sims_simulate("model {a ~ dunif(1)}", nlist(x = 1), monitor = "a"),
                "jags code must not be in a data or model block")
-  expect_error(sims_simulate("\n data\n{a ~ dunif(1)}", list(x = 1), monitor = "a"),
+  expect_error(sims_simulate("\n data\n{a ~ dunif(1)}", nlist(x = 1), monitor = "a"),
                "jags code must not be in a data or model block")
 })
 
@@ -93,9 +75,9 @@ for (i in 1:length(Year)){
 "
   monitor <- c("C", "rand", "lambda")
   
-  parameters <- list(alpha = 3.5576, beta1 = -0.0912)
+  parameters <- nlist(alpha = 3.5576, beta1 = -0.0912)
   
-  constants <- list(Year = 1:5)
+  constants <- nlist(Year = 1:5)
   
   skip_on_os("windows")
   set.seed(2)
@@ -565,6 +547,6 @@ test_that("handles =",{
 test_that("with [] latent variables",{
   set.seed(101)
   expect_equal(sims_simulate("a ~ dt(theta[1],theta[2],df)", 
-                             nsims = 1, parameters = list(df=1, theta=c(1,1))),
+                             nsims = 1, parameters = nlist(df=1, theta=c(1,1))),
                    structure(list(structure(list(a = -0.220090850895796), class = "nlist")), class = "nlists"))
 })

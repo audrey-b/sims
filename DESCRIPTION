@@ -7,12 +7,14 @@ Authors@R: c(
     )
 Description: Simulates datasets (in the form of an 'nlists' object) from 'JAGS' model code.
 License: GPL-3
+Depends: 
+    R (>= 3.5),
 Imports:
   chk,
   yesno,
+  nlist (>= 0.0.0.9108),
   stringr,
   stats,
-  nlist (>= 0.0.0.9104),
   rjags
 Suggests: 
   covr,
