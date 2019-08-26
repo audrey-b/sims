@@ -550,3 +550,23 @@ test_that("with [] latent variables",{
                              nsims = 1, parameters = nlist(df=1, theta=c(1,1))),
                    structure(list(structure(list(a = -0.220090850895796), class = "nlist")), class = "nlists"))
 })
+
+test_that("strips comments before",{
+  set.seed(101)
+  expect_equal(sims_simulate("b ~ dnorm(a, 1) 
+                             # a ~ dunif(1)", nsims = 1, parameters = list(a = 1)),
+               structure(list(structure(list(b = 0.240148256555574), class = "nlist")), class = "nlists"))
+
+  set.seed(101)
+  expect_equal(sims_simulate("a ~ dunif(0,1)
+                             # x <- a", 
+                             nsims = 1),
+                   structure(list(structure(list(a = 0.247694617962275), class = "nlist")), class = "nlists"))
+})
+
+test_that("with R code",{
+#  set.seed(101)
+#  expect_equal(sims_simulate("a <- runif(2, 0, 1)", nsims = 1),
+#                   structure(list(structure(list(a = -0.220090850895796), class = "nlist")), class = "nlists"))
+})
+

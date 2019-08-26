@@ -95,13 +95,14 @@ sims_simulate <- function(code,
   }
   nsims <- as.integer(nsims)
 
+  code <- prepare_code(code)
+ 
   check_variable_nodes(code, constants)
   check_variable_nodes(code, parameters)
-  
+
   if(!is.null(path)) create_path(path, exists, ask, silent)
   
   monitor <- set_monitor(monitor, code, stochastic, latent, silent = silent)
-  code <- prepare_code(code)
   
   generate_datasets(code, constants, parameters, 
                     monitor = monitor, 

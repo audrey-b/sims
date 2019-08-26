@@ -10,14 +10,15 @@ sims_data(path)
 \item{path}{A string of the path to the directory with the simulated data files.}
 }
 \value{
-An \code{\link[nlist]{nlist_object}} of the simulated datasets.
+An \code{\link[nlist]{nlists_object}} of the simulated datasets.
 }
 \description{
-Gets the simulated datasets as an \code{\link[nlist]{nlist_object}}.
+Gets the simulated datasets as an \code{\link[nlist]{nlists_object}}.
 There is no guarantee that all the datasets will fit in memory.
 }
 \examples{
 set.seed(10)
 sims_simulate("a ~ dunif(0,1)", nsims = 10L, path = tempdir(), exists = NA, ask = FALSE)
+library(nlist)
 sims_data(tempdir())
 }

@@ -45,7 +45,6 @@ latent_nodes <- function(x, nodes, latent) {
 }
 
 variable_nodes <- function (x, stochastic, latent) {
-  x <- strip_comments(x)
   nodes <- stochastic_nodes(x, stochastic)
   nodes <- latent_nodes(x, nodes, latent)
   nodes
