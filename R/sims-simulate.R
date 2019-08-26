@@ -5,7 +5,8 @@
 #' If \code{path} is provided then the datasets are written to the directory 
 #' as individual \code{.rds} files.
 #'
-#' Both constants and parameters must be \code{\link[nlist]{nlist_object}s}.
+#' Both constants and parameters must be \code{\link[nlist]{nlist_object}s}
+#' (or lists that can be coerced to such) .
 #' The only difference between constants and parameters is that the values in 
 #' constants are appended to the output data while the values in parameters 
 #' are not.
@@ -24,9 +25,11 @@
 #'
 #' @param code A string of the JAGS code to generate the data.
 #' The code must not be in a data or model block.
-#' @param constants An nlist object specifying the values of nodes in code. 
+#' @param constants An nlist object (or list that can be coerced to nlist) 
+#' specifying the values of nodes in code. 
 #' The values are included in the output dataset.
-#' @param parameters An nlist object specifying the values of nodes in code. 
+#' @param parameters An nlist object (or list that can be coerced to nlist) 
+#' specifying the values of nodes in code. 
 #' The values are not included in the output dataset.
 #' @param monitor A character vector (or regular expression if a string) 
 #' specifying the names of the nodes in code to include in the dataset.
@@ -69,6 +72,9 @@ sims_simulate <- function(code,
                           exists = FALSE,
                           ask = getOption("sims.ask", TRUE),
                           silent = FALSE) {
+  if(is.list(constants) && !is.nlist(constants)) class(constants) <- "nlist"  
+  if(is.list(parameters) && !is.nlist(parameters)) class(parameters) <- "nlist"
+
   if(is_chk_on()) {
     chk_string(code)
     chk_nlist(constants)

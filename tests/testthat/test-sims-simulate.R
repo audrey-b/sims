@@ -9,10 +9,10 @@ test_that("test inputs",{
   expect_error(sims_simulate("x <- y", nlist::nlist(x = NA_real_)),
                "^`constants` must not have missing values[.]$")
   expect_error(sims_simulate("x <- y", parameters = list(x = TRUE)),
-               "^`parameters` must inherit from class 'nlist'[.]$")
-  expect_error(sims_simulate("x <- y", parameters = nlist(x = NA_real_)),
+               "^All elements of `parameters` must be a numeric [(]integer or double[)] atomic [(]vector, matrix or array[)] object[.]$")
+  expect_error(sims_simulate("x <- y", parameters = list(x = NA_real_)),
                "^`parameters` must not have missing values[.]$")
-  expect_error(sims_simulate("x <- y", nlist(x = 1), monitor = 1),
+  expect_error(sims_simulate("x <- y", list(x = 1), monitor = 1),
                "`monitor` must inherit from class 'character'")
 })
 
@@ -22,15 +22,15 @@ test_that("test nodes not already defined",{
 })
 
 test_that("test match at least one node",{
-  expect_error(sims_simulate("a ~ dunif(1)", nlist(x = 1), monitor = "b"),
+  expect_error(sims_simulate("a ~ dunif(1)", list(x = 1), monitor = "b"),
                "^`monitor` must match at least one of the following observed stochastic variable nodes: 'a'[.]$")
-  expect_error(sims_simulate("a ~ dunif(1)", nlist(x = 1), monitor = "b", stochastic = FALSE),
+  expect_error(sims_simulate("a ~ dunif(1)", list(x = 1), monitor = "b", stochastic = FALSE),
                "^jags code must include at least one observed deterministic variable node[.]$")
   expect_error(sims_simulate("a ~ dunif(1)
-                             a2 <- a", nlist(x = 1), monitor = "b", stochastic = FALSE),
+                             a2 <- a", list(x = 1), monitor = "b", stochastic = FALSE),
                "^`monitor` must match at least one of the following observed deterministic variable nodes: 'a2'[.]$")
   expect_error(sims_simulate("a ~ dunif(1)
-                             a2 <- a", nlist(x = 1), monitor = "b", stochastic = NA, latent = NA),
+                             a2 <- a", list(x = 1), monitor = "b", stochastic = NA, latent = NA),
                "^`monitor` must match at least one of the following variable nodes: 'a' or 'a2'[.]$")
 })
 

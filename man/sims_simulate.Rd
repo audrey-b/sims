@@ -14,10 +14,12 @@ sims_simulate(code, constants = nlist::nlist(),
 \item{code}{A string of the JAGS code to generate the data.
 The code must not be in a data or model block.}
 
-\item{constants}{An nlist object specifying the values of nodes in code. 
+\item{constants}{An nlist object (or list that can be coerced to nlist) 
+specifying the values of nodes in code. 
 The values are included in the output dataset.}
 
-\item{parameters}{An nlist object specifying the values of nodes in code. 
+\item{parameters}{An nlist object (or list that can be coerced to nlist) 
+specifying the values of nodes in code. 
 The values are not included in the output dataset.}
 
 \item{monitor}{A character vector (or regular expression if a string) 
@@ -62,7 +64,8 @@ If \code{path} is provided then the datasets are written to the directory
 as individual \code{.rds} files.
 }
 \details{
-Both constants and parameters must be \code{\link[nlist]{nlist_object}s}.
+Both constants and parameters must be \code{\link[nlist]{nlist_object}s}
+(or lists that can be coerced to such) .
 The only difference between constants and parameters is that the values in 
 constants are appended to the output data while the values in parameters 
 are not.
