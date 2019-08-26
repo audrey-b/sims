@@ -9,7 +9,7 @@ data_files <- function(path) {
 prepare_code <- function(code) {
   code <- strip_comments(code)
   if(grepl("^\\s*(data)|(model)\\s*[{]", code))
-    err("jags code must not be in a data or model block.")
+    err("code must not be in a data or model block.")
   code <- p0("model{", code, "}\n", collapse = "\n")
   code
 }

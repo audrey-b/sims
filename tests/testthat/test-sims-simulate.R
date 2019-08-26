@@ -36,9 +36,9 @@ test_that("test match at least one node",{
 
 test_that("not in model or data block",{
   expect_error(sims_simulate("model {a ~ dunif(1)}", nlist(x = 1), monitor = "a"),
-               "jags code must not be in a data or model block")
+               "^code must not be in a data or model block.")
   expect_error(sims_simulate("\n data\n{a ~ dunif(1)}", nlist(x = 1), monitor = "a"),
-               "jags code must not be in a data or model block")
+               "^code must not be in a data or model block.")
 })
 
 test_that("generates data with replicability",{
@@ -566,7 +566,7 @@ test_that("strips comments before",{
 
 test_that("with R code",{
 #  set.seed(101)
-#  expect_equal(sims_simulate("a <- runif(2, 0, 1)", nsims = 1),
+ # expect_equal(sims_simulate("a <- runif(2, 0, 1)", nsims = 1),
 #                   structure(list(structure(list(a = -0.220090850895796), class = "nlist")), class = "nlists"))
 })
 
