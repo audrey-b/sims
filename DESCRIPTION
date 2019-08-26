@@ -13,7 +13,6 @@ Imports:
   chk,
   yesno,
   nlist (>= 0.0.0.9108),
-  stringr,
   stats,
   rjags
 Suggests: 

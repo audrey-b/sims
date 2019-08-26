@@ -29,7 +29,7 @@ stochastic_nodes <- function(x, stochastic) {
   nodes <- unlist(nodes)
   nodes <- sub("[)]$", "", nodes)
   nodes <- sub("\\s*$", "", nodes)
-  nodes <- str_replace(nodes, pattern = index, "")
+  nodes <- sub(pattern = index, "", nodes, perl = TRUE)
   nodes <- unique(nodes)
   sort(nodes)
 }

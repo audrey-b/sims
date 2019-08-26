@@ -6,3 +6,5 @@ set_class <- function(x, class) {
 }
 
 last <- function(x) x[length(x)]
+
+str_extract_all <- function(x, y) regmatches(x, gregexpr(y, x, perl = TRUE))
