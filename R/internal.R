@@ -6,11 +6,17 @@ data_files <- function(path) {
   list.files(path, pattern = "^data\\d{7,7}.rds$")
 }
 
+is_jags_code <- function(code) {
+  grepl("~", code)
+}
+
 prepare_code <- function(code) {
   code <- strip_comments(code)
-  if(grepl("^\\s*(data)|(model)\\s*[{]", code))
-    err("code must not be in a data or model block.")
-  code <- p0("model{", code, "}\n", collapse = "\n")
+  if(is_jags_code(code)) {
+    if(grepl("^\\s*(data)|(model)\\s*[{]", code))
+      err("JAGS code must not be in a data or model block.")
+    code <- p0("model{", code, "}\n", collapse = "\n")
+  }
   code
 }
 
@@ -23,7 +29,7 @@ stochastic_nodes <- function(x, stochastic) {
     pattern <- "(?=\\s*([~]|(([<][-])|[=])))"
   
   index <- "\\[[^\\]]*\\]"
- 
+  
   pattern <- p0("[[:alnum:]_.]+(", index, "){0,1}\\s*[)]{0,1}", pattern, collapse = "")
   nodes <- str_extract_all(x, pattern)
   nodes <- unlist(nodes)
@@ -60,10 +66,19 @@ variable_nodes_description <- function(stochastic, latent) {
 }
 
 set_monitor <- function(monitor, code, stochastic, latent, silent) {
+  if(!is_jags_code(code) && !is.na(stochastic)) {
+    if(!silent)
+      wrn("R code does not define stochastic variable nodes.")
+    stochastic <- NA
+  }
+  
   variable_nodes <- variable_nodes(code, stochastic, latent)
   desc <- variable_nodes_description(stochastic, latent)
-  if(!length(variable_nodes)) 
-    err("jags code must include at least one ", desc, ".")
+  
+  if(!length(variable_nodes)) {
+    err(if(is_jags_code(code)) "JAGS" else "R", 
+        " code must include at least one ", desc, ".")
+  }
   
   if(length(monitor) == 1) {
     monitor <- variable_nodes[grepl(monitor, variable_nodes)]
@@ -118,20 +133,39 @@ as_natomic_mcarray <- function(x) {
 
 data_file_name <- function(sim) p0("data", sprintf("%07d", sim), ".rds")
 
-generate_dataset <- function(sim, code, constants, parameters, monitor, 
-                             path, seed, parallel) {
+generate_jags <- function(code, data, monitor, seed) {
   code <- textConnection(code)
-  
+
   inits <- list(.RNG.name = "base::Wichmann-Hill")
-  .Random.seed <<- seed
-  inits$.RNG.seed <- abs(last(rinteger(sim)))
-  
-  data <- c(constants, parameters)
+  inits$.RNG.seed <- abs(seed)
+
   model <- rjags::jags.model(code, data = data, inits = inits, 
                              n.adapt = 0, quiet = TRUE)
   sample <- rjags::jags.samples(model, variable.names = monitor, n.iter = 1L, 
                                 progress.bar = "none")
-  nlist <-  set_class(lapply(sample, as_natomic_mcarray), "nlist")
+  set_class(lapply(sample, as_natomic_mcarray), "nlist")
+}
+
+generate_r <- function(code, data, monitor) {
+  nlist <- within(data, eval(code))[monitor]
+  class(nlist) <- "nlist"
+  chk_nlist(nlist, x_name = "simulations from `code`")
+  nlist
+}
+
+generate_dataset <- function(sim, code, is_jags, constants, parameters, monitor, 
+                             path, seed, parallel) {
+  .Random.seed <<- seed
+  seed <- last(rinteger(sim))
+  
+  data <- c(constants, parameters)
+  class(data) <- NULL
+  
+  nlist <- if(is_jags) {
+    generate_jags(code = code, data = data, monitor = monitor, seed = seed)
+  } else
+    generate_r(code = code, data = data, monitor = monitor)
+  
   nlist <- c(nlist, constants)
   if(is.null(path)) return(nlist)
   saveRDS(nlist, file.path(path, data_file_name(sim)))
@@ -152,22 +186,28 @@ generate_datasets <- function(code, constants, parameters, monitor, nsims,
               constants = constants, parameters = parameters, 
               monitor = monitor, nsims = nsims, seed = seed)
   }
+  
+  if(is_jags_code(code)) {
+    is_jags <- TRUE
+  } else {
+    is_jags <- FALSE
+    code <- parse(text = code)
+  }
 
   if(parallel) {
     if(!requireNamespace("plyr", quietly = TRUE))
       err("Package plyr is required to batch process files in parallel.")
     nlists <- plyr::llply(1:nsims, generate_dataset,
-                          code = code, 
+                          code = code, is_jags = is_jags,
                           constants = constants, parameters = parameters, 
                           monitor = monitor, 
-                          path = path, seed = seed, parallel = parallel, 
-                          .parallel = TRUE)
+                          path = path, seed = seed, .parallel = TRUE)
   } else {
     nlists <- lapply(1:nsims, generate_dataset,
-                     code = code, 
+                     code = code, is_jags = is_jags,
                      constants = constants, parameters = parameters, 
                      monitor = monitor, 
-                     path = path, seed = seed, parallel = parallel)
+                     path = path, seed = seed)
   }
   if(!is.null(path)) return(TRUE)
   set_class(nlists, "nlists")

@@ -25,7 +25,7 @@ test_that("test match at least one node",{
   expect_error(sims_simulate("a ~ dunif(1)", list(x = 1), monitor = "b"),
                "^`monitor` must match at least one of the following observed stochastic variable nodes: 'a'[.]$")
   expect_error(sims_simulate("a ~ dunif(1)", list(x = 1), monitor = "b", stochastic = FALSE),
-               "^jags code must include at least one observed deterministic variable node[.]$")
+               "^JAGS code must include at least one observed deterministic variable node[.]$")
   expect_error(sims_simulate("a ~ dunif(1)
                              a2 <- a", list(x = 1), monitor = "b", stochastic = FALSE),
                "^`monitor` must match at least one of the following observed deterministic variable nodes: 'a2'[.]$")
@@ -36,9 +36,9 @@ test_that("test match at least one node",{
 
 test_that("not in model or data block",{
   expect_error(sims_simulate("model {a ~ dunif(1)}", nlist(x = 1), monitor = "a"),
-               "^code must not be in a data or model block.")
+               "^JAGS code must not be in a data or model block.")
   expect_error(sims_simulate("\n data\n{a ~ dunif(1)}", nlist(x = 1), monitor = "a"),
-               "^code must not be in a data or model block.")
+               "^JAGS code must not be in a data or model block.")
 })
 
 test_that("generates data with replicability",{
@@ -307,10 +307,10 @@ test_that("monitor",{
                "^`monitor` must include at least one of the following observed stochastic variable nodes: 'ab'[.]$")
   
   expect_error(sims_simulate("ab ~ dunif(0,1)", nsims = 1L, monitor = c("a", "a"), stochastic = FALSE),
-               "^jags code must include at least one observed deterministic variable node[.]$")
+               "^JAGS code must include at least one observed deterministic variable node[.]$")
   
   expect_error(sims_simulate("ab ~ dunif(0,1)", nsims = 1L, monitor = c("a", "a"), stochastic = FALSE, latent = NA),
-               "^jags code must include at least one deterministic variable node[.]$")
+               "^JAGS code must include at least one deterministic variable node[.]$")
   
   expect_warning(sims_simulate("ab ~ dunif(0,1)", nsims = 1L, monitor = c("ab", "a")),
                  "^The following in `monitor` are not observed stochastic variable nodes: 'a'[.]$")
@@ -527,7 +527,7 @@ test_that("handles =",{
   expect_error(sims_simulate("Y = beta + epsilon
       beta ~ dnorm(0,1)
       epsilon ~ dnorm(0,1)", nsim = 1),
-               "^jags code must include at least one observed stochastic variable node[.]$")
+               "^JAGS code must include at least one observed stochastic variable node[.]$")
   
   set.seed(101)
   expect_equal(sims_simulate("Y = beta + epsilon
@@ -565,8 +565,49 @@ test_that("strips comments before",{
 })
 
 test_that("with R code",{
-#  set.seed(101)
- # expect_equal(sims_simulate("a <- runif(2, 0, 1)", nsims = 1),
-#                   structure(list(structure(list(a = -0.220090850895796), class = "nlist")), class = "nlists"))
-})
+  expect_warning(sims_simulate("a <- runif(2, 0, 1)", nsims = 1),
+                 "R code does not define stochastic variable nodes.")
+  expect_warning(sims_simulate("a <- runif(2, 0, 1)", nsims = 1, stochastic = FALSE),
+                 "R code does not define stochastic variable nodes.")
+  set.seed(101)
+  expect_equal(sims_simulate("a <- runif(1, 0, 1)", nsims = 1, stochastic = NA),
+                 structure(list(structure(list(a = 0.0438248154241592), class = "nlist")),
+                           class = "nlists"))
+  set.seed(101)
+  expect_equal(sims_simulate("a <- runif(1, 0, 1)", nsims = 1, stochastic = NA),
+                 structure(list(structure(list(a = 0.0438248154241592), class = "nlist")),
+                           class = "nlists"))
+  set.seed(100)
+  expect_equal(sims_simulate("a <- runif(1, 0, 1)", nsims = 1, stochastic = NA),
+                 structure(list(structure(list(a = 0.257672501029447), class = "nlist")), class = "nlists"))
+  
+  expect_error(sims_simulate("a <- TRUE", nsims = 1, stochastic = NA),
+                 "^All elements of simulations from `code` must be a numeric [(]integer or double[)] atomic [(]vector, matrix or array[)] object[.]$")
+  
+  expect_identical(sims_simulate("a <- 1
+                             b <- a", nsims = 1, stochastic = NA),
+                 structure(list(structure(list(b = 1), class = "nlist")), class = "nlists"))
 
+  expect_identical(sims_simulate("a <- 1
+                             b <- a", nsims = 1, stochastic = NA, latent = TRUE),
+                 structure(list(structure(list(a = 1), class = "nlist")), class = "nlists"))
+
+  expect_identical(sims_simulate("a <- 1
+                             b <- a", nsims = 1, stochastic = NA, latent = NA),
+                 structure(list(structure(list(a = 1, b = 1), class = "nlist")), class = "nlists"))
+  
+  expect_identical(sims_simulate("a <- c
+                             b <- a", nsims = 1, stochastic = NA, latent = NA, 
+                                 constants = list(c = 2)),
+                 structure(list(structure(list(a = 2, b = 2, c = 2), class = "nlist")), class = "nlists"))
+  expect_identical(sims_simulate("a <- c
+                             b <- d", nsims = 1, stochastic = NA, latent = NA, 
+                                 constants = list(c = 2), parameters = list(d = 3L)),
+                 structure(list(structure(list(a = 2, b = 3L, c = 2), class = "nlist")), class = "nlists"))
+    expect_identical(sims_simulate("a <- c
+                             b <- d", monitor = "b", nsims = 1, stochastic = NA, latent = NA, 
+                                 constants = list(c = 2), parameters = list(d = 3L)),
+                 structure(list(structure(list(b = 3L, c = 2), class = "nlist")), class = "nlists"))
+    expect_error(sims_simulate("a <- not_a_fun(c)", stochastic = NA),
+                 "could not find function \"not_a_fun\"")
+})

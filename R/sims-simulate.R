@@ -1,9 +1,13 @@
 #' Simulate Datasets
 #' 
-#' Simulates datasets using JAGS code. By defaults 
+#' Simulates datasets using R or JAGS code. By defaults 
 #' return the datasets as an \code{\link[nlist]{nlists_object}}.
 #' If \code{path} is provided then the datasets are written to the directory 
 #' as individual \code{.rds} files.
+#' 
+#' JAGS code is identified by the presence of '~' indicating a stochastic variable node.
+#' Otherwise code is assumed to be R code 
+#' (and the stochastic argument is set to NA with a warning).
 #'
 #' Both constants and parameters must be \code{\link[nlist]{nlist_object}s}
 #' (or lists that can be coerced to such) .
@@ -24,7 +28,7 @@
 #' "^((data\\\\d\{7,7\})|([.]sims))[.]rds$".
 #'
 #' @param code A string of the JAGS code to generate the data.
-#' The code must not be in a data or model block.
+#' The JAGS code must not be in a data or model block.
 #' @param constants An nlist object (or list that can be coerced to nlist) 
 #' specifying the values of nodes in code. 
 #' The values are included in the output dataset.

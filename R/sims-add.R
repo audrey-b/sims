@@ -18,13 +18,22 @@ sims_add <- function(path, nsims = getOption("sims.nsims", 100L)) {
     err("Adding the simulations would result in more than 1,000,000 datasets.")
   
   sims <- (argsims$nsims - nsims + 1L):argsims$nsims
-
+  
   saveRDS(argsims, file.path(path, ".sims.rds"))
   
-  nlists <- lapply(sims, generate_dataset,  code = argsims$code, 
-                                   constants = argsims$constants, 
-                                   parameters = argsims$parameters, 
-                                   monitor = argsims$monitor, 
-                                   path = path, seed = argsims$seed)
+  code <- argsims$code
+  if(is_jags_code(code)) {
+    is_jags <- TRUE
+  } else {
+    is_jags <- FALSE
+    code <- parse(text = code)
+  }
+
+  nlists <- lapply(sims, generate_dataset,  is_jags = is_jags, 
+                   code = code, 
+                   constants = argsims$constants, 
+                   parameters = argsims$parameters, 
+                   monitor = argsims$monitor, 
+                   path = path, seed = argsims$seed)
   data_files(path)[sims]
 }

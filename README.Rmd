@@ -25,7 +25,7 @@ knitr::opts_chunk$set(
 ![CRAN downloads](http://cranlogs.r-pkg.org/badges/sims)
 <!-- badges: end -->
 
-sims is an R package to simulate datasets (in the form of an [nlists](https://github.com/poissonconsulting/nlist) object) from JAGS model code.
+sims is an R package to simulate datasets (in the form of an [nlists](https://github.com/poissonconsulting/nlist) object) from JAGS or R code.
 
 ## Installation
 
