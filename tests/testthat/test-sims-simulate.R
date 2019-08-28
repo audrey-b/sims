@@ -611,3 +611,27 @@ test_that("with R code",{
     expect_error(sims_simulate("a <- not_a_fun(c)", stochastic = NA),
                  "could not find function \"not_a_fun\"")
 })
+
+
+test_that("with R code in parallel",{
+  set.seed(101)
+  expect_equal(sims_simulate("a <- runif(1, 0, 1)", nsims = 2, stochastic = NA,
+                             parallel = FALSE),
+                 structure(list(structure(list(a = 0.0438248154241592), class = "nlist"), 
+    structure(list(a = 0.709684018278494), class = "nlist")), class = "nlists"))
+  
+  doParallel::registerDoParallel(2)
+  teardown(doParallel::stopImplicitCluster())
+  
+  set.seed(101)
+  expect_equal(sims_simulate("a <- runif(1, 0, 1)", nsims = 2, stochastic = NA,
+                             parallel = TRUE),
+                 structure(list(structure(list(a = 0.0438248154241592), class = "nlist"), 
+    structure(list(a = 0.709684018278494), class = "nlist")), class = "nlists"))
+  
+  set.seed(101)
+  expect_equal(sims_simulate("a <- runif(1, 0, 1)", nsims = 2, stochastic = NA,
+                             parallel = FALSE),
+                 structure(list(structure(list(a = 0.0438248154241592), class = "nlist"), 
+    structure(list(a = 0.709684018278494), class = "nlist")), class = "nlists"))
+})
