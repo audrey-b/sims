@@ -10,7 +10,7 @@ sims_distributions()
 A character vector of the names of random variate generating R functions.
 }
 \description{
-Gets names of the random variate generating R functions recognized by sims 
+Gets the names of the random variate generating R functions recognized by sims 
 as producing stochastic variable nodes.
 }
 \details{
@@ -19,4 +19,8 @@ listed in \code{\link{Distributions}}.
 }
 \examples{
 sims_distributions()
+}
+\seealso{
+\code{\link{sims_add_distributions}()} and  
+\code{\link{sims_reset_distributions}()}
 }
