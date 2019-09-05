@@ -1,4 +1,4 @@
-#' Sims Distributions
+#' Sims Random R Distributions
 #' 
 #' Gets the names of the random variate generating R functions recognized by sims 
 #' as producing stochastic variable nodes.
@@ -7,14 +7,14 @@
 #' listed in \code{\link{Distributions}}.
 #'
 #' @return A character vector of the names of random variate generating R functions.
-#' @seealso \code{\link{sims_add_distributions}()} and  
-#' \code{\link{sims_reset_distributions}()}
+#' @seealso \code{\link{sims_add_rdists}()} and  
+#' \code{\link{sims_reset_rdists}()}
 #' @export
 #'
 #' @examples
-#' sims_distributions()
-sims_distributions <- function() {
-  getOption("sims.distributions", .sims_distributions)
+#' sims_rdists()
+sims_rdists <- function() {
+  getOption("sims.rdists", .sims_rdists)
 }
 
 #' Sims Add Distributions
@@ -23,19 +23,19 @@ sims_distributions <- function() {
 #' 
 #' @param x A character vector of the random variate generating R functions.
 #' @return A invisible character vector of the names of the previous R distributions.
-#' @seealso \code{\link{sims_distributions}()} and  
-#' \code{\link{sims_reset_distributions}()}
+#' @seealso \code{\link{sims_rdists}()} and  
+#' \code{\link{sims_reset_rdists}()}
 #' @export
 #'
 #' @examples
-#' print(sims_add_distributions("llog"))
-sims_add_distributions <- function(x) {
+#' print(sims_add_rdists("llog"))
+sims_add_rdists <- function(x) {
   chk_is(x, "character")
   chk_no_missing(x)
   
-  dists <- sims_distributions()
+  dists <- sims_rdists()
   x <- as.character(sort(unique(c(dists, x))))
-  options(sims.distributions = x)
+  options(sims.rdists = x)
   invisible(dists)
 }
 
@@ -44,15 +44,15 @@ sims_add_distributions <- function(x) {
 #' Resets sims distributions.
 #'   
 #' @return A invisible character vector of the names of the previous R distributions.
-#' @seealso \code{\link{sims_distributions}()} and  
-#' \code{\link{sims_set_distributions}()}
+#' @seealso \code{\link{sims_rdists}()} and  
+#' \code{\link{sims_set_rdists}()}
 #' @export
 #'
 #' @examples
-#' print(sims_reset_distributions())
-sims_reset_distributions <- function() {
-  dists <- sims_distributions()
-  options(sims.distributions = NULL)
+#' print(sims_reset_rdists())
+sims_reset_rdists <- function() {
+  dists <- sims_rdists()
+  options(sims.rdists = NULL)
   invisible(dists)
 }
 
@@ -62,17 +62,17 @@ sims_reset_distributions <- function() {
 #'
 #' @param x A character vector of the random variate generating R functions.   
 #' @return A invisible character vector of the names of the previous R distributions.
-#' @seealso \code{\link{sims_distributions}()} and  
-#' \code{\link{sims_reset_distributions}()}
+#' @seealso \code{\link{sims_rdists}()} and  
+#' \code{\link{sims_reset_rdists}()}
 #' @export
 #'
 #' @examples
-#' print(sims_set_distributions("llog"))
-sims_set_distributions <- function(x) {
+#' print(sims_set_rdists("llog"))
+sims_set_rdists <- function(x) {
   chk_is(x, "character")
   chk_no_missing(x)
-  dists <- sims_distributions()
+  dists <- sims_rdists()
   x <- as.character(sort(unique(x)))
-  options(sims.distributions = x)
+  options(sims.rdists = x)
   invisible(dists)
 }
