@@ -7,8 +7,8 @@
 #' listed in \code{\link{Distributions}}.
 #'
 #' @return A character vector of the names of random variate generating R functions.
-#' @seealso \code{\link{sims_add_rdists}()} and  
-#' \code{\link{sims_reset_rdists}()}
+#' @seealso \code{\link{sims_rdists_add}()} and  
+#' \code{\link{sims_rdists_reset}()}
 #' @export
 #'
 #' @examples
@@ -24,14 +24,13 @@ sims_rdists <- function() {
 #' @param x A character vector of the random variate generating R functions.
 #' @return A invisible character vector of the names of the previous R distributions.
 #' @seealso \code{\link{sims_rdists}()} and  
-#' \code{\link{sims_reset_rdists}()}
+#' \code{\link{sims_rdists_reset}()}
 #' @export
 #'
 #' @examples
-#' print(sims_add_rdists("llog"))
-sims_add_rdists <- function(x) {
-  chk_is(x, "character")
-  chk_no_missing(x)
+#' print(sims_rdists_add("llog"))
+sims_rdists_add <- function(x) {
+  chk_is(x, "character"); chk_no_missing(x)
   
   dists <- sims_rdists()
   x <- as.character(sort(unique(c(dists, x))))
@@ -45,12 +44,12 @@ sims_add_rdists <- function(x) {
 #'   
 #' @return A invisible character vector of the names of the previous R distributions.
 #' @seealso \code{\link{sims_rdists}()} and  
-#' \code{\link{sims_set_rdists}()}
+#' \code{\link{sims_rdists_set}()}
 #' @export
 #'
 #' @examples
-#' print(sims_reset_rdists())
-sims_reset_rdists <- function() {
+#' print(sims_rdists_reset())
+sims_rdists_reset <- function() {
   dists <- sims_rdists()
   options(sims.rdists = NULL)
   invisible(dists)
@@ -63,14 +62,13 @@ sims_reset_rdists <- function() {
 #' @param x A character vector of the random variate generating R functions.   
 #' @return A invisible character vector of the names of the previous R distributions.
 #' @seealso \code{\link{sims_rdists}()} and  
-#' \code{\link{sims_reset_rdists}()}
+#' \code{\link{sims_rdists_reset}()}
 #' @export
 #'
 #' @examples
-#' print(sims_set_rdists("llog"))
-sims_set_rdists <- function(x) {
-  chk_is(x, "character")
-  chk_no_missing(x)
+#' print(sims_rdists_set("llog"))
+sims_rdists_set <- function(x) {
+  chk_is(x, "character"); chk_no_missing(x)
   dists <- sims_rdists()
   x <- as.character(sort(unique(x)))
   options(sims.rdists = x)

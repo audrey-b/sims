@@ -21,6 +21,6 @@ listed in \code{\link{Distributions}}.
 sims_rdists()
 }
 \seealso{
-\code{\link{sims_add_rdists}()} and  
-\code{\link{sims_reset_rdists}()}
+\code{\link{sims_rdists_add}()} and  
+\code{\link{sims_rdists_reset}()}
 }
