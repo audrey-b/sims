@@ -1,6 +1,6 @@
 Package: sims
 Title: Simulate Datasets from 'JAGS' Model Code
-Version: 0.0.0.9010
+Version: 0.0.0.9011
 Authors@R: c(
     person("Audrey", "Beliveau", , "audrey.beliveau@uwaterloo.ca", "aut"),
     person("Joe", "Thorley", , "joe@poissonconsulting.ca", c("aut", "cre"), comment = c(ORCID = "0000-0002-7683-4592"))
@@ -10,7 +10,7 @@ License: GPL-3
 Depends: 
     R (>= 3.5),
 Imports:
-  chk,
+  chk (>= 0.0.1.9008),
   yesno,
   nlist (>= 0.0.0.9108),
   stats,

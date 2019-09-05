@@ -1,5 +1,5 @@
-check_variable_nodes <- function(x, y, y_name = substitute(y)) {
-  variable_nodes <- variable_nodes(x, stochastic = NA, latent = NA)
+check_variable_nodes <- function(x, y, rdists, y_name = substitute(y)) {
+  variable_nodes <- variable_nodes(x, stochastic = NA, latent = NA, rdists = rdists)
   defined <- intersect(variable_nodes, names(y))
   if(length(defined)) {
     err("The following variable nodes are defined in ", 
@@ -30,22 +30,8 @@ prepare_code <- function(code) {
   code
 }
 
-stochastic_pattern_r <- function(x, stochastic, rdists) {
-  if(is.na(stochastic)) return("(([<][-])|[=])")
-  "(([<][-])|[=])"
-}
-
-stochastic_pattern_jags <- function(x, stochastic) {
-  if(isTRUE(stochastic)) return("[~]")
-  if (isFALSE(stochastic)) return("(([<][-])|[=])")
-  "([~]|([<][-])|[=])"
-}
-
-stochastic_nodes <- function(x, stochastic, rdists) {
-  pattern <- if(is_jags_code(x)) {
-    stochastic_pattern_jags(x, stochastic)
-  } else stochastic_pattern_r(x, stochastic, rdists)
-  pattern <- p0("(?=\\s*", pattern, ")")
+stochastic_nodes_pattern <- function(x, pattern) {
+  pattern <- p0("(?=\\s*(", pattern, "))")
   
   index <- "\\[[^\\]]*\\]"
   
@@ -57,7 +43,35 @@ stochastic_nodes <- function(x, stochastic, rdists) {
   nodes <- sub(pattern = index, "", nodes, perl = TRUE)
   nodes <- unique(nodes)
   sort(nodes)
+}
+
+stochastic_nodes_jags <- function(x, stochastic) {
+  pattern <-"[~]|([<][-])|[=]"
+  if(isTRUE(stochastic)) pattern <- "[~]"
+  if (isFALSE(stochastic)) pattern <- "([<][-])|[=]"
+  stochastic_nodes_pattern(x, pattern)
+}
+
+stochastic_nodes_r <- function(x, stochastic, rdists) {
+  if(isTRUE(stochastic) && !length(rdists))
+    err("R code must include at least one stochastic variable node.",
+        " Did you mean to set `rdists` = character(0)?")
   
+  if(is.na(stochastic) || (isFALSE(stochastic) && !length(rdists)))
+    return(stochastic_nodes_jags(x, stochastic = FALSE))
+  
+  pattern <- paste0("(", rdists, ")", collapse = "|")
+  pattern <- paste0("(", pattern, ")\\(")
+  pattern <- paste0("(([<][-])|[=])\\s*", pattern)
+ 
+  stochastic_nodes <- stochastic_nodes_pattern(x, pattern) 
+  if(isTRUE(stochastic)) return(stochastic_nodes)
+  setdiff(stochastic_nodes_jags(x, stochastic = FALSE), stochastic_nodes)
+}
+
+stochastic_nodes <- function(x, stochastic, rdists) {
+  if(is_jags_code(x)) return(stochastic_nodes_jags(x, stochastic))
+  stochastic_nodes_r(x, stochastic, rdists)
 }
 
 latent_nodes <- function(x, nodes, latent) {
@@ -70,7 +84,7 @@ latent_nodes <- function(x, nodes, latent) {
   nodes[!lateo]
 }
 
-variable_nodes <- function (x, stochastic, latent, rdists) {
+variable_nodes <- function (x, stochastic, latent, rdists = character(0)) {
   nodes <- stochastic_nodes(x, stochastic, rdists)
   nodes <- latent_nodes(x, nodes, latent)
   nodes
@@ -86,7 +100,7 @@ variable_nodes_description <- function(stochastic, latent) {
 }
 
 set_monitor <- function(monitor, code, stochastic, latent, rdists, silent) {
-  variable_nodes <- variable_nodes(code, stochastic, latent, rdists)
+  variable_nodes <- variable_nodes(code, stochastic, latent, rdists = rdists)
   desc <- variable_nodes_description(stochastic, latent)
   
   if(!length(variable_nodes)) {

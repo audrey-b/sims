@@ -632,7 +632,7 @@ test_that("with R code in parallel",{
     structure(list(a = 0.709684018278494), class = "nlist")), class = "nlists"))
 })
 
-test_that("with R code and stochastic",{
+test_that("with R code and single stochastic node",{
   set.seed(101)
   expect_equal(sims_simulate("a <- runif(1, 0, 1)", nsims = 1, stochastic = TRUE),
                  structure(list(structure(list(a = 0.0438248154241592), class = "nlist")),
@@ -642,7 +642,61 @@ test_that("with R code and stochastic",{
                  structure(list(structure(list(a = 0.0438248154241592), class = "nlist")),
                            class = "nlists"))
   set.seed(101)
-  expect_equal(sims_simulate("a <- runif(1, 0, 1)", nsims = 1, stochastic = FALSE),
+  expect_equal(sims_simulate("a <- runif(1, 0, 1)", nsims = 1, stochastic = FALSE, rdists = character(0)),
                  structure(list(structure(list(a = 0.0438248154241592), class = "nlist")),
+                           class = "nlists"))
+  expect_error(sims_simulate("a <- runif(1, 0, 1)", nsims = 1, 
+                             stochastic = FALSE), "R code must include at least one observed deterministic variable node.")
+  expect_error(sims_simulate("a <- runif(1, 0, 1)", nsims = 1, 
+                             stochastic = TRUE, rdists = character(0)), "^R code must include at least one stochastic variable node[.] Did you mean to set `rdists` = character[(]0[)]\\?$")
+})
+
+test_that("with R code and stochastic and deterministic nodes",{
+  set.seed(101)
+  expect_equal(sims_simulate("a <- runif(1, 0, 1)
+                             b <- 1", nsims = 1, stochastic = TRUE),
+                 structure(list(structure(list(a = 0.0438248154241592), class = "nlist")),
+                           class = "nlists"))
+  set.seed(101)
+  expect_equal(sims_simulate("a <- runif(1, 0, 1)
+                             b <- 1", nsims = 1, stochastic = NA),
+                 structure(list(structure(list(a = 0.0438248154241592, b = 1), class = "nlist")),
+                           class = "nlists"))
+  set.seed(101)
+  expect_equal(sims_simulate("a <- runif(1, 0, 1)
+                             b <- 1", nsims = 1, stochastic = FALSE, rdists = character(0)),
+                 structure(list(structure(list(a = 0.0438248154241592, b = 1), class = "nlist")),
+                           class = "nlists"))
+  set.seed(101)
+  expect_equal(sims_simulate("a <- runif(1, 0, 1)
+                             b <- 1", nsims = 1, stochastic = FALSE),
+                 structure(list(structure(list(b = 1), class = "nlist")),
+                           class = "nlists"))
+})
+
+test_that("with R code and stochastic and deterministic nodes and different rdist",{
+  set.seed(101)
+  expect_equal(sims_simulate("a <- runif(1, 0, 1)
+                             runif <- 1
+                             b <- runif", nsims = 1, stochastic = TRUE),
+                 structure(list(structure(list(a = 0.0438248154241592), class = "nlist")),
+                           class = "nlists"))
+  set.seed(101)
+  expect_equal(sims_simulate("a <- runif(1, 0, 1)
+                             runif <- 1
+                             b <- runif", nsims = 1, stochastic = NA),
+                 structure(list(structure(list(a = 0.0438248154241592, b = 1), class = "nlist")),
+                           class = "nlists"))
+  set.seed(101)
+  expect_equal(sims_simulate("a <- runif(1, 0, 1)
+                             runif <- 1
+                             b <- runif", nsims = 1, stochastic = FALSE, rdists = character(0)),
+                 structure(list(structure(list(a = 0.0438248154241592, b = 1), class = "nlist")),
+                           class = "nlists"))
+  set.seed(101)
+  expect_equal(sims_simulate("a <- runif(1, 0, 1)
+                             runif <- 1
+                             b <- runif", nsims = 1, stochastic = FALSE),
+                 structure(list(structure(list(b = 1), class = "nlist")),
                            class = "nlists"))
 })

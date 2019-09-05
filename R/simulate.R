@@ -102,8 +102,8 @@ sims_simulate <- function(code,
 
   code <- prepare_code(code)
  
-  check_variable_nodes(code, constants)
-  check_variable_nodes(code, parameters)
+  check_variable_nodes(code, constants, rdists)
+  check_variable_nodes(code, parameters, rdists)
 
   if(!is.null(path)) create_path(path, exists, ask, silent)
   
