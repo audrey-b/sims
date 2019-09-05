@@ -4,13 +4,23 @@
 \alias{sims_add}
 \title{Add Simulated Datasets}
 \usage{
-sims_add(path, nsims = getOption("sims.nsims", 100L))
+sims_add(path, nsims = getOption("sims.nsims", 100L), parallel = FALSE,
+  progress = "none", inform = FALSE, paropts = NULL)
 }
 \arguments{
 \item{path}{A string specifying the path to the directory to add the data sets to.}
 
 \item{nsims}{A count of the number of additional datasets to generate.
 By default 100 datasets are added.}
+
+\item{parallel}{A flag specifying whether to generate the datasets in parallel.}
+
+\item{progress}{A string of the type of progress bar to create.
+The possible values are "none", "text", "tk", and "win".}
+
+\item{inform}{A flag specifying whether to produce informative error messages. Useful for debugging but slow.}
+
+\item{paropts}{A list of additional options passed into the \code{\link[foreach]{foreach}} function when parallel computation is enabled.}
 }
 \value{
 A character vector of the names of the files created 

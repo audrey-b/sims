@@ -222,14 +222,14 @@ generate_datasets <- function(code, constants, parameters, monitor, nsims,
     code <- parse(text = code)
   }
   
-  nlists <- plyr::llply(1:nsims, generate_dataset,
-                        code = code, is_jags = is_jags,
-                        constants = constants, parameters = parameters, 
-                        monitor = monitor, 
-                        path = path, seed = seed, 
-                        .parallel = parallel, .progress = progress,
-                        .inform = inform,
-                        .paropts = paropts)
+  nlists <- llply(1:nsims, generate_dataset,
+                  code = code, is_jags = is_jags,
+                  constants = constants, parameters = parameters, 
+                  monitor = monitor, 
+                  path = path, seed = seed, 
+                  .parallel = parallel, .progress = progress,
+                  .inform = inform,
+                  .paropts = paropts)
   if(!is.null(path)) return(TRUE)
   set_class(nlists, "nlists")
 }
