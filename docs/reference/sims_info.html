@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Check Simulated Data — sims_check • sims</title>
+<title>Simulated Data Argument Values — sims_info • sims</title>
 
 
 <!-- jquery -->
@@ -35,8 +35,8 @@
 
 
 
-<meta property="og:title" content="Check Simulated Data — sims_check" />
-<meta property="og:description" content="Checks the simulated data argument values in the '.sims.rds' file." />
+<meta property="og:title" content="Simulated Data Argument Values — sims_info" />
+<meta property="og:description" content="Gets the simulated data argument values in the '.sims.rds' file." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -103,16 +103,16 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Check Simulated Data</h1>
+    <h1>Simulated Data Argument Values</h1>
     
-    <div class="hidden name"><code>sims_check.Rd</code></div>
+    <div class="hidden name"><code>sims_info.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Checks the simulated data argument values in the '.sims.rds' file.</p>
+    <p>Gets the simulated data argument values in the '.sims.rds' file.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>sims_check</span>(<span class='no'>path</span>)</pre>
+    <pre class="usage"><span class='fu'>sims_info</span>(<span class='no'>path</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -125,15 +125,11 @@
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An informative error or invisible list of the argument values.</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>The checks include whether number and names of the data files 
-in the directory are consistent with the number of simulations.</p>
+    <p>A named list of the values in <code><a href='https://rdrr.io/r/base/file.path.html'>file.path(path, '.sims.rds')</a></code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>10</span>)
-<span class='fu'><a href='sims_simulate.html'>sims_simulate</a></span>(<span class='st'>"a ~ dunif(0,1)"</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span>(), <span class='kw'>exists</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>ask</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>(<span class='fu'>sims_check</span>(<span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span>()))</div><div class='output co'>#&gt; $code
+<span class='fu'><a href='sims_simulate.html'>sims_simulate</a></span>(<span class='st'>"a ~ dunif(0,1)"</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span>(), <span class='kw'>exists</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>ask</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Deleted 10 sims data files in '/var/folders/48/q6ltldjs251000_wvjrdy_vm0000gn/T//Rtmp9gyZXp'.</span></div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>sims_info</span>(<span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span>())</div><div class='output co'>#&gt; $code
 #&gt; [1] "model{a ~ dunif(0,1)}\n"
 #&gt; 
 #&gt; $constants
@@ -261,7 +257,6 @@ in the directory are consistent with the number of simulations.</p>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
-      <li><a href="#details">Details</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 

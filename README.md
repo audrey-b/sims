@@ -24,7 +24,7 @@ status](https://www.r-pkg.org/badges/version/sims)](https://cran.r-project.org/p
 
 sims is an R package to simulate datasets (in the form of an
 [nlists](https://github.com/poissonconsulting/nlist) object) from JAGS
-model code.
+or R code.
 
 ## Installation
 
@@ -106,7 +106,7 @@ file.remove(file.path(paste0(tempdir(), "_copy"), "data0000005.rds"))
 #> [1] TRUE
 
 sims_check(path = paste0(tempdir(), "_copy"))
-#> Error: number of data files (4) does not match number of simulations (5)
+#> Error: Number of data files (4) does not match number of simulations (5).
 ```
 
 ### Parallel Chains
@@ -130,4 +130,4 @@ always welcome.
 
 Please note that this project is released with a [Contributor Code of
 Conduct](https://github.com/poissonconsulting/sims/blob/master/CODE_OF_CONDUCT.md).
-By contributing, you agree to abide by its terms.
+By contributing, you agree to abide by its terms

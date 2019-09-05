@@ -8,11 +8,13 @@
 
 <title>Simulate Datasets — sims_simulate • sims</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -32,13 +34,14 @@
 
 
 
-<meta property="og:title" content="Simulate Datasets — sims_simulate" />
 
-<meta property="og:description" content="Simulates datasets using JAGS code. By defaults 
+<meta property="og:title" content="Simulate Datasets — sims_simulate" />
+<meta property="og:description" content="Simulates datasets using R or JAGS code. By defaults 
 return the datasets as an nlists_object.
 If path is provided then the datasets are written to the directory 
 as individual .rds files." />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -69,7 +72,7 @@ as individual .rds files." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">sims</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9004</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9011</span>
       </span>
     </div>
 
@@ -88,7 +91,6 @@ as individual .rds files." />
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -110,52 +112,61 @@ as individual .rds files." />
     </div>
 
     <div class="ref-description">
-    
-    <p>Simulates datasets using JAGS code. By defaults 
+    <p>Simulates datasets using R or JAGS code. By defaults 
 return the datasets as an <code><a href='https://rdrr.io/pkg/nlist/man/nlists-object.html'>nlists_object</a></code>.
 If <code>path</code> is provided then the datasets are written to the directory 
 as individual <code>.rds</code> files.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>sims_simulate</span>(<span class='no'>code</span>, <span class='kw'>constants</span> <span class='kw'>=</span> <span class='kw pkg'>nlist</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/nlist/man/nlist.html'>nlist</a></span>(),
-  <span class='kw'>parameters</span> <span class='kw'>=</span> <span class='kw pkg'>nlist</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/nlist/man/nlist.html'>nlist</a></span>(), <span class='kw'>monitor</span> <span class='kw'>=</span> <span class='st'>".*"</span>,
-  <span class='kw'>nsims</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"sims.nsims"</span>, <span class='fl'>100L</span>), <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fu'><a href='rcount.html'>rcount</a></span>(),
-  <span class='kw'>parallel</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>exists</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>silent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
-    
+  <span class='kw'>parameters</span> <span class='kw'>=</span> <span class='kw pkg'>nlist</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/nlist/man/nlist.html'>nlist</a></span>(), <span class='kw'>monitor</span> <span class='kw'>=</span> <span class='st'>".*"</span>, <span class='kw'>stochastic</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>latent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>nsims</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"sims.nsims"</span>, <span class='fl'>100L</span>),
+  <span class='kw'>parallel</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>exists</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>rdists</span> <span class='kw'>=</span> <span class='fu'><a href='sims_rdists.html'>sims_rdists</a></span>(), <span class='kw'>progress</span> <span class='kw'>=</span> <span class='st'>"none"</span>, <span class='kw'>inform</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>paropts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ask</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"sims.ask"</span>, <span class='fl'>TRUE</span>), <span class='kw'>silent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>code</th>
       <td><p>A string of the JAGS code to generate the data.
-The code must not be in a data or model block.</p></td>
+The JAGS code must not be in a data or model block.</p></td>
     </tr>
     <tr>
       <th>constants</th>
-      <td><p>An nlist object specifying the values of nodes in code. 
-The values are included in the output data.</p></td>
+      <td><p>An nlist object (or list that can be coerced to nlist) 
+specifying the values of nodes in code. 
+The values are included in the output dataset.</p></td>
     </tr>
     <tr>
       <th>parameters</th>
-      <td><p>An nlist object specifying the values of nodes in code. 
-The values are not included in the output data.</p></td>
+      <td><p>An nlist object (or list that can be coerced to nlist) 
+specifying the values of nodes in code. 
+The values are not included in the output dataset.</p></td>
     </tr>
     <tr>
       <th>monitor</th>
       <td><p>A character vector (or regular expression if a string) 
-specifying the names of the stochastic nodes in code to include in the data.
-By default all stochastic nodes are included.</p></td>
+specifying the names of the nodes in code to include in the dataset.
+By default all nodes are included.</p></td>
+    </tr>
+    <tr>
+      <th>stochastic</th>
+      <td><p>A logical scalar specifying whether to monitor 
+deterministic and stochastic (NA), only deterministic (FALSE) 
+or only stochastic nodes (TRUE).</p></td>
+    </tr>
+    <tr>
+      <th>latent</th>
+      <td><p>A logical scalar specifying whether to monitor 
+observed and latent (NA), only latent (TRUE) 
+or only observed nodes (FALSE).</p></td>
     </tr>
     <tr>
       <th>nsims</th>
       <td><p>An integer between 1 and 1,000,000 specifying 
 the number of data sets to simulate. By default 100 data sets are simulated.</p></td>
-    </tr>
-    <tr>
-      <th>seed</th>
-      <td><p>A positive integer specifying the random seed to use for 
-simulating the data.</p></td>
     </tr>
     <tr>
       <th>parallel</th>
@@ -164,32 +175,56 @@ simulating the data.</p></td>
     <tr>
       <th>path</th>
       <td><p>A string specifying the path to the directory to save the data sets in.
-By default <code>path = NULL </code> the data sets are not saved but are returned 
+By default <code>path = NULL</code> the data sets are not saved but are returned 
 as an nlists object.</p></td>
     </tr>
     <tr>
       <th>exists</th>
-      <td><p>A flag specifying whether the directory should already exist.
-If <code>exists = NA</code> it doesn't matter. If the directory already exists it is 
-overwritten if <code>exists = TRUE</code> or <code>exists = NA</code> otherwise an
-error is thrown.</p></td>
+      <td><p>A <code>path</code> is provided , 
+flag specifying whether the directory should already exist.
+If <code>exists = NA</code> it doesn't matter. If the directory already exists 
+all sims compatible files are deleted if <code>exists = TRUE</code> or <code>exists = NA</code> 
+otherwise an error is thrown.</p></td>
+    </tr>
+    <tr>
+      <th>rdists</th>
+      <td><p>A character vector specifying the R functions to recognize as stochastic.</p></td>
+    </tr>
+    <tr>
+      <th>progress</th>
+      <td><p>A string of the type of progress bar to create.
+The possible values are "none", "text", "tk", and "win".</p></td>
+    </tr>
+    <tr>
+      <th>inform</th>
+      <td><p>A flag specifying whether to produce informative error messages. Useful for debugging but slow.</p></td>
+    </tr>
+    <tr>
+      <th>paropts</th>
+      <td><p>A list of additional options passed into the <code><a href='https://rdrr.io/pkg/foreach/man/foreach.html'>foreach</a></code> function when parallel computation is enabled.</p></td>
+    </tr>
+    <tr>
+      <th>ask</th>
+      <td><p>A flag specifying whether to ask before deleting files.</p></td>
     </tr>
     <tr>
       <th>silent</th>
       <td><p>A flag specifying whether to suppress warnings.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>By default an <code><a href='https://rdrr.io/pkg/nlist/man/nlists-object.html'>nlists_object</a></code> of the simulated data.
-Otherwise if <code>path</code> is defined the simulated data argument values.</p>
-    
+Otherwise if <code>path</code> it returns TRUE.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Both constants and parameters must be <code><a href='https://rdrr.io/pkg/nlist/man/nlist-object.html'>nlist_object</a>s</code> or 
-uniquely named lists of numeric vectors, matrices and arrays that can be
-coerced to nlist objects.
+    <p>JAGS code is identified by the presence of '~' indicating a stochastic variable node.
+Otherwise code is assumed to be R code and stochastic variable nodes 
+are those where assignment is immediately succeeded 
+by a call to one of the functions named in <code>rdists</code>.</p>
+<p>Both constants and parameters must be <code><a href='https://rdrr.io/pkg/nlist/man/nlist-object.html'>nlist_object</a>s</code>
+(or lists that can be coerced to such) .
 The only difference between constants and parameters is that the values in 
 constants are appended to the output data while the values in parameters 
 are not.
@@ -199,39 +234,29 @@ Elements which are not in code are dropped with a warning
 (unless <code>silent = TRUE</code> in which case the warning is suppressed).</p>
 <p>Each set of simulated data set is written as a separate .rds file. 
 The files are labelled <code>data0000001.rds</code>, <code>data0000002.rds</code>,
-<code>data0000003.rds</code> etc.</p>
-    
+<code>data0000003.rds</code> etc.
+The argument values are saved in the hidden file <code>.sims.rds</code>.</p>
+<p>sims compatible files are those matching the regular expression 
+"^((data\\d{7,7})|([.]sims))[.]rds$".</p>
+<p>Parallelization is accomplished using <code><a href='https://rdrr.io/pkg/plyr/man/llply.html'>llply</a>()</code> 
+which calls <code><a href='https://rdrr.io/pkg/foreach/man/foreach.html'>foreach</a></code>.
+The <code>progress</code>, <code>inform</code> and <code>paropts</code> functions
+are all passed to <code><a href='https://rdrr.io/pkg/plyr/man/llply.html'>llply</a>()</code>.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='sims_rdists.html'>sims_rdists</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>101</span>)
-<span class='fu'>sims_simulate</span>(<span class='st'>"a ~ dunif(0, 1)"</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span>(), <span class='kw'>exists</span> <span class='kw'>=</span> <span class='fl'>NA</span>)</div><div class='output co'>#&gt; $code
-#&gt; [1] "model{a ~ dunif(0, 1)}\n"
-#&gt; 
-#&gt; $constants
-#&gt; an nlist object with 0 natomic elements
-#&gt; 
-#&gt; $parameters
-#&gt; an nlist object with 0 natomic elements
-#&gt; 
-#&gt; $monitor
-#&gt; [1] "a"
-#&gt; 
-#&gt; $nsims
-#&gt; [1] 100
-#&gt; 
-#&gt; $seed
-#&gt; [1] 799289926
-#&gt; </div></pre>
+<span class='fu'>sims_simulate</span>(<span class='st'>"a ~ dunif(0, 1)"</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span>(), <span class='kw'>exists</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>ask</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Deleted 100 sims data files in '/var/folders/48/q6ltldjs251000_wvjrdy_vm0000gn/T//Rtmp9gyZXp'.</span></div><div class='output co'>#&gt; [1] TRUE</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-
       <li><a href="#details">Details</a></li>
-      
+      <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 
