@@ -8,8 +8,8 @@ sims_simulate(code, constants = nlist::nlist(),
   parameters = nlist::nlist(), monitor = ".*", stochastic = TRUE,
   latent = FALSE, nsims = getOption("sims.nsims", 100L),
   parallel = FALSE, path = NULL, exists = FALSE,
-  rdists = sims_rdists(), ask = getOption("sims.ask", TRUE),
-  silent = FALSE)
+  rdists = sims_rdists(), progress = "none", inform = FALSE,
+  paropts = NULL, ask = getOption("sims.ask", TRUE), silent = FALSE)
 }
 \arguments{
 \item{code}{A string of the JAGS code to generate the data.
@@ -52,6 +52,13 @@ otherwise an error is thrown.}
 
 \item{rdists}{A character vector specifying the R functions to recognize as stochastic.}
 
+\item{progress}{A string of the type of progress bar to create.
+The possible values are "none", "text", "tk", and "win".}
+
+\item{inform}{A flag specifying whether to produce informative error messages. Useful for debugging but slow.}
+
+\item{paropts}{A list of additional options passed into the \code{\link[foreach]{foreach}} function when parallel computation is enabled.}
+
 \item{ask}{A flag specifying whether to ask before deleting files.}
 
 \item{silent}{A flag specifying whether to suppress warnings.}
@@ -89,6 +96,11 @@ The argument values are saved in the hidden file \code{.sims.rds}.
 
 sims compatible files are those matching the regular expression 
 "^((data\\\\d\{7,7\})|([.]sims))[.]rds$".
+
+Parallelization is accomplished using \code{\link[plyr]{llply}()} 
+which calls \code{\link[foreach]{foreach}}.
+The \code{progress}, \code{inform} and \code{paropts} functions
+are all passed to \code{\link[plyr]{llply}()}.
 }
 \examples{
 set.seed(101)

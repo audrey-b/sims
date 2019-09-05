@@ -27,6 +27,11 @@
 #' 
 #' sims compatible files are those matching the regular expression 
 #' "^((data\\\\d\{7,7\})|([.]sims))[.]rds$".
+#' 
+#' Parallelization is accomplished using \code{\link[plyr]{llply}()} 
+#' which calls \code{\link[foreach]{foreach}}.
+#' The \code{progress}, \code{inform} and \code{paropts} functions
+#' are all passed to \code{\link[plyr]{llply}()}.
 #'
 #' @param code A string of the JAGS code to generate the data.
 #' The JAGS code must not be in a data or model block.
@@ -57,6 +62,10 @@
 #' all sims compatible files are deleted if \code{exists = TRUE} or \code{exists = NA} 
 #' otherwise an error is thrown.
 #' @param rdists A character vector specifying the R functions to recognize as stochastic.
+#' @param progress A string of the type of progress bar to create.
+#' The possible values are "none", "text", "tk", and "win".
+#' @param inform A flag specifying whether to produce informative error messages. Useful for debugging but slow.
+#' @param paropts A list of additional options passed into the \code{\link[foreach]{foreach}} function when parallel computation is enabled.
 #' @param ask A flag specifying whether to ask before deleting files.
 #' @param silent A flag specifying whether to suppress warnings.
 #'
@@ -78,6 +87,9 @@ sims_simulate <- function(code,
                           path = NULL,
                           exists = FALSE,
                           rdists = sims_rdists(),
+                          progress = "none",
+                          inform = FALSE,
+                          paropts = NULL, 
                           ask = getOption("sims.ask", TRUE),
                           silent = FALSE) {
   if(is.list(constants) && !is.nlist(constants)) class(constants) <- "nlist"  
@@ -96,6 +108,9 @@ sims_simulate <- function(code,
     chk_flag(ask)
     chk_lgl(exists)
     chk_is(rdists, "character"); chk_no_missing(rdists)
+    chk_string(progress); chk_in(progress, c("none", "text", "tk", "win"))
+    chk_flag(inform)
+    if(!is.null(paropts)) chk_list(paropts)
     chk_flag(silent)
   }
   nsims <- as.integer(nsims)
@@ -113,5 +128,7 @@ sims_simulate <- function(code,
   generate_datasets(code, constants, parameters, 
                     monitor = monitor, 
                     nsims = nsims,
-                    path = path, parallel = parallel)
+                    path = path, parallel = parallel,
+                    progress = progress, inform = inform,
+                    paropts = paropts)
 }

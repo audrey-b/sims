@@ -13,12 +13,12 @@ Imports:
   chk (>= 0.0.1.9008),
   yesno,
   nlist (>= 0.0.0.9108),
+  plyr,
   stats,
   rjags
 Suggests: 
   covr,
   testthat,
-  plyr,
   doParallel
 Remotes:
   poissonconsulting/chk,

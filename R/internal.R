@@ -63,7 +63,7 @@ stochastic_nodes_r <- function(x, stochastic, rdists) {
   pattern <- paste0("(", rdists, ")", collapse = "|")
   pattern <- paste0("(", pattern, ")\\(")
   pattern <- paste0("(([<][-])|[=])\\s*", pattern)
- 
+  
   stochastic_nodes <- stochastic_nodes_pattern(x, pattern) 
   if(isTRUE(stochastic)) return(stochastic_nodes)
   setdiff(stochastic_nodes_jags(x, stochastic = FALSE), stochastic_nodes)
@@ -206,7 +206,7 @@ save_args <- function(path, ...) {
 }
 
 generate_datasets <- function(code, constants, parameters, monitor, nsims, 
-                              path, parallel) {
+                              path, parallel, progress, inform, paropts) {
   if (!exists(".Random.seed")) runif(1)
   seed <- .Random.seed
   if(!is.null(path)) {
@@ -222,21 +222,14 @@ generate_datasets <- function(code, constants, parameters, monitor, nsims,
     code <- parse(text = code)
   }
   
-  if(parallel) {
-    if(!requireNamespace("plyr", quietly = TRUE))
-      err("Package plyr is required to batch process files in parallel.")
-    nlists <- plyr::llply(1:nsims, generate_dataset,
-                          code = code, is_jags = is_jags,
-                          constants = constants, parameters = parameters, 
-                          monitor = monitor, 
-                          path = path, seed = seed, .parallel = TRUE)
-  } else {
-    nlists <- lapply(1:nsims, generate_dataset,
-                     code = code, is_jags = is_jags,
-                     constants = constants, parameters = parameters, 
-                     monitor = monitor, 
-                     path = path, seed = seed)
-  }
+  nlists <- plyr::llply(1:nsims, generate_dataset,
+                        code = code, is_jags = is_jags,
+                        constants = constants, parameters = parameters, 
+                        monitor = monitor, 
+                        path = path, seed = seed, 
+                        .parallel = parallel, .progress = progress,
+                        .inform = inform,
+                        .paropts = paropts)
   if(!is.null(path)) return(TRUE)
   set_class(nlists, "nlists")
 }
