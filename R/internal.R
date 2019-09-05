@@ -3,7 +3,7 @@ check_variable_nodes <- function(x, y, y_name = substitute(y)) {
   defined <- intersect(variable_nodes, names(y))
   if(length(defined)) {
     err("The following variable nodes are defined in ", 
-                           y_name, ": ", cc(defined, " and "), ".")
+        y_name, ": ", cc(defined, " and "), ".")
   }
   x
 }
@@ -30,13 +30,22 @@ prepare_code <- function(code) {
   code
 }
 
-stochastic_nodes <- function(x, stochastic) {
-  if(isTRUE(stochastic)) {
-    pattern <- "(?=\\s*[~])"
-  } else if (isFALSE(stochastic)) {
-    pattern <- "(?=\\s*(([<][-])|[=]))"  
-  } else
-    pattern <- "(?=\\s*([~]|(([<][-])|[=])))"
+stochastic_pattern_r <- function(x, stochastic, rdists) {
+  if(is.na(stochastic)) return("(([<][-])|[=])")
+  "(([<][-])|[=])"
+}
+
+stochastic_pattern_jags <- function(x, stochastic) {
+  if(isTRUE(stochastic)) return("[~]")
+  if (isFALSE(stochastic)) return("(([<][-])|[=])")
+  "([~]|([<][-])|[=])"
+}
+
+stochastic_nodes <- function(x, stochastic, rdists) {
+  pattern <- if(is_jags_code(x)) {
+    stochastic_pattern_jags(x, stochastic)
+  } else stochastic_pattern_r(x, stochastic, rdists)
+  pattern <- p0("(?=\\s*", pattern, ")")
   
   index <- "\\[[^\\]]*\\]"
   
@@ -48,6 +57,7 @@ stochastic_nodes <- function(x, stochastic) {
   nodes <- sub(pattern = index, "", nodes, perl = TRUE)
   nodes <- unique(nodes)
   sort(nodes)
+  
 }
 
 latent_nodes <- function(x, nodes, latent) {
@@ -60,8 +70,8 @@ latent_nodes <- function(x, nodes, latent) {
   nodes[!lateo]
 }
 
-variable_nodes <- function (x, stochastic, latent) {
-  nodes <- stochastic_nodes(x, stochastic)
+variable_nodes <- function (x, stochastic, latent, rdists) {
+  nodes <- stochastic_nodes(x, stochastic, rdists)
   nodes <- latent_nodes(x, nodes, latent)
   nodes
 }
@@ -75,14 +85,8 @@ variable_nodes_description <- function(stochastic, latent) {
   desc
 }
 
-set_monitor <- function(monitor, code, stochastic, latent, silent) {
-  if(!is_jags_code(code) && !is.na(stochastic)) {
-    if(!silent)
-      wrn("R code does not define stochastic variable nodes.")
-    stochastic <- NA
-  }
-  
-  variable_nodes <- variable_nodes(code, stochastic, latent)
+set_monitor <- function(monitor, code, stochastic, latent, rdists, silent) {
+  variable_nodes <- variable_nodes(code, stochastic, latent, rdists)
   desc <- variable_nodes_description(stochastic, latent)
   
   if(!length(variable_nodes)) {
@@ -145,10 +149,10 @@ data_file_name <- function(sim) p0("data", sprintf("%07d", sim), ".rds")
 
 generate_jags <- function(code, data, monitor, seed) {
   code <- textConnection(code)
-
+  
   inits <- list(.RNG.name = "base::Wichmann-Hill")
   inits$.RNG.seed <- abs(seed)
-
+  
   model <- rjags::jags.model(code, data = data, inits = inits, 
                              n.adapt = 0, quiet = TRUE)
   sample <- rjags::jags.samples(model, variable.names = monitor, n.iter = 1L, 
@@ -203,7 +207,7 @@ generate_datasets <- function(code, constants, parameters, monitor, nsims,
     is_jags <- FALSE
     code <- parse(text = code)
   }
-
+  
   if(parallel) {
     if(!requireNamespace("plyr", quietly = TRUE))
       err("Package plyr is required to batch process files in parallel.")

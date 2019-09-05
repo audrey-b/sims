@@ -6,8 +6,9 @@
 #' as individual \code{.rds} files.
 #' 
 #' JAGS code is identified by the presence of '~' indicating a stochastic variable node.
-#' Otherwise code is assumed to be R code 
-#' (and the stochastic argument is set to NA with a warning).
+#' Otherwise code is assumed to be R code and stochastic variable nodes 
+#' are those where assignment is immediately succeeded 
+#' by a call to one of the functions named in \code{rdists}.
 #'
 #' Both constants and parameters must be \code{\link[nlist]{nlist_object}s}
 #' (or lists that can be coerced to such) .
@@ -55,11 +56,13 @@
 #' If \code{exists = NA} it doesn't matter. If the directory already exists 
 #' all sims compatible files are deleted if \code{exists = TRUE} or \code{exists = NA} 
 #' otherwise an error is thrown.
+#' @param rdists A character vector specifying the R functions to recognize as stochastic.
 #' @param ask A flag specifying whether to ask before deleting files.
 #' @param silent A flag specifying whether to suppress warnings.
 #'
 #' @return By default an \code{\link[nlist]{nlists_object}} of the simulated data.
 #' Otherwise if \code{path} it returns TRUE.
+#' @seealso \code{\link{sims_rdists}()}
 #' @export
 #' @examples
 #' set.seed(101)
@@ -74,6 +77,7 @@ sims_simulate <- function(code,
                           parallel = FALSE,
                           path = NULL,
                           exists = FALSE,
+                          rdists = sims_rdists(),
                           ask = getOption("sims.ask", TRUE),
                           silent = FALSE) {
   if(is.list(constants) && !is.nlist(constants)) class(constants) <- "nlist"  
@@ -81,20 +85,17 @@ sims_simulate <- function(code,
 
   if(is_chk_on()) {
     chk_string(code)
-    chk_nlist(constants)
-    chk_no_missing(constants)
-    chk_nlist(parameters)
-    chk_no_missing(parameters)
-    chk_is(monitor, "character")
-    chk_gt(length(monitor))
+    chk_nlist(constants); chk_no_missing(constants)
+    chk_nlist(parameters); chk_no_missing(parameters)
+    chk_is(monitor, "character"); chk_gt(length(monitor))
     chk_lgl(stochastic)
     chk_lgl(latent)
-    chk_whole_number(nsims)
-    chk_range(nsims, c(1, 1000000))
+    chk_whole_number(nsims); chk_range(nsims, c(1, 1000000))
     chk_flag(parallel)
     if(!is.null(path)) chk_string(path)
     chk_flag(ask)
     chk_lgl(exists)
+    chk_is(rdists, "character"); chk_no_missing(rdists)
     chk_flag(silent)
   }
   nsims <- as.integer(nsims)
@@ -106,7 +107,8 @@ sims_simulate <- function(code,
 
   if(!is.null(path)) create_path(path, exists, ask, silent)
   
-  monitor <- set_monitor(monitor, code, stochastic, latent, silent = silent)
+  monitor <- set_monitor(monitor, code, stochastic, latent, 
+                         rdists = rdists, silent = silent)
   
   generate_datasets(code, constants, parameters, 
                     monitor = monitor, 

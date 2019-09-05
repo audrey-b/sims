@@ -565,10 +565,6 @@ test_that("strips comments before",{
 })
 
 test_that("with R code",{
-  expect_warning(sims_simulate("a <- runif(2, 0, 1)", nsims = 1),
-                 "R code does not define stochastic variable nodes.")
-  expect_warning(sims_simulate("a <- runif(2, 0, 1)", nsims = 1, stochastic = FALSE),
-                 "R code does not define stochastic variable nodes.")
   set.seed(101)
   expect_equal(sims_simulate("a <- runif(1, 0, 1)", nsims = 1, stochastic = NA),
                  structure(list(structure(list(a = 0.0438248154241592), class = "nlist")),
@@ -634,4 +630,19 @@ test_that("with R code in parallel",{
                              parallel = FALSE),
                  structure(list(structure(list(a = 0.0438248154241592), class = "nlist"), 
     structure(list(a = 0.709684018278494), class = "nlist")), class = "nlists"))
+})
+
+test_that("with R code and stochastic",{
+  set.seed(101)
+  expect_equal(sims_simulate("a <- runif(1, 0, 1)", nsims = 1, stochastic = TRUE),
+                 structure(list(structure(list(a = 0.0438248154241592), class = "nlist")),
+                           class = "nlists"))
+  set.seed(101)
+  expect_equal(sims_simulate("a <- runif(1, 0, 1)", nsims = 1, stochastic = NA),
+                 structure(list(structure(list(a = 0.0438248154241592), class = "nlist")),
+                           class = "nlists"))
+  set.seed(101)
+  expect_equal(sims_simulate("a <- runif(1, 0, 1)", nsims = 1, stochastic = FALSE),
+                 structure(list(structure(list(a = 0.0438248154241592), class = "nlist")),
+                           class = "nlists"))
 })

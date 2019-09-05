@@ -8,7 +8,8 @@ sims_simulate(code, constants = nlist::nlist(),
   parameters = nlist::nlist(), monitor = ".*", stochastic = TRUE,
   latent = FALSE, nsims = getOption("sims.nsims", 100L),
   parallel = FALSE, path = NULL, exists = FALSE,
-  ask = getOption("sims.ask", TRUE), silent = FALSE)
+  rdists = sims_rdists(), ask = getOption("sims.ask", TRUE),
+  silent = FALSE)
 }
 \arguments{
 \item{code}{A string of the JAGS code to generate the data.
@@ -49,6 +50,8 @@ If \code{exists = NA} it doesn't matter. If the directory already exists
 all sims compatible files are deleted if \code{exists = TRUE} or \code{exists = NA} 
 otherwise an error is thrown.}
 
+\item{rdists}{A character vector specifying the R functions to recognize as stochastic.}
+
 \item{ask}{A flag specifying whether to ask before deleting files.}
 
 \item{silent}{A flag specifying whether to suppress warnings.}
@@ -65,8 +68,9 @@ as individual \code{.rds} files.
 }
 \details{
 JAGS code is identified by the presence of '~' indicating a stochastic variable node.
-Otherwise code is assumed to be R code 
-(and the stochastic argument is set to NA with a warning).
+Otherwise code is assumed to be R code and stochastic variable nodes 
+are those where assignment is immediately succeeded 
+by a call to one of the functions named in \code{rdists}.
 
 Both constants and parameters must be \code{\link[nlist]{nlist_object}s}
 (or lists that can be coerced to such) .
@@ -89,4 +93,7 @@ sims compatible files are those matching the regular expression
 \examples{
 set.seed(101)
 sims_simulate("a ~ dunif(0, 1)", path = tempdir(), exists = NA, ask = FALSE)
+}
+\seealso{
+\code{\link{sims_rdists}()}
 }
