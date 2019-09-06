@@ -4,8 +4,8 @@
 \alias{sims_add}
 \title{Add Simulated Datasets}
 \usage{
-sims_add(path, nsims = getOption("sims.nsims", 100L), parallel = FALSE,
-  progress = "none", inform = FALSE, paropts = NULL)
+sims_add(path, nsims = getOption("sims.nsims", 100L), progress = FALSE,
+  options = furrr::future_options())
 }
 \arguments{
 \item{path}{A string specifying the path to the directory to add the data sets to.}
@@ -13,14 +13,9 @@ sims_add(path, nsims = getOption("sims.nsims", 100L), parallel = FALSE,
 \item{nsims}{A count of the number of additional datasets to generate.
 By default 100 datasets are added.}
 
-\item{parallel}{A flag specifying whether to generate the datasets in parallel.}
+\item{progress}{A flag specifying whether to print a progress bar.}
 
-\item{progress}{A string of the type of progress bar to create.
-The possible values are "none", "text", "tk", and "win".}
-
-\item{inform}{A flag specifying whether to produce informative error messages. Useful for debugging but slow.}
-
-\item{paropts}{A list of additional options passed into the \code{\link[foreach]{foreach}} function when parallel computation is enabled.}
+\item{options}{The future specific options to use with the workers.}
 }
 \value{
 A character vector of the names of the files created 

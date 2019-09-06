@@ -206,7 +206,7 @@ save_args <- function(path, ...) {
 }
 
 generate_datasets <- function(code, constants, parameters, monitor, nsims, 
-                              path, parallel, progress, inform, paropts) {
+                              path, progress, options) {
   if (!exists(".Random.seed")) runif(1)
   seed <- .Random.seed
   if(!is.null(path)) {
@@ -222,14 +222,12 @@ generate_datasets <- function(code, constants, parameters, monitor, nsims,
     code <- parse(text = code)
   }
   
-  nlists <- llply(1:nsims, generate_dataset,
+  nlists <- future_map(1:nsims, generate_dataset,
                   code = code, is_jags = is_jags,
                   constants = constants, parameters = parameters, 
                   monitor = monitor, 
                   path = path, seed = seed, 
-                  .parallel = parallel, .progress = progress,
-                  .inform = inform,
-                  .paropts = paropts)
+                  .progress = progress, .options = options)
   if(!is.null(path)) return(TRUE)
   set_class(nlists, "nlists")
 }

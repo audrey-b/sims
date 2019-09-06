@@ -28,10 +28,9 @@
 #' sims compatible files are those matching the regular expression 
 #' "^((data\\\\d\{7,7\})|([.]sims))[.]rds$".
 #' 
-#' Parallelization is accomplished using \code{\link[plyr]{llply}()} 
-#' which calls \code{\link[foreach]{foreach}}.
-#' The \code{progress}, \code{inform} and \code{paropts} functions
-#' are all passed to \code{\link[plyr]{llply}()}.
+#' Parallelization is accomplished using the future package.
+#' The \code{progress} and \code{options} arguments
+#' are both passed to \code{\link[furrr]{future_map}()}.
 #'
 #' @param code A string of the JAGS code to generate the data.
 #' The JAGS code must not be in a data or model block.
@@ -52,7 +51,6 @@
 #' or only observed nodes (FALSE).
 #' @param nsims An integer between 1 and 1,000,000 specifying 
 #' the number of data sets to simulate. By default 100 data sets are simulated.
-#' @param parallel A flag specifying whether to generate the datasets in parallel. 
 #' @param path A string specifying the path to the directory to save the data sets in.
 #' By default \code{path = NULL} the data sets are not saved but are returned 
 #' as an nlists object.
@@ -62,16 +60,14 @@
 #' all sims compatible files are deleted if \code{exists = TRUE} or \code{exists = NA} 
 #' otherwise an error is thrown.
 #' @param rdists A character vector specifying the R functions to recognize as stochastic.
-#' @param progress A string of the type of progress bar to create.
-#' The possible values are "none", "text", "tk", and "win".
-#' @param inform A flag specifying whether to produce informative error messages. Useful for debugging but slow.
-#' @param paropts A list of additional options passed into the \code{\link[foreach]{foreach}} function when parallel computation is enabled.
+#' @param progress A flag specifying whether to print a progress bar.
+#' @param options The future specific options to use with the workers.
 #' @param ask A flag specifying whether to ask before deleting files.
 #' @param silent A flag specifying whether to suppress warnings.
 #'
 #' @return By default an \code{\link[nlist]{nlists_object}} of the simulated data.
 #' Otherwise if \code{path} it returns TRUE.
-#' @seealso \code{\link{sims_rdists}()}
+#' @seealso \code{\link{sims_rdists}()} and \code{\link[furrr]{future_options}()}
 #' @export
 #' @examples
 #' set.seed(101)
@@ -83,13 +79,11 @@ sims_simulate <- function(code,
                           stochastic = TRUE,
                           latent = FALSE,
                           nsims = getOption("sims.nsims", 100L), 
-                          parallel = FALSE,
                           path = NULL,
                           exists = FALSE,
                           rdists = sims_rdists(),
-                          progress = "none",
-                          inform = FALSE,
-                          paropts = NULL, 
+                          progress = FALSE,
+                          options = furrr::future_options(), 
                           ask = getOption("sims.ask", TRUE),
                           silent = FALSE) {
   if(is.list(constants) && !is.nlist(constants)) class(constants) <- "nlist"  
@@ -103,14 +97,12 @@ sims_simulate <- function(code,
     chk_lgl(stochastic)
     chk_lgl(latent)
     chk_whole_number(nsims); chk_range(nsims, c(1, 1000000))
-    chk_flag(parallel)
     if(!is.null(path)) chk_string(path)
     chk_flag(ask)
     chk_lgl(exists)
     chk_is(rdists, "character"); chk_no_missing(rdists)
-    chk_string(progress); chk_in(progress, c("none", "text", "tk", "win"))
-    chk_flag(inform)
-    if(!is.null(paropts)) chk_list(paropts)
+    chk_flag(progress)
+    chk_is(options, "future_options")
     chk_flag(silent)
   }
   nsims <- as.integer(nsims)
@@ -128,7 +120,6 @@ sims_simulate <- function(code,
   generate_datasets(code, constants, parameters, 
                     monitor = monitor, 
                     nsims = nsims,
-                    path = path, parallel = parallel,
-                    progress = progress, inform = inform,
-                    paropts = paropts)
+                    path = path, progress = progress, 
+                    options = options)
 }

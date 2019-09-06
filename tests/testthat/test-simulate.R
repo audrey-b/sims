@@ -329,24 +329,16 @@ test_that("parallel with registered", {
   expect_equal(sims_simulate("a ~ dunif(0,1)", nsims = 1L),
                structure(list(structure(list(a = 0.247694617962275), class = "nlist")), class = "nlists"))
   
+  options(mc.cores = 2)
+  future::plan(future::multisession)
+  teardown(future::plan(future::sequential))
+
   set.seed(101)
-  expect_warning(sims_simulate("a ~ dunif(0,1)", nsims = 1L, parallel = TRUE),
-                 "No parallel backend registered")
-  
-  doParallel::registerDoParallel(2)
-  teardown(doParallel::stopImplicitCluster())
-  
-  set.seed(101)
-  expect_equal(sims_simulate("a ~ dunif(0,1)", nsims = 1, parallel = TRUE),
+  expect_equal(sims_simulate("a ~ dunif(0,1)", nsims = 1),
                structure(list(structure(list(a = 0.247694617962275), class = "nlist")), class = "nlists"))
   
   set.seed(101)
-  expect_equal(sims_simulate("a ~ dunif(0,1)", nsims = 2, parallel = FALSE),
-               structure(list(structure(list(a = 0.247694617962275), class = "nlist"), 
-                              structure(list(a = 0.951518742613052), class = "nlist")), class = "nlists"))
-  
-  set.seed(101)
-  expect_equal(sims_simulate("a ~ dunif(0,1)", nsims = 2, parallel = TRUE),
+  expect_equal(sims_simulate("a ~ dunif(0,1)", nsims = 2),
                structure(list(structure(list(a = 0.247694617962275), class = "nlist"), 
                               structure(list(a = 0.951518742613052), class = "nlist")), class = "nlists"))
 })
@@ -362,19 +354,21 @@ test_that("parallel with registered files", {
   expect_equal(readRDS(file.path(tempdir, "data0000002.rds")),
                structure(list(a = 0.951518742613052), class = "nlist"))
   
-  doParallel::registerDoParallel(2)
-  teardown(doParallel::stopImplicitCluster())
-  
   expect_identical(list.files(tempdir), c("data0000001.rds", "data0000002.rds"))
   set.seed(100)
   expect_true(sims_simulate("a ~ dunif(0,1)", nsims = 1L, path = tempdir, 
-                            parallel = FALSE, exists = TRUE, ask = FALSE, silent = TRUE))
+                            exists = TRUE, ask = FALSE, silent = TRUE))
   expect_identical(list.files(tempdir), "data0000001.rds")
   expect_equal(readRDS(file.path(tempdir, "data0000001.rds")),
                structure(list(a = 0.22130195651164), class = "nlist"))
+  
+  options(mc.cores = 2)
+  future::plan(future::multisession)
+  teardown(future::plan(future::sequential))
+
   set.seed(101)
   expect_true(sims_simulate("a ~ dunif(0,1)", nsims = 2L, path = tempdir, 
-                            parallel = TRUE, exists = TRUE, ask = FALSE, silent = TRUE))
+                            exists = TRUE, ask = FALSE, silent = TRUE))
   expect_identical(list.files(tempdir), c("data0000001.rds", "data0000002.rds"))
   
   expect_equal(readRDS(file.path(tempdir, "data0000001.rds")),
@@ -611,23 +605,17 @@ test_that("with R code",{
 
 test_that("with R code in parallel",{
   set.seed(101)
-  expect_equal(sims_simulate("a <- runif(1, 0, 1)", nsims = 2, stochastic = NA,
-                             parallel = FALSE),
+  expect_equal(sims_simulate("a <- runif(1, 0, 1)", nsims = 2,
+                             ),
                  structure(list(structure(list(a = 0.0438248154241592), class = "nlist"), 
     structure(list(a = 0.709684018278494), class = "nlist")), class = "nlists"))
   
-  doParallel::registerDoParallel(2)
-  teardown(doParallel::stopImplicitCluster())
+  options(mc.cores = 2)
+  future::plan(future::multisession)
+  teardown(future::plan(future::sequential))
   
   set.seed(101)
-  expect_equal(sims_simulate("a <- runif(1, 0, 1)", nsims = 2, stochastic = NA,
-                             parallel = TRUE),
-                 structure(list(structure(list(a = 0.0438248154241592), class = "nlist"), 
-    structure(list(a = 0.709684018278494), class = "nlist")), class = "nlists"))
-  
-  set.seed(101)
-  expect_equal(sims_simulate("a <- runif(1, 0, 1)", nsims = 2, stochastic = NA,
-                             parallel = FALSE),
+  expect_equal(sims_simulate("a <- runif(1, 0, 1)", nsims = 2),
                  structure(list(structure(list(a = 0.0438248154241592), class = "nlist"), 
     structure(list(a = 0.709684018278494), class = "nlist")), class = "nlists"))
 })

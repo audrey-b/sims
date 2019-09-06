@@ -298,3 +298,22 @@ test_that("sims_add R",{
     -624155198L, -1188620709L, 1456113120L)))
 })
 
+test_that("sims_add parallel",{
+  tempdir <- file.path(tempdir(), "sims")
+  unlink(tempdir, recursive = TRUE)
+ 
+  options(mc.cores = 2)
+  future::plan(future::multisession)
+  teardown(future::plan(future::sequential))
+  
+  set.seed(101) 
+  expect_true(sims_simulate("a ~ dunif(0,1)", nsims = 1L, path = tempdir))
+
+  expect_identical(sims_add(nsims = 2L, path = tempdir), 
+                   c("data0000002.rds", "data0000003.rds"))
+  
+  expect_equal(readRDS(file.path(tempdir, "data0000001.rds")),
+               structure(list(a = 0.247694617962275), class = "nlist"))
+  expect_equal(readRDS(file.path(tempdir, "data0000002.rds")),
+               structure(list(a = 0.951518742613052), class = "nlist"))
+})

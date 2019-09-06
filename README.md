@@ -109,16 +109,16 @@ sims_check(path = paste0(tempdir(), "_copy"))
 #> Error: Number of data files (4) does not match number of simulations (5).
 ```
 
-### Parallel Chains
+## Parallelization
 
-To generate simulations in parallel:
+Parallelization is achieved using the
+[future](https://github.com/HenrikBengtsson/future) package.
 
-1)  Ensure plyr and doParallel are installed using
-    `install.packages(c("plyr", "doParallel"))`.
-2)  Register a parallel backend using
-    `doParallel::registerDoParallel(n)` where `n` is the number of cores
-    you want it to use.
-3)  Set `parallel = TRUE` in the call to `sims_simulate()`.
+To use all available cores on the local machine simply execute the
+following code before calling `sims_simulate()`.
+
+    library(future)
+    plan(multisession)
 
 ## Contribution
 

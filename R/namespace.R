@@ -1,4 +1,4 @@
 #' @import chk yesno nlist 
-#' @importFrom plyr llply
+#' @importFrom furrr future_map
 #' @importFrom stats runif
 NULL

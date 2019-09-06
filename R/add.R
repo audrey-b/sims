@@ -8,17 +8,13 @@
 #' (and in the case of argsism, created).
 #' @export
 sims_add <- function(path, nsims = getOption("sims.nsims", 100L),
-                     parallel = FALSE,
-                     progress = "none",
-                     inform = FALSE,
-                     paropts = NULL) {
+                     progress = FALSE,
+                     options = furrr::future_options()) {
   
   if(is_chk_on()) {
     chk_whole_number(nsims); chk_range(nsims, c(1, 1000000))
-    chk_flag(parallel)
-    chk_string(progress); chk_in(progress, c("none", "text", "tk", "win"))
-    chk_flag(inform)
-    if(!is.null(paropts)) chk_list(paropts)
+    chk_flag(progress)
+    chk_is(options, "future_options")
   }
   
   nsims <- as.integer(nsims)
@@ -41,14 +37,12 @@ sims_add <- function(path, nsims = getOption("sims.nsims", 100L),
     code <- parse(text = code)
   }
   
-  nlists <- llply(sims, generate_dataset,  is_jags = is_jags, 
-                   code = code, 
-                   constants = argsims$constants, 
-                   parameters = argsims$parameters, 
-                   monitor = argsims$monitor, 
-                   path = path, seed = argsims$seed,
-                   .parallel = parallel, .progress = progress,
-                   .inform = inform,
-                   .paropts = paropts)
+  nlists <- future_map(sims, generate_dataset,  is_jags = is_jags, 
+                       code = code, 
+                       constants = argsims$constants, 
+                       parameters = argsims$parameters, 
+                       monitor = argsims$monitor, 
+                       path = path, seed = argsims$seed,
+                       .progress = progress, .options = options)
   data_files(path)[sims]
 }

@@ -6,10 +6,10 @@
 \usage{
 sims_simulate(code, constants = nlist::nlist(),
   parameters = nlist::nlist(), monitor = ".*", stochastic = TRUE,
-  latent = FALSE, nsims = getOption("sims.nsims", 100L),
-  parallel = FALSE, path = NULL, exists = FALSE,
-  rdists = sims_rdists(), progress = "none", inform = FALSE,
-  paropts = NULL, ask = getOption("sims.ask", TRUE), silent = FALSE)
+  latent = FALSE, nsims = getOption("sims.nsims", 100L), path = NULL,
+  exists = FALSE, rdists = sims_rdists(), progress = FALSE,
+  options = furrr::future_options(), ask = getOption("sims.ask", TRUE),
+  silent = FALSE)
 }
 \arguments{
 \item{code}{A string of the JAGS code to generate the data.
@@ -38,8 +38,6 @@ or only observed nodes (FALSE).}
 \item{nsims}{An integer between 1 and 1,000,000 specifying 
 the number of data sets to simulate. By default 100 data sets are simulated.}
 
-\item{parallel}{A flag specifying whether to generate the datasets in parallel.}
-
 \item{path}{A string specifying the path to the directory to save the data sets in.
 By default \code{path = NULL} the data sets are not saved but are returned 
 as an nlists object.}
@@ -52,12 +50,9 @@ otherwise an error is thrown.}
 
 \item{rdists}{A character vector specifying the R functions to recognize as stochastic.}
 
-\item{progress}{A string of the type of progress bar to create.
-The possible values are "none", "text", "tk", and "win".}
+\item{progress}{A flag specifying whether to print a progress bar.}
 
-\item{inform}{A flag specifying whether to produce informative error messages. Useful for debugging but slow.}
-
-\item{paropts}{A list of additional options passed into the \code{\link[foreach]{foreach}} function when parallel computation is enabled.}
+\item{options}{The future specific options to use with the workers.}
 
 \item{ask}{A flag specifying whether to ask before deleting files.}
 
@@ -97,15 +92,14 @@ The argument values are saved in the hidden file \code{.sims.rds}.
 sims compatible files are those matching the regular expression 
 "^((data\\\\d\{7,7\})|([.]sims))[.]rds$".
 
-Parallelization is accomplished using \code{\link[plyr]{llply}()} 
-which calls \code{\link[foreach]{foreach}}.
-The \code{progress}, \code{inform} and \code{paropts} functions
-are all passed to \code{\link[plyr]{llply}()}.
+Parallelization is accomplished using the future package.
+The \code{progress} and \code{options} arguments
+are both passed to \code{\link[furrr]{future_map}()}.
 }
 \examples{
 set.seed(101)
 sims_simulate("a ~ dunif(0, 1)", path = tempdir(), exists = NA, ask = FALSE)
 }
 \seealso{
-\code{\link{sims_rdists}()}
+\code{\link{sims_rdists}()} and \code{\link[furrr]{future_options}()}
 }
