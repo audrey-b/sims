@@ -42,10 +42,9 @@ the number of data sets to simulate. By default 100 data sets are simulated.}
 By default \code{path = NULL} the data sets are not saved but are returned 
 as an nlists object.}
 
-\item{exists}{A \code{path} is provided , 
-flag specifying whether the directory should already exist.
+\item{exists}{A flag specifying whether the \code{path} directory should already exist.
 If \code{exists = NA} it doesn't matter. If the directory already exists 
-all sims compatible files are deleted if \code{exists = TRUE} or \code{exists = NA} 
+all sims compatible files are deleted.
 otherwise an error is thrown.}
 
 \item{rdists}{A character vector specifying the R functions to recognize as stochastic.}
@@ -54,7 +53,7 @@ otherwise an error is thrown.}
 
 \item{options}{The future specific options to use with the workers.}
 
-\item{ask}{A flag specifying whether to ask before deleting files.}
+\item{ask}{A flag specifying whether to ask before deleting all sims compatible files.}
 
 \item{silent}{A flag specifying whether to suppress warnings.}
 }

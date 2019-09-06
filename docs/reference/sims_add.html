@@ -69,7 +69,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">sims</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9011</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9012</span>
       </span>
     </div>
 
@@ -83,9 +83,6 @@
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
-</li>
-<li>
-  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -112,8 +109,8 @@
     <p>Add Simulated Datasets</p>
     </div>
 
-    <pre class="usage"><span class='fu'>sims_add</span>(<span class='no'>path</span>, <span class='kw'>nsims</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"sims.nsims"</span>, <span class='fl'>100L</span>), <span class='kw'>parallel</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>progress</span> <span class='kw'>=</span> <span class='st'>"none"</span>, <span class='kw'>inform</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>paropts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>sims_add</span>(<span class='no'>path</span>, <span class='kw'>nsims</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"sims.nsims"</span>, <span class='fl'>100L</span>), <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>options</span> <span class='kw'>=</span> <span class='kw pkg'>furrr</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/furrr/man/future_options.html'>future_options</a></span>())</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -128,21 +125,12 @@
 By default 100 datasets are added.</p></td>
     </tr>
     <tr>
-      <th>parallel</th>
-      <td><p>A flag specifying whether to generate the datasets in parallel.</p></td>
-    </tr>
-    <tr>
       <th>progress</th>
-      <td><p>A string of the type of progress bar to create.
-The possible values are "none", "text", "tk", and "win".</p></td>
+      <td><p>A flag specifying whether to print a progress bar.</p></td>
     </tr>
     <tr>
-      <th>inform</th>
-      <td><p>A flag specifying whether to produce informative error messages. Useful for debugging but slow.</p></td>
-    </tr>
-    <tr>
-      <th>paropts</th>
-      <td><p>A list of additional options passed into the <code><a href='https://rdrr.io/pkg/foreach/man/foreach.html'>foreach</a></code> function when parallel computation is enabled.</p></td>
+      <th>options</th>
+      <td><p>The future specific options to use with the workers.</p></td>
     </tr>
     </table>
 

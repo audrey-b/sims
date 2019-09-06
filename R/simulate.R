@@ -54,15 +54,14 @@
 #' @param path A string specifying the path to the directory to save the data sets in.
 #' By default \code{path = NULL} the data sets are not saved but are returned 
 #' as an nlists object.
-#' @param exists A \code{path} is provided , 
-#' flag specifying whether the directory should already exist.
+#' @param exists A flag specifying whether the \code{path} directory should already exist.
 #' If \code{exists = NA} it doesn't matter. If the directory already exists 
-#' all sims compatible files are deleted if \code{exists = TRUE} or \code{exists = NA} 
+#' all sims compatible files are deleted.
 #' otherwise an error is thrown.
 #' @param rdists A character vector specifying the R functions to recognize as stochastic.
 #' @param progress A flag specifying whether to print a progress bar.
 #' @param options The future specific options to use with the workers.
-#' @param ask A flag specifying whether to ask before deleting files.
+#' @param ask A flag specifying whether to ask before deleting all sims compatible files.
 #' @param silent A flag specifying whether to suppress warnings.
 #'
 #' @return By default an \code{\link[nlist]{nlists_object}} of the simulated data.
