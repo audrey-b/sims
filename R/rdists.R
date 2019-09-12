@@ -30,7 +30,7 @@ sims_rdists <- function() {
 #' @examples
 #' print(sims_rdists_add("llog"))
 sims_rdists_add <- function(x) {
-  chk_is(x, "character"); chk_no_missing(x)
+  chk_s3_class(x, "character"); chk_no_missing(x)
   
   dists <- sims_rdists()
   x <- as.character(sort(unique(c(dists, x))))
@@ -68,7 +68,7 @@ sims_rdists_reset <- function() {
 #' @examples
 #' print(sims_rdists_set("llog"))
 sims_rdists_set <- function(x) {
-  chk_is(x, "character"); chk_no_missing(x)
+  chk_s3_class(x, "character"); chk_no_missing(x)
   dists <- sims_rdists()
   x <- as.character(sort(unique(x)))
   options(sims.rdists = x)

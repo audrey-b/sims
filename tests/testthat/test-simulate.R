@@ -2,18 +2,24 @@ context("sims-simulate")
 
 test_that("test inputs",{
   expect_error(sims_simulate(1),
-               "`code` must be a string [(]non-missing character scalar[)].")
+               "`code` must be a string [(]non-missing character scalar[)].",
+               class = "chk_error")
   
   expect_error(sims_simulate("x <- y", 1),
-               "^`constants` must inherit from class 'nlist'[.]$")
+               "^`constants` must inherit from class 'nlist'[.]$",
+               class = "chk_error")
   expect_error(sims_simulate("x <- y", nlist::nlist(x = NA_real_)),
-               "^`constants` must not have missing values[.]$")
+               "^`constants` must not have missing values[.]$",
+               class = "chk_error")
   expect_error(sims_simulate("x <- y", parameters = list(x = TRUE)),
-               "^All elements of `parameters` must be a numeric [(]integer or double[)] atomic [(]vector, matrix or array[)] object[.]$")
+               "^All elements of `parameters` must be a numeric [(]integer or double[)] atomic [(]vector, matrix or array[)] object[.]$",
+               class = "chk_error")
   expect_error(sims_simulate("x <- y", parameters = list(x = NA_real_)),
-               "^`parameters` must not have missing values[.]$")
+               "^`parameters` must not have missing values[.]$",
+               class = "chk_error")
   expect_error(sims_simulate("x <- y", list(x = 1), monitor = 1),
-               "`monitor` must inherit from class 'character'")
+               "`monitor` must inherit from S3 class 'character'",
+               class = "chk_error")
 })
 
 test_that("test nodes not already defined",{
@@ -572,7 +578,8 @@ test_that("with R code",{
                  structure(list(structure(list(a = 0.257672501029447), class = "nlist")), class = "nlists"))
   
   expect_error(sims_simulate("a <- TRUE", nsims = 1, stochastic = NA),
-                 "^All elements of simulations from `code` must be a numeric [(]integer or double[)] atomic [(]vector, matrix or array[)] object[.]$")
+                 "^All elements of simulations from `code` must be a numeric [(]integer or double[)] atomic [(]vector, matrix or array[)] object[.]$",
+               class = "chk_error")
   
   expect_identical(sims_simulate("a <- 1
                              b <- a", nsims = 1, stochastic = NA),

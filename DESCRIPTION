@@ -10,7 +10,7 @@ License: GPL-3
 Depends: 
     R (>= 3.5),
 Imports:
-  chk (>= 0.0.1.9016),
+  chk (>= 0.0.1.9019),
   yesno,
   nlist (>= 0.0.0.9109),
   furrr,

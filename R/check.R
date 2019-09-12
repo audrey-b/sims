@@ -18,11 +18,11 @@ sims_check <- function(path) {
   sims_info <- sims_info(path)
 
   chk_string(sims_info$code)
-  chk_is(sims_info$constants, "nlist")
-  chk_is(sims_info$parameters, "nlist")
+  chk_s3_class(sims_info$constants, "nlist")
+  chk_s3_class(sims_info$parameters, "nlist")
   chk_string(sims_info$monitor)
   chk_whole_number(sims_info$nsims); chk_range(sims_info$nsims, c(1L, 1000000L))
-  chk_is(sims_info$seed, "integer"); chk_gt(length(sims_info$seed))
+  chk_s3_class(sims_info$seed, "integer"); chk_gt(length(sims_info$seed))
 
   nsims <- sims_info$nsims
   
