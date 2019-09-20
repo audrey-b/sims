@@ -6,7 +6,7 @@ test_that("test inputs",{
                class = "chk_error")
   
   expect_error(sims_simulate("x <- y", 1),
-               "^`constants` must inherit from class 'nlist'[.]$",
+               "^`constants` must inherit from S3 class 'nlist'[.]$",
                class = "chk_error")
   expect_error(sims_simulate("x <- y", nlist::nlist(x = NA_real_)),
                "^`constants` must not have missing values[.]$",
