@@ -10,7 +10,7 @@
 #' set.seed(10)
 #' sims_simulate("a ~ dunif(0,1)", path = tempdir(), exists = NA, ask = FALSE)
 #' sims_info(tempdir())
-sims_info <- function(path = getOption("sims.path")) {
+sims_info <- function(path = getOption("sims.path", ".")) {
   chk_string(path)
   chk_dir(path)
 

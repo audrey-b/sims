@@ -4,7 +4,7 @@
 \alias{sims_data}
 \title{Simulated Datasets}
 \usage{
-sims_data(path = getOption("sims.path"))
+sims_data(path = getOption("sims.path", "."))
 }
 \arguments{
 \item{path}{A string of the path to the directory with the simulated data files.}

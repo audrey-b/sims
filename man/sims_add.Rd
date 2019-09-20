@@ -4,8 +4,9 @@
 \alias{sims_add}
 \title{Add Simulated Datasets}
 \usage{
-sims_add(path = getOption("sims.path"), nsims = getOption("sims.nsims",
-  100L), progress = FALSE, options = furrr::future_options())
+sims_add(path = getOption("sims.path", "."),
+  nsims = getOption("sims.nsims", 100L), progress = FALSE,
+  options = furrr::future_options())
 }
 \arguments{
 \item{path}{A string specifying the path to the directory to add the data sets to.}

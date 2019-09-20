@@ -4,7 +4,7 @@
 \alias{sims_copy}
 \title{Copy Simulated Datasets}
 \usage{
-sims_copy(path_from = getOption("sims.path"),
+sims_copy(path_from = getOption("sims.path", "."),
   path_to = paste0(path_from, "_copy"), exists = FALSE,
   ask = getOption("sims.ask", TRUE), silent = FALSE)
 }
