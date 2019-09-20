@@ -10,7 +10,8 @@
 #' @param silent A flag specifying whether to suppress warnings.
 #' @return A character vector of the names of the files copied.
 #' @export
-sims_copy <- function(path_from = "sims", path_to = paste0(path_from, "_copy"), 
+sims_copy <- function(path_from = getOption("sims.path"), 
+                      path_to = paste0(path_from, "_copy"), 
                       exists = FALSE, ask = getOption("sims.ask", TRUE), 
                       silent = FALSE) {
   if(is_chk_on()) {

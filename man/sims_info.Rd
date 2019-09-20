@@ -4,7 +4,7 @@
 \alias{sims_info}
 \title{Simulated Data Argument Values}
 \usage{
-sims_info(path)
+sims_info(path = getOption("sims.path"))
 }
 \arguments{
 \item{path}{A string of the path to the directory with the simulated data.}
