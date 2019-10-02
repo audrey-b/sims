@@ -8,7 +8,7 @@
 #' (and in the case of argsism, created).
 #' @export
 sims_add <- function(path = getOption("sims.path", "."),
-                     nsims = getOption("sims.nsims", 100L),
+                     nsims = 1,
                      progress = FALSE,
                      options = furrr::future_options()) {
 

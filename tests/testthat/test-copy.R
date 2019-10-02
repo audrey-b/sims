@@ -180,7 +180,7 @@ test_that("sims_copy only deletes existing sims compatible files", {
   x <- 1
   saveRDS(x, file.path(paste0(tempdir, "_copy"), "data000003.rds"))
 
-  expect_true(sims_simulate("a ~ dunif(0,1)", nsims = 1L, path = tempdir,
+  expect_true(sims_simulate("a ~ dunif(0,1)", path = tempdir,
     exists = TRUE, ask = FALSE, silent = TRUE))
 
   expect_warning(sims_copy(path_from = tempdir, exists = NA, ask = FALSE),
