@@ -15,11 +15,9 @@ status](https://ci.appveyor.com/api/projects/status/github/poissonconsulting/sim
 Status](https://img.shields.io/codecov/c/github/poissonconsulting/sims/master.svg)](https://codecov.io/github/poissonconsulting/sims?branch=master)
 [![License:
 GPL3](https://img.shields.io/badge/License-GPL3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.html)
-[![Tinyverse
-status](https://tinyverse.netlify.com/badge/sims)](https://CRAN.R-project.org/package=sims)
-[![CRAN
-status](https://www.r-pkg.org/badges/version/sims)](https://cran.r-project.org/package=sims)
-![CRAN downloads](http://cranlogs.r-pkg.org/badges/sims)
+<!-- [![Tinyverse status](https://tinyverse.netlify.com/badge/sims)](https://CRAN.R-project.org/package=sims) -->
+<!-- [![CRAN status](https://www.r-pkg.org/badges/version/sims)](https://cran.r-project.org/package=sims) -->
+<!-- ![CRAN downloads](http://cranlogs.r-pkg.org/badges/sims) -->
 <!-- badges: end -->
 
 sims is an R package to simulate datasets (in the form of an
@@ -28,19 +26,21 @@ or R code.
 
 ## Installation
 
-To install the latest release version from
-[CRAN](https://cran.r-project.org)
-
-``` r
-install.packages("sims")
-```
-
-To install the latest development version from
+To install the developmental version from
 [GitHub](https://github.com/poissonconsulting/sims)
 
 ``` r
 # install.packages("remotes")
 remotes::install_github("poissonconsulting/sims")
+```
+
+To install the latest developmental release from the Poisson drat
+[repository](https://github.com/poissonconsulting/drat)
+
+``` r
+# install.packages("drat")
+drat::addRepo("poissonconsulting")
+install.packages("sims")
 ```
 
 ## Demonstration
@@ -106,7 +106,7 @@ file.remove(file.path(paste0(tempdir(), "_copy"), "data0000005.rds"))
 #> [1] TRUE
 
 sims_check(path = paste0(tempdir(), "_copy"))
-#> Error: Number of data files (4) does not match number of simulations (5).
+#> Number of data files (4) does not match number of simulations (5).
 ```
 
 ## Parallelization
@@ -130,4 +130,4 @@ always welcome.
 
 Please note that this project is released with a [Contributor Code of
 Conduct](https://github.com/poissonconsulting/sims/blob/master/CODE_OF_CONDUCT.md).
-By contributing, you agree to abide by its terms
+By contributing, you agree to abide by its terms.
