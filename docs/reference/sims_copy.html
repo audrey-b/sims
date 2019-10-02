@@ -69,7 +69,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">sims</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9012</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9016</span>
       </span>
     </div>
 
@@ -109,8 +109,9 @@
     <p>Copy Simulated Datasets</p>
     </div>
 
-    <pre class="usage"><span class='fu'>sims_copy</span>(<span class='kw'>path_from</span> <span class='kw'>=</span> <span class='st'>"sims"</span>, <span class='kw'>path_to</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='no'>path_from</span>, <span class='st'>"_copy"</span>),
-  <span class='kw'>exists</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ask</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"sims.ask"</span>, <span class='fl'>TRUE</span>), <span class='kw'>silent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>sims_copy</span>(<span class='kw'>path_from</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"sims.path"</span>, <span class='st'>"."</span>),
+  <span class='kw'>path_to</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='no'>path_from</span>, <span class='st'>"_copy"</span>), <span class='kw'>exists</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>ask</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"sims.ask"</span>, <span class='fl'>TRUE</span>), <span class='kw'>silent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -126,7 +127,7 @@
     <tr>
       <th>exists</th>
       <td><p>A flag specifying whether <code>path_to</code> should already exist.
-If <code>exists = NA</code> it doesn't matter. If the directory already exists 
+If <code>exists = NA</code> it doesn't matter. If the directory already exists
 sims compatible files are deleted if <code>exists = TRUE</code> or <code>exists = NA</code> otherwise an
 error is thrown.</p></td>
     </tr>
@@ -162,7 +163,7 @@ error is thrown.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9100.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
 
       </footer>
