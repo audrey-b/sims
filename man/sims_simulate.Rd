@@ -13,7 +13,7 @@ sims_simulate(code, constants = nlist::nlist(),
   silent = FALSE)
 }
 \arguments{
-\item{code}{A string of the JAGS code to generate the data.
+\item{code}{A string of the JAGS or R code to generate the data.
 The JAGS code must not be in a data or model block.}
 
 \item{constants}{An nlist object (or list that can be coerced to nlist)
@@ -36,17 +36,15 @@ or only stochastic nodes (TRUE).}
 observed and latent (NA), only latent (TRUE)
 or only observed nodes (FALSE).}
 
-\item{nsims}{An integer between 1 and 1,000,000 specifying
+\item{nsims}{A whole number between 1 and 1,000,000 specifying
 the number of data sets to simulate. By default 100 data sets are simulated.}
 
 \item{path}{A string specifying the path to the directory to save the data sets in.
 By default \code{path = NULL} the data sets are not saved but are returned
 as an nlists object.}
 
-\item{exists}{A flag specifying whether the \code{path} directory should already exist.
-If \code{exists = NA} it doesn't matter. If the directory already exists
-all sims compatible files are deleted.
-otherwise an error is thrown.}
+\item{exists}{A flag specifying whether the \code{path} directory should already exist 
+(if \code{exists = NA} it doesn't matter).}
 
 \item{rdists}{A character vector specifying the R functions to recognize as stochastic.}
 
@@ -54,17 +52,18 @@ otherwise an error is thrown.}
 
 \item{options}{The future specific options to use with the workers.}
 
-\item{ask}{A flag specifying whether to ask before deleting all sims compatible files.}
+\item{ask}{A flag specifying whether to ask before deleting sims compatible files.}
 
 \item{silent}{A flag specifying whether to suppress warnings.}
 }
 \value{
 By default an \code{\link[nlist]{nlists_object}} of the simulated data.
-Otherwise if \code{path} it returns TRUE.
+Otherwise if \code{path} is defined saves the datasets as individual \code{.rds} files and 
+returns TRUE.
 }
 \description{
-Simulates datasets using R or JAGS code. By defaults
-return the datasets as an \code{\link[nlist]{nlists_object}}.
+Simulates datasets using JAGS or R code. By default
+returns the datasets as an \code{\link[nlist]{nlists_object}}.
 If \code{path} is provided then the datasets are written to the directory
 as individual \code{.rds} files.
 }

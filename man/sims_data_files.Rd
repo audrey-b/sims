@@ -10,7 +10,7 @@ sims_data_files(path = getOption("sims.path", "."))
 \item{path}{A string of the path to the directory with the simulated data.}
 }
 \value{
-A character vector of the simulated data files.
+A character vector of the names of the simulated data files.
 }
 \description{
 Gets the names of the simulated data files.

@@ -1,12 +1,12 @@
 #' Sims Random R Distributions
 #'
-#' Gets the names of the random variate generating R functions recognized by sims
+#' Gets the names of the R functions recognized by sims
 #' as producing stochastic variable nodes.
 #'
 #' By default the functions are the random variate generating functions
 #' listed in \code{\link{Distributions}}.
 #'
-#' @return A character vector of the names of random variate generating R functions.
+#' @return A character vector of the names of the recognized R functions.
 #' @seealso \code{\link{sims_rdists_add}()} and
 #' \code{\link{sims_rdists_reset}()}
 #' @export
@@ -17,12 +17,13 @@ sims_rdists <- function() {
   getOption("sims.rdists", .sims_rdists)
 }
 
-#' Sims Add Distributions
+#' Sims Add R Distributions
 #'
-#' Adds sims distributions.
+#' Adds R functions recognized by sims
+#' as producing stochastic variable nodes.
 #'
-#' @param x A character vector of the random variate generating R functions.
-#' @return A invisible character vector of the names of the previous R distributions.
+#' @param x A character vector of the names of the R functions to add.
+#' @return A invisible character vector of the names of the previous R functions.
 #' @seealso \code{\link{sims_rdists}()} and
 #' \code{\link{sims_rdists_reset}()}
 #' @export
@@ -39,11 +40,12 @@ sims_rdists_add <- function(x) {
   invisible(dists)
 }
 
-#' Sims Reset Distributions
+#' Sims Reset R Distributions
 #'
-#' Resets sims distributions.
+#' Resets the names of the R functions recognized by sims
+#' as producing stochastic variable nodes to those listed in \code{\link{Distributions}}.
 #'
-#' @return A invisible character vector of the names of the previous R distributions.
+#' @return A invisible character vector of the names of the previous R functions.
 #' @seealso \code{\link{sims_rdists}()} and
 #' \code{\link{sims_rdists_set}()}
 #' @export
@@ -58,10 +60,11 @@ sims_rdists_reset <- function() {
 
 #' Sims Set Distributions
 #'
-#'  Sets sims distributions.
+#' Sets the names of the R functions recognized by sims
+#' as producing stochastic variable nodes.
 #'
-#' @param x A character vector of the random variate generating R functions.
-#' @return A invisible character vector of the names of the previous R distributions.
+#' @param x A character vector of the names of the R functions.
+#' @return A invisible character vector of the names of the previous R functions.
 #' @seealso \code{\link{sims_rdists}()} and
 #' \code{\link{sims_rdists_reset}()}
 #' @export

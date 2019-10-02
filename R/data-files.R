@@ -4,7 +4,7 @@
 #'
 #' @param path A string of the path to the directory with the simulated data.
 #'
-#' @return A character vector of the simulated data files.
+#' @return A character vector of the names of the simulated data files.
 #' @export
 #' @examples
 #' set.seed(10)

@@ -2,15 +2,16 @@
 % Please edit documentation in R/rdists.R
 \name{sims_rdists_reset}
 \alias{sims_rdists_reset}
-\title{Sims Reset Distributions}
+\title{Sims Reset R Distributions}
 \usage{
 sims_rdists_reset()
 }
 \value{
-A invisible character vector of the names of the previous R distributions.
+A invisible character vector of the names of the previous R functions.
 }
 \description{
-Resets sims distributions.
+Resets the names of the R functions recognized by sims
+as producing stochastic variable nodes to those listed in \code{\link{Distributions}}.
 }
 \examples{
 print(sims_rdists_reset())

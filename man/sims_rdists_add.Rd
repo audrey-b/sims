@@ -2,18 +2,19 @@
 % Please edit documentation in R/rdists.R
 \name{sims_rdists_add}
 \alias{sims_rdists_add}
-\title{Sims Add Distributions}
+\title{Sims Add R Distributions}
 \usage{
 sims_rdists_add(x)
 }
 \arguments{
-\item{x}{A character vector of the random variate generating R functions.}
+\item{x}{A character vector of the names of the R functions to add.}
 }
 \value{
-A invisible character vector of the names of the previous R distributions.
+A invisible character vector of the names of the previous R functions.
 }
 \description{
-Adds sims distributions.
+Adds R functions recognized by sims
+as producing stochastic variable nodes.
 }
 \examples{
 print(sims_rdists_add("llog"))

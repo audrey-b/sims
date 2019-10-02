@@ -7,13 +7,14 @@
 sims_rdists_set(x)
 }
 \arguments{
-\item{x}{A character vector of the random variate generating R functions.}
+\item{x}{A character vector of the names of the R functions.}
 }
 \value{
-A invisible character vector of the names of the previous R distributions.
+A invisible character vector of the names of the previous R functions.
 }
 \description{
-Sets sims distributions.
+Sets the names of the R functions recognized by sims
+as producing stochastic variable nodes.
 }
 \examples{
 print(sims_rdists_set("llog"))
