@@ -16,35 +16,35 @@ sims_simulate(code, constants = nlist::nlist(),
 \item{code}{A string of the JAGS code to generate the data.
 The JAGS code must not be in a data or model block.}
 
-\item{constants}{An nlist object (or list that can be coerced to nlist) 
-specifying the values of nodes in code. 
+\item{constants}{An nlist object (or list that can be coerced to nlist)
+specifying the values of nodes in code.
 The values are included in the output dataset.}
 
-\item{parameters}{An nlist object (or list that can be coerced to nlist) 
-specifying the values of nodes in code. 
+\item{parameters}{An nlist object (or list that can be coerced to nlist)
+specifying the values of nodes in code.
 The values are not included in the output dataset.}
 
-\item{monitor}{A character vector (or regular expression if a string) 
+\item{monitor}{A character vector (or regular expression if a string)
 specifying the names of the nodes in code to include in the dataset.
 By default all nodes are included.}
 
-\item{stochastic}{A logical scalar specifying whether to monitor 
-deterministic and stochastic (NA), only deterministic (FALSE) 
+\item{stochastic}{A logical scalar specifying whether to monitor
+deterministic and stochastic (NA), only deterministic (FALSE)
 or only stochastic nodes (TRUE).}
 
-\item{latent}{A logical scalar specifying whether to monitor 
-observed and latent (NA), only latent (TRUE) 
+\item{latent}{A logical scalar specifying whether to monitor
+observed and latent (NA), only latent (TRUE)
 or only observed nodes (FALSE).}
 
-\item{nsims}{An integer between 1 and 1,000,000 specifying 
+\item{nsims}{An integer between 1 and 1,000,000 specifying
 the number of data sets to simulate. By default 100 data sets are simulated.}
 
 \item{path}{A string specifying the path to the directory to save the data sets in.
-By default \code{path = NULL} the data sets are not saved but are returned 
+By default \code{path = NULL} the data sets are not saved but are returned
 as an nlists object.}
 
 \item{exists}{A flag specifying whether the \code{path} directory should already exist.
-If \code{exists = NA} it doesn't matter. If the directory already exists 
+If \code{exists = NA} it doesn't matter. If the directory already exists
 all sims compatible files are deleted.
 otherwise an error is thrown.}
 
@@ -63,33 +63,33 @@ By default an \code{\link[nlist]{nlists_object}} of the simulated data.
 Otherwise if \code{path} it returns TRUE.
 }
 \description{
-Simulates datasets using R or JAGS code. By defaults 
+Simulates datasets using R or JAGS code. By defaults
 return the datasets as an \code{\link[nlist]{nlists_object}}.
-If \code{path} is provided then the datasets are written to the directory 
+If \code{path} is provided then the datasets are written to the directory
 as individual \code{.rds} files.
 }
 \details{
 JAGS code is identified by the presence of '~' indicating a stochastic variable node.
-Otherwise code is assumed to be R code and stochastic variable nodes 
-are those where assignment is immediately succeeded 
+Otherwise code is assumed to be R code and stochastic variable nodes
+are those where assignment is immediately succeeded
 by a call to one of the functions named in \code{rdists}.
 
 Both constants and parameters must be \code{\link[nlist]{nlist_object}s}
 (or lists that can be coerced to such) .
-The only difference between constants and parameters is that the values in 
-constants are appended to the output data while the values in parameters 
+The only difference between constants and parameters is that the values in
+constants are appended to the output data while the values in parameters
 are not.
-Neither constants or parameters can include missing values nor can they 
+Neither constants or parameters can include missing values nor can they
 have elements with the same name.
-Elements which are not in code are dropped with a warning 
+Elements which are not in code are dropped with a warning
 (unless \code{silent = TRUE} in which case the warning is suppressed).
 
-Each set of simulated data set is written as a separate .rds file. 
+Each set of simulated data set is written as a separate .rds file.
 The files are labelled \code{data0000001.rds}, \code{data0000002.rds},
 \code{data0000003.rds} etc.
 The argument values are saved in the hidden file \code{.sims.rds}.
 
-sims compatible files are those matching the regular expression 
+sims compatible files are those matching the regular expression
 "^((data\\\\d\{7,7\})|([.]sims))[.]rds$".
 
 Parallelization is accomplished using the future package.

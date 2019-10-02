@@ -16,7 +16,7 @@ An informative error or invisible list of the argument values.
 Checks the simulated data argument values in the '.sims.rds' file.
 }
 \details{
-The checks include whether number and names of the data files 
+The checks include whether number and names of the data files
 in the directory are consistent with the number of simulations.
 }
 \examples{

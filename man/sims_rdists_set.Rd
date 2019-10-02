@@ -19,6 +19,6 @@ Sets sims distributions.
 print(sims_rdists_set("llog"))
 }
 \seealso{
-\code{\link{sims_rdists}()} and  
+\code{\link{sims_rdists}()} and
 \code{\link{sims_rdists_reset}()}
 }

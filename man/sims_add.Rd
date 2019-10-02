@@ -19,7 +19,7 @@ By default 100 datasets are added.}
 \item{options}{The future specific options to use with the workers.}
 }
 \value{
-A character vector of the names of the files created 
+A character vector of the names of the files created
 (and in the case of argsism, created).
 }
 \description{

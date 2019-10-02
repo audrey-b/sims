@@ -1,12 +1,12 @@
 #' Simulated Data Files
-#' 
+#'
 #' Gets the names of the simulated data files.
 #'
 #' @param path A string of the path to the directory with the simulated data.
 #'
 #' @return A character vector of the simulated data files.
 #' @export
-#' @examples 
+#' @examples
 #' set.seed(10)
 #' sims_simulate("a ~ dunif(0,1)", nsims = 10L, path = tempdir(), exists = NA, ask = FALSE)
 #' sims_data_files(tempdir())

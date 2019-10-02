@@ -14,7 +14,7 @@ sims_copy(path_from = getOption("sims.path", "."),
 \item{path_to}{A string of the path to the directory to copy the simulated dataset to.}
 
 \item{exists}{A flag specifying whether \code{path_to} should already exist.
-If \code{exists = NA} it doesn't matter. If the directory already exists 
+If \code{exists = NA} it doesn't matter. If the directory already exists
 sims compatible files are deleted if \code{exists = TRUE} or \code{exists = NA} otherwise an
 error is thrown.}
 
