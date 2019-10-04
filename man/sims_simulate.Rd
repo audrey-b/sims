@@ -6,8 +6,8 @@
 \usage{
 sims_simulate(code, constants = nlist::nlist(),
   parameters = nlist::nlist(), monitor = ".*", stochastic = TRUE,
-  latent = FALSE, nsims = 1, path = getOption("sims.path"),
-  exists = FALSE, rdists = sims_rdists(), progress = FALSE,
+  latent = FALSE, nsims = 1, path = NULL, exists = FALSE,
+  rdists = sims_rdists(), progress = FALSE,
   options = furrr::future_options(), ask = getOption("sims.ask", TRUE),
   silent = FALSE)
 }

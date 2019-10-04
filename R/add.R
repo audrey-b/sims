@@ -7,7 +7,7 @@
 #' @return A character vector of the names of the files created
 #' (and in the case of argsism, created).
 #' @export
-sims_add <- function(path = getOption("sims.path", "."),
+sims_add <- function(path = ".",
                      nsims = 1,
                      progress = FALSE,
                      options = furrr::future_options()) {

@@ -4,9 +4,8 @@
 \alias{sims_copy}
 \title{Copy Simulated Datasets}
 \usage{
-sims_copy(path_from = getOption("sims.path", "."),
-  path_to = paste0(path_from, "_copy"), exists = FALSE,
-  ask = getOption("sims.ask", TRUE), silent = FALSE)
+sims_copy(path_from = ".", path_to = paste0(path_from, "_copy"),
+  exists = FALSE, ask = getOption("sims.ask", TRUE), silent = FALSE)
 }
 \arguments{
 \item{path_from}{A string of the path to the directory containing the simulated datasets.}
