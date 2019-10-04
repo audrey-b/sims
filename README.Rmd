@@ -25,7 +25,8 @@ knitr::opts_chunk$set(
 <!-- ![CRAN downloads](http://cranlogs.r-pkg.org/badges/sims) -->
 <!-- badges: end -->
 
-sims is an R package to simulate datasets (in the form of an [nlists](https://github.com/poissonconsulting/nlist) object) from JAGS or R code.
+sims is an R package to generate datasets from [JAGS](http://mcmc-jags.sourceforge.net) or R code for use in simulation studies.
+The datasets are returned as an [nlists](https://github.com/poissonconsulting/nlist) object and/or saved to file as individual .rds files.
 
 ## Installation
 
@@ -41,7 +42,6 @@ To install the latest developmental release from the Poisson drat [repository](h
 drat::addRepo("poissonconsulting")
 install.packages("sims")
 ```
-
 
 ## Demonstration
 
@@ -68,7 +68,7 @@ sims_add(tempdir(), nsims = 3L)
 sims_data_files(tempdir())
 ```
 
-If the user wishes to duplicate the datasets then they can either regenerate them by specifying a different path but the same key.
+If the user wishes to duplicate the datasets then they can either regenerate them by specifying a different path but the same seed.
 Alternatively, they can copy the existing `.sims.rds` and datasets files to a new directory using `sims_copy()`
 ```{r}
 sims_copy(path_from = tempdir(), path_to = paste0(tempdir(), "_copy"))

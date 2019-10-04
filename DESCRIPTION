@@ -5,9 +5,9 @@ Authors@R: c(
     person("Audrey", "Beliveau", , "audrey.beliveau@uwaterloo.ca", "aut"),
     person("Joe", "Thorley", , "joe@poissonconsulting.ca", c("aut", "cre"), comment = c(ORCID = "0000-0002-7683-4592"))
     )
-Description: Simulates datasets from 'JAGS' or R code.
-    The datasets are returned as an 'nlists' object or if a file path is provided
-    saved as individual '.rds' files.
+Description: Generates datasets from 'JAGS' or R code for use in simulation studies.
+    The datasets are returned as an 'nlists' object and/or saved to file as 
+    individual '.rds' files.
 License: GPL-3
 Depends: 
     R (>= 3.5)

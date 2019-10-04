@@ -20,9 +20,11 @@ GPL3](https://img.shields.io/badge/License-GPL3-blue.svg)](https://www.gnu.org/l
 <!-- ![CRAN downloads](http://cranlogs.r-pkg.org/badges/sims) -->
 <!-- badges: end -->
 
-sims is an R package to simulate datasets (in the form of an
-[nlists](https://github.com/poissonconsulting/nlist) object) from JAGS
-or R code.
+sims is an R package to generate datasets from
+[JAGS](http://mcmc-jags.sourceforge.net) or R code for use in simulation
+studies. The datasets are returned as an
+[nlists](https://github.com/poissonconsulting/nlist) object and/or saved
+to file as individual .rds files.
 
 ## Installation
 
@@ -84,7 +86,7 @@ sims_data_files(tempdir())
 ```
 
 If the user wishes to duplicate the datasets then they can either
-regenerate them by specifying a different path but the same key.
+regenerate them by specifying a different path but the same seed.
 Alternatively, they can copy the existing `.sims.rds` and datasets files
 to a new directory using `sims_copy()`
 
