@@ -5,7 +5,7 @@ test_that("sims_data", {
   unlink(tempdir, recursive = TRUE)
 
   set.seed(2)
-  expect_true(sims_simulate("a ~ dunif(0,1)", nsims = 10L, path = tempdir))
+  expect_true(sims_simulate("a ~ dunif(0,1)", nsims = 10L, path = tempdir, save = TRUE))
 
   data <- sims_data(tempdir)
   set.seed(2)

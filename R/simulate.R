@@ -51,9 +51,10 @@
 #' or only observed nodes (FALSE).
 #' @param nsims A whole number between 1 and 1,000,000 specifying
 #' the number of data sets to simulate. By default 100 data sets are simulated.
+#' @param save A flag specifying whether to return the data sets as 
+#' an \code{nlists} object or save in \code{path}. If \code{save = NA}
+#' the datasets are returned as an \code{nlists} object and saved in \code{path}.
 #' @param path A string specifying the path to the directory to save the data sets in.
-#' By default \code{path = NULL} the data sets are not saved but are returned
-#' as an nlists object.
 #' @param exists A flag specifying whether the \code{path} directory should already exist 
 #' (if \code{exists = NA} it doesn't matter).
 #' @param rdists A character vector specifying the R functions to recognize as stochastic.
@@ -77,7 +78,8 @@ sims_simulate <- function(code,
                           stochastic = TRUE,
                           latent = FALSE,
                           nsims = 1,
-                          path = NULL,
+                          save = FALSE,
+                          path = ".",
                           exists = FALSE,
                           rdists = sims_rdists(),
                           progress = FALSE,
@@ -99,7 +101,8 @@ sims_simulate <- function(code,
     chk_lgl(latent)
     chk_whole_number(nsims)
     chk_range(nsims, c(1, 1000000))
-    if(!is.null(path)) chk_string(path)
+    chk_lgl(save)
+    chk_string(path)
     chk_flag(ask)
     chk_lgl(exists)
     chk_s3_class(rdists, "character")
@@ -115,14 +118,14 @@ sims_simulate <- function(code,
   check_variable_nodes(code, constants, rdists)
   check_variable_nodes(code, parameters, rdists)
 
-  if(!is.null(path)) create_path(path, exists, ask, silent)
+  if(!isFALSE(save)) create_path(path, exists, ask, silent)
 
   monitor <- set_monitor(monitor, code, stochastic, latent,
     rdists = rdists, silent = silent)
 
   generate_datasets(code, constants, parameters,
     monitor = monitor,
-    nsims = nsims,
+    nsims = nsims, save = save,
     path = path, progress = progress,
     options = options)
 }

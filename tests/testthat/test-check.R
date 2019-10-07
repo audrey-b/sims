@@ -5,11 +5,11 @@ test_that("sims_check", {
   unlink(tempdir, recursive = TRUE)
 
   expect_error(sims_simulate("a ~ dunif(0,1)", nsims = 2L, path = tempdir,
-    exists = TRUE),
+                             save = TRUE, exists = TRUE),
   "must already exist")
 
   set.seed(101)
-  expect_true(sims_simulate("a ~ dunif(0,1)", nsims = 2L, path = tempdir))
+  expect_true(sims_simulate("a ~ dunif(0,1)", nsims = 2L, path = tempdir, save = TRUE))
 
   expect_identical(sims_check(path = tempdir),
     list(code = "model{a ~ dunif(0,1)}\n", constants = structure(list(), .Names = character(0), class = "nlist"),

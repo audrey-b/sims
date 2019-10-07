@@ -55,11 +55,11 @@ set.seed(10)
 sims_simulate("a ~ dunif(0,1)", nsims = 2L)
 ```
 
-If, however, `path` is provided then each nlist object is saved as an `.rds` files.
+If, however, `save = TRUE` then each nlist object is saved as an `.rds` file in `path`.
 The information used to generate the datasets is saved in `.sims_args.rds`.
 ```{r}
 set.seed(10)
-sims_simulate("a ~ dunif(0,1)", nsims = 2L, path = tempdir(), exists = NA)
+sims_simulate("a ~ dunif(0,1)", nsims = 2L, save = TRUE, path = tempdir(), exists = NA)
 sims_data_files(tempdir())
 ```
 The fact that the arguments to `sims_simulate()` are saved to file allows additional datasets to be generated using `sims_add()`.

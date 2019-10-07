@@ -62,13 +62,13 @@ sims_simulate("a ~ dunif(0,1)", nsims = 2L)
 #> an nlists object of 2 nlist objects each with 1 natomic element
 ```
 
-If, however, `path` is provided then each nlist object is saved as an
-`.rds` files. The information used to generate the datasets is saved in
-`.sims_args.rds`.
+If, however, `save = TRUE` then each nlist object is saved as an `.rds`
+file in `path`. The information used to generate the datasets is saved
+in `.sims_args.rds`.
 
 ``` r
 set.seed(10)
-sims_simulate("a ~ dunif(0,1)", nsims = 2L, path = tempdir(), exists = NA)
+sims_simulate("a ~ dunif(0,1)", nsims = 2L, save = TRUE, path = tempdir(), exists = NA)
 #> [1] TRUE
 sims_data_files(tempdir())
 #> [1] "data0000001.rds" "data0000002.rds"

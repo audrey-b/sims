@@ -6,8 +6,8 @@
 \usage{
 sims_simulate(code, constants = nlist::nlist(),
   parameters = nlist::nlist(), monitor = ".*", stochastic = TRUE,
-  latent = FALSE, nsims = 1, path = NULL, exists = FALSE,
-  rdists = sims_rdists(), progress = FALSE,
+  latent = FALSE, nsims = 1, save = FALSE, path = ".",
+  exists = FALSE, rdists = sims_rdists(), progress = FALSE,
   options = furrr::future_options(), ask = getOption("sims.ask", TRUE),
   silent = FALSE)
 }
@@ -38,9 +38,11 @@ or only observed nodes (FALSE).}
 \item{nsims}{A whole number between 1 and 1,000,000 specifying
 the number of data sets to simulate. By default 100 data sets are simulated.}
 
-\item{path}{A string specifying the path to the directory to save the data sets in.
-By default \code{path = NULL} the data sets are not saved but are returned
-as an nlists object.}
+\item{save}{A flag specifying whether to return the data sets as 
+an \code{nlists} object or save in \code{path}. If \code{save = NA}
+the datasets are returned as an \code{nlists} object and saved in \code{path}.}
+
+\item{path}{A string specifying the path to the directory to save the data sets in.}
 
 \item{exists}{A flag specifying whether the \code{path} directory should already exist 
 (if \code{exists = NA} it doesn't matter).}

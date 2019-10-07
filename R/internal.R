@@ -182,7 +182,7 @@ generate_r <- function(code, data, monitor) {
 }
 
 generate_dataset <- function(sim, code, is_jags, constants, parameters, monitor,
-                             path, seed, parallel) {
+                             save, path, seed, parallel) {
   .Random.seed <<- seed
   seed <- last(rinteger(sim))
 
@@ -195,9 +195,9 @@ generate_dataset <- function(sim, code, is_jags, constants, parameters, monitor,
     generate_r(code = code, data = data, monitor = monitor)
 
   nlist <- c(nlist, constants)
-  if(is.null(path)) return(nlist)
-  saveRDS(nlist, file.path(path, data_file_name(sim)))
-  NULL
+  if(!isFALSE(save)) saveRDS(nlist, file.path(path, data_file_name(sim)))
+  if(isTRUE(save)) return(NULL)
+  nlist
 }
 
 save_args <- function(path, ...) {
@@ -206,10 +206,11 @@ save_args <- function(path, ...) {
 }
 
 generate_datasets <- function(code, constants, parameters, monitor, nsims,
-                              path, progress, options) {
+                              save, path, progress, options) {
   if (!exists(".Random.seed")) runif(1)
   seed <- .Random.seed
-  if(!is.null(path)) {
+  
+  if(!isFALSE(save)) {
     save_args(path, code = code,
       constants = constants, parameters = parameters,
       monitor = monitor, nsims = nsims, seed = seed)
@@ -225,9 +226,9 @@ generate_datasets <- function(code, constants, parameters, monitor, nsims,
   nlists <- future_map(1:nsims, generate_dataset,
     code = code, is_jags = is_jags,
     constants = constants, parameters = parameters,
-    monitor = monitor,
+    monitor = monitor, save = save,
     path = path, seed = seed,
     .progress = progress, .options = options)
-  if(!is.null(path)) return(TRUE)
+  if(isTRUE(save)) return(TRUE)
   set_class(nlists, "nlists")
 }

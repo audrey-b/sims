@@ -5,7 +5,7 @@ test_that("sims_add", {
   unlink(tempdir, recursive = TRUE)
 
   set.seed(101)
-  expect_true(sims_simulate("a ~ dunif(0,1)", path = tempdir))
+  expect_true(sims_simulate("a ~ dunif(0,1)", path = tempdir, save = TRUE))
 
   expect_error(sims_add(nsims = 1000000L, path = tempdir),
     "^Adding the simulations would result in more than 1,000,000 datasets[.]$")
@@ -156,7 +156,7 @@ test_that("sims_add R", {
 
   set.seed(101)
   expect_true(sims_simulate("a <- runif(1,0,1)",
-    silent = TRUE, path = tempdir))
+    silent = TRUE, path = tempdir, save = TRUE))
 
   expect_identical(sims_add(nsims = 2L, path = tempdir),
     c("data0000002.rds", "data0000003.rds"))
@@ -307,7 +307,7 @@ test_that("sims_add parallel", {
   teardown(future::plan(future::sequential))
 
   set.seed(101)
-  expect_true(sims_simulate("a ~ dunif(0,1)", path = tempdir))
+  expect_true(sims_simulate("a ~ dunif(0,1)", path = tempdir, save = TRUE))
 
   expect_identical(sims_add(nsims = 2L, path = tempdir),
     c("data0000002.rds", "data0000003.rds"))
