@@ -7,20 +7,12 @@
 sims_rdists()
 }
 \value{
-A character vector of the names of the recognized R functions.
+A character vector.
 }
 \description{
-Gets the names of the R functions recognized by sims
-as producing stochastic variable nodes.
-}
-\details{
-By default the functions are the random variate generating functions
+Gets the names of the R random variate generating functions
 listed in \code{\link{Distributions}}.
 }
 \examples{
 sims_rdists()
-}
-\seealso{
-\code{\link{sims_rdists_add}()} and
-\code{\link{sims_rdists_reset}()}
 }
