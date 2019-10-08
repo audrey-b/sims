@@ -47,6 +47,11 @@ test_that("not in model or data block", {
     "^JAGS code must not be in a data or model block.")
 })
 
+test_that("options seed must be false", {
+  expect_error(sims_simulate("a ~ dunif(0,1)", options = furrr::future_options(seed = TRUE)),
+    "^`options[$]seed` must be FALSE[.]$", class = "chk_error")
+})
+
 test_that("generates data with replicability", {
   set.seed(1)
   expect_equal(sims_simulate("a ~ dunif(0,1)"),

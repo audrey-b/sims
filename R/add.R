@@ -16,6 +16,7 @@ sims_add <- function(path = ".",
     chk_range(nsims, c(1, 1000000))
     chk_flag(progress)
     chk_s3_class(options, "future_options")
+    chk_false(options$seed)
   }
 
   nsims <- as.integer(nsims)

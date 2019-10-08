@@ -109,6 +109,7 @@ sims_simulate <- function(code,
     chk_no_missing(rdists)
     chk_flag(progress)
     chk_s3_class(options, "future_options")
+    chk_false(options$seed)
     chk_flag(silent)
   }
   nsims <- as.integer(nsims)
