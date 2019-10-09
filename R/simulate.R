@@ -88,45 +88,44 @@ sims_simulate <- function(code,
                           silent = FALSE) {
   if(is.list(constants) && !is.nlist(constants)) class(constants) <- "nlist"
   if(is.list(parameters) && !is.nlist(parameters)) class(parameters) <- "nlist"
-
-  if(is_chk_on()) {
-    chk_string(code)
-    chk_nlist(constants)
-    chk_no_missing(constants)
-    chk_nlist(parameters)
-    chk_no_missing(parameters)
-    chk_s3_class(monitor, "character")
-    chk_gt(length(monitor))
-    chk_lgl(stochastic)
-    chk_lgl(latent)
-    chk_whole_number(nsims)
-    chk_range(nsims, c(1, 1000000))
-    chk_lgl(save)
-    chk_string(path)
-    chk_flag(ask)
-    chk_lgl(exists)
-    chk_s3_class(rdists, "character")
-    chk_no_missing(rdists)
-    chk_flag(progress)
-    chk_s3_class(options, "future_options")
-    chk_false(options$seed)
-    chk_flag(silent)
-  }
+  
+  chk_string(code)
+  chk_nlist(constants)
+  chk_no_missing(constants)
+  chk_nlist(parameters)
+  chk_no_missing(parameters)
+  chk_s3_class(monitor, "character")
+  chk_gt(length(monitor))
+  chk_lgl(stochastic)
+  chk_lgl(latent)
+  chk_whole_number(nsims)
+  chk_range(nsims, c(1, 1000000))
+  chk_lgl(save)
+  chk_string(path)
+  chk_flag(ask)
+  chk_lgl(exists)
+  chk_s3_class(rdists, "character")
+  chk_no_missing(rdists)
+  chk_flag(progress)
+  chk_s3_class(options, "future_options")
+  chk_false(options$seed)
+  chk_flag(silent)
+  
   nsims <- as.integer(nsims)
-
+  
   code <- prepare_code(code)
-
+  
   check_variable_nodes(code, constants, rdists)
   check_variable_nodes(code, parameters, rdists)
-
+  
   if(!isFALSE(save)) create_path(path, exists, ask, silent)
-
+  
   monitor <- set_monitor(monitor, code, stochastic, latent,
-    rdists = rdists, silent = silent)
-
+                         rdists = rdists, silent = silent)
+  
   generate_datasets(code, constants, parameters,
-    monitor = monitor,
-    nsims = nsims, save = save,
-    path = path, progress = progress,
-    options = options)
+                    monitor = monitor,
+                    nsims = nsims, save = save,
+                    path = path, progress = progress,
+                    options = options)
 }

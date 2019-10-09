@@ -10,20 +10,18 @@ sims_add <- function(path = ".",
                      nsims = 1,
                      progress = FALSE,
                      options = furrr::future_options()) {
-
-  if(is_chk_on()) {
-    chk_whole_number(nsims)
-    chk_range(nsims, c(1, 1000000))
-    chk_flag(progress)
-    chk_s3_class(options, "future_options")
-    chk_false(options$seed)
-  }
-
+  
+  chk_whole_number(nsims)
+  chk_range(nsims, c(1, 1000000))
+  chk_flag(progress)
+  chk_s3_class(options, "future_options")
+  chk_false(options$seed)
+  
   nsims <- as.integer(nsims)
-
+  
   argsims <- sims_check(path)
   argsims$nsims <- argsims$nsims + nsims
-
+  
   if(argsims$nsims > 1000000L)
     err("Adding the simulations would result in more than 1,000,000 datasets.")
   
@@ -35,9 +33,9 @@ sims_add <- function(path = ".",
   set_random_seed(argsims$seed)
   
   options$seed <- get_seed_streams(argsims$nsims)[sims]
-
+  
   saveRDS(argsims, file.path(path, ".sims.rds"))
-
+  
   code <- argsims$code
   if(is_jags_code(code)) {
     is_jags <- TRUE
@@ -45,13 +43,13 @@ sims_add <- function(path = ".",
     is_jags <- FALSE
     code <- parse(text = code)
   }
-
+  
   nlists <- future_map(sims, generate_dataset,  is_jags = is_jags,
-    code = code,
-    constants = argsims$constants,
-    parameters = argsims$parameters,
-    monitor = argsims$monitor, save = TRUE,
-    path = path, 
-    .progress = progress, .options = options)
+                       code = code,
+                       constants = argsims$constants,
+                       parameters = argsims$parameters,
+                       monitor = argsims$monitor, save = TRUE,
+                       path = path, 
+                       .progress = progress, .options = options)
   data_files(path)[sims]
 }
