@@ -15,6 +15,7 @@ Imports:
   chk (>= 0.0.1.9027),
   yesno,
   nlist (>= 0.0.0.9111),
+  parallel,
   furrr,
   stats,
   rjags

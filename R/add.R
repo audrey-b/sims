@@ -26,8 +26,15 @@ sims_add <- function(path = ".",
 
   if(argsims$nsims > 1000000L)
     err("Adding the simulations would result in more than 1,000,000 datasets.")
-
+  
   sims <- (argsims$nsims - nsims + 1L):argsims$nsims
+  
+  seed <- get_random_seed()
+  on.exit(set_random_seed(seed, advance = TRUE))
+  
+  set_random_seed(argsims$seed)
+  
+  options$seed <- get_seed_streams(argsims$nsims)[sims]
 
   saveRDS(argsims, file.path(path, ".sims.rds"))
 
@@ -44,7 +51,7 @@ sims_add <- function(path = ".",
     constants = argsims$constants,
     parameters = argsims$parameters,
     monitor = argsims$monitor, save = TRUE,
-    path = path, seed = argsims$seed,
+    path = path, 
     .progress = progress, .options = options)
   data_files(path)[sims]
 }

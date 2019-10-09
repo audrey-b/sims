@@ -14,9 +14,9 @@ test_that("sims_add", {
     c("data0000002.rds", "data0000003.rds"))
 
   expect_equal(readRDS(file.path(tempdir, "data0000001.rds")),
-    structure(list(a = 0.247694617962275), class = "nlist"))
+    structure(list(a = 0.342673102637473), class = "nlist"))
   expect_equal(readRDS(file.path(tempdir, "data0000002.rds")),
-    structure(list(a = 0.951518742613052), class = "nlist"))
+    structure(list(a = 0.0584777028255878), class = "nlist"))
 
   expect_identical(sims_info(tempdir),
     list(code = "model{a ~ dunif(0,1)}\n", constants =
@@ -161,7 +161,6 @@ test_that("sims_add options seed must be FALSE", {
     "^`options[$]seed` must be FALSE[.]$", class = "chk_error")
 })
 
-
 test_that("sims_add R", {
   tempdir <- file.path(tempdir(), "sims")
   unlink(tempdir, recursive = TRUE)
@@ -174,9 +173,9 @@ test_that("sims_add R", {
     c("data0000002.rds", "data0000003.rds"))
 
   expect_equal(readRDS(file.path(tempdir, "data0000001.rds")),
-    structure(list(a = 0.0438248154241592), class = "nlist"))
+    structure(list(a = 0.637362094961879), class = "nlist"))
   expect_equal(readRDS(file.path(tempdir, "data0000002.rds")),
-    structure(list(a = 0.709684018278494), class = "nlist"))
+    structure(list(a = 0.889581146657672), class = "nlist"))
 
   expect_identical(sims_info(tempdir),
     list(code = "a <- runif(1,0,1)", constants =
@@ -325,7 +324,7 @@ test_that("sims_add parallel", {
     c("data0000002.rds", "data0000003.rds"))
 
   expect_equal(readRDS(file.path(tempdir, "data0000001.rds")),
-    structure(list(a = 0.247694617962275), class = "nlist"))
+    structure(list(a = 0.342673102637473), class = "nlist"))
   expect_equal(readRDS(file.path(tempdir, "data0000002.rds")),
-    structure(list(a = 0.951518742613052), class = "nlist"))
+    structure(list(a = 0.0584777028255878), class = "nlist"))
 })

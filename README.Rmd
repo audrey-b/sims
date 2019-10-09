@@ -62,7 +62,7 @@ set.seed(10)
 sims_simulate("a ~ dunif(0,1)", nsims = 2L, save = TRUE, path = tempdir(), exists = NA)
 sims_data_files(tempdir())
 ```
-The fact that the arguments to `sims_simulate()` are saved to file allows additional datasets to be generated using `sims_add()`.
+The fact that the arguments to `sims_simulate()` are saved to file allows additional `.rds` datasets to be generated using `sims_add()`.
 ```{r}
 sims_add(tempdir(), nsims = 3L)
 sims_data_files(tempdir())
