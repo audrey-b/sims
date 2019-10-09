@@ -193,7 +193,8 @@ the datasets are returned as an <code>nlists</code> object and saved in <code>pa
     </tr>
     <tr>
       <th>options</th>
-      <td><p>The future specific options to use with the workers.</p></td>
+      <td><p>The furrr specific options to use with the workers.
+The seed should be specified using <code><a href='https://rdrr.io/r/base/Random.html'>set.seed</a>()</code>.</p></td>
     </tr>
     <tr>
       <th>ask</th>
@@ -231,7 +232,7 @@ The files are labelled <code>data0000001.rds</code>, <code>data0000002.rds</code
 The argument values are saved in the hidden file <code>.sims.rds</code>.</p>
 <p>sims compatible files are those matching the regular expression
 "^((data\\d{7,7})|([.]sims))[.]rds$".</p>
-<p>Parallelization is accomplished using the future package.
+<p>Parallelization is accomplished using the furrr package.
 The <code>progress</code> and <code>options</code> arguments
 are both passed to <code><a href='https://rdrr.io/pkg/furrr/man/future_map.html'>future_map</a>()</code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
