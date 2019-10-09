@@ -113,11 +113,11 @@ test_that("gets deterministic nodes", {
   generative_model <- "
 rand ~ dnorm(0,1)
 for (i in 1:length(Year)){
-  C[i] ~ dpois(lambda[i])
+  cc[i] ~ dpois(lambda[i])
   log(lambda[i]) <- alpha + beta1 * Year[i]
 }
 "
-  monitor <- c("C", "rand", "lambda")
+  monitor <- c("cc", "rand", "lambda")
 
   parameters <- nlist(alpha = 3.5576, beta1 = -0.0912)
 
@@ -128,7 +128,7 @@ for (i in 1:length(Year)){
     constants = constants,
     parameters = parameters,
     monitor = monitor, stochastic = NA, latent = NA),
-  structure(list(structure(list(C = c(27, 38, 36, 21, 13), lambda = c(32.0212581683725, 
+  structure(list(structure(list(cc = c(27, 38, 36, 21, 13), lambda = c(32.0212581683725, 
 29.2301292225158, 26.6822886806137, 24.3565303394963, 22.2334964320294
 ), rand = 0.323078183488302, Year = 1:5), class = "nlist")), class = "nlists"))
 })
