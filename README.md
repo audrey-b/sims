@@ -57,14 +57,13 @@ library(sims)
 set.seed(10)
 sims_simulate("a ~ dunif(0,1)", nsims = 2L)
 #> $a
-#> [1] 0.228673
+#> [1] 0.6857306
 #> 
 #> an nlists object of 2 nlist objects each with 1 natomic element
 ```
 
 If, however, `save = TRUE` then each nlist object is saved as an `.rds`
-file in `path`. The information used to generate the datasets is saved
-in `.sims_args.rds`.
+file in `path`.
 
 ``` r
 set.seed(10)
@@ -72,55 +71,12 @@ sims_simulate("a ~ dunif(0,1)", nsims = 2L, save = TRUE, path = tempdir(), exist
 #> [1] TRUE
 sims_data_files(tempdir())
 #> [1] "data0000001.rds" "data0000002.rds"
+sims_data(tempdir())
+#> $a
+#> [1] 0.6857306
+#> 
+#> an nlists object of 2 nlist objects each with 1 natomic element
 ```
-
-The fact that the arguments to `sims_simulate()` are saved to file
-allows additional datasets to be generated using `sims_add()`.
-
-``` r
-sims_add(tempdir(), nsims = 3L)
-#> [1] "data0000003.rds" "data0000004.rds" "data0000005.rds"
-sims_data_files(tempdir())
-#> [1] "data0000001.rds" "data0000002.rds" "data0000003.rds" "data0000004.rds"
-#> [5] "data0000005.rds"
-```
-
-If the user wishes to duplicate the datasets then they can either
-regenerate them by specifying a different path but the same seed.
-Alternatively, they can copy the existing `.sims.rds` and datasets files
-to a new directory using `sims_copy()`
-
-``` r
-sims_copy(path_from = tempdir(), path_to = paste0(tempdir(), "_copy"))
-#> [1] "data0000001.rds" "data0000002.rds" "data0000003.rds" "data0000004.rds"
-#> [5] "data0000005.rds"
-```
-
-A user can check that all the datasets specified in `.sims.rds` are
-present using `sims_check()`.
-
-``` r
-sims_check(path = paste0(tempdir(), "_copy"))
-```
-
-``` r
-file.remove(file.path(paste0(tempdir(), "_copy"), "data0000005.rds"))
-#> [1] TRUE
-
-sims_check(path = paste0(tempdir(), "_copy"))
-#> Number of data files (4) does not match number of simulations (5).
-```
-
-## Parallelization
-
-Parallelization is achieved using the
-[future](https://github.com/HenrikBengtsson/future) package.
-
-To use all available cores on the local machine simply execute the
-following code before calling `sims_simulate()`.
-
-    library(future)
-    plan(multisession)
 
 ## Contribution
 
