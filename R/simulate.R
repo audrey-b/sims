@@ -28,7 +28,7 @@
 #' sims compatible files are those matching the regular expression
 #' "^((data\\\\d\{7,7\})|([.]sims))[.]rds$".
 #'
-#' Parallelization is accomplished using the future package.
+#' Parallelization is accomplished using the furrr package.
 #' The \code{progress} and \code{options} arguments
 #' are both passed to \code{\link[furrr]{future_map}()}.
 #'
@@ -59,7 +59,7 @@
 #' (if \code{exists = NA} it doesn't matter).
 #' @param rdists A character vector specifying the R functions to recognize as stochastic.
 #' @param progress A flag specifying whether to print a progress bar.
-#' @param options The future specific options to use with the workers.
+#' @param options The furrr specific options to use with the workers.
 #' The seed should be specified using \code{\link[base]{set.seed}()}.
 #' @param ask A flag specifying whether to ask before deleting sims compatible files.
 #' @param silent A flag specifying whether to suppress warnings.

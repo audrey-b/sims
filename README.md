@@ -54,6 +54,7 @@ of an [nlists](https://github.com/poissonconsulting/nlist) object.
 
 ``` r
 library(sims)
+#> Loading required package: purrr
 set.seed(10)
 sims_simulate("a ~ dunif(0,1)", nsims = 2L)
 #> $a

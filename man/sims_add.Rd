@@ -14,7 +14,7 @@ sims_add(path = ".", nsims = 1, progress = FALSE,
 
 \item{progress}{A flag specifying whether to print a progress bar.}
 
-\item{options}{The future specific options to use with the workers.
+\item{options}{The furrr specific options to use with the workers.
 The seed should be specified using \code{\link[base]{set.seed}()}.}
 }
 \value{
