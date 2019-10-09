@@ -36,8 +36,8 @@
 
 
 <meta property="og:title" content="Sims Random R Distributions — sims_rdists" />
-<meta property="og:description" content="Gets the names of the R functions recognized by sims
-as producing stochastic variable nodes." />
+<meta property="og:description" content="Gets the names of the R random variate generating functions
+listed in Distributions." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -70,7 +70,7 @@ as producing stochastic variable nodes." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">sims</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9018</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9020</span>
       </span>
     </div>
 
@@ -81,6 +81,9 @@ as producing stochastic variable nodes." />
     <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
+</li>
+<li>
+  <a href="../articles/sims.html">Get started</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -107,8 +110,8 @@ as producing stochastic variable nodes." />
     </div>
 
     <div class="ref-description">
-    <p>Gets the names of the R functions recognized by sims
-as producing stochastic variable nodes.</p>
+    <p>Gets the names of the R random variate generating functions
+listed in <code><a href='https://rdrr.io/r/stats/Distributions.html'>Distributions</a></code>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>sims_rdists</span>()</pre>
@@ -116,15 +119,7 @@ as producing stochastic variable nodes.</p>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A character vector of the names of the recognized R functions.</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>By default the functions are the random variate generating functions
-listed in <code><a href='https://rdrr.io/r/stats/Distributions.html'>Distributions</a></code>.</p>
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p><code><a href='sims_rdists_add.html'>sims_rdists_add</a>()</code> and
-<code><a href='sims_rdists_reset.html'>sims_rdists_reset</a>()</code></p></div>
+    <p>A character vector.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>sims_rdists</span>()</div><div class='output co'>#&gt;  [1] "rbeta"     "rbinom"    "rcauchy"   "rchisq"    "rexp"      "rf"       
@@ -136,8 +131,6 @@ listed in <code><a href='https://rdrr.io/r/stats/Distributions.html'>Distributio
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#value">Value</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 
