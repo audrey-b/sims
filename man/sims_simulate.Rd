@@ -51,7 +51,8 @@ the datasets are returned as an \code{nlists} object and saved in \code{path}.}
 
 \item{progress}{A flag specifying whether to print a progress bar.}
 
-\item{options}{The future specific options to use with the workers.}
+\item{options}{The future specific options to use with the workers.
+The seed should be specified using \code{\link[base]{set.seed}()}.}
 
 \item{ask}{A flag specifying whether to ask before deleting sims compatible files.}
 
