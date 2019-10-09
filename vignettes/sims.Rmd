@@ -14,9 +14,11 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
-library(sims)
-```
+sims is an R package to generate datasets from [JAGS](http://mcmc-jags.sourceforge.net) or R code for use in simulation studies.
+
+## Simulating as `nlists` Objects
+
+By default, `sims_simulate()` returns the simulated datasets in the form of an [nlists](https://github.com/poissonconsulting/nlist) object.
 
 ```{r example}
 library(sims)
@@ -24,27 +26,45 @@ set.seed(10)
 sims_simulate("a ~ dunif(0,1)", nsims = 2L)
 ```
 
+## Saving as `.rds` Files
+
 If, however, `save = TRUE` then each nlist object is saved as an `.rds` file in `path`.
 ```{r}
 set.seed(10)
 sims_simulate("a ~ dunif(0,1)", nsims = 2L, save = TRUE, path = tempdir(), exists = NA)
 sims_data_files(tempdir())
+```
+
+### Importing `.rds` Files
+
+The datasets in the `.rds` files can be imported as an `nlists` object using `sims_data()`.
+```{r}
 sims_data(tempdir())
 ```
 
+### Adding `.rds` Files
 
-The information used to generate the datasets is saved in `.sims_args.rds`.
+The values including the `.Random.seed` (not printed) that were used to generate the datasets are saved in `.sims_args.rds` which can be imported using `sims_info()`.
+
+```{r}
+sims_info(tempdir())[1:5]
+```
+
 The fact that the arguments to `sims_simulate()` are saved to file allows additional `.rds` datasets to be generated using `sims_add()`.
 ```{r}
 sims_add(tempdir(), nsims = 3L)
 sims_data_files(tempdir())
 ```
 
-If the user wishes to duplicate the datasets then they can either regenerate them by specifying a different path but the same seed.
+### Copying `.rds` Files
+
+If the user wishes to duplicate the datasets then they can either regenerate them by specifying a different path but the same seed (using `set.seed()`).
 Alternatively, they can copy the existing `.sims.rds` and datasets files to a new directory using `sims_copy()`
 ```{r}
 sims_copy(path_from = tempdir(), path_to = paste0(tempdir(), "_copy"))
 ```
+
+### Checking `.rds` Files
 
 A user can check that all the datasets specified in `.sims.rds` are present using `sims_check()`.
 ```{r}
@@ -71,3 +91,5 @@ plan(multisession)
 set.seed(10)
 sims_simulate("a ~ dunif(0,1)", nsims = 2L)
 ```
+
+The seed should be set using `set.seed()` not the `seed` argument of `furrr::future_options()` which is passed as an argument to `sims_simulate()` and `sims_add()` to control the environment the expressions are called in.
