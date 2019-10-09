@@ -78,6 +78,12 @@ sims_data(tempdir())
 #> an nlists object of 2 nlist objects each with 1 natomic element
 ```
 
+## Information
+
+For more information see the [Using
+sims](https://poissonconsulting.github.io/sims/articles/sims.html)
+vignette.
+
 ## Contribution
 
 Please report any
