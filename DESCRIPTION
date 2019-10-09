@@ -1,6 +1,6 @@
 Package: sims
 Title: Simulate Datasets from 'JAGS' or R Code
-Version: 0.0.0.9020
+Version: 0.0.0.9021
 Authors@R: c(
     person("Audrey", "Beliveau", , "audrey.beliveau@uwaterloo.ca", "aut"),
     person("Joe", "Thorley", , "joe@poissonconsulting.ca", c("aut", "cre"), comment = c(ORCID = "0000-0002-7683-4592"))
