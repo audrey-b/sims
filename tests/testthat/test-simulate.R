@@ -123,7 +123,7 @@ for (i in 1:length(year)){
 
   constants <- nlist(year = 1:5)
 
-  skip_on_appveyor() # yet works on AWS windows
+#  skip_on_appveyor() # yet works on AWS windows
   set.seed(2)
   expect_equal(sims_simulate(generative_model,
     constants = constants,
