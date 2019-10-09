@@ -108,14 +108,6 @@ test_that("save", {
     structure(list(a = 0.749735354622374), class = "nlist"))
 })
 
-test_that("issue if values in constants or parameters not in code", {
-  # set.seed(101)
-  # expect_equal(sims_simulate("a ~ dunif(0,1)", constants = list(x = 1)),
-  #              structure(list(a = structure(
-  #                0.3289872, .Dim = c(1L, 1L, 1L), class = "mcmcarray")),
-  #                class = "mcmcr"), tolerance = 1e-06)
-})
-
 test_that("gets deterministic nodes", {
 
   generative_model <- "
