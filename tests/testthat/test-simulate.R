@@ -112,16 +112,16 @@ test_that("gets deterministic nodes", {
 
   generative_model <- "
 rand ~ dnorm(0,1)
-for (i in 1:length(Year)){
+for (i in 1:length(year)){
   cc[i] ~ dpois(lambda[i])
-  log(lambda[i]) <- alpha + beta1 * Year[i]
+  log(lambda[i]) <- alpha + beta1 * year[i]
 }
 "
   monitor <- c("cc", "rand", "lambda")
 
   parameters <- nlist(alpha = 3.5576, beta1 = -0.0912)
 
-  constants <- nlist(Year = 1:5)
+  constants <- nlist(year = 1:5)
 
   set.seed(2)
   expect_equal(sims_simulate(generative_model,
@@ -130,7 +130,7 @@ for (i in 1:length(Year)){
     monitor = monitor, stochastic = NA, latent = NA),
   structure(list(structure(list(cc = c(27, 38, 36, 21, 13), lambda = c(32.0212581683725, 
 29.2301292225158, 26.6822886806137, 24.3565303394963, 22.2334964320294
-), rand = 0.323078183488302, Year = 1:5), class = "nlist")), class = "nlists"))
+), rand = 0.323078183488302, year = 1:5), class = "nlist")), class = "nlists"))
 })
 
 test_that("nsims can take numeric", {
