@@ -123,7 +123,7 @@ rand ~ dnorm(0,1)
 
   constants <- nlist(year = 1:5)
 
- # skip_on_appveyor() # yet works on AWS windows
+ skip_on_appveyor() # yet works on AWS windows
 # result on appveyor?
 # $cc
 # [1] 33 25 35 34 19
