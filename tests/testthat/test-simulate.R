@@ -111,11 +111,11 @@ test_that("save", {
 test_that("gets deterministic nodes", {
 
   generative_model <- "
-rand ~ dnorm(0,1)
 for (i in 1:length(year)){
   cc[i] ~ dpois(lambda[i])
   log(lambda[i]) <- alpha + beta1 * year[i]
 }
+rand ~ dnorm(0,1)
 "
   monitor <- c("cc", "rand", "lambda")
 
@@ -123,12 +123,20 @@ for (i in 1:length(year)){
 
   constants <- nlist(year = 1:5)
 
-#  skip_on_appveyor() # yet works on AWS windows
-  set.seed(2)
-  print(sims_simulate(generative_model,
-    constants = constants,
-    parameters = parameters,
-    monitor = monitor, stochastic = NA, latent = NA))
+  skip_on_appveyor() # yet works on AWS windows
+# result on appveyor?
+# $cc
+# [1] 33 25 35 34 19
+# 
+# $lambda
+# [1] 32.02126 29.23013 26.68229 24.35653 22.23350
+# 
+# $rand
+# [1] -1.929702
+# 
+# $year
+# [1] 1 2 3 4 5
+
   set.seed(2)
   expect_equal(sims_simulate(generative_model,
     constants = constants,
@@ -137,6 +145,29 @@ for (i in 1:length(year)){
   structure(list(structure(list(cc = c(27, 38, 36, 21, 13), lambda = c(32.0212581683725, 
 29.2301292225158, 26.6822886806137, 24.3565303394963, 22.2334964320294
 ), rand = 0.323078183488302, year = 1:5), class = "nlist")), class = "nlists"))
+})
+
+test_that("gets deterministic nodes with R code", {
+
+  generative_model <- "
+  lambda <- exp(alpha + beta1 * year)
+  cc <- rpois(year, lambda)
+  rand <- rnorm(1, 0, 1)
+"
+  monitor <- c("cc", "rand", "lambda")
+
+  parameters <- nlist(alpha = 3.5576, beta1 = -0.0912)
+
+  constants <- nlist(year = 1:5)
+
+  set.seed(2)
+  expect_equal(sims_simulate(generative_model,
+    constants = constants,
+    parameters = parameters,
+    monitor = monitor, stochastic = NA, latent = NA),
+  structure(list(structure(list(cc = c(27L, 36L, 27L, 26L, 19L), 
+    rand = -0.50015572039553, lambda = c(32.0212581683725, 29.2301292225158, 
+    26.6822886806137, 24.3565303394963, 22.2334964320294), year = 1:5), class = "nlist")), class = "nlists"))
 })
 
 test_that("nsims can take numeric", {
