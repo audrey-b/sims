@@ -123,7 +123,7 @@ rand ~ dnorm(0,1)
 
   constants <- nlist(year = 1:5)
 
-  skip_on_appveyor() # yet works on AWS windows
+ # skip_on_appveyor() # yet works on AWS windows
 # result on appveyor?
 # $cc
 # [1] 33 25 35 34 19
@@ -137,6 +137,12 @@ rand ~ dnorm(0,1)
 # $year
 # [1] 1 2 3 4 5
 
+    set.seed(2)
+  print(sims_simulate(generative_model,
+    constants = constants,
+    parameters = parameters,
+    monitor = monitor, stochastic = NA, latent = NA))
+    
   set.seed(2)
   expect_equal(sims_simulate(generative_model,
     constants = constants,
