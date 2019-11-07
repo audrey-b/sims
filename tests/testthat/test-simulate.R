@@ -772,3 +772,41 @@ test_that("with R code and stochastic and deterministic nodes and different rdis
     structure(list(structure(list(b = 1), class = "nlist")),
       class = "nlists"))
 })
+
+test_that("save parallel", {
+  tempdir <- file.path(tempdir(), "sims")
+  unlink(tempdir, recursive = TRUE)
+  teardown(unlink(tempdir, recursive = TRUE))
+
+  set.seed(1)
+  
+  options(mc.cores = 2)
+  future::plan(future::multisession)
+  teardown(future::plan(future::sequential))
+  
+  expect_true(sims_simulate("a ~ dunif(0,1)", save = TRUE, exists = FALSE,
+                            path = tempdir,
+                             ask = FALSE))
+  expect_identical(list.files(tempdir, all.files = TRUE, recursive=TRUE),
+                   c(".sims.rds", "data0000001.rds"))
+})
+
+test_that("save parallel getwd", {
+  tempdir <- file.path(tempdir(), "sims")
+  unlink(tempdir, recursive = TRUE)
+  dir.create(tempdir)
+  teardown(unlink(tempdir, recursive = TRUE))
+
+  set.seed(1)
+  
+  options(mc.cores = 2)
+  future::plan(future::multisession)
+  teardown(future::plan(future::sequential))
+  
+  wd <- setwd(tempdir)
+  teardown(setwd(wd))
+  # expect_true(sims_simulate("a ~ dunif(0,1)", save = TRUE, exists = NA,
+  #                            ask = FALSE))
+  # expect_identical(list.files(tempdir, all.files = TRUE, recursive=TRUE),
+  #                  c(".sims.rds", "data0000001.rds"))
+})
