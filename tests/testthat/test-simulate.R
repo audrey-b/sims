@@ -88,7 +88,7 @@ test_that("generates data with replicability if repeated calls", {
 test_that("save", {
   tempdir <- file.path(tempdir(), "sims")
   unlink(tempdir, recursive = TRUE)
-  
+
   set.seed(1)
   expect_equal(sims_simulate("a ~ dunif(0,1)"),
     structure(list(structure(list(a = 0.749735354622374), class = "nlist")), class = "nlists"))
@@ -123,34 +123,34 @@ rand ~ dnorm(0,1)
 
   constants <- nlist(year = 1:5)
 
- skip_on_appveyor() # yet works on AWS windows
-# result on appveyor?
-# $cc
-# [1] 33 25 35 34 19
-# 
-# $lambda
-# [1] 32.02126 29.23013 26.68229 24.35653 22.23350
-# 
-# $rand
-# [1] 0.3230782
-# 
-# $year
-# [1] 1 2 3 4 5
+  skip_on_appveyor() # yet works on AWS windows
+  # result on appveyor?
+  # $cc
+  # [1] 33 25 35 34 19
+  #
+  # $lambda
+  # [1] 32.02126 29.23013 26.68229 24.35653 22.23350
+  #
+  # $rand
+  # [1] 0.3230782
+  #
+  # $year
+  # [1] 1 2 3 4 5
 
-    set.seed(2)
+  set.seed(2)
   print(sims_simulate(generative_model,
     constants = constants,
     parameters = parameters,
     monitor = monitor, stochastic = NA, latent = NA))
-    
+
   set.seed(2)
   expect_equal(sims_simulate(generative_model,
     constants = constants,
     parameters = parameters,
     monitor = monitor, stochastic = NA, latent = NA),
-  structure(list(structure(list(cc = c(27, 38, 36, 21, 13), lambda = c(32.0212581683725, 
-29.2301292225158, 26.6822886806137, 24.3565303394963, 22.2334964320294
-), rand = 0.323078183488302, year = 1:5), class = "nlist")), class = "nlists"))
+  structure(list(structure(list(cc = c(27, 38, 36, 21, 13), lambda = c(32.0212581683725,
+    29.2301292225158, 26.6822886806137, 24.3565303394963, 22.2334964320294
+  ), rand = 0.323078183488302, year = 1:5), class = "nlist")), class = "nlists"))
 })
 
 test_that("gets deterministic nodes with R code", {
@@ -171,9 +171,9 @@ test_that("gets deterministic nodes with R code", {
     constants = constants,
     parameters = parameters,
     monitor = monitor, stochastic = NA, latent = NA),
-  structure(list(structure(list(cc = c(27L, 36L, 27L, 26L, 19L), 
-    rand = -0.50015572039553, lambda = c(32.0212581683725, 29.2301292225158, 
-    26.6822886806137, 24.3565303394963, 22.2334964320294), year = 1:5), class = "nlist")), class = "nlists"))
+  structure(list(structure(list(cc = c(27L, 36L, 27L, 26L, 19L),
+    rand = -0.50015572039553, lambda = c(32.0212581683725, 29.2301292225158,
+      26.6822886806137, 24.3565303394963, 22.2334964320294), year = 1:5), class = "nlist")), class = "nlists"))
 })
 
 test_that("nsims can take numeric", {
@@ -185,12 +185,12 @@ test_that("nsims can take numeric", {
 test_that("nsims > 1", {
   set.seed(101)
   expect_equal(sims_simulate("a ~ dunif(0,1)", nsims = 2L),
-    structure(list(structure(list(a = 0.342673102637473), class = "nlist"), 
-    structure(list(a = 0.0584777028255878), class = "nlist")), class = "nlists"))
+    structure(list(structure(list(a = 0.342673102637473), class = "nlist"),
+      structure(list(a = 0.0584777028255878), class = "nlist")), class = "nlists"))
   set.seed(101)
   expect_equal(sims_simulate("a ~ dunif(0,1)", nsims = 2L),
-    structure(list(structure(list(a = 0.342673102637473), class = "nlist"), 
-    structure(list(a = 0.0584777028255878), class = "nlist")), class = "nlists"))
+    structure(list(structure(list(a = 0.342673102637473), class = "nlist"),
+      structure(list(a = 0.0584777028255878), class = "nlist")), class = "nlists"))
 })
 
 test_that("write replicable", {
@@ -539,8 +539,8 @@ test_that("latent, stochastic nodes", {
                               x2 ~ dnorm(y,1)
                               y <- 2
                               y2 <- x2", stochastic = NA, latent = NA),
-    structure(list(structure(list(x = 0.574752916346771, x2 = 0.912021637658974, 
-    y = 2, y2 = 0.912021637658974), class = "nlist")), class = "nlists"))
+    structure(list(structure(list(x = 0.574752916346771, x2 = 0.912021637658974,
+      y = 2, y2 = 0.912021637658974), class = "nlist")), class = "nlists"))
   set.seed(101)
   expect_equal(sims_simulate("x ~ dunif(0,1)
                               x2 ~ dnorm(y,1)
@@ -618,8 +618,8 @@ test_that("handles =", {
   expect_equal(sims_simulate("Y = beta + epsilon
       beta ~ dnorm(0,1)
       epsilon ~ dnorm(0,1)", nsim = 1, latent = NA, stochastic = NA),
-    structure(list(structure(list(Y = -0.571675030463376, beta = 0.51630333187765, 
-    epsilon = -1.08797836234103), class = "nlist")), class = "nlists"))
+    structure(list(structure(list(Y = -0.571675030463376, beta = 0.51630333187765,
+      epsilon = -1.08797836234103), class = "nlist")), class = "nlists"))
 
 })
 
@@ -639,7 +639,7 @@ test_that("strips comments before", {
   set.seed(101)
   expect_equal(sims_simulate("a ~ dunif(0,1)
                              # x <- a"),
-  structure(list(structure(list(a = 0.342673102637473), class = "nlist")), class = "nlists"))
+    structure(list(structure(list(a = 0.342673102637473), class = "nlist")), class = "nlists"))
 })
 
 test_that("with R code", {
@@ -694,7 +694,7 @@ test_that("with R code in parallel", {
   set.seed(101)
   expect_equal(sims_simulate("a <- runif(1, 0, 1)", nsims = 2,
   ),
-  structure(list(structure(list(a = 0.637362094961879), class = "nlist"), 
+  structure(list(structure(list(a = 0.637362094961879), class = "nlist"),
     structure(list(a = 0.889581146657672), class = "nlist")), class = "nlists"))
 
   options(mc.cores = 2)
@@ -703,8 +703,8 @@ test_that("with R code in parallel", {
 
   set.seed(101)
   expect_equal(sims_simulate("a <- runif(1, 0, 1)", nsims = 2),
-    structure(list(structure(list(a = 0.637362094961879), class = "nlist"), 
-    structure(list(a = 0.889581146657672), class = "nlist")), class = "nlists"))
+    structure(list(structure(list(a = 0.637362094961879), class = "nlist"),
+      structure(list(a = 0.889581146657672), class = "nlist")), class = "nlists"))
 })
 
 test_that("with R code and single stochastic node", {

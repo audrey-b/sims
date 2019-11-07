@@ -51,11 +51,11 @@
 #' or only observed nodes (FALSE).
 #' @param nsims A whole number between 1 and 1,000,000 specifying
 #' the number of data sets to simulate. By default 100 data sets are simulated.
-#' @param save A flag specifying whether to return the data sets as 
+#' @param save A flag specifying whether to return the data sets as
 #' an \code{nlists} object or save in \code{path}. If \code{save = NA}
 #' the datasets are returned as an \code{nlists} object and saved in \code{path}.
 #' @param path A string specifying the path to the directory to save the data sets in.
-#' @param exists A flag specifying whether the \code{path} directory should already exist 
+#' @param exists A flag specifying whether the \code{path} directory should already exist
 #' (if \code{exists = NA} it doesn't matter).
 #' @param rdists A character vector specifying the R functions to recognize as stochastic.
 #' @param progress A flag specifying whether to print a progress bar.
@@ -65,7 +65,7 @@
 #' @param silent A flag specifying whether to suppress warnings.
 #'
 #' @return By default an \code{\link[nlist]{nlists_object}} of the simulated data.
-#' Otherwise if \code{path} is defined saves the datasets as individual \code{.rds} files and 
+#' Otherwise if \code{path} is defined saves the datasets as individual \code{.rds} files and
 #' returns TRUE.
 #' @seealso \code{\link{sims_rdists}()} and \code{\link[furrr]{future_options}()}
 #' @export
@@ -89,7 +89,7 @@ sims_simulate <- function(code,
                           silent = FALSE) {
   if(is.list(constants) && !is.nlist(constants)) class(constants) <- "nlist"
   if(is.list(parameters) && !is.nlist(parameters)) class(parameters) <- "nlist"
-  
+
   chk_string(code)
   chk_nlist(constants)
   chk_no_missing(constants)
@@ -111,22 +111,22 @@ sims_simulate <- function(code,
   chk_s3_class(options, "future_options")
   chk_false(options$seed)
   chk_flag(silent)
-  
+
   nsims <- as.integer(nsims)
-  
+
   code <- prepare_code(code)
-  
+
   check_variable_nodes(code, constants, rdists)
   check_variable_nodes(code, parameters, rdists)
-  
+
   if(!isFALSE(save)) create_path(path, exists, ask, silent)
-  
+
   monitor <- set_monitor(monitor, code, stochastic, latent,
-                         rdists = rdists, silent = silent)
-  
+    rdists = rdists, silent = silent)
+
   generate_datasets(code, constants, parameters,
-                    monitor = monitor,
-                    nsims = nsims, save = save,
-                    path = path, progress = progress,
-                    options = options)
+    monitor = monitor,
+    nsims = nsims, save = save,
+    path = path, progress = progress,
+    options = options)
 }

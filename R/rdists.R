@@ -9,7 +9,7 @@
 #' @examples
 #' sims_rdists()
 sims_rdists <- function() {
-  c("rbeta", "rbinom", "rcauchy", "rchisq", "rexp", "rf", "rgamma", "rgeom", 
+  c("rbeta", "rbinom", "rcauchy", "rchisq", "rexp", "rf", "rgamma", "rgeom",
     "rhyper", "rlnorm", "rmultinom", "rnbinom", "rnorm", "rpois", "rsignrank",
-    "rt", "runif", "rweibull", "rwilcox") 
+    "rt", "runif", "rweibull", "rwilcox")
 }

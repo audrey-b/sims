@@ -5,7 +5,7 @@ test_that("sims_check", {
   unlink(tempdir, recursive = TRUE)
 
   expect_error(sims_simulate("a ~ dunif(0,1)", nsims = 2L, path = tempdir,
-                             save = TRUE, exists = TRUE),
+    save = TRUE, exists = TRUE),
   "must already exist")
 
   set.seed(101)

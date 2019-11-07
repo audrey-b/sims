@@ -20,7 +20,7 @@ sims_copy <- function(path_from = ".",
   chk_flag(ask)
   chk_flag(silent)
   sims_check(path_from)
-  
+
   create_path(path_to, exists = exists, ask = ask, silent = silent)
   files <- data_files(path_from)
   file.copy(file.path(path_from, c(".sims.rds", files)), to = path_to)

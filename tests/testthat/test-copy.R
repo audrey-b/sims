@@ -169,7 +169,7 @@ test_that("sims_copy only deletes existing sims compatible files", {
     "Deleted 2 sims data files in '.*sims_copy'[.]$")
 
   expect_true(sims_simulate("a ~ dunif(0,1)", nsims = 3L, path = tempdir,
-                            save = TRUE, exists = TRUE, ask = FALSE, silent = TRUE))
+    save = TRUE, exists = TRUE, ask = FALSE, silent = TRUE))
 
   expect_warning(sims_copy(path_from = tempdir, exists = NA, ask = FALSE),
     "Deleted 2 sims data files in '.*sims_copy'[.]$")

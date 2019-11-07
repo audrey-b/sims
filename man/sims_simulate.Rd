@@ -38,13 +38,13 @@ or only observed nodes (FALSE).}
 \item{nsims}{A whole number between 1 and 1,000,000 specifying
 the number of data sets to simulate. By default 100 data sets are simulated.}
 
-\item{save}{A flag specifying whether to return the data sets as 
+\item{save}{A flag specifying whether to return the data sets as
 an \code{nlists} object or save in \code{path}. If \code{save = NA}
 the datasets are returned as an \code{nlists} object and saved in \code{path}.}
 
 \item{path}{A string specifying the path to the directory to save the data sets in.}
 
-\item{exists}{A flag specifying whether the \code{path} directory should already exist 
+\item{exists}{A flag specifying whether the \code{path} directory should already exist
 (if \code{exists = NA} it doesn't matter).}
 
 \item{rdists}{A character vector specifying the R functions to recognize as stochastic.}
@@ -60,7 +60,7 @@ The seed should be specified using \code{\link[base]{set.seed}()}.}
 }
 \value{
 By default an \code{\link[nlist]{nlists_object}} of the simulated data.
-Otherwise if \code{path} is defined saves the datasets as individual \code{.rds} files and 
+Otherwise if \code{path} is defined saves the datasets as individual \code{.rds} files and
 returns TRUE.
 }
 \description{
