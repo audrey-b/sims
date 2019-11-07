@@ -9,13 +9,13 @@ test_that("test inputs", {
     "^`constants` must inherit from S3 class 'nlist'[.]$",
     class = "chk_error")
   expect_error(sims_simulate("x <- y", nlist::nlist(x = NA_real_)),
-    "^`constants` must not have missing values[.]$",
+    "^`constants` must not have any missing values[.]$",
     class = "chk_error")
   expect_error(sims_simulate("x <- y", parameters = list(x = TRUE)),
     "^All elements of `parameters` must be a numeric [(]integer or double[)] atomic [(]vector, matrix or array[)] object[.]$",
     class = "chk_error")
   expect_error(sims_simulate("x <- y", parameters = list(x = NA_real_)),
-    "^`parameters` must not have missing values[.]$",
+    "^`parameters` must not have any missing values[.]$",
     class = "chk_error")
   expect_error(sims_simulate("x <- y", list(x = 1), monitor = 1),
     "`monitor` must inherit from S3 class 'character'",

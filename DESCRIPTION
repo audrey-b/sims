@@ -1,6 +1,6 @@
 Package: sims
 Title: Simulate Datasets from 'JAGS' or R Code
-Version: 0.0.0.9021
+Version: 0.0.0.9022
 Authors@R: c(
     person("Audrey", "Beliveau", , "audrey.beliveau@uwaterloo.ca", "aut"),
     person("Joe", "Thorley", , "joe@poissonconsulting.ca", c("aut", "cre"), comment = c(ORCID = "0000-0002-7683-4592"))
@@ -15,7 +15,7 @@ Depends:
 Imports:
     stats,
     yesno,
-    chk (>= 0.0.1.9027),
+    chk (>= 0.2.0),
     nlist (>= 0.0.0.9111),
     parallel,
     furrr,
