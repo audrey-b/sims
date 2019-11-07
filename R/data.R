@@ -1,11 +1,11 @@
 #' Simulated Datasets
 #'
-#' Gets the simulated datasets as an \code{\link[nlist]{nlists_object}}.
+#' Gets the simulated datasets as an [nlist::nlists_object()].
 #' There is no guarantee that all the datasets will fit in memory.
 #'
 #' @param path A string of the path to the directory with the simulated data files.
 #'
-#' @return An \code{\link[nlist]{nlists_object}} of the simulated datasets.
+#' @return An [nlist::nlists_object()] of the simulated datasets.
 #' @export
 #' @examples
 #' set.seed(10)

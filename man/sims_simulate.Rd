@@ -52,20 +52,20 @@ the datasets are returned as an \code{nlists} object and saved in \code{path}.}
 \item{progress}{A flag specifying whether to print a progress bar.}
 
 \item{options}{The furrr specific options to use with the workers.
-The seed should be specified using \code{\link[base]{set.seed}()}.}
+The seed should be specified using \code{\link[base:set.seed]{base::set.seed()}}.}
 
 \item{ask}{A flag specifying whether to ask before deleting sims compatible files.}
 
 \item{silent}{A flag specifying whether to suppress warnings.}
 }
 \value{
-By default an \code{\link[nlist]{nlists_object}} of the simulated data.
+By default an \code{\link[nlist:nlists_object]{nlist::nlists_object()}} of the simulated data.
 Otherwise if \code{path} is defined saves the datasets as individual \code{.rds} files and
 returns TRUE.
 }
 \description{
 Simulates datasets using JAGS or R code. By default
-returns the datasets as an \code{\link[nlist]{nlists_object}}.
+returns the datasets as an \code{\link[nlist:nlists_object]{nlist::nlists_object()}}.
 If \code{path} is provided then the datasets are written to the directory
 as individual \code{.rds} files.
 }
@@ -75,7 +75,7 @@ Otherwise code is assumed to be R code and stochastic variable nodes
 are those where assignment is immediately succeeded
 by a call to one of the functions named in \code{rdists}.
 
-Both constants and parameters must be \code{\link[nlist]{nlist_object}s}
+Both constants and parameters must be \code{[nlist::nlist_object]s}
 (or lists that can be coerced to such) .
 The only difference between constants and parameters is that the values in
 constants are appended to the output data while the values in parameters
@@ -91,16 +91,16 @@ The files are labelled \code{data0000001.rds}, \code{data0000002.rds},
 The argument values are saved in the hidden file \code{.sims.rds}.
 
 sims compatible files are those matching the regular expression
-"^((data\\\\d\{7,7\})|([.]sims))[.]rds$".
+\code{^((data\\\\d\{7,7\})|([.]sims))[.]rds$}.
 
 Parallelization is accomplished using the furrr package.
 The \code{progress} and \code{options} arguments
-are both passed to \code{\link[furrr]{future_map}()}.
+are both passed to \code{\link[furrr:future_map]{furrr::future_map()}}.
 }
 \examples{
 set.seed(101)
 sims_simulate("a ~ dunif(0, 1)", path = tempdir(), exists = NA, ask = FALSE)
 }
 \seealso{
-\code{\link{sims_rdists}()} and \code{\link[furrr]{future_options}()}
+\code{\link[=sims_rdists]{sims_rdists()}} and \code{\link[furrr:future_options]{furrr::future_options()}}
 }

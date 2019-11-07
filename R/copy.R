@@ -2,9 +2,9 @@
 #'
 #' @param path_from A string of the path to the directory containing the simulated datasets.
 #' @param path_to A string of the path to the directory to copy the simulated dataset to.
-#' @param exists A flag specifying whether \code{path_to} should already exist.
-#' If \code{exists = NA} it doesn't matter. If the directory already exists
-#' sims compatible files are deleted if \code{exists = TRUE} or \code{exists = NA} otherwise an
+#' @param exists A flag specifying whether `path_to` should already exist.
+#' If `exists = NA` it doesn't matter. If the directory already exists
+#' sims compatible files are deleted if `exists = TRUE` or `exists = NA` otherwise an
 #' error is thrown.
 #' @param ask A flag specifying whether to ask before deleting files.
 #' @param silent A flag specifying whether to suppress warnings.

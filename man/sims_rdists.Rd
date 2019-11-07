@@ -11,7 +11,7 @@ A character vector.
 }
 \description{
 Gets the names of the R random variate generating functions
-listed in \code{\link{Distributions}}.
+listed in \code{\link[=Distributions]{Distributions()}}.
 }
 \examples{
 sims_rdists()

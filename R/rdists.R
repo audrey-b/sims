@@ -1,7 +1,7 @@
 #' Sims Random R Distributions
 #'
 #' Gets the names of the R random variate generating functions
-#' listed in \code{\link{Distributions}}.
+#' listed in [Distributions()].
 #'
 #' @return A character vector.
 #' @export

@@ -15,7 +15,7 @@ sims_add(path = ".", nsims = 1, progress = FALSE,
 \item{progress}{A flag specifying whether to print a progress bar.}
 
 \item{options}{The furrr specific options to use with the workers.
-The seed should be specified using \code{\link[base]{set.seed}()}.}
+The seed should be specified using \code{\link[base:set.seed]{base::set.seed()}}.}
 }
 \value{
 A character vector of the names of the files created

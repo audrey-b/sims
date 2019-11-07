@@ -1,16 +1,16 @@
 #' Simulate Datasets
 #'
 #' Simulates datasets using JAGS or R code. By default
-#' returns the datasets as an \code{\link[nlist]{nlists_object}}.
-#' If \code{path} is provided then the datasets are written to the directory
-#' as individual \code{.rds} files.
+#' returns the datasets as an [nlist::nlists_object()].
+#' If `path` is provided then the datasets are written to the directory
+#' as individual `.rds` files.
 #'
 #' JAGS code is identified by the presence of '~' indicating a stochastic variable node.
 #' Otherwise code is assumed to be R code and stochastic variable nodes
 #' are those where assignment is immediately succeeded
-#' by a call to one of the functions named in \code{rdists}.
+#' by a call to one of the functions named in `rdists`.
 #'
-#' Both constants and parameters must be \code{\link[nlist]{nlist_object}s}
+#' Both constants and parameters must be `[nlist::nlist_object]s`
 #' (or lists that can be coerced to such) .
 #' The only difference between constants and parameters is that the values in
 #' constants are appended to the output data while the values in parameters
@@ -18,19 +18,19 @@
 #' Neither constants or parameters can include missing values nor can they
 #' have elements with the same name.
 #' Elements which are not in code are dropped with a warning
-#' (unless \code{silent = TRUE} in which case the warning is suppressed).
+#' (unless `silent = TRUE` in which case the warning is suppressed).
 #'
 #' Each set of simulated data set is written as a separate .rds file.
-#' The files are labelled \code{data0000001.rds}, \code{data0000002.rds},
-#' \code{data0000003.rds} etc.
-#' The argument values are saved in the hidden file \code{.sims.rds}.
+#' The files are labelled `data0000001.rds`, `data0000002.rds`,
+#' `data0000003.rds` etc.
+#' The argument values are saved in the hidden file `.sims.rds`.
 #'
 #' sims compatible files are those matching the regular expression
-#' "^((data\\\\d\{7,7\})|([.]sims))[.]rds$".
+#' `^((data\\\\d\{7,7\})|([.]sims))[.]rds$`.
 #'
 #' Parallelization is accomplished using the furrr package.
-#' The \code{progress} and \code{options} arguments
-#' are both passed to \code{\link[furrr]{future_map}()}.
+#' The `progress` and `options` arguments
+#' are both passed to [furrr::future_map()].
 #'
 #' @param code A string of the JAGS or R code to generate the data.
 #' The JAGS code must not be in a data or model block.
@@ -52,22 +52,22 @@
 #' @param nsims A whole number between 1 and 1,000,000 specifying
 #' the number of data sets to simulate. By default 100 data sets are simulated.
 #' @param save A flag specifying whether to return the data sets as
-#' an \code{nlists} object or save in \code{path}. If \code{save = NA}
-#' the datasets are returned as an \code{nlists} object and saved in \code{path}.
+#' an `nlists` object or save in `path`. If `save = NA`
+#' the datasets are returned as an `nlists` object and saved in `path`.
 #' @param path A string specifying the path to the directory to save the data sets in.
-#' @param exists A flag specifying whether the \code{path} directory should already exist
-#' (if \code{exists = NA} it doesn't matter).
+#' @param exists A flag specifying whether the `path` directory should already exist
+#' (if `exists = NA` it doesn't matter).
 #' @param rdists A character vector specifying the R functions to recognize as stochastic.
 #' @param progress A flag specifying whether to print a progress bar.
 #' @param options The furrr specific options to use with the workers.
-#' The seed should be specified using \code{\link[base]{set.seed}()}.
+#' The seed should be specified using [base::set.seed()].
 #' @param ask A flag specifying whether to ask before deleting sims compatible files.
 #' @param silent A flag specifying whether to suppress warnings.
 #'
-#' @return By default an \code{\link[nlist]{nlists_object}} of the simulated data.
-#' Otherwise if \code{path} is defined saves the datasets as individual \code{.rds} files and
+#' @return By default an [nlist::nlists_object()] of the simulated data.
+#' Otherwise if `path` is defined saves the datasets as individual `.rds` files and
 #' returns TRUE.
-#' @seealso \code{\link{sims_rdists}()} and \code{\link[furrr]{future_options}()}
+#' @seealso [sims_rdists()] and [furrr::future_options()]
 #' @export
 #' @examples
 #' set.seed(101)
