@@ -791,22 +791,20 @@ test_that("save parallel", {
                    c(".sims.rds", "data0000001.rds"))
 })
 
-test_that("save parallel getwd", {
+test_that("save getwd", {
+  skip("only works when run at console")
   tempdir <- file.path(tempdir(), "sims")
   unlink(tempdir, recursive = TRUE)
-  dir.create(tempdir)
   teardown(unlink(tempdir, recursive = TRUE))
 
   set.seed(1)
-  
-  options(mc.cores = 2)
-  future::plan(future::multisession)
-  teardown(future::plan(future::sequential))
-  
+
+  dir.create(tempdir)
   wd <- setwd(tempdir)
-  teardown(setwd(wd))
-  # expect_true(sims_simulate("a ~ dunif(0,1)", save = TRUE, exists = NA,
-  #                            ask = FALSE))
-  # expect_identical(list.files(tempdir, all.files = TRUE, recursive=TRUE),
-  #                  c(".sims.rds", "data0000001.rds"))
+  on.exit(setwd(wd))
+  expect_true(sims_simulate("a ~ dunif(0,1)", save = TRUE, exists = NA,
+                              ask = FALSE))
+  print(list.files(tempdir, all.files = TRUE, recursive=TRUE))
+  expect_identical(list.files(tempdir, all.files = TRUE, recursive=TRUE),
+                    c(".sims.rds", "data0000001.rds"))
 })

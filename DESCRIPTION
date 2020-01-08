@@ -16,7 +16,7 @@ Imports:
     stats,
     yesno,
     chk (>= 0.2.0),
-    nlist (>= 0.0.0.9111),
+    nlist (>= 0.0.1),
     parallel,
     furrr,
     rjags
@@ -27,7 +27,6 @@ Suggests:
     knitr,
     rmarkdown
 Remotes:
-  poissonconsulting/chk,
   poissonconsulting/nlist
 Encoding: UTF-8
 LazyData: true
