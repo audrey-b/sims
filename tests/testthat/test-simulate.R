@@ -808,3 +808,12 @@ test_that("save getwd", {
   expect_identical(list.files(tempdir, all.files = TRUE, recursive=TRUE),
                     c(".sims.rds", "data0000001.rds"))
 })
+
+test_that("simulate array", {
+  set.seed(10)
+  sims <- sims::sims_simulate("for(i in 1:2){
+  M[i,1] ~ dnorm(0,1)
+  M[i,2] <- 2}")
+  expect_equal(sims, structure(list(structure(list(M = structure(c(0.750048077250373, 
+-0.52435401319, 2, 2), .Dim = c(2L, 2L))), class = "nlist")), class = "nlists"))
+})

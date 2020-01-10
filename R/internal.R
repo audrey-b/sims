@@ -153,9 +153,13 @@ create_path <- function(path, exists, ask, silent) {
 
 as_natomic_mcarray <- function(x) {
   dim <- dim(x)
-  ndim <- length(dim)
   x <- as.vector(x)
-  dim(x) <- dim(x)[-c(ndim - 1L, ndim)]
+  ndim <- length(dim)
+  dim <- dim[-c(ndim - 1L, ndim)]
+  if(length(dim) > 1) {
+    dim <- unname(dim)
+    dim(x) <- dim
+  }
   x
 }
 
