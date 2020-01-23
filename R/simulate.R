@@ -87,8 +87,8 @@ sims_simulate <- function(code,
                           options = furrr::future_options(),
                           ask = getOption("sims.ask", TRUE),
                           silent = FALSE) {
-  if(is.list(constants) && !is.nlist(constants)) class(constants) <- "nlist"
-  if(is.list(parameters) && !is.nlist(parameters)) class(parameters) <- "nlist"
+  if(is.list(constants) && !is_nlist(constants)) class(constants) <- "nlist"
+  if(is.list(parameters) && !is_nlist(parameters)) class(parameters) <- "nlist"
 
   chk_string(code)
   chk_nlist(constants)
