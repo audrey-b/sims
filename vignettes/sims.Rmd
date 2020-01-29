@@ -92,4 +92,4 @@ set.seed(10)
 sims_simulate("a ~ dunif(0,1)", nsims = 2L)
 ```
 
-The seed should be set using `set.seed()` not the `seed` argument of `furrr::future_options()` which is passed as an argument to `sims_simulate()` and `sims_add()` to control the environment the expressions are called in.
+The seed should be set using `set.seed()` not the `seed` argument of `furrr::future_options()`. The latter is however passed as an argument to `sims_simulate()` and `sims_add()` to control the environment the expressions are called in.
