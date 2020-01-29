@@ -10,7 +10,7 @@ Description: Generates datasets from 'JAGS' or R code for use in simulation stud
     individual '.rds' files.
 License: GPL-3
 Depends: 
-    R (>= 3.5),
+    R (>= 3.3),
     purrr
 Imports:
     stats,
