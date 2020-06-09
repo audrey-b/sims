@@ -12,7 +12,7 @@ test_that("test inputs", {
     "^`constants` must not have any missing values[.]$",
     class = "chk_error")
   expect_error(sims_simulate("x <- y", parameters = list(x = TRUE)),
-    "^All elements of `parameters` must be a numeric [(]integer or double[)] atomic [(]vector, matrix or array[)] object[.]$",
+    "^All elements of `parameters` must be numeric[.]$",
     class = "chk_error")
   expect_error(sims_simulate("x <- y", parameters = list(x = NA_real_)),
     "^`parameters` must not have any missing values[.]$",
@@ -658,7 +658,7 @@ test_that("with R code", {
     structure(list(structure(list(a = 0.267390680177431), class = "nlist")), class = "nlists"))
 
   expect_error(sims_simulate("a <- TRUE", stochastic = NA),
-    "^All elements of simulations from `code` must be a numeric [(]integer or double[)] atomic [(]vector, matrix or array[)] object[.]$",
+    "^All elements of simulations from `code` must be numeric[.]$",
     class = "chk_error")
 
   expect_identical(sims_simulate("a <- 1

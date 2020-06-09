@@ -15,5 +15,5 @@
 sims_data <- function(path = ".") {
   data_files <- sims_data_files(path)
   nlists <- lapply(file.path(path, data_files), readRDS)
-  as.nlists(nlists)
+  as_nlists(nlists)
 }
