@@ -52,11 +52,11 @@ jobs:
 
       - name: Download JAGS Windows
         if: runner.os == 'Windows'
-        run: (new-object net.webclient).DownloadFile('https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.2.0-Rtools33.exe', 'C:\projects\JAGS-4.3.0.exe')
+        run: (new-object net.webclient).DownloadFile('https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.0.exe', 'C:\projects\JAGS-4.3.0.exe')
 
       - name: Install JAGS Windows
         if: runner.os == 'Windows'
-        run: cmd C:\projects\JAGS-4.3.0.exe /S
+        run: C:\projects\JAGS-4.3.0.exe /S
         shell: cmd
 
       - name: Query dependencies
