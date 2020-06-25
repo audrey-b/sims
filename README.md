@@ -70,8 +70,8 @@ sims_data(tempdir())
 
 ## Information
 
-For more information see the [Using
-sims](https://poissonconsulting.github.io/sims/articles/sims.html)
+For more information see the [Get
+Started](https://poissonconsulting.github.io/sims/articles/sims.html)
 vignette.
 
 ## Contribution

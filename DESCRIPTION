@@ -1,23 +1,23 @@
 Package: sims
-Title: Simulate Datasets from 'JAGS' or R Code
+Title: Simulate Data from 'JAGS' or R Code
 Version: 0.0.0.9024
 Authors@R: c(
     person("Audrey", "Beliveau", , "audrey.beliveau@uwaterloo.ca", "aut"),
     person("Joe", "Thorley", , "joe@poissonconsulting.ca", c("aut", "cre"), comment = c(ORCID = "0000-0002-7683-4592"))
     )
-Description: Generates datasets from 'JAGS' or R code for use in simulation studies.
-    The datasets are returned as an 'nlists' object and/or saved to file as 
+Description: Generates data from 'JAGS' or R code for use in simulation studies.
+    The data are returned as an 'nlists' object and/or saved to file as 
     individual '.rds' files.
 License: GPL-3
 Depends: 
     R (>= 3.3),
-    purrr
 Imports:
     stats,
     yesno,
     chk,
     nlist (>= 0.2.0),
     parallel,
+    purrr,
     furrr,
     rjags
 Suggests: 
