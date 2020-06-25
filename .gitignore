@@ -9,3 +9,6 @@
 .httr-oauth
 
 *.html
+
+docs/
+inst/docs/
