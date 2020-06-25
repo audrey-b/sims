@@ -17,7 +17,7 @@ jobs:
       - uses: r-lib/actions/setup-pandoc@master
 
       - name: JAGS
-        run: brew install JAGS
+        run: brew install jags
 
       - name: Query dependencies
         run: |
