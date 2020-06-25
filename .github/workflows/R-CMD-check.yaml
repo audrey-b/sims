@@ -45,11 +45,11 @@ jobs:
       
       - name: JAGS macOS
         if: runner.os == 'macOS'
-        run: brew install JAGS
+        run: brew install jags
         
       - name: JAGS Linux
         if: runner.os == 'Linux'
-        run: sudo apt-get install JAGS
+        run: sudo apt-get install jags
 
       - name: Query dependencies
         run: |
