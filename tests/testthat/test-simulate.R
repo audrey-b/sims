@@ -123,26 +123,6 @@ rand ~ dnorm(0,1)
 
   constants <- nlist(year = 1:5)
 
-  skip_on_appveyor() # yet works on AWS windows
-  # result on appveyor?
-  # $cc
-  # [1] 33 25 35 34 19
-  #
-  # $lambda
-  # [1] 32.02126 29.23013 26.68229 24.35653 22.23350
-  #
-  # $rand
-  # [1] 0.3230782
-  #
-  # $year
-  # [1] 1 2 3 4 5
-
-  set.seed(2)
-  print(sims_simulate(generative_model,
-    constants = constants,
-    parameters = parameters,
-    monitor = monitor, stochastic = NA, latent = NA))
-
   set.seed(2)
   expect_equal(sims_simulate(generative_model,
     constants = constants,
@@ -804,7 +784,6 @@ test_that("save getwd", {
   on.exit(setwd(wd))
   expect_true(sims_simulate("a ~ dunif(0,1)", save = TRUE, exists = NA,
                               ask = FALSE))
-  print(list.files(tempdir, all.files = TRUE, recursive=TRUE))
   expect_identical(list.files(tempdir, all.files = TRUE, recursive=TRUE),
                     c(".sims.rds", "data0000001.rds"))
 })
