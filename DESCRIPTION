@@ -10,7 +10,7 @@ Description: Generates data from 'JAGS' or R code for use in simulation studies.
     individual '.rds' files.
 License: GPL-3
 Depends: 
-    R (>= 3.4)
+    R (>= 3.5)
 Imports:
     stats,
     yesno,
