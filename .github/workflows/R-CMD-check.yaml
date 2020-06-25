@@ -20,13 +20,13 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {os: macOS-latest,   r: 'devel'}
+#          - {os: macOS-latest,   r: 'devel'}
           - {os: macOS-latest,   r: 'release'}
-          - {os: macOS-latest,   r: 'oldrel'}
+#          - {os: macOS-latest,   r: 'oldrel'}
           - {os: windows-latest, r: 'release'}
           - {os: ubuntu-16.04,   r: 'release', rspm: "https://packagemanager.rstudio.com/cran/__linux__/xenial/latest"}
-          - {os: ubuntu-16.04,   r: '3.6',     rspm: "https://packagemanager.rstudio.com/cran/__linux__/xenial/latest"}
-          - {os: ubuntu-16.04,   r: '3.5',     rspm: "https://packagemanager.rstudio.com/cran/__linux__/xenial/latest"}
+#          - {os: ubuntu-16.04,   r: '3.6',     rspm: "https://packagemanager.rstudio.com/cran/__linux__/xenial/latest"}
+#         - {os: ubuntu-16.04,   r: '3.5',     rspm: "https://packagemanager.rstudio.com/cran/__linux__/xenial/latest"}
 
     env:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
@@ -42,18 +42,23 @@ jobs:
 
       - uses: r-lib/actions/setup-pandoc@master
       
-      - name: JAGS macOS
+      - name: Install JAGS macOS
         if: runner.os == 'macOS'
         run: brew install jags
         
-      - name: JAGS Linux
+      - name: Install JAGS Linux
         if: runner.os == 'Linux'
         run: sudo apt-get install jags
-        run: sudo apt-get install jags
-        
-      - name: JAGS Windows
+
+      - name: Download JAGS Windows
         if: runner.os == 'Windows'
-        run: choco install jags
+        run: Bootstrap
+        run: (new-object net.webclient).DownloadFile('https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.2.0-Rtools33.exe', 'C:\projects\JAGS-4.3.0.exe')
+
+      - name: Install JAGS Windows
+        if: runner.os == 'Windows'
+        run: cmd C:\projects\JAGS-4.3.0.exe /S
+        shell: cmd
 
       - name: Query dependencies
         run: |
