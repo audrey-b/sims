@@ -7,17 +7,15 @@
 
 [![Lifecycle:
 maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
-[![Travis-CI Build
-Status](https://travis-ci.com/poissonconsulting/sims.svg?branch=master)](https://travis-ci.com/poissonconsulting/sims)
-[![AppVeyor build
-status](https://ci.appveyor.com/api/projects/status/github/poissonconsulting/sims?branch=master&svg=true)](https://ci.appveyor.com/project/poissonconsulting/sims)
-[![Coverage
-Status](https://img.shields.io/codecov/c/github/poissonconsulting/sims/master.svg)](https://codecov.io/github/poissonconsulting/sims?branch=master)
+[![R build
+status](https://github.com/poissonconsulting/sims/workflows/R-CMD-check/badge.svg)](https://github.com/poissonconsulting/sims/actions)
+[![Codecov test
+coverage](https://codecov.io/gh/poissonconsulting/sims/branch/master/graph/badge.svg)](https://codecov.io/gh/poissonconsulting/sims?branch=master)
 [![License:
 GPL3](https://img.shields.io/badge/License-GPL3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.html)
-<!-- [![Tinyverse status](https://tinyverse.netlify.com/badge/sims)](https://CRAN.R-project.org/package=sims) -->
-<!-- [![CRAN status](https://www.r-pkg.org/badges/version/sims)](https://cran.r-project.org/package=sims) -->
-<!-- ![CRAN downloads](http://cranlogs.r-pkg.org/badges/sims) -->
+[![CRAN
+status](https://www.r-pkg.org/badges/version/sims)](https://cran.r-project.org/package=sims)
+![CRAN downloads](http://cranlogs.r-pkg.org/badges/sims)
 <!-- badges: end -->
 
 sims is an R package to generate datasets from
@@ -36,15 +34,6 @@ To install the developmental version from
 remotes::install_github("poissonconsulting/sims")
 ```
 
-To install the latest developmental release from the Poisson drat
-[repository](https://github.com/poissonconsulting/drat)
-
-``` r
-# install.packages("drat")
-drat::addRepo("poissonconsulting")
-install.packages("sims")
-```
-
 ## Demonstration
 
 ### Simulate Data
@@ -60,7 +49,7 @@ sims_simulate("a ~ dunif(0,1)", nsims = 2L)
 #> $a
 #> [1] 0.6857306
 #> 
-#> an nlists object of 2 nlist objects each with 1 natomic element
+#> an nlists object of 2 nlist objects each with 1 numeric element
 ```
 
 If, however, `save = TRUE` then each nlist object is saved as an `.rds`
@@ -76,7 +65,7 @@ sims_data(tempdir())
 #> $a
 #> [1] 0.6857306
 #> 
-#> an nlists object of 2 nlist objects each with 1 natomic element
+#> an nlists object of 2 nlist objects each with 1 numeric element
 ```
 
 ## Information
@@ -93,6 +82,9 @@ Please report any
 [Pull requests](https://github.com/poissonconsulting/sims/pulls) are
 always welcome.
 
-Please note that this project is released with a [Contributor Code of
-Conduct](https://github.com/poissonconsulting/sims/blob/master/CODE_OF_CONDUCT.md).
-By contributing, you agree to abide by its terms.
+## Code of Conduct
+
+Please note that the sims project is released with a [Contributor Code
+of
+Conduct](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html).
+By contributing to this project, you agree to abide by its terms.

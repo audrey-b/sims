@@ -63,20 +63,20 @@ the datasets are returned as an \code{nlists} object and saved in \code{path}.}
 \item{progress}{A flag specifying whether to print a progress bar.}
 
 \item{options}{The furrr specific options to use with the workers.
-The seed should be specified using \code{\link[base:set.seed]{base::set.seed()}}.}
+The seed should be specified using \code{\link[base:Random]{base::set.seed()}}.}
 
 \item{ask}{A flag specifying whether to ask before deleting sims compatible files.}
 
 \item{silent}{A flag specifying whether to suppress warnings.}
 }
 \value{
-By default an \code{\link[nlist:nlists_object]{nlist::nlists_object()}} of the simulated data.
+By default an \code{\link[nlist:nlists]{nlist::nlists_object()}} of the simulated data.
 Otherwise if \code{path} is defined saves the datasets as individual \code{.rds} files and
 returns TRUE.
 }
 \description{
 Simulates datasets using JAGS or R code. By default
-returns the datasets as an \code{\link[nlist:nlists_object]{nlist::nlists_object()}}.
+returns the datasets as an \code{\link[nlist:nlists]{nlist::nlists_object()}}.
 If \code{path} is provided then the datasets are written to the directory
 as individual \code{.rds} files.
 }
