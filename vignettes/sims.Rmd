@@ -1,8 +1,8 @@
 ---
-title: "Using sims"
+title: "Get Started with sims"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Using sims}
+  %\VignetteIndexEntry{Get Started with sims}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
