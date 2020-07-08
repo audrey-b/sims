@@ -16,7 +16,6 @@ sims_simulate(
   path = ".",
   exists = FALSE,
   rdists = sims_rdists(),
-  progress = FALSE,
   ask = getOption("sims.ask", TRUE),
   silent = FALSE
 )
@@ -58,8 +57,6 @@ the datasets are returned as an \code{nlists} object and saved in \code{path}.}
 (if \code{exists = NA} it doesn't matter).}
 
 \item{rdists}{A character vector specifying the R functions to recognize as stochastic.}
-
-\item{progress}{A flag specifying whether to print a progress bar.}
 
 \item{ask}{A flag specifying whether to ask before deleting sims compatible files.}
 

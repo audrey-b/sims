@@ -18,6 +18,7 @@ Imports:
     nlist,
     parallel,
     future.apply,
+    progressr,
     rjags
 Suggests: 
     covr,

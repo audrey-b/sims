@@ -1,19 +1,16 @@
 #' Add Simulated Datasets
 #'
-#' @inheritParams sims_simulate
 #' @param path A string specifying the path to the directory to add the data sets to.
 #' @param nsims A count of the number of additional datasets to generate.
 #' @return A character vector of the names of the files created
 #' (and in the case of argsism, created).
 #' @export
 sims_add <- function(path = ".",
-                     nsims = 1,
-                     progress = FALSE) {
+                     nsims = 1) {
 
   chk_whole_number(nsims)
   chk_range(nsims, c(1, 1000000))
-  chk_flag(progress)
-  
+
   nsims <- as.integer(nsims)
 
   argsims <- sims_check(path)

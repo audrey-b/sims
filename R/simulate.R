@@ -56,7 +56,6 @@
 #' @param exists A flag specifying whether the `path` directory should already exist
 #' (if `exists = NA` it doesn't matter).
 #' @param rdists A character vector specifying the R functions to recognize as stochastic.
-#' @param progress A flag specifying whether to print a progress bar.
 #' @param ask A flag specifying whether to ask before deleting sims compatible files.
 #' @param silent A flag specifying whether to suppress warnings.
 #'
@@ -79,7 +78,6 @@ sims_simulate <- function(code,
                           path = ".",
                           exists = FALSE,
                           rdists = sims_rdists(),
-                          progress = FALSE,
                           ask = getOption("sims.ask", TRUE),
                           silent = FALSE) {
   if(is.list(constants) && !is_nlist(constants)) class(constants) <- "nlist"
@@ -102,7 +100,6 @@ sims_simulate <- function(code,
   chk_lgl(exists)
   chk_s3_class(rdists, "character")
   chk_not_any_na(rdists)
-  chk_flag(progress)
   chk_flag(silent)
 
   nsims <- as.integer(nsims)
@@ -120,5 +117,5 @@ sims_simulate <- function(code,
   generate_datasets(code, constants, parameters,
     monitor = monitor,
     nsims = nsims, save = save,
-    path = path, progress = progress)
+    path = path)
 }
