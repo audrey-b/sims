@@ -23,7 +23,7 @@ test_that("test inputs", {
 })
 
 test_that("test nodes not already defined", {
-  expect_error(sims_simulate("a ~ dunif(1)", nlist(a = 1)),
+  expect_error(sims_simulate("a ~ dunif(1)", nlist::nlist(a = 1)),
     "^The following variable nodes are defined in constants: 'a'[.]$")
 })
 
@@ -55,16 +55,16 @@ test_that("options seed must be false", {
 test_that("generates data with replicability", {
   set.seed(1)
   expect_equal(sims_simulate("a ~ dunif(0,1)"),
-    structure(list(structure(list(a = 0.749735354622374), class = "nlist")), class = "nlists"))
+    nlist::nlists(nlist::nlist(a = 0.960206513635135)))
   set.seed(1)
   expect_equal(sims_simulate("a ~ dunif(0,1)"),
-    structure(list(structure(list(a = 0.749735354622374), class = "nlist")), class = "nlists"))
+               nlist::nlists(nlist::nlist(a = 0.960206513635135)))
   set.seed(-1)
   expect_equal(sims_simulate("a ~ dunif(0,1)"),
-    structure(list(structure(list(a = 0.315564033523335), class = "nlist")), class = "nlists"))
+               nlist::nlists(nlist::nlist(a = 0.231992449945416)))
   set.seed(1)
   expect_equal(sims_simulate("a ~ dunif(0,1)"),
-    structure(list(structure(list(a = 0.749735354622374), class = "nlist")), class = "nlists"))
+               nlist::nlists(nlist::nlist(a = 0.960206513635135)))
 })
 
 test_that("generates data with replicability if repeated calls", {

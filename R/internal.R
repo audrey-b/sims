@@ -227,12 +227,12 @@ generate_datasets <- function(code, constants, parameters, monitor, nsims,
     code <- parse(text = code)
   }
 
-  nlists <- future_map(1:nsims, generate_dataset,
+  nlists <- future_lapply(1:nsims, FUN = generate_dataset,
     code = code, is_jags = is_jags,
     constants = constants, parameters = parameters,
     monitor = monitor, save = save,
-    path = path,
-    .progress = progress, .options = options)
+    path = path)
+#    .progress = progress, .options = options)
   if(isTRUE(save)) return(TRUE)
   set_class(nlists, "nlists")
 }

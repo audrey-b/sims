@@ -19,6 +19,7 @@ Imports:
     nlist (>= 0.2.0),
     parallel,
     furrr,
+    future.apply,
     rjags
 Suggests: 
     covr,
@@ -28,7 +29,7 @@ Suggests:
     rmarkdown
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.1.0.9000
+RoxygenNote: 7.1.1.9000
 Language: en-US
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
