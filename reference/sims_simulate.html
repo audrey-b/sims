@@ -134,7 +134,6 @@ as individual <code>.rds</code> files.</p>
   exists = <span class='fl'>FALSE</span>,
   rdists = <span class='fu'><a href='https://rdrr.io/pkg/sims/man/sims_rdists.html'>sims_rdists</a></span>(),
   progress = <span class='fl'>FALSE</span>,
-  options = <span class='kw'>furrr</span>::<span class='fu'><a href='https://rdrr.io/pkg/furrr/man/future_options.html'>future_options</a></span>(),
   ask = <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"sims.ask"</span>, <span class='fl'>TRUE</span>),
   silent = <span class='fl'>FALSE</span>
 )</pre>
@@ -206,11 +205,6 @@ the datasets are returned as an <code>nlists</code> object and saved in <code>pa
       <td><p>A flag specifying whether to print a progress bar.</p></td>
     </tr>
     <tr>
-      <th>options</th>
-      <td><p>The furrr specific options to use with the workers.
-The seed should be specified using <code><a href='https://rdrr.io/r/base/Random.html'>base::set.seed()</a></code>.</p></td>
-    </tr>
-    <tr>
       <th>ask</th>
       <td><p>A flag specifying whether to ask before deleting sims compatible files.</p></td>
     </tr>
@@ -246,12 +240,10 @@ The files are labelled <code>data0000001.rds</code>, <code>data0000002.rds</code
 The argument values are saved in the hidden file <code>.sims.rds</code>.</p>
 <p>sims compatible files are those matching the regular expression
 <code>^((data\\\\d\{7,7\})|([.]sims))[.]rds$</code>.</p>
-<p>Parallelization is accomplished using the furrr package.
-The <code>progress</code> and <code>options</code> arguments
-are both passed to <code><a href='https://rdrr.io/pkg/furrr/man/future_map.html'>furrr::future_map()</a></code>.</p>
+<p>Parallelization is accomplished using the future.apply package.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/sims/man/sims_rdists.html'>sims_rdists()</a></code> and <code><a href='https://rdrr.io/pkg/furrr/man/future_options.html'>furrr::future_options()</a></code></p></div>
+    <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/sims/man/sims_rdists.html'>sims_rdists()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>101</span>)
