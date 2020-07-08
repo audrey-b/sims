@@ -79,7 +79,7 @@ sims_check(path = paste0(tempdir(), "_copy"))
 
 ## Parallelization
 
-Parallelization is achieved using the [future.apply](https://github.com/HenrikBengtsson/future.apply) package.
+Parallelization is implemented using the [future](https://github.com/HenrikBengtsson/future) package.
 
 To use all available cores on the local machine simply execute the following code before calling `sims_simulate()`.
 ```{r}
@@ -90,4 +90,13 @@ plan(multisession)
 ```{r}
 set.seed(10)
 sims_simulate("a ~ dunif(0,1)", nsims = 2L)
+```
+
+## Progress
+
+Progress is reported using the [progressr](https://github.com/HenrikBengtsson/progressr) package as follows.
+
+```{r}
+library(progressr)
+with_progress(sims_simulate("a ~ dunif(0,1)", nsims = 1000L))
 ```

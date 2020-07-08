@@ -325,3 +325,20 @@ test_that("sims_add parallel", {
   expect_equal(readRDS(file.path(tempdir, "data0000002.rds")),
     structure(list(a = 0.0584777028255878), class = "nlist"))
 })
+
+
+test_that("progress", {
+  tempdir <- file.path(tempdir(), "sims")
+  unlink(tempdir, recursive = TRUE)
+  
+  set.seed(101)
+  expect_true(sims_simulate("a ~ dunif(0,1)", path = tempdir, save = TRUE))
+  progressr::with_progress(x <- sims_add(nsims = 2L, path = tempdir))
+  
+  expect_equal(readRDS(file.path(tempdir, "data0000002.rds")),
+               structure(list(a = 0.0584777028255878), class = "nlist"))
+  
+  skip("only visually test add progress bar at console")
+  progressr::with_progress(sims_add(nsims = 1000L, path = tempdir))
+})
+

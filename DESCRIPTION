@@ -6,7 +6,7 @@ Authors@R: c(
     person("Joe", "Thorley", , "joe@poissonconsulting.ca", c("aut", "cre"), comment = c(ORCID = "0000-0002-7683-4592"))
     )
 Description: Generates data from 'JAGS' or R code for use in simulation studies.
-    The data are returned as an 'nlists' object and/or saved to file as 
+    The data are returned as an 'nlist::nlists' object and/or saved to file as 
     individual '.rds' files.
 License: GPL-3
 Depends: 

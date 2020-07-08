@@ -186,9 +186,8 @@ generate_r <- function(code, data, monitor) {
 }
 
 generate_dataset <- function(sim, code, is_jags, constants, parameters, monitor,
-                             save, path, parallel) {
-  p(sprintf("x=%g", sim))
-  
+                             save, path, parallel, p) {
+  p(message = "none")
   data <- c(constants, parameters)
   class(data) <- NULL
   
@@ -225,15 +224,13 @@ generate_datasets <- function(code, constants, parameters, monitor, nsims,
     is_jags <- FALSE
     code <- parse(text = code)
   }
-  xs <- 1:nsims
-  with_progress({
-    p <- progressor(along = xs)
-    nlists <- future_lapply(xs, FUN = generate_dataset,
-                            code = code, is_jags = is_jags,
-                            constants = constants, parameters = parameters,
-                            monitor = monitor, save = save,
-                            path = path, future.seed = get_seed_streams(nsims))
-  })
+  sims <- 1:nsims
+  p <- progressor(along = sims)
+  nlists <- future_lapply(sims, FUN = generate_dataset,
+                          code = code, is_jags = is_jags,
+                          constants = constants, parameters = parameters,
+                          monitor = monitor, save = save,
+                          path = path, future.seed = get_seed_streams(nsims), p = p)
   if(isTRUE(save)) return(TRUE)
   set_class(nlists, "nlists")
 }
