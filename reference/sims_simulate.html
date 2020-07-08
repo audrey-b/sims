@@ -133,7 +133,6 @@ as individual <code>.rds</code> files.</p>
   path = <span class='st'>"."</span>,
   exists = <span class='fl'>FALSE</span>,
   rdists = <span class='fu'><a href='https://rdrr.io/pkg/sims/man/sims_rdists.html'>sims_rdists</a></span>(),
-  progress = <span class='fl'>FALSE</span>,
   ask = <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"sims.ask"</span>, <span class='fl'>TRUE</span>),
   silent = <span class='fl'>FALSE</span>
 )</pre>
@@ -199,10 +198,6 @@ the datasets are returned as an <code>nlists</code> object and saved in <code>pa
     <tr>
       <th>rdists</th>
       <td><p>A character vector specifying the R functions to recognize as stochastic.</p></td>
-    </tr>
-    <tr>
-      <th>progress</th>
-      <td><p>A flag specifying whether to print a progress bar.</p></td>
     </tr>
     <tr>
       <th>ask</th>
