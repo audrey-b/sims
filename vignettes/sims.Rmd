@@ -83,8 +83,8 @@ Parallelization is achieved using the [future.apply](https://github.com/HenrikBe
 
 To use all available cores on the local machine simply execute the following code before calling `sims_simulate()`.
 ```{r}
-#library(future)
-#plan(multisession)
+library(future)
+plan(multisession)
 ```
 
 ```{r}
