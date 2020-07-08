@@ -79,17 +79,15 @@ sims_check(path = paste0(tempdir(), "_copy"))
 
 ## Parallelization
 
-Parallelization is achieved using the [furrr](https://github.com/DavisVaughan/furrr) package (which necessitates the loading of the `purrr` package)
+Parallelization is achieved using the [future.apply](https://github.com/HenrikBengtsson/future.apply) package.
 
 To use all available cores on the local machine simply execute the following code before calling `sims_simulate()`.
 ```{r}
-library(future)
-plan(multisession)
+#library(future)
+#plan(multisession)
 ```
 
 ```{r}
 set.seed(10)
 sims_simulate("a ~ dunif(0,1)", nsims = 2L)
 ```
-
-The seed should be set using `set.seed()` not the `seed` argument of `furrr::future_options()`. The latter is however passed as an argument to `sims_simulate()` and `sims_add()` to control the environment the expressions are called in.
