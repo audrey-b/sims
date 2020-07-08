@@ -12,8 +12,7 @@ sims_add(path = ".", nsims = 1)
 \item{nsims}{A count of the number of additional datasets to generate.}
 }
 \value{
-A character vector of the names of the files created
-(and in the case of argsism, created).
+A character vector of the names of the files created.
 }
 \description{
 Add Simulated Datasets
