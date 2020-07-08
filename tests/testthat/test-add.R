@@ -156,9 +156,6 @@ test_that("sims_add options seed must be FALSE", {
 
   set.seed(101)
   expect_true(sims_simulate("a ~ dunif(0,1)", path = tempdir, save = TRUE))
-
-  expect_error(sims_add("a ~ dunif(0,1)", options = furrr::future_options(seed = TRUE)),
-    "^`options[$]seed` must be FALSE[.]$", class = "chk_error")
 })
 
 test_that("sims_add R", {

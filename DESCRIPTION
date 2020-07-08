@@ -10,15 +10,13 @@ Description: Generates data from 'JAGS' or R code for use in simulation studies.
     individual '.rds' files.
 License: GPL-3
 Depends: 
-    R (>= 3.5),
-    purrr
+    R (>= 3.5)
 Imports:
     stats,
     yesno,
     chk,
     nlist (>= 0.2.0),
     parallel,
-    furrr,
     future.apply,
     rjags
 Suggests: 

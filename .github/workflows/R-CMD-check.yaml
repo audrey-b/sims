@@ -2,6 +2,7 @@ on:
   push:
     branches:
       - master
+      - future_apply
   pull_request:
     branches:
       - master

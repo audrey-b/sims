@@ -28,9 +28,7 @@
 #' sims compatible files are those matching the regular expression
 #' `^((data\\\\d\{7,7\})|([.]sims))[.]rds$`.
 #'
-#' Parallelization is accomplished using the furrr package.
-#' The `progress` and `options` arguments
-#' are both passed to [furrr::future_map()].
+#' Parallelization is accomplished using the future.apply package.
 #'
 #' @param code A string of the JAGS or R code to generate the data.
 #' The JAGS code must not be in a data or model block.
@@ -59,15 +57,13 @@
 #' (if `exists = NA` it doesn't matter).
 #' @param rdists A character vector specifying the R functions to recognize as stochastic.
 #' @param progress A flag specifying whether to print a progress bar.
-#' @param options The furrr specific options to use with the workers.
-#' The seed should be specified using [base::set.seed()].
 #' @param ask A flag specifying whether to ask before deleting sims compatible files.
 #' @param silent A flag specifying whether to suppress warnings.
 #'
 #' @return By default an [nlist::nlists_object()] of the simulated data.
 #' Otherwise if `path` is defined saves the datasets as individual `.rds` files and
 #' returns TRUE.
-#' @seealso [sims_rdists()] and [furrr::future_options()]
+#' @seealso [sims_rdists()]
 #' @export
 #' @examples
 #' set.seed(101)
@@ -84,7 +80,6 @@ sims_simulate <- function(code,
                           exists = FALSE,
                           rdists = sims_rdists(),
                           progress = FALSE,
-                          options = furrr::future_options(),
                           ask = getOption("sims.ask", TRUE),
                           silent = FALSE) {
   if(is.list(constants) && !is_nlist(constants)) class(constants) <- "nlist"
@@ -108,8 +103,6 @@ sims_simulate <- function(code,
   chk_s3_class(rdists, "character")
   chk_not_any_na(rdists)
   chk_flag(progress)
-  chk_s3_class(options, "future_options")
-  chk_false(options$seed)
   chk_flag(silent)
 
   nsims <- as.integer(nsims)
@@ -127,6 +120,5 @@ sims_simulate <- function(code,
   generate_datasets(code, constants, parameters,
     monitor = monitor,
     nsims = nsims, save = save,
-    path = path, progress = progress,
-    options = options)
+    path = path, progress = progress)
 }

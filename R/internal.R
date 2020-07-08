@@ -208,7 +208,7 @@ save_args <- function(path, ...) {
 }
 
 generate_datasets <- function(code, constants, parameters, monitor, nsims,
-                              save, path, progress, options) {
+                              save, path, progress) {
   seed <- get_random_seed()
   on.exit(set_random_seed(seed, advance = TRUE))
 
@@ -217,8 +217,6 @@ generate_datasets <- function(code, constants, parameters, monitor, nsims,
       constants = constants, parameters = parameters,
       monitor = monitor, nsims = nsims, seed = seed)
   }
-
-  options$seed <- get_seed_streams(nsims)
 
   if(is_jags_code(code)) {
     is_jags <- TRUE
@@ -231,8 +229,8 @@ generate_datasets <- function(code, constants, parameters, monitor, nsims,
     code = code, is_jags = is_jags,
     constants = constants, parameters = parameters,
     monitor = monitor, save = save,
-    path = path)
-#    .progress = progress, .options = options)
+    path = path, future.seed = get_seed_streams(nsims))
+#    .progress = progress)
   if(isTRUE(save)) return(TRUE)
   set_class(nlists, "nlists")
 }

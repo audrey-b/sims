@@ -8,7 +8,7 @@ test_that("test inputs", {
   expect_error(sims_simulate("x <- y", 1),
                "^`constants` must inherit from S3 class 'nlist'[.]$",
                class = "chk_error")
-  expect_error(sims_simulate("x <- y", nlist::nlist(x = NA_real_)),
+  expect_error(sims_simulate("x <- y", nlist(x = NA_real_)),
                "^`constants` must not have any missing values[.]$",
                class = "chk_error")
   expect_error(sims_simulate("x <- y", parameters = list(x = TRUE)),
@@ -23,7 +23,7 @@ test_that("test inputs", {
 })
 
 test_that("test nodes not already defined", {
-  expect_error(sims_simulate("a ~ dunif(1)", nlist::nlist(a = 1)),
+  expect_error(sims_simulate("a ~ dunif(1)", nlist(a = 1)),
                "^The following variable nodes are defined in constants: 'a'[.]$")
 })
 
@@ -47,44 +47,39 @@ test_that("not in model or data block", {
                "^JAGS code must not be in a data or model block.")
 })
 
-test_that("options seed must be false", {
-  expect_error(sims_simulate("a ~ dunif(0,1)", options = furrr::future_options(seed = TRUE)),
-               "^`options[$]seed` must be FALSE[.]$", class = "chk_error")
-})
-
 test_that("generates data with replicability", {
   set.seed(1)
   expect_equal(sims_simulate("a ~ dunif(0,1)"),
-               nlist::nlists(nlist::nlist(a = 0.960206513635135)))
+               nlist::nlists(nlist(a = 0.749735354622374)))
   set.seed(1)
   expect_equal(sims_simulate("a ~ dunif(0,1)"),
-               nlist::nlists(nlist::nlist(a = 0.960206513635135)))
+               nlist::nlists(nlist(a = 0.749735354622374)))
   set.seed(-1)
   expect_equal(sims_simulate("a ~ dunif(0,1)"),
-               nlist::nlists(nlist::nlist(a = 0.231992449945416)))
+               nlist::nlists(nlist(a = 0.315564033523335)))
   set.seed(1)
   expect_equal(sims_simulate("a ~ dunif(0,1)"),
-               nlist::nlists(nlist::nlist(a = 0.960206513635135)))
+               nlist::nlists(nlist(a = 0.749735354622374)))
 })
 
 test_that("generates data with replicability if repeated calls", {
   set.seed(1)
   expect_equal(sims_simulate("a ~ dunif(0,1)"),
-               nlist::nlists(nlist::nlist(a = 0.960206513635135)))
+               nlist::nlists(nlist(a = 0.749735354622374)))
   expect_equal(sims_simulate("a ~ dunif(0,1)"),
-               nlist::nlists(nlist::nlist(a = 0.404198580821789)))
+               nlist::nlists(nlist(a = 0.229132551657083)))
   expect_equal(sims_simulate("a ~ dunif(0,1)"),
-               nlist::nlists(nlist::nlist(a = 0.892444072940882)))
+               nlist::nlists(nlist(a = 0.534957256848294)))
   set.seed(1)
   runif(1)
   expect_equal(sims_simulate("a ~ dunif(0,1)"),
-               nlist::nlists(nlist::nlist(a = 0.404198580821789)))
+               nlist::nlists(nlist(a = 0.229132551657083)))
   expect_equal(sims_simulate("a ~ dunif(0,1)"),
-               nlist::nlists(nlist::nlist(a = 0.892444072940882)))
+               nlist::nlists(nlist(a = 0.534957256848294)))
   set.seed(1)
   runif(2)
   expect_equal(sims_simulate("a ~ dunif(0,1)"),
-               nlist::nlists(nlist::nlist(a = 0.892444072940882)))
+               nlist::nlists(nlist(a = 0.534957256848294)))
 })
 
 test_that("save", {
@@ -93,21 +88,21 @@ test_that("save", {
   
   set.seed(1)
   expect_equal(sims_simulate("a ~ dunif(0,1)"),
-               nlist::nlists(nlist::nlist(a = 0.960206513635135)))
+               nlist::nlists(nlist(a = 0.749735354622374)))
   set.seed(1)
   expect_equal(sims_simulate("a ~ dunif(0,1)", save = NA, path = tempdir),
-               nlist::nlists(nlist::nlist(a = 0.960206513635135)))
+               nlist::nlists(nlist(a = 0.749735354622374)))
   expect_identical(sims_data_files(tempdir),
                    "data0000001.rds")
   expect_equal(readRDS(file.path(tempdir, "data0000001.rds")),
-               nlist::nlist(a = 0.960206513635135))
+               nlist(a = 0.749735354622374))
   set.seed(1)
   unlink(tempdir, recursive = TRUE)
   expect_true(sims_simulate("a ~ dunif(0,1)", save = TRUE, path = tempdir))
   expect_identical(sims_data_files(tempdir),
                    "data0000001.rds")
   expect_equal(readRDS(file.path(tempdir, "data0000001.rds")),
-               nlist::nlist(a = 0.960206513635135))
+               nlist(a = 0.749735354622374))
 })
 
 test_that("gets deterministic nodes", {
@@ -121,9 +116,9 @@ rand ~ dnorm(0,1)
 "
   monitor <- c("cc", "rand", "lambda")
   
-  parameters <- nlist::nlist(alpha = 3.5576, beta1 = -0.0912)
+  parameters <- nlist(alpha = 3.5576, beta1 = -0.0912)
   
-  constants <- nlist::nlist(year = 1:5)
+  constants <- nlist(year = 1:5)
   
   set.seed(2)
   expect_equal(
@@ -131,11 +126,9 @@ rand ~ dnorm(0,1)
                   constants = constants,
                   parameters = parameters,
                   monitor = monitor, stochastic = NA, latent = NA),
-    nlist::nlists(nlist::nlist(
-      cc = c(31, 34, 26, 20, 16), 
-      lambda = c(32.0212581683725, 29.2301292225158, 26.6822886806137, 
-                 24.3565303394963, 22.2334964320294), 
-      rand = -0.0227419291174858, year = 1:5)))
+    nlist::nlists(nlist(cc = c(27, 38, 36, 21, 13), lambda = c(32.0212581683725, 
+                                                               29.2301292225158, 26.6822886806137, 24.3565303394963, 22.2334964320294
+    ), rand = 0.323078183488302, year = 1:5)))
 })
 
 test_that("gets deterministic nodes with R code", {
@@ -157,27 +150,27 @@ test_that("gets deterministic nodes with R code", {
                  constants = constants,
                  parameters = parameters,
                  monitor = monitor, stochastic = NA, latent = NA),
-    nlist::nlists(nlist::nlist(
-      cc = c(26L, 24L, 20L, 24L, 18L), 
-      rand = -0.23969802417184, lambda = c(32.0212581683725, 29.2301292225158, 
+    nlist::nlists(nlist(
+      cc = c(27L, 36L, 27L, 26L, 19L), 
+      rand = -0.50015572039553, lambda = c(32.0212581683725, 29.2301292225158, 
                                            26.6822886806137, 24.3565303394963, 22.2334964320294), year = 1:5)))
 })
 
 test_that("nsims can take numeric", {
   set.seed(101)
   expect_equal(sims_simulate("a ~ dunif(0,1)"),
-               nlist::nlists(nlist::nlist(a = 0.247694617962275)))
+               nlist::nlists(nlist(a = 0.342673102637473)))
 })
 
 test_that("nsims > 1", {
   set.seed(101)
   expect_equal(sims_simulate("a ~ dunif(0,1)", nsims = 2L),
-               nlist::nlists(nlist::nlist(a = 0.247694617962275),
-                             nlist::nlist(a = 0.951518742613052)))
+               nlist::nlists(nlist(a = 0.342673102637473),
+                             nlist(a = 0.0584777028255878)))
   set.seed(101)
   expect_equal(sims_simulate("a ~ dunif(0,1)", nsims = 2L),
-               nlist::nlists(nlist::nlist(a = 0.247694617962275),
-                             nlist::nlist(a = 0.951518742613052)))
+               nlist::nlists(nlist(a = 0.342673102637473),
+                             nlist(a = 0.0584777028255878)))
 })
 
 test_that("write replicable", {
@@ -198,11 +191,11 @@ test_that("write replicable", {
   expect_identical(sims_data_files(tempdir),
                    "data0000001.rds")
   expect_equal(readRDS(file.path(tempdir, "data0000001.rds")),
-               nlist::nlist(a = 0.247694617962275))
+               nlist(a = 0.342673102637473))
   
   expect_identical(sims_info(tempdir),
-                   list(code = "model{a ~ dunif(0,1)}\n", constants = nlist::nlist(),
-                        parameters = nlist::nlist(),
+                   list(code = "model{a ~ dunif(0,1)}\n", constants = nlist(),
+                        parameters = nlist(),
                         monitor = "a", nsims = 1L, seed = c(10403L, 624L, 853008081L,
                                                             -1946219938L, 421532487L, -755954980L, 862903853L, -1354943734L,
                                                             -1566351101L, -372976024L, 132839753L, 1058755702L, 1084399743L,
@@ -338,9 +331,9 @@ test_that("write replicable > 1", {
   set.seed(101)
   expect_true(sims_simulate("a ~ dunif(0,1)", nsims = 2L, path = tempdir, save = TRUE))
   expect_equal(readRDS(file.path(tempdir, "data0000001.rds")),
-               nlist::nlist(a = 0.247694617962275))
+               nlist(a = 0.342673102637473))
   expect_equal(readRDS(file.path(tempdir, "data0000002.rds")),
-               nlist::nlist(a = 0.951518742613052))
+               nlist(a = 0.0584777028255878))
   set.seed(101)
   expect_error(sims_simulate("a ~ dunif(0,1)", nsims = 2L, path = tempdir, save = TRUE),
                "must not already exist")
@@ -348,33 +341,33 @@ test_that("write replicable > 1", {
   expect_true(sims_simulate("a ~ dunif(0,1)", nsims = 2L, path = tempdir, save = TRUE,
                             exists = TRUE, ask = FALSE, silent = TRUE))
   expect_equal(readRDS(file.path(tempdir, "data0000001.rds")),
-               nlist::nlist(a = 0.247694617962275))
+               nlist(a = 0.342673102637473))
   expect_equal(readRDS(file.path(tempdir, "data0000002.rds")),
-               nlist::nlist(a = 0.951518742613052))
+               nlist(a = 0.0584777028255878))
   set.seed(100)
   expect_true(sims_simulate("a ~ dunif(0,1)", path = tempdir, save = TRUE,
                             exists = TRUE, ask = FALSE, silent = TRUE))
   expect_equal(readRDS(file.path(tempdir, "data0000001.rds")),
-               nlist::nlist(a = 0.22130195651164))
+               nlist(a = 0.771283060089858))
   expect_identical(list.files(tempdir), "data0000001.rds")
   set.seed(100)
   expect_true(sims_simulate("a ~ dunif(0,1)", nsims = 2L, path = tempdir, save = TRUE,
                             exists = TRUE, ask = FALSE, silent = TRUE))
   expect_equal(readRDS(file.path(tempdir, "data0000001.rds")),
-               nlist::nlist(a = 0.22130195651164))
+               nlist(a = 0.771283060089858))
   expect_equal(readRDS(file.path(tempdir, "data0000002.rds")),
-               nlist::nlist(a = 0.385538176912215))
+               nlist(a = 0.558316438218761))
   set.seed(101)
   expect_true(sims_simulate("a ~ dunif(0,1)", path = tempdir, save = TRUE,
                             exists = TRUE, ask = FALSE, silent = TRUE))
   expect_equal(readRDS(file.path(tempdir, "data0000001.rds")),
-               nlist::nlist(a = 0.247694617962275))
+               nlist(a = 0.342673102637473))
 })
 
 test_that("monitor", {
   set.seed(101)
   expect_equal(sims_simulate("a ~ dunif(0,1)"),
-               nlist::nlists(nlist::nlist(a = 0.247694617962275)))
+               nlist::nlists(nlist(a = 0.342673102637473)))
   
   expect_error(sims_simulate("ab ~ dunif(0,1)", monitor = c("a", "a")),
                "^`monitor` must include at least one of the following observed stochastic variable nodes: 'ab'[.]$")
@@ -400,7 +393,7 @@ test_that("append constants", {
 test_that("parallel with registered", {
   set.seed(101)
   expect_equal(sims_simulate("a ~ dunif(0,1)"),
-               nlist::nlists(nlist::nlist(a = 0.247694617962275)))
+               nlist::nlists(nlist(a = 0.342673102637473)))
   
   options(mc.cores = 2)
   future::plan(future::multisession)
@@ -408,7 +401,7 @@ test_that("parallel with registered", {
   
   set.seed(101)
   expect_equal(sims_simulate("a ~ dunif(0,1)"),
-               nlist::nlists(nlist::nlist(a = 0.247694617962275)))
+               nlist::nlists(nlist(a = 0.342673102637473)))
   
   set.seed(101)
   expect_equal(sims_simulate("a ~ dunif(0,1)", nsims = 2),
@@ -477,7 +470,6 @@ test_that("write existing with random file not touched", {
                             exists = TRUE, ask = FALSE, silent = TRUE))
   expect_identical(list.files(tempdir), c("data0000001.rds", "data000003.rds"))
 })
-
 
 test_that("names with dots and underscores", {
   set.seed(101)

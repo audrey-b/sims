@@ -8,15 +8,12 @@
 #' @export
 sims_add <- function(path = ".",
                      nsims = 1,
-                     progress = FALSE,
-                     options = furrr::future_options()) {
+                     progress = FALSE) {
 
   chk_whole_number(nsims)
   chk_range(nsims, c(1, 1000000))
   chk_flag(progress)
-  chk_s3_class(options, "future_options")
-  chk_false(options$seed)
-
+  
   nsims <- as.integer(nsims)
 
   argsims <- sims_check(path)
@@ -32,8 +29,6 @@ sims_add <- function(path = ".",
 
   set_random_seed(argsims$seed)
 
-  options$seed <- get_seed_streams(argsims$nsims)[sims]
-
   saveRDS(argsims, file.path(path, ".sims.rds"))
 
   code <- argsims$code
@@ -44,12 +39,11 @@ sims_add <- function(path = ".",
     code <- parse(text = code)
   }
 
-  nlists <- future_map(sims, generate_dataset,  is_jags = is_jags,
+  nlists <- future_lapply(sims, generate_dataset,  is_jags = is_jags,
     code = code,
     constants = argsims$constants,
     parameters = argsims$parameters,
     monitor = argsims$monitor, save = TRUE,
-    path = path,
-    .progress = progress, .options = options)
+    path = path, future.seed = get_seed_streams(argsims$nsims)[sims])
   data_files(path)[sims]
 }

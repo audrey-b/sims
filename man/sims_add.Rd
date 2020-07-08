@@ -4,12 +4,7 @@
 \alias{sims_add}
 \title{Add Simulated Datasets}
 \usage{
-sims_add(
-  path = ".",
-  nsims = 1,
-  progress = FALSE,
-  options = furrr::future_options()
-)
+sims_add(path = ".", nsims = 1, progress = FALSE)
 }
 \arguments{
 \item{path}{A string specifying the path to the directory to add the data sets to.}
@@ -17,9 +12,6 @@ sims_add(
 \item{nsims}{A count of the number of additional datasets to generate.}
 
 \item{progress}{A flag specifying whether to print a progress bar.}
-
-\item{options}{The furrr specific options to use with the workers.
-The seed should be specified using \code{\link[base:Random]{base::set.seed()}}.}
 }
 \value{
 A character vector of the names of the files created

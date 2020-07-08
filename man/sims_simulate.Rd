@@ -17,7 +17,6 @@ sims_simulate(
   exists = FALSE,
   rdists = sims_rdists(),
   progress = FALSE,
-  options = furrr::future_options(),
   ask = getOption("sims.ask", TRUE),
   silent = FALSE
 )
@@ -62,9 +61,6 @@ the datasets are returned as an \code{nlists} object and saved in \code{path}.}
 
 \item{progress}{A flag specifying whether to print a progress bar.}
 
-\item{options}{The furrr specific options to use with the workers.
-The seed should be specified using \code{\link[base:Random]{base::set.seed()}}.}
-
 \item{ask}{A flag specifying whether to ask before deleting sims compatible files.}
 
 \item{silent}{A flag specifying whether to suppress warnings.}
@@ -104,14 +100,12 @@ The argument values are saved in the hidden file \code{.sims.rds}.
 sims compatible files are those matching the regular expression
 \verb{^((data\\\\\\\\d\\\{7,7\\\})|([.]sims))[.]rds$}.
 
-Parallelization is accomplished using the furrr package.
-The \code{progress} and \code{options} arguments
-are both passed to \code{\link[furrr:future_map]{furrr::future_map()}}.
+Parallelization is accomplished using the future.apply package.
 }
 \examples{
 set.seed(101)
 sims_simulate("a ~ dunif(0, 1)", path = tempdir(), exists = NA, ask = FALSE)
 }
 \seealso{
-\code{\link[=sims_rdists]{sims_rdists()}} and \code{\link[furrr:future_options]{furrr::future_options()}}
+\code{\link[=sims_rdists]{sims_rdists()}}
 }
