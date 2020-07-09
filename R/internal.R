@@ -273,6 +273,8 @@ generate_datasets <- function(code, constants, parameters, monitor, nsims,
 
   if (is_jags_code(code)) {
     is_jags <- TRUE
+    if(!requireNamespace("rjags", quietly = TRUE))
+      err("Package 'rjags' must be installed to simulate data using JAGS code.")
   } else {
     is_jags <- FALSE
     code <- parse(text = code)

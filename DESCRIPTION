@@ -20,11 +20,11 @@ Imports:
     nlist,
     parallel,
     future.apply,
-    progressr,
-    rjags
+    progressr
 Suggests: 
     covr,
     future,
+    rjags,
     testthat,
     knitr,
     rmarkdown
