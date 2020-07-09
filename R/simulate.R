@@ -5,7 +5,7 @@
 #' If `path` is provided then the datasets are written to the directory
 #' as individual `.rds` files.
 #'
-#' JAGS code is identified by the presence of '~' indicating a 
+#' JAGS code is identified by the presence of '~' indicating a
 #' stochastic variable node.
 #' Otherwise code is assumed to be R code and stochastic variable nodes
 #' are those where assignment is immediately succeeded
@@ -53,18 +53,18 @@
 #' @param save A flag specifying whether to return the data sets as
 #' an `nlists` object or save in `path`. If `save = NA`
 #' the datasets are returned as an `nlists` object and saved in `path`.
-#' @param path A string specifying the path to the directory to save 
+#' @param path A string specifying the path to the directory to save
 #' the data sets in.
-#' @param exists A flag specifying whether the `path` directory should 
+#' @param exists A flag specifying whether the `path` directory should
 #' already exist (if `exists = NA` it doesn't matter).
-#' @param rdists A character vector specifying the R functions to recognize 
+#' @param rdists A character vector specifying the R functions to recognize
 #' as stochastic.
-#' @param ask A flag specifying whether to ask before deleting sims 
+#' @param ask A flag specifying whether to ask before deleting sims
 #' compatible files.
 #' @param silent A flag specifying whether to suppress warnings.
 #'
 #' @return By default an [nlist::nlists_object()] of the simulated data.
-#' Otherwise if `path` is defined saves the datasets as individual `.rds` 
+#' Otherwise if `path` is defined saves the datasets as individual `.rds`
 #' files and returns TRUE.
 #' @seealso [sims_rdists()]
 #' @export

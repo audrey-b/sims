@@ -26,13 +26,16 @@ test_that("strip comments works", {
 
 
 test_that("variable_nodes either", {
-  expect_identical(variable_nodes("a ~ dunif(0, 1)", 
-                                  stochastic = NA, latent = NA), "a")
-  expect_identical(variable_nodes("ab ~ dunif(0, 1)", 
-                                  stochastic = NA, latent = NA), "ab")
+  expect_identical(variable_nodes("a ~ dunif(0, 1)",
+    stochastic = NA, latent = NA
+  ), "a")
+  expect_identical(variable_nodes("ab ~ dunif(0, 1)",
+    stochastic = NA, latent = NA
+  ), "ab")
   expect_identical(
-    variable_nodes("b ~ dunif(0,1)\na ~ dunif(0, 1)", 
-                   stochastic = NA, latent = NA),
+    variable_nodes("b ~ dunif(0,1)\na ~ dunif(0, 1)",
+      stochastic = NA, latent = NA
+    ),
     c("a", "b")
   )
   expect_identical(
@@ -60,8 +63,9 @@ test_that("variable_nodes either", {
     "a"
   )
   expect_identical(
-    variable_nodes("a[1] ~ dunif(0,1)\na[2] ~ dunif(0, 1)", 
-                   stochastic = NA, latent = NA),
+    variable_nodes("a[1] ~ dunif(0,1)\na[2] ~ dunif(0, 1)",
+      stochastic = NA, latent = NA
+    ),
     "a"
   )
   expect_identical(
@@ -69,8 +73,9 @@ test_that("variable_nodes either", {
     "a"
   )
   expect_identical(
-    variable_nodes("a <- dunif(0,1)\nb ~ dunif(0,1)", 
-                   stochastic = NA, latent = NA),
+    variable_nodes("a <- dunif(0,1)\nb ~ dunif(0,1)",
+      stochastic = NA, latent = NA
+    ),
     c("a", "b")
   )
 })

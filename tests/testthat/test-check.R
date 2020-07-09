@@ -3,23 +3,25 @@ context("sims-check")
 test_that("sims_check", {
   tempdir <- file.path(tempdir(), "sims")
   unlink(tempdir, recursive = TRUE)
-  
+
   expect_error(
     sims_simulate("a ~ dunif(0,1)",
-                  nsims = 2L, path = tempdir,
-                  save = TRUE, exists = TRUE
+      nsims = 2L, path = tempdir,
+      save = TRUE, exists = TRUE
     ),
     "must already exist"
   )
-  
+
   set.seed(101)
-  expect_true(sims_simulate("a ~ dunif(0,1)", nsims = 2L, 
-                            path = tempdir, save = TRUE))
-  
+  expect_true(sims_simulate("a ~ dunif(0,1)",
+    nsims = 2L,
+    path = tempdir, save = TRUE
+  ))
+
   expect_identical(
     sims_check(path = tempdir),
     list(
-      code = "model{a ~ dunif(0,1)}\n", 
+      code = "model{a ~ dunif(0,1)}\n",
       constants = nlist(),
       parameters = nlist(),
       monitor = "a", nsims = 2L, seed = c(
@@ -152,7 +154,7 @@ test_that("sims_check", {
       )
     )
   )
-  
+
   file.remove(file.path(tempdir, "data0000001.rds"))
   expect_error(
     sims_check(path = tempdir),
@@ -163,8 +165,8 @@ test_that("sims_check", {
     sims_check(path = tempdir),
     "^Number of data files [(]0[)] does not match number of simulations [(]2[)][.]$"
   )
-  
-  
+
+
   file.create(file.path(tempdir, "data0000001.rds"))
   file.create(file.path(tempdir, "data0000003.rds"))
   expect_error(

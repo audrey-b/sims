@@ -29,7 +29,7 @@ test_that("sims_add", {
   expect_identical(
     sims_info(tempdir),
     list(
-      code = "model{a ~ dunif(0,1)}\n", 
+      code = "model{a ~ dunif(0,1)}\n",
       constants = nlist(),
       parameters = nlist(),
       monitor = "a", nsims = 3L, seed = c(
@@ -198,7 +198,7 @@ test_that("sims_add R", {
   expect_identical(
     sims_info(tempdir),
     list(
-      code = "a <- runif(1,0,1)", 
+      code = "a <- runif(1,0,1)",
       constants = nlist(),
       parameters = nlist(),
       monitor = "a", nsims = 3L, seed = c(
