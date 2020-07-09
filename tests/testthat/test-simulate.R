@@ -37,7 +37,8 @@ test_that("test nodes not already defined", {
 
 test_that("test match at least one node", {
   expect_error(
-    sims_simulate("a ~ dunif(1)", list(x = 1), monitor = "b", stochastic = TRUE, latent = FALSE),
+    sims_simulate("a ~ dunif(1)", list(x = 1), monitor = "b", 
+                  stochastic = TRUE, latent = FALSE),
     "^`monitor` must match at least one of the following observed stochastic variable nodes: 'a'[.]$"
   )
   expect_error(
@@ -45,26 +46,31 @@ test_that("test match at least one node", {
     "^`monitor` must match at least one of the following variable nodes: 'a'[.]$"
   )
   expect_error(
-    sims_simulate("a ~ dunif(1)", list(x = 1), monitor = "b", stochastic = FALSE, latent = FALSE),
+    sims_simulate("a ~ dunif(1)", list(x = 1), monitor = "b", 
+                  stochastic = FALSE, latent = FALSE),
     "^JAGS code must include at least one observed deterministic variable node[.]$"
   )
   expect_error(
-    sims_simulate("a ~ dunif(1)", list(x = 1), monitor = "b", stochastic = FALSE),
+    sims_simulate("a ~ dunif(1)", list(x = 1), monitor = "b", 
+                  stochastic = FALSE),
     "^JAGS code must include at least one deterministic variable node[.]$"
   )
   expect_error(
     sims_simulate("a ~ dunif(1)
-                             a2 <- a", list(x = 1), monitor = "b", stochastic = FALSE, latent = FALSE),
+                             a2 <- a", list(x = 1), monitor = "b", 
+                  stochastic = FALSE, latent = FALSE),
     "^`monitor` must match at least one of the following observed deterministic variable nodes: 'a2'[.]$"
   )
   expect_error(
     sims_simulate("a ~ dunif(1)
-                             a2 <- a", list(x = 1), monitor = "b", stochastic = FALSE),
+                             a2 <- a", list(x = 1), monitor = "b", 
+                  stochastic = FALSE),
     "^`monitor` must match at least one of the following deterministic variable nodes: 'a2'[.]$"
   )
   expect_error(
     sims_simulate("a ~ dunif(1)
-                             a2 <- a", list(x = 1), monitor = "b", stochastic = NA, latent = NA),
+                             a2 <- a", list(x = 1), monitor = "b", 
+                  stochastic = NA, latent = NA),
     "^`monitor` must match at least one of the following variable nodes: 'a' or 'a2'[.]$"
   )
 })
@@ -426,7 +432,8 @@ test_that("write replicable > 1", {
   unlink(tempdir, recursive = TRUE)
 
   set.seed(101)
-  expect_true(sims_simulate("a ~ dunif(0,1)", nsims = 2L, path = tempdir, save = TRUE))
+  expect_true(sims_simulate("a ~ dunif(0,1)", nsims = 2L, 
+                            path = tempdir, save = TRUE))
   expect_equal(
     readRDS(file.path(tempdir, "data0000001.rds")),
     nlist(a = 0.342673102637473)
@@ -495,34 +502,40 @@ test_that("monitor", {
   )
 
   expect_error(
-    sims_simulate("ab ~ dunif(0,1)", monitor = c("a", "a"), stochastic = TRUE, latent = FALSE),
+    sims_simulate("ab ~ dunif(0,1)", monitor = c("a", "a"), 
+                  stochastic = TRUE, latent = FALSE),
     "^`monitor` must include at least one of the following observed stochastic variable nodes: 'ab'[.]$"
   )
 
   expect_error(
-    sims_simulate("ab ~ dunif(0,1)", monitor = c("a", "a"), stochastic = FALSE, latent = FALSE),
+    sims_simulate("ab ~ dunif(0,1)", monitor = c("a", "a"), 
+                  stochastic = FALSE, latent = FALSE),
     "^JAGS code must include at least one observed deterministic variable node[.]$"
   )
 
   expect_error(
-    sims_simulate("ab ~ dunif(0,1)", monitor = c("a", "a"), stochastic = FALSE, latent = NA),
+    sims_simulate("ab ~ dunif(0,1)", monitor = c("a", "a"), 
+                  stochastic = FALSE, latent = NA),
     "^JAGS code must include at least one deterministic variable node[.]$"
   )
 
   expect_warning(
-    sims_simulate("ab ~ dunif(0,1)", monitor = c("ab", "a"), stochastic = TRUE, latent = FALSE),
+    sims_simulate("ab ~ dunif(0,1)", monitor = c("ab", "a"), 
+                  stochastic = TRUE, latent = FALSE),
     "^The following in `monitor` are not observed stochastic variable nodes: 'a'[.]$"
   )
 })
 
 test_that("append constants", {
   expect_error(
-    sims_simulate("ab ~ dunif(0,1)", monitor = c("a", "a"), stochastic = TRUE, latent = FALSE),
+    sims_simulate("ab ~ dunif(0,1)", monitor = c("a", "a"), 
+                  stochastic = TRUE, latent = FALSE),
     "^`monitor` must include at least one of the following observed stochastic variable nodes: 'ab'[.]"
   )
 
   expect_warning(
-    sims_simulate("ab ~ dunif(0,1)", monitor = c("ab", "a"), stochastic = TRUE, latent = FALSE),
+    sims_simulate("ab ~ dunif(0,1)", monitor = c("ab", "a"), 
+                  stochastic = TRUE, latent = FALSE),
     "^The following in `monitor` are not observed stochastic variable nodes: 'a'[.]$"
   )
 })
@@ -559,7 +572,8 @@ test_that("parallel with registered files", {
   unlink(tempdir, recursive = TRUE)
 
   set.seed(101)
-  expect_true(sims_simulate("a ~ dunif(0,1)", nsims = 2L, path = tempdir, save = TRUE))
+  expect_true(sims_simulate("a ~ dunif(0,1)", nsims = 2L, 
+                            path = tempdir, save = TRUE))
   expect_equal(
     readRDS(file.path(tempdir, "data0000001.rds")),
     structure(list(a = 0.342673102637473), class = "nlist")
@@ -607,7 +621,8 @@ test_that("write existing with random file not touched", {
   unlink(tempdir, recursive = TRUE)
 
   set.seed(101)
-  expect_true(sims_simulate("a ~ dunif(0,1)", nsims = 2L, path = tempdir, save = TRUE))
+  expect_true(sims_simulate("a ~ dunif(0,1)", nsims = 2L, 
+                            path = tempdir, save = TRUE))
   expect_identical(list.files(tempdir), c("data0000001.rds", "data0000002.rds"))
   expect_error(
     sims_simulate("a ~ dunif(0,1)", nsims = 2L, path = tempdir, save = TRUE),
@@ -630,7 +645,8 @@ test_that("write existing with random file not touched", {
     ),
     "^Deleted 1 sims data files in '.*sims'[.]$"
   )
-  expect_identical(list.files(tempdir), c("data0000001.rds", "data0000002.rds", "data0000003.rds"))
+  expect_identical(list.files(tempdir), 
+                   c("data0000001.rds", "data0000002.rds", "data0000003.rds"))
 
   x <- 1
   saveRDS(x, file.path(tempdir, "data000003.rds"))

@@ -7,7 +7,8 @@
 sims_add(path = ".", nsims = 1)
 }
 \arguments{
-\item{path}{A string specifying the path to the directory to add the data sets to.}
+\item{path}{A string specifying the path to the directory to
+add the data sets to.}
 
 \item{nsims}{A count of the number of additional datasets to generate.}
 }

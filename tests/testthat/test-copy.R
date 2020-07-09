@@ -6,7 +6,8 @@ test_that("sims_copy", {
   unlink(paste0(tempdir, "_copy"), recursive = TRUE)
 
   set.seed(101)
-  expect_true(sims_simulate("a ~ dunif(0,1)", nsims = 2L, path = tempdir, save = TRUE))
+  expect_true(sims_simulate("a ~ dunif(0,1)", nsims = 2L, 
+                            path = tempdir, save = TRUE))
   expect_identical(
     sims_copy(path_from = tempdir),
     c("data0000001.rds", "data0000002.rds")
@@ -22,7 +23,7 @@ test_that("sims_copy", {
   )
   expect_equal(
     readRDS(file.path(paste0(tempdir, "_copy"), "data0000001.rds")),
-    structure(list(a = 0.342673102637473), class = "nlist")
+    nlist(a = 0.342673102637473)
   )
   expect_equal(
     readRDS(file.path(paste0(tempdir, "_copy"), "data0000002.rds")),
@@ -32,7 +33,8 @@ test_that("sims_copy", {
   expect_identical(
     sims_info(paste0(tempdir, "_copy")),
     list(
-      code = "model{a ~ dunif(0,1)}\n", constants = structure(list(), .Names = character(0), class = "nlist"),
+      code = "model{a ~ dunif(0,1)}\n", 
+      constants = structure(list(), .Names = character(0), class = "nlist"),
       parameters = structure(list(), .Names = character(0), class = "nlist"),
       monitor = "a", nsims = 2L, seed = c(
         10403L, 624L, 853008081L,
@@ -172,7 +174,8 @@ test_that("sims_copy only deletes existing sims compatible files", {
   unlink(paste0(tempdir, "_copy"), recursive = TRUE)
 
   set.seed(101)
-  expect_true(sims_simulate("a ~ dunif(0,1)", nsims = 2L, path = tempdir, save = TRUE))
+  expect_true(sims_simulate("a ~ dunif(0,1)", nsims = 2L, 
+                            path = tempdir, save = TRUE))
   expect_identical(
     sims_copy(path_from = tempdir),
     c("data0000001.rds", "data0000002.rds")
@@ -232,7 +235,8 @@ test_that("sims_copy does not copy sims incompatible files", {
   unlink(paste0(tempdir, "_copy"), recursive = TRUE)
 
   set.seed(101)
-  expect_true(sims_simulate("a ~ dunif(0,1)", nsims = 2L, path = tempdir, save = TRUE))
+  expect_true(sims_simulate("a ~ dunif(0,1)", nsims = 2L, 
+                            path = tempdir, save = TRUE))
 
   x <- 1
   saveRDS(x, file.path(tempdir, "data000001.rds"))

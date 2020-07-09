@@ -1,5 +1,6 @@
 check_variable_nodes <- function(x, y, rdists, y_name = substitute(y)) {
-  variable_nodes <- variable_nodes(x, stochastic = NA, latent = NA, rdists = rdists)
+  variable_nodes <- 
+    variable_nodes(x, stochastic = NA, latent = NA, rdists = rdists)
   defined <- intersect(variable_nodes, names(y))
   if (length(defined)) {
     err(
@@ -38,7 +39,8 @@ stochastic_nodes_pattern <- function(x, pattern) {
 
   index <- "\\[[^\\]]*\\]"
 
-  pattern <- p0("[[:alnum:]_.]+(", index, "){0,1}\\s*[)]{0,1}", pattern, collapse = "")
+  pattern <- p0("[[:alnum:]_.]+(", index, "){0,1}\\s*[)]{0,1}", 
+                pattern, collapse = "")
   nodes <- str_extract_all(x, pattern)
   nodes <- unlist(nodes)
   nodes <- sub("[)]$", "", nodes)
@@ -152,7 +154,8 @@ set_monitor <- function(monitor, code, stochastic, latent, rdists, silent) {
     )
   }
   if (!silent) {
-    wrn("The following in `monitor` are not ", desc, "s: ", cc(missing, " or "), ".")
+    wrn("The following in `monitor` are not ", desc, "s: ", 
+        cc(missing, " or "), ".")
   }
 
   intersect(monitor, variable_nodes)
@@ -172,7 +175,8 @@ create_path <- function(path, exists, ask, silent) {
   }
   files <- list.files(path, pattern = "^data\\d{7,7}[.]rds$")
   if (length(files)) {
-    if (ask && !yesno("Delete ", length(files), " sims data files in '", path, "'?")) {
+    if (ask && !yesno("Delete ", length(files), " sims data files in '", 
+                      path, "'?")) {
       err(length(files), " existing sims data files in '", path, "'.")
     }
     if (!ask && !silent) {

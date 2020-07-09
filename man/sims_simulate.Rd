@@ -51,21 +51,24 @@ the number of data sets to simulate. By default 100 data sets are simulated.}
 an \code{nlists} object or save in \code{path}. If \code{save = NA}
 the datasets are returned as an \code{nlists} object and saved in \code{path}.}
 
-\item{path}{A string specifying the path to the directory to save the data sets in.}
+\item{path}{A string specifying the path to the directory to save
+the data sets in.}
 
-\item{exists}{A flag specifying whether the \code{path} directory should already exist
-(if \code{exists = NA} it doesn't matter).}
+\item{exists}{A flag specifying whether the \code{path} directory should
+already exist (if \code{exists = NA} it doesn't matter).}
 
-\item{rdists}{A character vector specifying the R functions to recognize as stochastic.}
+\item{rdists}{A character vector specifying the R functions to recognize
+as stochastic.}
 
-\item{ask}{A flag specifying whether to ask before deleting sims compatible files.}
+\item{ask}{A flag specifying whether to ask before deleting sims
+compatible files.}
 
 \item{silent}{A flag specifying whether to suppress warnings.}
 }
 \value{
 By default an \code{\link[nlist:nlists]{nlist::nlists_object()}} of the simulated data.
-Otherwise if \code{path} is defined saves the datasets as individual \code{.rds} files and
-returns TRUE.
+Otherwise if \code{path} is defined saves the datasets as individual \code{.rds}
+files and returns TRUE.
 }
 \description{
 Simulates datasets using JAGS or R code. By default
@@ -74,7 +77,8 @@ If \code{path} is provided then the datasets are written to the directory
 as individual \code{.rds} files.
 }
 \details{
-JAGS code is identified by the presence of '~' indicating a stochastic variable node.
+JAGS code is identified by the presence of '~' indicating a
+stochastic variable node.
 Otherwise code is assumed to be R code and stochastic variable nodes
 are those where assignment is immediately succeeded
 by a call to one of the functions named in \code{rdists}.

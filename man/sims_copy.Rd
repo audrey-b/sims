@@ -13,13 +13,16 @@ sims_copy(
 )
 }
 \arguments{
-\item{path_from}{A string of the path to the directory containing the simulated datasets.}
+\item{path_from}{A string of the path to the directory containing
+the simulated datasets.}
 
-\item{path_to}{A string of the path to the directory to copy the simulated dataset to.}
+\item{path_to}{A string of the path to the directory to copy
+the simulated dataset to.}
 
 \item{exists}{A flag specifying whether \code{path_to} should already exist.
 If \code{exists = NA} it doesn't matter. If the directory already exists
-sims compatible files are deleted if \code{exists = TRUE} or \code{exists = NA} otherwise an
+sims compatible files are deleted if \code{exists = TRUE} or \code{exists = NA}
+otherwise an
 error is thrown.}
 
 \item{ask}{A flag specifying whether to ask before deleting files.}
