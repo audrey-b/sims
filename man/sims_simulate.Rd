@@ -97,7 +97,7 @@ The argument values are saved in the hidden file \code{.sims.rds}.
 sims compatible files are those matching the regular expression
 \verb{^((data\\\\\\\\d\\\{7,7\\\})|([.]sims))[.]rds$}.
 
-Parallelization is accomplished using the future.apply package.
+Parallelization is implemented using the future package.
 }
 \examples{
 set.seed(101)

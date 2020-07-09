@@ -12,8 +12,10 @@
 #'
 #' @examples
 #' set.seed(10)
-#' sims_simulate("a ~ dunif(0,1)", save = TRUE, path = tempdir(), exists = NA,
-#'   ask = FALSE)
+#' sims_simulate("a ~ dunif(0,1)",
+#'   save = TRUE, path = tempdir(), exists = NA,
+#'   ask = FALSE
+#' )
 #' (sims_check(tempdir()))
 sims_check <- function(path = ".") {
   sims_info <- sims_info(path)
@@ -30,13 +32,17 @@ sims_check <- function(path = ".") {
   nsims <- sims_info$nsims
 
   files <- data_files(path)
-  if(!identical(length(files), nsims)) {
-    err("Number of data files (", length(files),
-      ") does not match number of simulations (", nsims, ").")
+  if (!identical(length(files), nsims)) {
+    err(
+      "Number of data files (", length(files),
+      ") does not match number of simulations (", nsims, ")."
+    )
   }
-  if(!identical(files, data_file_name(1:nsims))) {
-    err("Data file names are not consistent with",
-      "the number of simulations (", nsims, ").")
+  if (!identical(files, data_file_name(1:nsims))) {
+    err(
+      "Data file names are not consistent with",
+      "the number of simulations (", nsims, ")."
+    )
   }
   invisible(sims_info)
 }

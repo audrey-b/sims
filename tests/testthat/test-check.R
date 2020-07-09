@@ -4,17 +4,24 @@ test_that("sims_check", {
   tempdir <- file.path(tempdir(), "sims")
   unlink(tempdir, recursive = TRUE)
 
-  expect_error(sims_simulate("a ~ dunif(0,1)", nsims = 2L, path = tempdir,
-    save = TRUE, exists = TRUE),
-  "must already exist")
+  expect_error(
+    sims_simulate("a ~ dunif(0,1)",
+      nsims = 2L, path = tempdir,
+      save = TRUE, exists = TRUE
+    ),
+    "must already exist"
+  )
 
   set.seed(101)
   expect_true(sims_simulate("a ~ dunif(0,1)", nsims = 2L, path = tempdir, save = TRUE))
 
-  expect_identical(sims_check(path = tempdir),
-    list(code = "model{a ~ dunif(0,1)}\n", constants = structure(list(), .Names = character(0), class = "nlist"),
+  expect_identical(
+    sims_check(path = tempdir),
+    list(
+      code = "model{a ~ dunif(0,1)}\n", constants = structure(list(), .Names = character(0), class = "nlist"),
       parameters = structure(list(), .Names = character(0), class = "nlist"),
-      monitor = "a", nsims = 2L, seed = c(10403L, 624L, 853008081L,
+      monitor = "a", nsims = 2L, seed = c(
+        10403L, 624L, 853008081L,
         -1946219938L, 421532487L, -755954980L, 862903853L, -1354943734L,
         -1566351101L, -372976024L, 132839753L, 1058755702L, 1084399743L,
         -1528825676L, 1605323813L, -765273438L, 1491422651L, 575454656L,
@@ -139,21 +146,32 @@ test_that("sims_check", {
         1139186667L, -1316959696L, 2023118961L, -1957458050L, 1605455335L,
         -271115012L, 414646733L, 393271850L, 1520227747L, 1544772232L,
         295724777L, -1449837162L, -1640435937L, -2032464172L, 738173893L,
-        -624155198L, -1188620709L, 1456113120L)))
+        -624155198L, -1188620709L, 1456113120L
+      )
+    )
+  )
 
   file.remove(file.path(tempdir, "data0000001.rds"))
-  expect_error(sims_check(path = tempdir),
-    "^Number of data files [(]1[)] does not match number of simulations [(]2[)][.]$")
+  expect_error(
+    sims_check(path = tempdir),
+    "^Number of data files [(]1[)] does not match number of simulations [(]2[)][.]$"
+  )
   file.remove(file.path(tempdir, "data0000002.rds"))
-  expect_error(sims_check(path = tempdir),
-    "^Number of data files [(]0[)] does not match number of simulations [(]2[)][.]$")
+  expect_error(
+    sims_check(path = tempdir),
+    "^Number of data files [(]0[)] does not match number of simulations [(]2[)][.]$"
+  )
 
 
   file.create(file.path(tempdir, "data0000001.rds"))
   file.create(file.path(tempdir, "data0000003.rds"))
-  expect_error(sims_check(path = tempdir),
-    "^Data file names are not consistent withthe number of simulations [(]2[)][.]$")
+  expect_error(
+    sims_check(path = tempdir),
+    "^Data file names are not consistent withthe number of simulations [(]2[)][.]$"
+  )
   file.remove(file.path(tempdir, ".sims.rds"))
-  expect_error(sims_check(path = tempdir),
-    p0("must contain '.sims.rds'"))
+  expect_error(
+    sims_check(path = tempdir),
+    p0("must contain '.sims.rds'")
+  )
 })

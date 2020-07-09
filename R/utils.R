@@ -1,4 +1,4 @@
-rinteger <- function(n = 1) as.integer(runif(n, -.max_integer, .max_integer))
+rinteger <- function(n = 1) as.integer(runif(n, -2147483647L, 2147483647L))
 
 set_class <- function(x, class) {
   class(x) <- class
@@ -9,13 +9,13 @@ str_extract_all <- function(x, y) regmatches(x, gregexpr(y, x, perl = TRUE))
 
 
 get_random_seed <- function() {
-  if(!exists(".Random.seed")) runif(1)
+  if (!exists(".Random.seed")) runif(1)
   .Random.seed
 }
 
 set_random_seed <- function(seed, advance = FALSE) {
   .Random.seed <<- seed
-  if(advance) runif(1)
+  if (advance) runif(1)
   invisible(.Random.seed)
 }
 

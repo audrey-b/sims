@@ -28,7 +28,7 @@
 #' sims compatible files are those matching the regular expression
 #' `^((data\\\\d\{7,7\})|([.]sims))[.]rds$`.
 #'
-#' Parallelization is accomplished using the future.apply package.
+#' Parallelization is implemented using the future package.
 #'
 #' @param code A string of the JAGS or R code to generate the data.
 #' The JAGS code must not be in a data or model block.
@@ -80,8 +80,8 @@ sims_simulate <- function(code,
                           rdists = sims_rdists(),
                           ask = getOption("sims.ask", TRUE),
                           silent = FALSE) {
-  if(is.list(constants) && !is_nlist(constants)) class(constants) <- "nlist"
-  if(is.list(parameters) && !is_nlist(parameters)) class(parameters) <- "nlist"
+  if (is.list(constants) && !is_nlist(constants)) class(constants) <- "nlist"
+  if (is.list(parameters) && !is_nlist(parameters)) class(parameters) <- "nlist"
 
   chk_string(code)
   chk_nlist(constants)
@@ -109,13 +109,15 @@ sims_simulate <- function(code,
   check_variable_nodes(code, constants, rdists)
   check_variable_nodes(code, parameters, rdists)
 
-  if(!isFALSE(save)) create_path(path, exists, ask, silent)
+  if (!isFALSE(save)) create_path(path, exists, ask, silent)
 
   monitor <- set_monitor(monitor, code, stochastic, latent,
-    rdists = rdists, silent = silent)
+    rdists = rdists, silent = silent
+  )
 
   generate_datasets(code, constants, parameters,
     monitor = monitor,
     nsims = nsims, save = save,
-    path = path)
+    path = path
+  )
 }
