@@ -1,11 +1,11 @@
 Package: sims
-Title: Simulate Data from 'JAGS' or R Code
+Title: Simulate Data from R or 'JAGS' Code
 Version: 0.0.1
 Authors@R: c(
     person("Audrey", "Beliveau", , "audrey.beliveau@uwaterloo.ca", "aut"),
     person("Joe", "Thorley", , "joe@poissonconsulting.ca", c("aut", "cre"), comment = c(ORCID = "0000-0002-7683-4592"))
     )
-Description: Generates data from 'JAGS' or R code for use in simulation studies.
+Description: Generates data from R or 'JAGS' code for use in simulation studies.
     The data are returned as an 'nlist::nlists' object and/or saved to file as 
     individual '.rds' files. 
     Parallelization is implemented using the 'future' package.
