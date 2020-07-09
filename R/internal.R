@@ -235,7 +235,7 @@ generate_r <- function(code, data, monitor) {
 
 generate_dataset <- function(sim, code, is_jags, constants, parameters, monitor,
                              save, path, parallel, p) {
-  p(message = "none")
+  if(!is.null(p)) p(message = "none")
   data <- c(constants, parameters)
   class(data) <- NULL
 
@@ -280,7 +280,10 @@ generate_datasets <- function(code, constants, parameters, monitor, nsims,
     code <- parse(text = code)
   }
   sims <- 1:nsims
-  p <- progressor(along = sims)
+  if(requireNamespace("progressr", quietly = TRUE)) {
+    p <- progressr::progressor(along = sims)
+  } else 
+    p <- NULL
   nlists <- future_lapply(sims,
     FUN = generate_dataset,
     code = code, is_jags = is_jags,

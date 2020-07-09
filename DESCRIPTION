@@ -19,12 +19,12 @@ Imports:
     chk,
     nlist,
     parallel,
-    future.apply,
-    progressr
+    future.apply
 Suggests: 
     covr,
     future,
     rjags,
+    progressr,
     testthat,
     knitr,
     rmarkdown

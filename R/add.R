@@ -38,7 +38,11 @@ sims_add <- function(path = ".",
     code <- parse(text = code)
   }
 
-  p <- progressor(along = sims)
+  if(requireNamespace("progressr", quietly = TRUE)) {
+    p <- progressr::progressor(along = sims)
+  } else 
+    p <- NULL
+  
   nlists <- future_lapply(sims, generate_dataset,
     is_jags = is_jags,
     code = code,
