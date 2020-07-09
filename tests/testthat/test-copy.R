@@ -27,15 +27,15 @@ test_that("sims_copy", {
   )
   expect_equal(
     readRDS(file.path(paste0(tempdir, "_copy"), "data0000002.rds")),
-    structure(list(a = 0.0584777028255878), class = "nlist")
+    nlist(a = 0.0584777028255878)
   )
 
   expect_identical(
     sims_info(paste0(tempdir, "_copy")),
     list(
       code = "model{a ~ dunif(0,1)}\n", 
-      constants = structure(list(), .Names = character(0), class = "nlist"),
-      parameters = structure(list(), .Names = character(0), class = "nlist"),
+      constants = nlist(),
+      parameters = nlist(),
       monitor = "a", nsims = 2L, seed = c(
         10403L, 624L, 853008081L,
         -1946219938L, 421532487L, -755954980L, 862903853L, -1354943734L,

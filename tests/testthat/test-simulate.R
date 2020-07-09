@@ -560,10 +560,9 @@ test_that("parallel with registered", {
   set.seed(101)
   expect_equal(
     sims_simulate("a ~ dunif(0,1)", nsims = 2),
-    structure(list(
-      structure(list(a = 0.342673102637473), class = "nlist"),
-      structure(list(a = 0.0584777028255878), class = "nlist")
-    ), class = "nlists")
+    nlist::nlists(nlist(a = 0.342673102637473),
+      nlist(a = 0.0584777028255878)
+    )
   )
 })
 
@@ -576,11 +575,11 @@ test_that("parallel with registered files", {
                             path = tempdir, save = TRUE))
   expect_equal(
     readRDS(file.path(tempdir, "data0000001.rds")),
-    structure(list(a = 0.342673102637473), class = "nlist")
+    nlist(a = 0.342673102637473)
   )
   expect_equal(
     readRDS(file.path(tempdir, "data0000002.rds")),
-    structure(list(a = 0.0584777028255878), class = "nlist")
+    nlist(a = 0.0584777028255878)
   )
 
   expect_identical(list.files(tempdir), c("data0000001.rds", "data0000002.rds"))
@@ -592,7 +591,7 @@ test_that("parallel with registered files", {
   expect_identical(list.files(tempdir), "data0000001.rds")
   expect_equal(
     readRDS(file.path(tempdir, "data0000001.rds")),
-    structure(list(a = 0.771283060089858), class = "nlist")
+    nlist(a = 0.771283060089858)
   )
 
   options(mc.cores = 2)
@@ -608,11 +607,11 @@ test_that("parallel with registered files", {
 
   expect_equal(
     readRDS(file.path(tempdir, "data0000001.rds")),
-    structure(list(a = 0.342673102637473), class = "nlist")
+    nlist(a = 0.342673102637473)
   )
   expect_equal(
     readRDS(file.path(tempdir, "data0000002.rds")),
-    structure(list(a = 0.0584777028255878), class = "nlist")
+    nlist(a = 0.0584777028255878)
   )
 })
 
@@ -662,18 +661,15 @@ test_that("names with dots and underscores", {
   set.seed(101)
   expect_equal(
     sims_simulate("x.y ~ dunif(0,1)", nsims = 2L),
-    structure(list(
-      structure(list(x.y = 0.342673102637473), class = "nlist"),
-      structure(list(x.y = 0.0584777028255878), class = "nlist")
-    ), class = "nlists")
+    nlist::nlists(nlist(x.y = 0.342673102637473),
+      nlist(x.y = 0.0584777028255878))
   )
   set.seed(101)
   expect_equal(
     sims_simulate("x_y ~ dunif(0,1)", nsims = 2L),
-    structure(list(
-      structure(list(x_y = 0.342673102637473), class = "nlist"),
-      structure(list(x_y = 0.0584777028255878), class = "nlist")
-    ), class = "nlists")
+    nlist::nlists(nlist(x_y = 0.342673102637473),
+      nlist(x_y = 0.0584777028255878)
+    )
   )
 })
 
@@ -682,19 +678,19 @@ test_that("stochastic nodes", {
   expect_equal(
     sims_simulate("x ~ dunif(0,1)
                              y <- x", stochastic = NA, latent = NA),
-    structure(list(structure(list(x = 0.342673102637473, y = 0.342673102637473), class = "nlist")), class = "nlists")
+    nlist::nlists(nlist(x = 0.342673102637473, y = 0.342673102637473))
   )
   set.seed(101)
   expect_equal(
     sims_simulate("x ~ dunif(0,1)
                              y <- x", stochastic = TRUE, latent = NA),
-    structure(list(structure(list(x = 0.342673102637473), class = "nlist")), class = "nlists")
+    nlist::nlists(nlist(x = 0.342673102637473))
   )
   set.seed(101)
   expect_equal(
     sims_simulate("x ~ dunif(0,1)
                              y <- x", stochastic = FALSE, latent = NA),
-    structure(list(structure(list(y = 0.342673102637473), class = "nlist")), class = "nlists")
+    nlist::nlists(nlist(y = 0.342673102637473))
   )
 })
 
@@ -703,19 +699,19 @@ test_that("latent nodes", {
   expect_equal(
     sims_simulate("x ~ dunif(0,1)
                              y <- x", stochastic = NA, latent = NA),
-    structure(list(structure(list(x = 0.342673102637473, y = 0.342673102637473), class = "nlist")), class = "nlists")
+    nlist::nlists(nlist(x = 0.342673102637473, y = 0.342673102637473))
   )
   set.seed(101)
   expect_equal(
     sims_simulate("x ~ dunif(0,1)
                              y <- x", stochastic = NA, latent = FALSE),
-    structure(list(structure(list(y = 0.342673102637473), class = "nlist")), class = "nlists")
+    nlist::nlists(nlist(y = 0.342673102637473))
   )
   set.seed(101)
   expect_equal(
     sims_simulate("x ~ dunif(0,1)
                              y <- x", stochastic = NA, latent = TRUE),
-    structure(list(structure(list(x = 0.342673102637473), class = "nlist")), class = "nlists")
+    nlist::nlists(nlist(x = 0.342673102637473))
   )
 })
 
@@ -726,10 +722,10 @@ test_that("latent, stochastic nodes", {
                               x2 ~ dnorm(y,1)
                               y <- 2
                               y2 <- x2", stochastic = NA, latent = NA),
-    structure(list(structure(list(
+    nlist::nlists(nlist(
       x = 0.574752916346771, x2 = 0.912021637658974,
       y = 2, y2 = 0.912021637658974
-    ), class = "nlist")), class = "nlists")
+    ))
   )
   set.seed(101)
   expect_equal(
@@ -737,7 +733,7 @@ test_that("latent, stochastic nodes", {
                               x2 ~ dnorm(y,1)
                               y <- 2
                               y2 <- x2", stochastic = TRUE, latent = NA),
-    structure(list(structure(list(x = 0.574752916346771, x2 = 0.912021637658974), class = "nlist")), class = "nlists")
+    nlist::nlists(nlist(x = 0.574752916346771, x2 = 0.912021637658974))
   )
   set.seed(101)
   expect_equal(
@@ -745,7 +741,7 @@ test_that("latent, stochastic nodes", {
                               x2 ~ dnorm(y,1)
                               y <- 2
                               y2 <- x2", stochastic = FALSE, latent = NA),
-    structure(list(structure(list(y = 2, y2 = 0.912021637658974), class = "nlist")), class = "nlists")
+    nlist::nlists(nlist(y = 2, y2 = 0.912021637658974))
   )
   set.seed(101)
   expect_equal(
@@ -753,7 +749,7 @@ test_that("latent, stochastic nodes", {
                               x2 ~ dnorm(y,1)
                               y <- 2
                               y2 <- x2", stochastic = NA, latent = FALSE),
-    structure(list(structure(list(x = 0.574752916346771, y2 = 0.912021637658974), class = "nlist")), class = "nlists")
+    nlist::nlists(nlist(x = 0.574752916346771, y2 = 0.912021637658974))
   )
   set.seed(101)
   expect_equal(
@@ -761,7 +757,7 @@ test_that("latent, stochastic nodes", {
                               x2 ~ dnorm(y,1)
                               y <- 2
                               y2 <- x2", stochastic = NA, latent = TRUE),
-    structure(list(structure(list(x2 = 0.912021637658974, y = 2), class = "nlist")), class = "nlists")
+    nlist::nlists(nlist(x2 = 0.912021637658974, y = 2))
   )
   # note the nodes monitored affects the random draws
   set.seed(101)
@@ -770,7 +766,7 @@ test_that("latent, stochastic nodes", {
                               x2 ~ dnorm(y,1)
                               y <- 2
                               y2 <- x2", stochastic = TRUE, latent = FALSE),
-    structure(list(structure(list(x = 0.342673102637473), class = "nlist")), class = "nlists")
+    nlist::nlists(nlist(x = 0.342673102637473))
   )
   set.seed(101)
   expect_equal(
@@ -778,7 +774,7 @@ test_that("latent, stochastic nodes", {
                               x2 ~ dnorm(y,1)
                               y <- 2
                               y2 <- x2", stochastic = TRUE, latent = TRUE),
-    structure(list(structure(list(x2 = 0.912021637658974), class = "nlist")), class = "nlists")
+    nlist::nlists(nlist(x2 = 0.912021637658974))
   )
   set.seed(101)
   expect_equal(
@@ -786,7 +782,7 @@ test_that("latent, stochastic nodes", {
                               x2 ~ dnorm(y,1)
                               y <- 2
                               y2 <- x2", stochastic = FALSE, latent = FALSE),
-    structure(list(structure(list(y2 = 0.912021637658974), class = "nlist")), class = "nlists")
+    nlist::nlists(nlist(y2 = 0.912021637658974))
   )
   set.seed(101)
   expect_equal(
@@ -794,7 +790,7 @@ test_that("latent, stochastic nodes", {
                               x2 ~ dnorm(y,1)
                               y <- 2
                               y2 <- x2", stochastic = FALSE, latent = TRUE),
-    structure(list(structure(list(y = 2), class = "nlist")), class = "nlists")
+    nlist::nlists(nlist(y = 2))
   )
 })
 
@@ -805,7 +801,7 @@ test_that("latent, stochastic nodes with dots on end", {
                               x. ~ dnorm(y,1)
                               y <- 2
                               y. <- x.", stochastic = NA, latent = TRUE),
-    structure(list(structure(list(x. = 0.912021637658974, y = 2), class = "nlist")), class = "nlists")
+    nlist::nlists(nlist(x. = 0.912021637658974, y = 2))
   )
 })
 
@@ -823,7 +819,7 @@ test_that("handles =", {
     sims_simulate("Y = beta + epsilon
       beta ~ dnorm(0,1)
       epsilon ~ dnorm(0,1)", nsim = 1, latent = TRUE),
-    structure(list(structure(list(beta = 0.51630333187765, epsilon = -1.08797836234103), class = "nlist")), class = "nlists")
+    nlist::nlists(nlist(beta = 0.51630333187765, epsilon = -1.08797836234103))
   )
 
   set.seed(101)
@@ -831,10 +827,10 @@ test_that("handles =", {
     sims_simulate("Y = beta + epsilon
       beta ~ dnorm(0,1)
       epsilon ~ dnorm(0,1)", nsim = 1, latent = NA, stochastic = NA),
-    structure(list(structure(list(
+    nlist::nlists(nlist(
       Y = -0.571675030463376, beta = 0.51630333187765,
       epsilon = -1.08797836234103
-    ), class = "nlist")), class = "nlists")
+    ))
   )
 })
 
@@ -844,7 +840,7 @@ test_that("with [] latent variables", {
     sims_simulate("a ~ dt(theta[1],theta[2],df)",
       parameters = nlist(df = 1, theta = c(1, 1))
     ),
-    structure(list(structure(list(a = -0.787882623624165), class = "nlist")), class = "nlists")
+    nlist::nlists(nlist(a = -0.787882623624165))
   )
 })
 
@@ -853,14 +849,14 @@ test_that("strips comments before", {
   expect_equal(
     sims_simulate("b ~ dnorm(a, 1) 
                              # a ~ dunif(1)", parameters = list(a = 1)),
-    structure(list(structure(list(b = -0.0879783623410262), class = "nlist")), class = "nlists")
+    nlist::nlists(nlist(b = -0.0879783623410262))
   )
 
   set.seed(101)
   expect_equal(
     sims_simulate("a ~ dunif(0,1)
                              # x <- a"),
-    structure(list(structure(list(a = 0.342673102637473), class = "nlist")), class = "nlists")
+    nlist::nlists(nlist(a = 0.342673102637473))
   )
 })
 
@@ -868,25 +864,21 @@ test_that("with R code", {
   set.seed(101)
   expect_equal(
     sims_simulate("a <- runif(1, 0, 1)", stochastic = NA),
-    structure(list(structure(list(a = 0.637362094961879), class = "nlist")),
-      class = "nlists"
-    )
+    nlist::nlists(nlist(a = 0.637362094961879))
   )
   set.seed(101)
   expect_equal(
     sims_simulate("a <- runif(1, 0, 1)", stochastic = NA),
-    structure(list(structure(list(a = 0.637362094961879), class = "nlist")),
-      class = "nlists"
-    )
+    nlist::nlists(nlist(a = 0.637362094961879))
   )
   set.seed(100)
   expect_equal(
     sims_simulate("a <- runif(1, 0, 1)", stochastic = NA),
-    structure(list(structure(list(a = 0.959129601367507), class = "nlist")), class = "nlists")
+    nlist::nlists(nlist(a = 0.959129601367507))
   )
   expect_equal(
     sims_simulate("a <- runif(1, 0, 1)", stochastic = NA),
-    structure(list(structure(list(a = 0.267390680177431), class = "nlist")), class = "nlists")
+    nlist::nlists(nlist(a = 0.267390680177431))
   )
 
   expect_error(sims_simulate("a <- TRUE", stochastic = NA),
@@ -897,19 +889,19 @@ test_that("with R code", {
   expect_identical(
     sims_simulate("a <- 1
                              b <- a", stochastic = NA, latent = FALSE),
-    structure(list(structure(list(b = 1), class = "nlist")), class = "nlists")
+    nlist::nlists(nlist(b = 1))
   )
 
   expect_identical(
     sims_simulate("a <- 1
                              b <- a", stochastic = NA, latent = TRUE),
-    structure(list(structure(list(a = 1), class = "nlist")), class = "nlists")
+    nlist::nlists(nlist(a = 1))
   )
 
   expect_identical(
     sims_simulate("a <- 1
                              b <- a", stochastic = NA, latent = NA),
-    structure(list(structure(list(a = 1, b = 1), class = "nlist")), class = "nlists")
+    nlist::nlists(nlist(a = 1, b = 1))
   )
 
   expect_identical(
@@ -918,7 +910,7 @@ test_that("with R code", {
       stochastic = NA, latent = NA,
       constants = list(c = 2)
     ),
-    structure(list(structure(list(a = 2, b = 2, c = 2), class = "nlist")), class = "nlists")
+    nlist::nlists(nlist(a = 2, b = 2, c = 2))
   )
   expect_identical(
     sims_simulate("a <- c
@@ -926,7 +918,7 @@ test_that("with R code", {
       stochastic = NA, latent = NA,
       constants = list(c = 2), parameters = list(d = 3L)
     ),
-    structure(list(structure(list(a = 2, b = 3L, c = 2), class = "nlist")), class = "nlists")
+    nlist::nlists(nlist(a = 2, b = 3L, c = 2))
   )
   expect_identical(
     sims_simulate("a <- c
@@ -934,7 +926,7 @@ test_that("with R code", {
       monitor = "b", stochastic = NA, latent = NA,
       constants = list(c = 2), parameters = list(d = 3L)
     ),
-    structure(list(structure(list(b = 3L, c = 2), class = "nlist")), class = "nlists")
+    nlist::nlists(nlist(b = 3L, c = 2))
   )
   expect_error(
     sims_simulate("a <- not_a_fun(c)", stochastic = NA),
@@ -947,10 +939,9 @@ test_that("with R code in parallel", {
   set.seed(101)
   expect_equal(
     sims_simulate("a <- runif(1, 0, 1)", nsims = 2, ),
-    structure(list(
-      structure(list(a = 0.637362094961879), class = "nlist"),
-      structure(list(a = 0.889581146657672), class = "nlist")
-    ), class = "nlists")
+    nlist::nlists(nlist(a = 0.637362094961879),
+      nlist(a = 0.889581146657672)
+    )
   )
 
   options(mc.cores = 2)
@@ -960,10 +951,9 @@ test_that("with R code in parallel", {
   set.seed(101)
   expect_equal(
     sims_simulate("a <- runif(1, 0, 1)", nsims = 2),
-    structure(list(
-      structure(list(a = 0.637362094961879), class = "nlist"),
-      structure(list(a = 0.889581146657672), class = "nlist")
-    ), class = "nlists")
+    nlist::nlists(nlist(a = 0.637362094961879),
+      nlist(a = 0.889581146657672)
+    )
   )
 })
 
@@ -971,17 +961,17 @@ test_that("with R code and single stochastic node", {
   set.seed(101)
   expect_equal(
     sims_simulate("a <- runif(1, 0, 1)", stochastic = TRUE),
-    structure(list(structure(list(a = 0.637362094961879), class = "nlist")), class = "nlists")
+    nlist::nlists(nlist(a = 0.637362094961879))
   )
   set.seed(101)
   expect_equal(
     sims_simulate("a <- runif(1, 0, 1)", stochastic = NA),
-    structure(structure(list(structure(list(a = 0.637362094961879), class = "nlist")), class = "nlists"))
+    nlist::nlists(nlist(a = 0.637362094961879))
   )
   set.seed(101)
   expect_equal(
     sims_simulate("a <- runif(1, 0, 1)", stochastic = FALSE, rdists = character(0)),
-    structure(list(structure(list(a = 0.637362094961879), class = "nlist")), class = "nlists")
+    nlist::nlists(nlist(a = 0.637362094961879))
   )
   expect_error(sims_simulate("a <- runif(1, 0, 1)",
     stochastic = FALSE, latent = FALSE
@@ -996,33 +986,25 @@ test_that("with R code and stochastic and deterministic nodes", {
   expect_equal(
     sims_simulate("a <- runif(1, 0, 1)
                              b <- 1", stochastic = TRUE),
-    structure(list(structure(list(a = 0.637362094961879), class = "nlist")),
-      class = "nlists"
-    )
+    nlist::nlists(nlist(a = 0.637362094961879))
   )
   set.seed(101)
   expect_equal(
     sims_simulate("a <- runif(1, 0, 1)
                              b <- 1", stochastic = NA),
-    structure(list(structure(list(a = 0.637362094961879, b = 1), class = "nlist")),
-      class = "nlists"
-    )
+    nlist::nlists(nlist(a = 0.637362094961879, b = 1))
   )
   set.seed(101)
   expect_equal(
     sims_simulate("a <- runif(1, 0, 1)
                              b <- 1", stochastic = FALSE, rdists = character(0)),
-    structure(list(structure(list(a = 0.637362094961879, b = 1), class = "nlist")),
-      class = "nlists"
-    )
+    nlist::nlists(nlist(a = 0.637362094961879, b = 1))
   )
   set.seed(101)
   expect_equal(
     sims_simulate("a <- runif(1, 0, 1)
                              b <- 1", stochastic = FALSE),
-    structure(list(structure(list(b = 1), class = "nlist")),
-      class = "nlists"
-    )
+    nlist::nlists(nlist(b = 1))
   )
 })
 
@@ -1032,36 +1014,28 @@ test_that("with R code and stochastic and deterministic nodes and different rdis
     sims_simulate("a <- runif(1, 0, 1)
                              runif <- 1
                              b <- runif", stochastic = TRUE),
-    structure(list(structure(list(a = 0.637362094961879), class = "nlist")),
-      class = "nlists"
-    )
+    nlist::nlists(nlist(a = 0.637362094961879))
   )
   set.seed(101)
   expect_equal(
     sims_simulate("a <- runif(1, 0, 1)
                              runif <- 1
                              b <- runif", stochastic = NA, latent = FALSE),
-    structure(list(structure(list(a = 0.637362094961879, b = 1), class = "nlist")),
-      class = "nlists"
-    )
+    nlist::nlists(nlist(a = 0.637362094961879, b = 1))
   )
   set.seed(101)
   expect_equal(
     sims_simulate("a <- runif(1, 0, 1)
                              runif <- 1
                              b <- runif", stochastic = FALSE, latent = FALSE, rdists = character(0)),
-    structure(list(structure(list(a = 0.637362094961879, b = 1), class = "nlist")),
-      class = "nlists"
-    )
+    nlist::nlists(nlist(a = 0.637362094961879, b = 1))
   )
   set.seed(101)
   expect_equal(
     sims_simulate("a <- runif(1, 0, 1)
                              runif <- 1
                              b <- runif", stochastic = FALSE, latent = FALSE),
-    structure(list(structure(list(b = 1), class = "nlist")),
-      class = "nlists"
-    )
+    nlist::nlists(nlist(b = 1))
   )
 })
 
@@ -1092,10 +1066,10 @@ test_that("simulate array", {
   sims <- sims::sims_simulate("for(i in 1:2){
   M[i,1] ~ dnorm(0,1)
   M[i,2] <- 2}")
-  expect_equal(sims, structure(list(structure(list(M = structure(c(
+  expect_equal(sims, nlist::nlists(nlist(M = matrix(c(
     0.750048077250373,
     -0.52435401319, 2, 2
-  ), .Dim = c(2L, 2L))), class = "nlist")), class = "nlists"))
+  ), nrow = 2))))
 })
 
 test_that("progress", {

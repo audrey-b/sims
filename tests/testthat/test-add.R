@@ -19,19 +19,19 @@ test_that("sims_add", {
 
   expect_equal(
     readRDS(file.path(tempdir, "data0000001.rds")),
-    structure(list(a = 0.342673102637473), class = "nlist")
+    nlist(a = 0.342673102637473)
   )
   expect_equal(
     readRDS(file.path(tempdir, "data0000002.rds")),
-    structure(list(a = 0.0584777028255878), class = "nlist")
+    nlist(a = 0.0584777028255878)
   )
 
   expect_identical(
     sims_info(tempdir),
     list(
-      code = "model{a ~ dunif(0,1)}\n", constants =
-        structure(list(), .Names = character(0), class = "nlist"),
-      parameters = structure(list(), .Names = character(0), class = "nlist"),
+      code = "model{a ~ dunif(0,1)}\n", 
+      constants = nlist(),
+      parameters = nlist(),
       monitor = "a", nsims = 3L, seed = c(
         10403L, 624L, 853008081L,
         -1946219938L, 421532487L, -755954980L, 862903853L, -1354943734L,
@@ -188,19 +188,19 @@ test_that("sims_add R", {
 
   expect_equal(
     readRDS(file.path(tempdir, "data0000001.rds")),
-    structure(list(a = 0.637362094961879), class = "nlist")
+    nlist(a = 0.637362094961879)
   )
   expect_equal(
     readRDS(file.path(tempdir, "data0000002.rds")),
-    structure(list(a = 0.889581146657672), class = "nlist")
+    nlist(a = 0.889581146657672)
   )
 
   expect_identical(
     sims_info(tempdir),
     list(
-      code = "a <- runif(1,0,1)", constants =
-        structure(list(), .Names = character(0), class = "nlist"),
-      parameters = structure(list(), .Names = character(0), class = "nlist"),
+      code = "a <- runif(1,0,1)", 
+      constants = nlist(),
+      parameters = nlist(),
       monitor = "a", nsims = 3L, seed = c(
         10403L, 624L, 853008081L,
         -1946219938L, 421532487L, -755954980L, 862903853L, -1354943734L,
@@ -351,11 +351,11 @@ test_that("sims_add parallel", {
 
   expect_equal(
     readRDS(file.path(tempdir, "data0000001.rds")),
-    structure(list(a = 0.342673102637473), class = "nlist")
+    nlist(a = 0.342673102637473)
   )
   expect_equal(
     readRDS(file.path(tempdir, "data0000002.rds")),
-    structure(list(a = 0.0584777028255878), class = "nlist")
+    nlist(a = 0.0584777028255878)
   )
 })
 
@@ -370,7 +370,7 @@ test_that("progress", {
 
   expect_equal(
     readRDS(file.path(tempdir, "data0000002.rds")),
-    structure(list(a = 0.0584777028255878), class = "nlist")
+    nlist(a = 0.0584777028255878)
   )
 
   skip("only visually test add progress bar at console")
