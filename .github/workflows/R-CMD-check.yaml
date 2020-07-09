@@ -2,7 +2,7 @@ on:
   push:
     branches:
       - master
-      - progress
+      - suggests
   pull_request:
     branches:
       - master
