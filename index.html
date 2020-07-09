@@ -14,7 +14,9 @@
 <script src="pkgdown.js"></script><meta property="og:title" content="Simulate Data from JAGS or R Code">
 <meta property="og:description" content="Generates data from JAGS or R code for use in simulation studies.
     The data are returned as an nlist::nlists object and/or saved to file as 
-    individual .rds files.">
+    individual .rds files. 
+    Parallelization is implemented using the future package.
+    Progress is reported using the progressr package.">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -72,7 +74,7 @@
 <a href="#sims" class="anchor"></a>sims</h1></div>
 <!-- badges: start -->
 
-<p>sims is an R package to generate datasets from <a href="http://mcmc-jags.sourceforge.net">JAGS</a> or R code for use in simulation studies. The datasets are returned as an <a href="https://github.com/poissonconsulting/nlist">nlists</a> object and/or saved to file as individual .rds files.</p>
+<p>sims is an R package to generate datasets from <a href="http://mcmc-jags.sourceforge.net">JAGS</a> or R code for use in simulation studies. The datasets are returned as an <a href="https://github.com/poissonconsulting/nlist">nlists</a> object and/or saved to file as individual .rds files. Parallelization is implemented using the ‘future’ package. Progress is reported using the ‘progressr’ package.</p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
