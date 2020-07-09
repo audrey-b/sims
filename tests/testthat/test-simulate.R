@@ -1108,9 +1108,10 @@ test_that("save parallel", {
     path = tempdir,
     ask = FALSE
   ))
+  # sort to ensure matching order on all operating systems
   expect_identical(
-    list.files(tempdir, all.files = TRUE, recursive = TRUE),
-    c(".sims.rds", "data0000001.rds")
+    sort(list.files(tempdir, all.files = TRUE, recursive = TRUE)),
+    sort(c(".sims.rds", "data0000001.rds"))
   )
 })
 
