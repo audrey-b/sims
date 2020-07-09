@@ -158,20 +158,22 @@ test_that("sims_check", {
   file.remove(file.path(tempdir, "data0000001.rds"))
   expect_error(
     sims_check(path = tempdir),
-    "^Number of data files [(]1[)] does not match number of simulations [(]2[)][.]$"
+    paste0("^Number of data files [(]1[)] does not match number of simulations",
+    " [(]2[)][.]$")
   )
   file.remove(file.path(tempdir, "data0000002.rds"))
   expect_error(
     sims_check(path = tempdir),
-    "^Number of data files [(]0[)] does not match number of simulations [(]2[)][.]$"
+    paste0("^Number of data files [(]0[)] does not match number of simulations",
+           " [(]2[)][.]$")
   )
-
 
   file.create(file.path(tempdir, "data0000001.rds"))
   file.create(file.path(tempdir, "data0000003.rds"))
   expect_error(
     sims_check(path = tempdir),
-    "^Data file names are not consistent withthe number of simulations [(]2[)][.]$"
+    paste0("^Data file names are not consistent with the number of",
+    " simulations [(]2[)][.]$")
   )
   file.remove(file.path(tempdir, ".sims.rds"))
   expect_error(

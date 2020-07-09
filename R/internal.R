@@ -93,9 +93,9 @@ latent_nodes <- function(x, nodes, latent) {
   if (is.na(latent) || !length(nodes)) {
     return(nodes)
   }
-  nodes. <- gsub("[.]", "[.]", nodes)
+  nodes2 <- gsub("[.]", "[.]", nodes)
   patterns <- p0(
-    "([~]|([<][-])|(=))[^\n;]*\\b", nodes.,
+    "([~]|([<][-])|(=))[^\n;]*\\b", nodes2,
     "([^[:alnum:]_.]|\n|$)"
   )
   lateo <- vapply(patterns, grepl, TRUE, x = x)

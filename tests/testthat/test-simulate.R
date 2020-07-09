@@ -41,18 +41,21 @@ test_that("test match at least one node", {
       monitor = "b",
       stochastic = TRUE, latent = FALSE
     ),
-    "^`monitor` must match at least one of the following observed stochastic variable nodes: 'a'[.]$"
+    paste0("^`monitor` must match at least one of the following",
+    " observed stochastic variable nodes: 'a'[.]$")
   )
   expect_error(
     sims_simulate("a ~ dunif(1)", list(x = 1), monitor = "b"),
-    "^`monitor` must match at least one of the following variable nodes: 'a'[.]$"
+    paste0("^`monitor` must match at least one of the following variable",
+    " nodes: 'a'[.]$")
   )
   expect_error(
     sims_simulate("a ~ dunif(1)", list(x = 1),
       monitor = "b",
       stochastic = FALSE, latent = FALSE
     ),
-    "^JAGS code must include at least one observed deterministic variable node[.]$"
+    paste0("^JAGS code must include at least one observed",
+    " deterministic variable node[.]$")
   )
   expect_error(
     sims_simulate("a ~ dunif(1)", list(x = 1),
@@ -67,7 +70,8 @@ test_that("test match at least one node", {
       monitor = "b",
       stochastic = FALSE, latent = FALSE
     ),
-    "^`monitor` must match at least one of the following observed deterministic variable nodes: 'a2'[.]$"
+    paste0("^`monitor` must match at least one of the following",
+    " observed deterministic variable nodes: 'a2'[.]$")
   )
   expect_error(
     sims_simulate("a ~ dunif(1)
@@ -75,7 +79,8 @@ test_that("test match at least one node", {
       monitor = "b",
       stochastic = FALSE
     ),
-    "^`monitor` must match at least one of the following deterministic variable nodes: 'a2'[.]$"
+    paste0("^`monitor` must match at least one of the following",
+    " deterministic variable nodes: 'a2'[.]$")
   )
   expect_error(
     sims_simulate("a ~ dunif(1)
@@ -83,7 +88,8 @@ test_that("test match at least one node", {
       monitor = "b",
       stochastic = NA, latent = NA
     ),
-    "^`monitor` must match at least one of the following variable nodes: 'a' or 'a2'[.]$"
+    paste0("^`monitor` must match at least one of the following",
+    " variable nodes: 'a' or 'a2'[.]$")
   )
 })
 
@@ -190,7 +196,7 @@ test_that("save", {
 
 test_that("gets deterministic nodes", {
   generative_model <- "
-for (i in 1:length(year)){
+for (i in 1:length(year)) {
   cc[i] ~ dpois(lambda[i])
   log(lambda[i]) <- alpha + beta1 * year[i]
 }
@@ -520,7 +526,8 @@ test_that("monitor", {
       monitor = c("a", "a"),
       stochastic = TRUE, latent = FALSE
     ),
-    "^`monitor` must include at least one of the following observed stochastic variable nodes: 'ab'[.]$"
+    paste0("^`monitor` must include at least one of the following",
+    " observed stochastic variable nodes: 'ab'[.]$")
   )
 
   expect_error(
@@ -528,7 +535,8 @@ test_that("monitor", {
       monitor = c("a", "a"),
       stochastic = FALSE, latent = FALSE
     ),
-    "^JAGS code must include at least one observed deterministic variable node[.]$"
+    paste0("^JAGS code must include at least one observed deterministic",
+    " variable node[.]$")
   )
 
   expect_error(
@@ -544,7 +552,8 @@ test_that("monitor", {
       monitor = c("ab", "a"),
       stochastic = TRUE, latent = FALSE
     ),
-    "^The following in `monitor` are not observed stochastic variable nodes: 'a'[.]$"
+    paste0("^The following in `monitor` are not observed",
+    " stochastic variable nodes: 'a'[.]$")
   )
 })
 
@@ -554,7 +563,8 @@ test_that("append constants", {
       monitor = c("a", "a"),
       stochastic = TRUE, latent = FALSE
     ),
-    "^`monitor` must include at least one of the following observed stochastic variable nodes: 'ab'[.]"
+    paste0("^`monitor` must include at least one of the following",
+    " observed stochastic variable nodes: 'ab'[.]")
   )
 
   expect_warning(
@@ -562,7 +572,8 @@ test_that("append constants", {
       monitor = c("ab", "a"),
       stochastic = TRUE, latent = FALSE
     ),
-    "^The following in `monitor` are not observed stochastic variable nodes: 'a'[.]$"
+    paste0("^The following in `monitor` are not observed",
+    " stochastic variable nodes: 'a'[.]$")
   )
 })
 
@@ -883,7 +894,7 @@ test_that("with [] latent variables", {
 test_that("strips comments before", {
   set.seed(101)
   expect_equal(
-    sims_simulate("b ~ dnorm(a, 1) 
+    sims_simulate("b ~ dnorm(a, 1)
                              # a ~ dunif(1)", parameters = list(a = 1)),
     nlist::nlists(nlist(b = -0.0879783623410262))
   )
@@ -1008,7 +1019,8 @@ test_that("with R code and single stochastic node", {
   )
   set.seed(101)
   expect_equal(
-    sims_simulate("a <- runif(1, 0, 1)", stochastic = FALSE, rdists = character(0)),
+    sims_simulate("a <- runif(1, 0, 1)", stochastic = FALSE,
+                  rdists = character(0)),
     nlist::nlists(nlist(a = 0.637362094961879))
   )
   expect_error(sims_simulate("a <- runif(1, 0, 1)",
@@ -1016,7 +1028,8 @@ test_that("with R code and single stochastic node", {
   ), "R code must include at least one observed deterministic variable node.")
   expect_error(sims_simulate("a <- runif(1, 0, 1)",
     stochastic = TRUE, rdists = character(0)
-  ), "^R code must include at least one stochastic variable node[.] Did you mean to set `rdists` = character[(]0[)]\\?$")
+  ), paste0("^R code must include at least one stochastic variable node[.]",
+  " Did you mean to set `rdists` = character[(]0[)]\\?$"))
 })
 
 test_that("with R code and stochastic and deterministic nodes", {
@@ -1035,7 +1048,8 @@ test_that("with R code and stochastic and deterministic nodes", {
   set.seed(101)
   expect_equal(
     sims_simulate("a <- runif(1, 0, 1)
-                             b <- 1", stochastic = FALSE, rdists = character(0)),
+                             b <- 1",
+                  stochastic = FALSE, rdists = character(0)),
     nlist::nlists(nlist(a = 0.637362094961879, b = 1))
   )
   set.seed(101)
@@ -1046,7 +1060,7 @@ test_that("with R code and stochastic and deterministic nodes", {
   )
 })
 
-test_that("with R code and stochastic and deterministic nodes and different rdist", {
+test_that("with R code & stochastic & deterministic nodes & different rdist", {
   set.seed(101)
   expect_equal(
     sims_simulate("a <- runif(1, 0, 1)
@@ -1065,7 +1079,8 @@ test_that("with R code and stochastic and deterministic nodes and different rdis
   expect_equal(
     sims_simulate("a <- runif(1, 0, 1)
                              runif <- 1
-                             b <- runif", stochastic = FALSE, latent = FALSE, rdists = character(0)),
+                             b <- runif", stochastic = FALSE,
+                  latent = FALSE, rdists = character(0)),
     nlist::nlists(nlist(a = 0.637362094961879, b = 1))
   )
   set.seed(101)
@@ -1101,7 +1116,7 @@ test_that("save parallel", {
 
 test_that("simulate array", {
   set.seed(10)
-  sims <- sims::sims_simulate("for(i in 1:2){
+  sims <- sims::sims_simulate("for(i in 1:2) {
   M[i,1] ~ dnorm(0,1)
   M[i,2] <- 2}")
   expect_equal(sims, nlist::nlists(nlist(M = matrix(c(
