@@ -191,20 +191,23 @@ the datasets are returned as an <code>nlists</code> object and saved in <code>pa
     </tr>
     <tr>
       <th>path</th>
-      <td><p>A string specifying the path to the directory to save the data sets in.</p></td>
+      <td><p>A string specifying the path to the directory to save
+the data sets in.</p></td>
     </tr>
     <tr>
       <th>exists</th>
-      <td><p>A flag specifying whether the <code>path</code> directory should already exist
-(if <code>exists = NA</code> it doesn't matter).</p></td>
+      <td><p>A flag specifying whether the <code>path</code> directory should
+already exist (if <code>exists = NA</code> it doesn't matter).</p></td>
     </tr>
     <tr>
       <th>rdists</th>
-      <td><p>A character vector specifying the R functions to recognize as stochastic.</p></td>
+      <td><p>A character vector specifying the R functions to recognize
+as stochastic.</p></td>
     </tr>
     <tr>
       <th>ask</th>
-      <td><p>A flag specifying whether to ask before deleting sims compatible files.</p></td>
+      <td><p>A flag specifying whether to ask before deleting sims
+compatible files.</p></td>
     </tr>
     <tr>
       <th>silent</th>
@@ -215,11 +218,12 @@ the datasets are returned as an <code>nlists</code> object and saved in <code>pa
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>By default an <code><a href='https://rdrr.io/pkg/nlist/man/nlists.html'>nlist::nlists_object()</a></code> of the simulated data.
-Otherwise if <code>path</code> is defined saves the datasets as individual <code>.rds</code> files and
-returns TRUE.</p>
+Otherwise if <code>path</code> is defined saves the datasets as individual <code>.rds</code>
+files and returns TRUE.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>JAGS code is identified by the presence of '~' indicating a stochastic variable node.
+    <p>JAGS code is identified by the presence of '~' indicating a
+stochastic variable node.
 Otherwise code is assumed to be R code and stochastic variable nodes
 are those where assignment is immediately succeeded
 by a call to one of the functions named in <code>rdists</code>.</p>
