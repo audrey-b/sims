@@ -10,7 +10,7 @@ Description: Generates data from R or 'JAGS' code for use in simulation studies.
     individual '.rds' files. 
     Parallelization is implemented using the 'future' package.
     Progress is reported using the 'progressr' package.
-License: GPL-3
+License: MIT + file LICENSE
 Depends: 
     R (>= 3.6)
 Imports:
