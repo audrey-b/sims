@@ -49,7 +49,7 @@
 #' observed and latent (NA), only latent (TRUE)
 #' or only observed nodes (FALSE).
 #' @param nsims A whole number between 1 and 1,000,000 specifying
-#' the number of data sets to simulate. By default 100 data sets are simulated.
+#' the number of data sets to simulate. By default 1 data set is simulated.
 #' @param save A flag specifying whether to return the data sets as
 #' an `nlists` object or save in `path`. If `save = NA`
 #' the datasets are returned as an `nlists` object and saved in `path`.
