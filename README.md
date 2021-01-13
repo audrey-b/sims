@@ -12,7 +12,7 @@ status](https://github.com/poissonconsulting/sims/workflows/R-CMD-check/badge.sv
 [![Codecov test
 coverage](https://codecov.io/gh/poissonconsulting/sims/branch/master/graph/badge.svg)](https://codecov.io/gh/poissonconsulting/sims?branch=master)
 [![License:
-GPL3](https://img.shields.io/badge/License-GPL3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.html)
+MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/sims)](https://cran.r-project.org/package=sims)
 ![CRAN downloads](http://cranlogs.r-pkg.org/badges/sims)
