@@ -45,7 +45,7 @@ observed and latent (NA), only latent (TRUE)
 or only observed nodes (FALSE).}
 
 \item{nsims}{A whole number between 1 and 1,000,000 specifying
-the number of data sets to simulate. By default 100 data sets are simulated.}
+the number of data sets to simulate. By default 1 data set is simulated.}
 
 \item{save}{A flag specifying whether to return the data sets as
 an \code{nlists} object or save in \code{path}. If \code{save = NA}
