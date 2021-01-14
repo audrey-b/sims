@@ -1,3 +1,8 @@
+# sims 0.0.2
+
+- Same as previous version.
+
+
 # sims 0.0.1.9001
 
 - Internal changes only.
