@@ -77,6 +77,10 @@ file.remove(file.path(paste0(tempdir(), "_copy"), "data0000005.rds"))
 sims_check(path = paste0(tempdir(), "_copy"))
 ```
 
+```{r, echo = FALSE}
+unlink(paste0(tempdir(), "_copy"), recursive = TRUE, force = TRUE) # required to clean up detritus
+```
+
 ## Parallelization
 
 Parallelization is implemented using the [future](https://github.com/HenrikBengtsson/future) package.
