@@ -12,6 +12,7 @@ release 4.0.3
 
 0 errors | 0 warnings | 1 note
 
-Maintainer: ‘Joe Thorley <joe@poissonconsulting.ca>’
+* checking CRAN incoming feasibility ... NOTE
+Maintainer: 'Joe Thorley <joe@poissonconsulting.ca>'
 
 New submission
