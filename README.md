@@ -29,8 +29,15 @@ Progress is reported using the
 
 ## Installation
 
-To install the developmental version from
-[GitHub](https://github.com/poissonconsulting/sims)
+You can install the released version of sims from
+[CRAN](https://CRAN.R-project.org) with:
+
+``` r
+install.packages("sims")
+```
+
+And the development version from
+[GitHub](https://github.com/poissonconsulting/sims) with:
 
 ``` r
 # install.packages("remotes")
