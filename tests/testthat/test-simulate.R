@@ -1,5 +1,3 @@
-context("sims-simulate")
-
 test_that("test inputs", {
   expect_error(sims_simulate(1),
     "`code` must be a string [(]non-missing character scalar[)].",

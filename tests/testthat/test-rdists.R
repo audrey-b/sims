@@ -1,5 +1,3 @@
-context("sims-rdists")
-
 test_that("sims_rdists", {
   expect_identical(
     sims_rdists(),

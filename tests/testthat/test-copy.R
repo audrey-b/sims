@@ -1,5 +1,3 @@
-context("sims-copy")
-
 test_that("sims_copy", {
   tempdir <- file.path(tempdir(), "sims")
   unlink(tempdir, recursive = TRUE)

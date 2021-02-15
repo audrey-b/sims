@@ -1,5 +1,3 @@
-context("rjags")
-
 test_that("parallel.seeds is currently not reproducible", {
   set.seed(11)
   seed1 <- rjags::parallel.seeds("base::BaseRNG", 1)

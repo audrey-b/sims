@@ -1,5 +1,3 @@
-context("internal")
-
 test_that("strip comments works", {
   expect_identical(
     strip_comments("x <- 1 # a comment"),
