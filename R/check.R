@@ -5,8 +5,7 @@
 #' The checks include whether number and names of the data files
 #' in the directory are consistent with the number of simulations.
 #'
-#' @param path A string of the path to the directory with the simulated data.
-#'
+#' @inheritParams params
 #' @return An informative error or invisible list of the argument values.
 #' @export
 #'

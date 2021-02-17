@@ -2,8 +2,7 @@
 #'
 #' Gets the names of the simulated data files.
 #'
-#' @param path A string of the path to the directory with the simulated data.
-#'
+#' @inheritParams params
 #' @return A character vector of the names of the simulated data files.
 #' @export
 #' @examples

@@ -3,9 +3,7 @@
 #' Gets the simulated datasets as an [nlist::nlists_object()].
 #' There is no guarantee that all the datasets will fit in memory.
 #'
-#' @param path A string of the path to the directory with
-#' the simulated data files.
-#'
+#' @inheritParams params
 #' @return An [nlist::nlists_object()] of the simulated datasets.
 #' @export
 #' @examples
