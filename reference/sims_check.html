@@ -8,6 +8,13 @@
 
 <title>Check Simulated Data — sims_check • sims</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -41,6 +48,7 @@
 
 <meta property="og:title" content="Check Simulated Data — sims_check" />
 <meta property="og:description" content="Checks the simulated data argument values in the '.sims.rds' file." />
+<meta property="og:image" content="/logo.png" />
 
 
 
@@ -120,7 +128,7 @@
     <p>Checks the simulated data argument values in the '.sims.rds' file.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>sims_check</span><span class='op'>(</span>path <span class='op'>=</span> <span class='st'>"."</span><span class='op'>)</span></pre>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>sims_check</span><span class='op'>(</span>path <span class='op'>=</span> <span class='st'>"."</span><span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -140,134 +148,136 @@
 in the directory are consistent with the number of simulations.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span>
-<span class='fu'><a href='sims_simulate.html'>sims_simulate</a></span><span class='op'>(</span><span class='st'>"a ~ dunif(0,1)"</span>,
-  save <span class='op'>=</span> <span class='cn'>TRUE</span>, path <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span>, exists <span class='op'>=</span> <span class='cn'>NA</span>,
-  ask <span class='op'>=</span> <span class='cn'>FALSE</span>
-<span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='op'>(</span><span class='fu'>sims_check</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $code
-#&gt; [1] "model{a ~ dunif(0,1)}\n"
-#&gt; 
-#&gt; $constants
-#&gt; an nlist object with 0 numeric elements
-#&gt; 
-#&gt; $parameters
-#&gt; an nlist object with 0 numeric elements
-#&gt; 
-#&gt; $monitor
-#&gt; [1] "a"
-#&gt; 
-#&gt; $nsims
-#&gt; [1] 1
-#&gt; 
-#&gt; $seed
-#&gt;   [1]       10403         624  -334963450  1398295503 -2057488444 -1086415883
-#&gt;   [7]  -284994510  -450693621   965252560 -1748269167  1802431518 -1779525113
-#&gt;  [13]  -940920164 -1264651539 -1467248438 -1629015101   814242344   602683913
-#&gt;  [19]   -47845834 -1834057921  -781117324 -1908246299 -1002213278   119011451
-#&gt;  [25]  -565495424   229149569   177095502  -257631369  -291518132   -59175459
-#&gt;  [31]  1619088122   734012467  -286878760 -1744937991   -44807322  1874497199
-#&gt;  [37] -2142100188   315527637   514300050 -1484351765 -1822701264  1927777137
-#&gt;  [43]  1357932158  1815378151  -921728004  1468720333   212115754   489566371
-#&gt;  [49]  -417842808 -2099643927  -735644522  -768378337  1787518420 -1020139835
-#&gt;  [55] -1099772734   588632411    91571424 -1740142751   445142446 -2127269289
-#&gt;  [61] -1826293076 -1341950019 -1751614630 -1632085741  -818394312   387847129
-#&gt;  [67]   502327750   529547663  -613956988 -1183090763  1151864050 -1876121653
-#&gt;  [73]  1611836560 -1907916975   269029598  1576781767  -745859748 -1949186387
-#&gt;  [79]  1690296714  1302699395   874629352  1059695049  1539648246 -1425545985
-#&gt;  [85]  1089622836 -1552268123  1661622562   787618363   -43057088 -1792642239
-#&gt;  [91]  -689596402  1453422903   195877900   -56307299 -2143431750 -1459814925
-#&gt;  [97]   695186072 -1927562311   594982950   630285423  -604631068 -1296216683
-#&gt; [103]   203206994  -649254741   377831408   216228657  1095822142  1425835687
-#&gt; [109]  1739935420 -1880385395  -822783510 -2121958813  -109246392   718490025
-#&gt; [115]  1335398742   233029599  1878915220 -1936485755 -1558047358  1927598875
-#&gt; [121]  1930455968  1698516769  2117995118  1218703383  1854893420  1054153597
-#&gt; [127]  1049189402  1774588627  -714814984  -907062375   796767878   544601935
-#&gt; [133]  -212529852   973869941   740132274  1495275915   428573520   229848849
-#&gt; [139]  1231025566 -1762740857 -1310312420  1582324333  -178458038   637912899
-#&gt; [145] -2063468632 -1815160439 -1220991050  -947975489  1057377780   401985637
-#&gt; [151]  2077360610  -752485381   -13531392  1703156481   455716046 -1963731209
-#&gt; [157]  2116333260 -1895017123 -2104290182   474716083   384799064   428923769
-#&gt; [163] -1348606746 -1963591121 -1092830556  -958412459  1740802578 -2116191637
-#&gt; [169] -1208125776 -1414595855  1489907710  -980790169 -1971990148 -1384641459
-#&gt; [175]   235848362 -1000438749 -1870096632  1142184297  -432083434 -2137930337
-#&gt; [181]   560157524   454622789  -164487614  -806513445   648696416  -286075167
-#&gt; [187] -2076147922 -1387713065 -1463508948 -1044218051 -2005730086   398822547
-#&gt; [193] -1645737800  1140347737  1567572806 -1144427249   132454404   212889397
-#&gt; [199] -1910260110  1639795531   749935120   -36786479  1815321182  -561552569
-#&gt; [205]  1975261916  -270881235  -618478838    29864195  1105782376 -2120496823
-#&gt; [211]  2084693110 -1110183809 -1234368332 -1485497307   660236962 -2056020549
-#&gt; [217]  1515376064  1451328193  1545240974 -1688472393   147276172  1735366941
-#&gt; [223]   406918458  -815009421 -2044317672 -1927431367  1049219494  -441954321
-#&gt; [229] -1010424476   -84540139  2052661970 -1560835029 -1635488400   386552497
-#&gt; [235]  1277703358  1000202791 -1542384580  1408253965 -1431243926 -1619440157
-#&gt; [241]   721085896   240986409  1692011222  -537031841  -914657772   176302597
-#&gt; [247]   811788034 -1410328933  -150800096  -316137823   290436078 -1662768233
-#&gt; [253]  1686409964  -863264003 -2045420134  -763967917  1468139384 -1258745063
-#&gt; [259] -1534750714   390767311   332915396 -1121416459   326809394 -1950073589
-#&gt; [265]   541683920   106555025 -1924923618 -1836723961  -238240356 -1003437587
-#&gt; [271]  1456559050  2058050243  1234605352   676362505  -677420746   600217151
-#&gt; [277]  1374061428  -843569179  1046713186 -1751449733  1167250560    -2184575
-#&gt; [283]  -562555314  1436144247   777294924  -108094243 -1308109318  -870446285
-#&gt; [289]    97750744  -142451975   754613862   996697519  1165119524 -1161821995
-#&gt; [295]  1285585810   -27566613 -1327881168  -692753807 -1877018242  -185126937
-#&gt; [301]  -414771460  -418106419  1167844394 -1936336989   127136904 -1989297943
-#&gt; [307]  1479141270 -1578692321  1929791700 -1232136763 -1972080702   950818907
-#&gt; [313]  2061131744  -677566879  -903108434  -986388137 -2070985300 -1292859715
-#&gt; [319]   137395802 -2087075821  -252525000   212964057 -1048535866   414816399
-#&gt; [325]  -772969084 -1758173515   618819570  2029317835   990807952 -1894457775
-#&gt; [331] -2125388834  -794165561 -1193795492   521311661  1764271242  -361708413
-#&gt; [337]   986383336  1739385033 -1240359434  1326906367  2083700276  -964758619
-#&gt; [343]  1504541730   459022651 -1213097152 -1185181119 -1493013746  1198354487
-#&gt; [349]   831301388  2032754845 -2136516934  -601758477  -457724520   679393977
-#&gt; [355] -1750078682  1375091567  1587624676   838712469 -1487367086   365490091
-#&gt; [361] -1782670608   846217777  1500675646  -279560793  1188551100 -1968969843
-#&gt; [367]  1066374378  -982245021   622052168  1963329705   216958038   -66169121
-#&gt; [373]  -389815404   989839749   -47794046  1742887451   149980832  -435032543
-#&gt; [379]   328490350 -1812240617 -1415268244 -2001655171 -1618714854  -722568749
-#&gt; [385]   419054840   -85863783   824207750  1708543567 -1125795772 -1500249483
-#&gt; [391]  -350558030 -1961926517 -2084413872 -1077963247  -585430882  1991502983
-#&gt; [397]   496911132    71313773  -756501174  1792536131  1950757544  -546236279
-#&gt; [403] -1000826186  1434788287  1611774196 -1920368795  -772266782  -495516933
-#&gt; [409]  1735336448 -1699202559  2054782926 -1097413129   355432908  -637541283
-#&gt; [415]  1960810362 -1992851789   831687768 -1345136007  1533679590 -1357786833
-#&gt; [421]  -367860316  1282357333   323054866   721437035 -1275997776   838523377
-#&gt; [427] -1662860546  -394589337  1971543164   576674637 -1186200150  1137978147
-#&gt; [433]  1111118344  1357256809 -1880628970  -466396001 -1250673068  1939090757
-#&gt; [439]  1094304066  -346940453 -1207603872   273053153   306827822   922199255
-#&gt; [445]  1015343916   562925117 -1664024614   808776595  1045988280  -280374695
-#&gt; [451]   807728710  1684063247   260096772 -1224253899  1323573618  -472673717
-#&gt; [457] -1054542576 -2145776175  -178148002   576952903   853485020   930708781
-#&gt; [463]   349275658  -710879229   348660072  -279115703  1865701238   215025535
-#&gt; [469]  -398232652  -560477403 -1073508958  2125178043  -880056128  2075435457
-#&gt; [475]  -576891762  -925504585 -1677914996  -808310755  1064343610   488560755
-#&gt; [481] -1155257576  -583091655   350815398 -1736759569 -2105061276 -1244367851
-#&gt; [487]  -652540462  1069634347   842254448 -1659555407   254789566  1579522343
-#&gt; [493]  -435577028  1376161549 -1819199894 -1049234205  -574119736  1556998185
-#&gt; [499] -1378484778   269886047   601315604   -66299643  -814904830   884710811
-#&gt; [505]  1591284768   234536353 -1425275154 -1679187305  1508892140   289780221
-#&gt; [511]   282484890 -1087558317 -1882357128   430543385 -1152498938   974715343
-#&gt; [517]  -998339132  1414429173  -117564878  1694598155  2046184400  2011448721
-#&gt; [523]  -555412962   830015495  -883242852  1014927597  1872959178  -997490237
-#&gt; [529]   -82784216 -1221543927  -479931338   180006207 -1081610636   896128741
-#&gt; [535]   -57690526  1102710395   449212288  -200226431   355330382   871025015
-#&gt; [541]  1219845964  -832558115  1360681210 -1583877581   271354328 -1065199111
-#&gt; [547]   552382822   334642351 -2101445852  -638750763    27614866   365700331
-#&gt; [553]  -146505936   -75544207   622431358 -1911167257  -886398468  2103018189
-#&gt; [559]  1864312618 -1206288733   914075528 -1736607767  -210183530  -176773089
-#&gt; [565]  1051538388   807945413  -528346430  1977540443 -1809089824  1458488673
-#&gt; [571] -2103772242  1888575575  -425357140 -1415998019  -866877094  1805068051
-#&gt; [577]   -65453768  1774260697 -1889775674  -859902065 -1767958396  -903260747
-#&gt; [583]  1378407154 -1336330805  -185179504   249445713  1852126942 -1045154361
-#&gt; [589]  2043751260  1460626605  -467834998 -1856509053  -975159576   380381129
-#&gt; [595]   229249270 -1526590721  1352608052  -843079003   542940962  1029843003
-#&gt; [601]  1272985152  1535947073   636173838 -1919588553  1578660364   157937565
-#&gt; [607]  -627254854  -530396173  2137761944   694008249 -1674240474  -415821201
-#&gt; [613]    91776484  -461755499  1436579666   786478763 -1444678160 -1795612367
-#&gt; [619]   325062974  1980495015   396780732  -937937267 -1397368854  1635698787
-#&gt; [625]  1259765320 -1011562583
-#&gt; </div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='sims_simulate.html'>sims_simulate</a></span><span class='op'>(</span><span class='st'>"a ~ dunif(0,1)"</span>,</span>
+<span class='r-in'>  save <span class='op'>=</span> <span class='cn'>TRUE</span>, path <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span>, exists <span class='op'>=</span> <span class='cn'>NA</span>,</span>
+<span class='r-in'>  ask <span class='op'>=</span> <span class='cn'>FALSE</span></span>
+<span class='r-in'><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] TRUE</span>
+<span class='r-in'><span class='op'>(</span><span class='fu'>sims_check</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $code</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "model{a ~ dunif(0,1)}\n"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $constants</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> an nlist object with 0 numeric elements</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $parameters</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> an nlist object with 0 numeric elements</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $monitor</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "a"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $nsims</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $seed</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   [1]       10403         624  -334963450  1398295503 -2057488444 -1086415883</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   [7]  -284994510  -450693621   965252560 -1748269167  1802431518 -1779525113</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [13]  -940920164 -1264651539 -1467248438 -1629015101   814242344   602683913</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [19]   -47845834 -1834057921  -781117324 -1908246299 -1002213278   119011451</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [25]  -565495424   229149569   177095502  -257631369  -291518132   -59175459</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [31]  1619088122   734012467  -286878760 -1744937991   -44807322  1874497199</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [37] -2142100188   315527637   514300050 -1484351765 -1822701264  1927777137</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [43]  1357932158  1815378151  -921728004  1468720333   212115754   489566371</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [49]  -417842808 -2099643927  -735644522  -768378337  1787518420 -1020139835</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [55] -1099772734   588632411    91571424 -1740142751   445142446 -2127269289</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [61] -1826293076 -1341950019 -1751614630 -1632085741  -818394312   387847129</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [67]   502327750   529547663  -613956988 -1183090763  1151864050 -1876121653</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [73]  1611836560 -1907916975   269029598  1576781767  -745859748 -1949186387</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [79]  1690296714  1302699395   874629352  1059695049  1539648246 -1425545985</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [85]  1089622836 -1552268123  1661622562   787618363   -43057088 -1792642239</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [91]  -689596402  1453422903   195877900   -56307299 -2143431750 -1459814925</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [97]   695186072 -1927562311   594982950   630285423  -604631068 -1296216683</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [103]   203206994  -649254741   377831408   216228657  1095822142  1425835687</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [109]  1739935420 -1880385395  -822783510 -2121958813  -109246392   718490025</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [115]  1335398742   233029599  1878915220 -1936485755 -1558047358  1927598875</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [121]  1930455968  1698516769  2117995118  1218703383  1854893420  1054153597</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [127]  1049189402  1774588627  -714814984  -907062375   796767878   544601935</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [133]  -212529852   973869941   740132274  1495275915   428573520   229848849</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [139]  1231025566 -1762740857 -1310312420  1582324333  -178458038   637912899</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [145] -2063468632 -1815160439 -1220991050  -947975489  1057377780   401985637</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [151]  2077360610  -752485381   -13531392  1703156481   455716046 -1963731209</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [157]  2116333260 -1895017123 -2104290182   474716083   384799064   428923769</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [163] -1348606746 -1963591121 -1092830556  -958412459  1740802578 -2116191637</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [169] -1208125776 -1414595855  1489907710  -980790169 -1971990148 -1384641459</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [175]   235848362 -1000438749 -1870096632  1142184297  -432083434 -2137930337</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [181]   560157524   454622789  -164487614  -806513445   648696416  -286075167</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [187] -2076147922 -1387713065 -1463508948 -1044218051 -2005730086   398822547</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [193] -1645737800  1140347737  1567572806 -1144427249   132454404   212889397</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [199] -1910260110  1639795531   749935120   -36786479  1815321182  -561552569</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [205]  1975261916  -270881235  -618478838    29864195  1105782376 -2120496823</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [211]  2084693110 -1110183809 -1234368332 -1485497307   660236962 -2056020549</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [217]  1515376064  1451328193  1545240974 -1688472393   147276172  1735366941</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [223]   406918458  -815009421 -2044317672 -1927431367  1049219494  -441954321</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [229] -1010424476   -84540139  2052661970 -1560835029 -1635488400   386552497</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [235]  1277703358  1000202791 -1542384580  1408253965 -1431243926 -1619440157</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [241]   721085896   240986409  1692011222  -537031841  -914657772   176302597</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [247]   811788034 -1410328933  -150800096  -316137823   290436078 -1662768233</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [253]  1686409964  -863264003 -2045420134  -763967917  1468139384 -1258745063</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [259] -1534750714   390767311   332915396 -1121416459   326809394 -1950073589</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [265]   541683920   106555025 -1924923618 -1836723961  -238240356 -1003437587</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [271]  1456559050  2058050243  1234605352   676362505  -677420746   600217151</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [277]  1374061428  -843569179  1046713186 -1751449733  1167250560    -2184575</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [283]  -562555314  1436144247   777294924  -108094243 -1308109318  -870446285</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [289]    97750744  -142451975   754613862   996697519  1165119524 -1161821995</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [295]  1285585810   -27566613 -1327881168  -692753807 -1877018242  -185126937</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [301]  -414771460  -418106419  1167844394 -1936336989   127136904 -1989297943</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [307]  1479141270 -1578692321  1929791700 -1232136763 -1972080702   950818907</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [313]  2061131744  -677566879  -903108434  -986388137 -2070985300 -1292859715</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [319]   137395802 -2087075821  -252525000   212964057 -1048535866   414816399</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [325]  -772969084 -1758173515   618819570  2029317835   990807952 -1894457775</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [331] -2125388834  -794165561 -1193795492   521311661  1764271242  -361708413</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [337]   986383336  1739385033 -1240359434  1326906367  2083700276  -964758619</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [343]  1504541730   459022651 -1213097152 -1185181119 -1493013746  1198354487</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [349]   831301388  2032754845 -2136516934  -601758477  -457724520   679393977</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [355] -1750078682  1375091567  1587624676   838712469 -1487367086   365490091</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [361] -1782670608   846217777  1500675646  -279560793  1188551100 -1968969843</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [367]  1066374378  -982245021   622052168  1963329705   216958038   -66169121</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [373]  -389815404   989839749   -47794046  1742887451   149980832  -435032543</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [379]   328490350 -1812240617 -1415268244 -2001655171 -1618714854  -722568749</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [385]   419054840   -85863783   824207750  1708543567 -1125795772 -1500249483</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [391]  -350558030 -1961926517 -2084413872 -1077963247  -585430882  1991502983</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [397]   496911132    71313773  -756501174  1792536131  1950757544  -546236279</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [403] -1000826186  1434788287  1611774196 -1920368795  -772266782  -495516933</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [409]  1735336448 -1699202559  2054782926 -1097413129   355432908  -637541283</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [415]  1960810362 -1992851789   831687768 -1345136007  1533679590 -1357786833</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [421]  -367860316  1282357333   323054866   721437035 -1275997776   838523377</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [427] -1662860546  -394589337  1971543164   576674637 -1186200150  1137978147</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [433]  1111118344  1357256809 -1880628970  -466396001 -1250673068  1939090757</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [439]  1094304066  -346940453 -1207603872   273053153   306827822   922199255</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [445]  1015343916   562925117 -1664024614   808776595  1045988280  -280374695</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [451]   807728710  1684063247   260096772 -1224253899  1323573618  -472673717</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [457] -1054542576 -2145776175  -178148002   576952903   853485020   930708781</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [463]   349275658  -710879229   348660072  -279115703  1865701238   215025535</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [469]  -398232652  -560477403 -1073508958  2125178043  -880056128  2075435457</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [475]  -576891762  -925504585 -1677914996  -808310755  1064343610   488560755</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [481] -1155257576  -583091655   350815398 -1736759569 -2105061276 -1244367851</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [487]  -652540462  1069634347   842254448 -1659555407   254789566  1579522343</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [493]  -435577028  1376161549 -1819199894 -1049234205  -574119736  1556998185</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [499] -1378484778   269886047   601315604   -66299643  -814904830   884710811</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [505]  1591284768   234536353 -1425275154 -1679187305  1508892140   289780221</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [511]   282484890 -1087558317 -1882357128   430543385 -1152498938   974715343</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [517]  -998339132  1414429173  -117564878  1694598155  2046184400  2011448721</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [523]  -555412962   830015495  -883242852  1014927597  1872959178  -997490237</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [529]   -82784216 -1221543927  -479931338   180006207 -1081610636   896128741</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [535]   -57690526  1102710395   449212288  -200226431   355330382   871025015</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [541]  1219845964  -832558115  1360681210 -1583877581   271354328 -1065199111</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [547]   552382822   334642351 -2101445852  -638750763    27614866   365700331</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [553]  -146505936   -75544207   622431358 -1911167257  -886398468  2103018189</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [559]  1864312618 -1206288733   914075528 -1736607767  -210183530  -176773089</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [565]  1051538388   807945413  -528346430  1977540443 -1809089824  1458488673</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [571] -2103772242  1888575575  -425357140 -1415998019  -866877094  1805068051</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [577]   -65453768  1774260697 -1889775674  -859902065 -1767958396  -903260747</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [583]  1378407154 -1336330805  -185179504   249445713  1852126942 -1045154361</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [589]  2043751260  1460626605  -467834998 -1856509053  -975159576   380381129</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [595]   229249270 -1526590721  1352608052  -843079003   542940962  1029843003</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [601]  1272985152  1535947073   636173838 -1919588553  1578660364   157937565</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [607]  -627254854  -530396173  2137761944   694008249 -1674240474  -415821201</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [613]    91776484  -461755499  1436579666   786478763 -1444678160 -1795612367</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [619]   325062974  1980495015   396780732  -937937267 -1397368854  1635698787</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [625]  1259765320 -1011562583</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -279,11 +289,11 @@ in the directory are consistent with the number of simulations.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Audrey Beliveau, Joe Thorley.</p>
+  <p><p>Developed by Audrey Beliveau, Joe Thorley.</p></p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
+  <p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9001.</p></p>
 </div>
 
       </footer>
