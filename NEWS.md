@@ -2,22 +2,13 @@
 
 # sims 0.0.3
 
-- Same as previous version.
-
-
-# sims 0.0.2.9001
-
-- Same as previous version.
-
-
-# sims 0.0.2.9000
-
-- Internal changes only.
+- Use testthat 3.
 
 
 # sims 0.0.2
 
 - Internal changes only.
+
 
 # sims 0.0.1
 
