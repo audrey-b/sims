@@ -1,3 +1,10 @@
+<!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
+
+# sims 0.0.2.9001
+
+- Same as previous version.
+
+
 # sims 0.0.2.9000
 
 - Internal changes only.
