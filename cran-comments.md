@@ -11,3 +11,7 @@ release 4.1.1
 ## R CMD check results
 
 0 errors | 0 warnings | 0 notes
+
+## CRAN Package Check Results
+
+Fixed all CRAN Package Check [Results](https://cran.r-project.org/web/checks/check_results_sims.html) except for the ERROR on [r-release-macos-arm64](https://www.r-project.org/nosvn/R.check/r-release-macos-arm64/sims-00check.html) which is due to the rjags Package Check [ERROR](https://cran.r-project.org/web/checks/check_results_rjags.html).
