@@ -1,8 +1,10 @@
+CMD
 Codecov
-labelled
 Lifecycle
+Parallelization
+labelled
 nlist
 nlists
-Parallelization
 progressr
 rds
+testthat
