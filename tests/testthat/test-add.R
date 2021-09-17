@@ -2,7 +2,7 @@ test_that("sims_add", {
   tempdir <- file.path(tempdir(), "sims")
   unlink(tempdir, recursive = TRUE)
 
-  set.seed(101)
+  withr::local_seed(101)
   expect_true(sims_simulate("a ~ dunif(0,1)", path = tempdir, save = TRUE))
 
   expect_error(
@@ -166,7 +166,7 @@ test_that("sims_add options seed must be FALSE", {
   tempdir <- file.path(tempdir(), "sims")
   unlink(tempdir, recursive = TRUE)
 
-  set.seed(101)
+  withr::local_seed(101)
   expect_true(sims_simulate("a ~ dunif(0,1)", path = tempdir, save = TRUE))
 })
 
@@ -174,7 +174,7 @@ test_that("sims_add R", {
   tempdir <- file.path(tempdir(), "sims")
   unlink(tempdir, recursive = TRUE)
 
-  set.seed(101)
+  withr::local_seed(101)
   expect_true(sims_simulate("a <- runif(1,0,1)",
     silent = TRUE, path = tempdir, save = TRUE
   ))
@@ -337,7 +337,7 @@ test_that("sims_add parallel", {
 
   use_local_plan(future::multisession)
 
-  set.seed(101)
+  withr::local_seed(101)
   expect_true(sims_simulate("a ~ dunif(0,1)", path = tempdir, save = TRUE))
 
   expect_identical(
@@ -360,7 +360,7 @@ test_that("progress", {
   tempdir <- file.path(tempdir(), "sims")
   unlink(tempdir, recursive = TRUE)
 
-  set.seed(101)
+  withr::local_seed(101)
   expect_true(sims_simulate("a ~ dunif(0,1)", path = tempdir, save = TRUE))
   progressr::with_progress(x <- sims_add(nsims = 2L, path = tempdir))
 

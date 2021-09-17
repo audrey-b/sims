@@ -103,22 +103,22 @@ test_that("not in model or data block", {
 })
 
 test_that("generates data with replicability", {
-  set.seed(1)
+  withr::local_seed(1)
   expect_equal(
     sims_simulate("a ~ dunif(0,1)"),
     nlist::nlists(nlist(a = 0.749735354622374))
   )
-  set.seed(1)
+  withr::local_seed(1)
   expect_equal(
     sims_simulate("a ~ dunif(0,1)"),
     nlist::nlists(nlist(a = 0.749735354622374))
   )
-  set.seed(-1)
+  withr::local_seed(-1)
   expect_equal(
     sims_simulate("a ~ dunif(0,1)"),
     nlist::nlists(nlist(a = 0.315564033523335))
   )
-  set.seed(1)
+  withr::local_seed(1)
   expect_equal(
     sims_simulate("a ~ dunif(0,1)"),
     nlist::nlists(nlist(a = 0.749735354622374))
@@ -126,7 +126,7 @@ test_that("generates data with replicability", {
 })
 
 test_that("generates data with replicability if repeated calls", {
-  set.seed(1)
+  withr::local_seed(1)
   expect_equal(
     sims_simulate("a ~ dunif(0,1)"),
     nlist::nlists(nlist(a = 0.749735354622374))
@@ -139,7 +139,7 @@ test_that("generates data with replicability if repeated calls", {
     sims_simulate("a ~ dunif(0,1)"),
     nlist::nlists(nlist(a = 0.534957256848294))
   )
-  set.seed(1)
+  withr::local_seed(1)
   runif(1)
   expect_equal(
     sims_simulate("a ~ dunif(0,1)"),
@@ -149,7 +149,7 @@ test_that("generates data with replicability if repeated calls", {
     sims_simulate("a ~ dunif(0,1)"),
     nlist::nlists(nlist(a = 0.534957256848294))
   )
-  set.seed(1)
+  withr::local_seed(1)
   runif(2)
   expect_equal(
     sims_simulate("a ~ dunif(0,1)"),
@@ -161,12 +161,12 @@ test_that("save", {
   tempdir <- file.path(tempdir(), "sims")
   unlink(tempdir, recursive = TRUE)
 
-  set.seed(1)
+  withr::local_seed(1)
   expect_equal(
     sims_simulate("a ~ dunif(0,1)"),
     nlist::nlists(nlist(a = 0.749735354622374))
   )
-  set.seed(1)
+  withr::local_seed(1)
   expect_equal(
     sims_simulate("a ~ dunif(0,1)", save = NA, path = tempdir),
     nlist::nlists(nlist(a = 0.749735354622374))
@@ -179,7 +179,7 @@ test_that("save", {
     readRDS(file.path(tempdir, "data0000001.rds")),
     nlist(a = 0.749735354622374)
   )
-  set.seed(1)
+  withr::local_seed(1)
   unlink(tempdir, recursive = TRUE)
   expect_true(sims_simulate("a ~ dunif(0,1)", save = TRUE, path = tempdir))
   expect_identical(
@@ -206,7 +206,7 @@ rand ~ dnorm(0,1)
 
   constants <- nlist(year = 1:5)
 
-  set.seed(2)
+  withr::local_seed(2)
   expect_equal(
     sims_simulate(generative_model,
       constants = constants,
@@ -232,7 +232,7 @@ test_that("gets deterministic nodes with R code", {
 
   constants <- nlist(year = 1:5)
 
-  set.seed(2)
+  withr::local_seed(2)
   expect_equal(
     sims_simulate(generative_model,
       constants = constants,
@@ -250,7 +250,7 @@ test_that("gets deterministic nodes with R code", {
 })
 
 test_that("nsims can take numeric", {
-  set.seed(101)
+  withr::local_seed(101)
   expect_equal(
     sims_simulate("a ~ dunif(0,1)"),
     nlist::nlists(nlist(a = 0.342673102637473))
@@ -258,7 +258,7 @@ test_that("nsims can take numeric", {
 })
 
 test_that("nsims > 1", {
-  set.seed(101)
+  withr::local_seed(101)
   expect_equal(
     sims_simulate("a ~ dunif(0,1)", nsims = 2L),
     nlist::nlists(
@@ -266,7 +266,7 @@ test_that("nsims > 1", {
       nlist(a = 0.0584777028255878)
     )
   )
-  set.seed(101)
+  withr::local_seed(101)
   expect_equal(
     sims_simulate("a ~ dunif(0,1)", nsims = 2L),
     nlist::nlists(
@@ -280,19 +280,19 @@ test_that("write replicable", {
   tempdir <- file.path(tempdir(), "sims")
   unlink(tempdir, recursive = TRUE)
 
-  set.seed(101)
+  withr::local_seed(101)
   expect_true(sims_simulate("a ~ dunif(0,1)", path = tempdir, save = TRUE))
   expect_error(
     sims_simulate("a ~ dunif(0,1)", path = tempdir, save = TRUE),
     "must not already exist"
   )
-  set.seed(101)
+  withr::local_seed(101)
   expect_true(sims_simulate("a ~ dunif(0,1)",
     path = tempdir, save = TRUE,
     exists = TRUE, ask = FALSE, silent = TRUE
   ))
 
-  set.seed(101)
+  withr::local_seed(101)
   expect_true(sims_simulate("a ~ dunif(0,1)",
     path = tempdir, save = TRUE,
     exists = TRUE, ask = FALSE, silent = TRUE
@@ -447,7 +447,7 @@ test_that("write replicable > 1", {
   tempdir <- file.path(tempdir(), "sims")
   unlink(tempdir, recursive = TRUE)
 
-  set.seed(101)
+  withr::local_seed(101)
   expect_true(sims_simulate("a ~ dunif(0,1)",
     nsims = 2L,
     path = tempdir, save = TRUE
@@ -460,12 +460,12 @@ test_that("write replicable > 1", {
     readRDS(file.path(tempdir, "data0000002.rds")),
     nlist(a = 0.0584777028255878)
   )
-  set.seed(101)
+  withr::local_seed(101)
   expect_error(
     sims_simulate("a ~ dunif(0,1)", nsims = 2L, path = tempdir, save = TRUE),
     "must not already exist"
   )
-  set.seed(101)
+  withr::local_seed(101)
   expect_true(sims_simulate("a ~ dunif(0,1)",
     nsims = 2L, path = tempdir, save = TRUE,
     exists = TRUE, ask = FALSE, silent = TRUE
@@ -478,7 +478,7 @@ test_that("write replicable > 1", {
     readRDS(file.path(tempdir, "data0000002.rds")),
     nlist(a = 0.0584777028255878)
   )
-  set.seed(100)
+  withr::local_seed(100)
   expect_true(sims_simulate("a ~ dunif(0,1)",
     path = tempdir, save = TRUE,
     exists = TRUE, ask = FALSE, silent = TRUE
@@ -488,7 +488,7 @@ test_that("write replicable > 1", {
     nlist(a = 0.771283060089858)
   )
   expect_identical(list.files(tempdir), "data0000001.rds")
-  set.seed(100)
+  withr::local_seed(100)
   expect_true(sims_simulate("a ~ dunif(0,1)",
     nsims = 2L, path = tempdir, save = TRUE,
     exists = TRUE, ask = FALSE, silent = TRUE
@@ -501,7 +501,7 @@ test_that("write replicable > 1", {
     readRDS(file.path(tempdir, "data0000002.rds")),
     nlist(a = 0.558316438218761)
   )
-  set.seed(101)
+  withr::local_seed(101)
   expect_true(sims_simulate("a ~ dunif(0,1)",
     path = tempdir, save = TRUE,
     exists = TRUE, ask = FALSE, silent = TRUE
@@ -513,7 +513,7 @@ test_that("write replicable > 1", {
 })
 
 test_that("monitor", {
-  set.seed(101)
+  withr::local_seed(101)
   expect_equal(
     sims_simulate("a ~ dunif(0,1)"),
     nlist::nlists(nlist(a = 0.342673102637473))
@@ -576,7 +576,7 @@ test_that("append constants", {
 })
 
 test_that("parallel with registered", {
-  set.seed(101)
+  withr::local_seed(101)
   expect_equal(
     sims_simulate("a ~ dunif(0,1)"),
     nlist::nlists(nlist(a = 0.342673102637473))
@@ -584,13 +584,13 @@ test_that("parallel with registered", {
 
   use_local_plan(future::multisession)
   
-  set.seed(101)
+  withr::local_seed(101)
   expect_equal(
     sims_simulate("a ~ dunif(0,1)"),
     nlist::nlists(nlist(a = 0.342673102637473))
   )
 
-  set.seed(101)
+  withr::local_seed(101)
   expect_equal(
     sims_simulate("a ~ dunif(0,1)", nsims = 2),
     nlist::nlists(
@@ -604,7 +604,7 @@ test_that("parallel with registered files", {
   tempdir <- file.path(tempdir(), "sims")
   unlink(tempdir, recursive = TRUE)
 
-  set.seed(101)
+  withr::local_seed(101)
   expect_true(sims_simulate("a ~ dunif(0,1)",
     nsims = 2L,
     path = tempdir, save = TRUE
@@ -619,7 +619,7 @@ test_that("parallel with registered files", {
   )
 
   expect_identical(list.files(tempdir), c("data0000001.rds", "data0000002.rds"))
-  set.seed(100)
+  withr::local_seed(100)
   expect_true(sims_simulate("a ~ dunif(0,1)",
     path = tempdir, save = TRUE,
     exists = TRUE, ask = FALSE, silent = TRUE
@@ -632,7 +632,7 @@ test_that("parallel with registered files", {
 
   use_local_plan(future::multisession)
   
-  set.seed(101)
+  withr::local_seed(101)
   expect_true(sims_simulate("a ~ dunif(0,1)",
     nsims = 2L, path = tempdir, save = TRUE,
     exists = TRUE, ask = FALSE, silent = TRUE
@@ -653,7 +653,7 @@ test_that("write existing with random file not touched", {
   tempdir <- file.path(tempdir(), "sims")
   unlink(tempdir, recursive = TRUE)
 
-  set.seed(101)
+  withr::local_seed(101)
   expect_true(sims_simulate("a ~ dunif(0,1)",
     nsims = 2L,
     path = tempdir, save = TRUE
@@ -696,7 +696,7 @@ test_that("write existing with random file not touched", {
 })
 
 test_that("names with dots and underscores", {
-  set.seed(101)
+  withr::local_seed(101)
   expect_equal(
     sims_simulate("x.y ~ dunif(0,1)", nsims = 2L),
     nlist::nlists(
@@ -704,7 +704,7 @@ test_that("names with dots and underscores", {
       nlist(x.y = 0.0584777028255878)
     )
   )
-  set.seed(101)
+  withr::local_seed(101)
   expect_equal(
     sims_simulate("x_y ~ dunif(0,1)", nsims = 2L),
     nlist::nlists(
@@ -715,19 +715,19 @@ test_that("names with dots and underscores", {
 })
 
 test_that("stochastic nodes", {
-  set.seed(101)
+  withr::local_seed(101)
   expect_equal(
     sims_simulate("x ~ dunif(0,1)
                              y <- x", stochastic = NA, latent = NA),
     nlist::nlists(nlist(x = 0.342673102637473, y = 0.342673102637473))
   )
-  set.seed(101)
+  withr::local_seed(101)
   expect_equal(
     sims_simulate("x ~ dunif(0,1)
                              y <- x", stochastic = TRUE, latent = NA),
     nlist::nlists(nlist(x = 0.342673102637473))
   )
-  set.seed(101)
+  withr::local_seed(101)
   expect_equal(
     sims_simulate("x ~ dunif(0,1)
                              y <- x", stochastic = FALSE, latent = NA),
@@ -736,19 +736,19 @@ test_that("stochastic nodes", {
 })
 
 test_that("latent nodes", {
-  set.seed(101)
+  withr::local_seed(101)
   expect_equal(
     sims_simulate("x ~ dunif(0,1)
                              y <- x", stochastic = NA, latent = NA),
     nlist::nlists(nlist(x = 0.342673102637473, y = 0.342673102637473))
   )
-  set.seed(101)
+  withr::local_seed(101)
   expect_equal(
     sims_simulate("x ~ dunif(0,1)
                              y <- x", stochastic = NA, latent = FALSE),
     nlist::nlists(nlist(y = 0.342673102637473))
   )
-  set.seed(101)
+  withr::local_seed(101)
   expect_equal(
     sims_simulate("x ~ dunif(0,1)
                              y <- x", stochastic = NA, latent = TRUE),
@@ -757,7 +757,7 @@ test_that("latent nodes", {
 })
 
 test_that("latent, stochastic nodes", {
-  set.seed(101)
+  withr::local_seed(101)
   expect_equal(
     sims_simulate("x ~ dunif(0,1)
                               x2 ~ dnorm(y,1)
@@ -768,7 +768,7 @@ test_that("latent, stochastic nodes", {
       y = 2, y2 = 0.912021637658974
     ))
   )
-  set.seed(101)
+  withr::local_seed(101)
   expect_equal(
     sims_simulate("x ~ dunif(0,1)
                               x2 ~ dnorm(y,1)
@@ -776,7 +776,7 @@ test_that("latent, stochastic nodes", {
                               y2 <- x2", stochastic = TRUE, latent = NA),
     nlist::nlists(nlist(x = 0.574752916346771, x2 = 0.912021637658974))
   )
-  set.seed(101)
+  withr::local_seed(101)
   expect_equal(
     sims_simulate("x ~ dunif(0,1)
                               x2 ~ dnorm(y,1)
@@ -784,7 +784,7 @@ test_that("latent, stochastic nodes", {
                               y2 <- x2", stochastic = FALSE, latent = NA),
     nlist::nlists(nlist(y = 2, y2 = 0.912021637658974))
   )
-  set.seed(101)
+  withr::local_seed(101)
   expect_equal(
     sims_simulate("x ~ dunif(0,1)
                               x2 ~ dnorm(y,1)
@@ -792,7 +792,7 @@ test_that("latent, stochastic nodes", {
                               y2 <- x2", stochastic = NA, latent = FALSE),
     nlist::nlists(nlist(x = 0.574752916346771, y2 = 0.912021637658974))
   )
-  set.seed(101)
+  withr::local_seed(101)
   expect_equal(
     sims_simulate("x ~ dunif(0,1)
                               x2 ~ dnorm(y,1)
@@ -801,7 +801,7 @@ test_that("latent, stochastic nodes", {
     nlist::nlists(nlist(x2 = 0.912021637658974, y = 2))
   )
   # note the nodes monitored affects the random draws
-  set.seed(101)
+  withr::local_seed(101)
   expect_equal(
     sims_simulate("x ~ dunif(0,1)
                               x2 ~ dnorm(y,1)
@@ -809,7 +809,7 @@ test_that("latent, stochastic nodes", {
                               y2 <- x2", stochastic = TRUE, latent = FALSE),
     nlist::nlists(nlist(x = 0.342673102637473))
   )
-  set.seed(101)
+  withr::local_seed(101)
   expect_equal(
     sims_simulate("x ~ dunif(0,1)
                               x2 ~ dnorm(y,1)
@@ -817,7 +817,7 @@ test_that("latent, stochastic nodes", {
                               y2 <- x2", stochastic = TRUE, latent = TRUE),
     nlist::nlists(nlist(x2 = 0.912021637658974))
   )
-  set.seed(101)
+  withr::local_seed(101)
   expect_equal(
     sims_simulate("x ~ dunif(0,1)
                               x2 ~ dnorm(y,1)
@@ -825,7 +825,7 @@ test_that("latent, stochastic nodes", {
                               y2 <- x2", stochastic = FALSE, latent = FALSE),
     nlist::nlists(nlist(y2 = 0.912021637658974))
   )
-  set.seed(101)
+  withr::local_seed(101)
   expect_equal(
     sims_simulate("x ~ dunif(0,1)
                               x2 ~ dnorm(y,1)
@@ -836,7 +836,7 @@ test_that("latent, stochastic nodes", {
 })
 
 test_that("latent, stochastic nodes with dots on end", {
-  set.seed(101)
+  withr::local_seed(101)
   expect_equal(
     sims_simulate("x ~ dunif(0,1)
                               x. ~ dnorm(y,1)
@@ -847,7 +847,7 @@ test_that("latent, stochastic nodes with dots on end", {
 })
 
 test_that("handles =", {
-  set.seed(101)
+  withr::local_seed(101)
   expect_error(
     sims_simulate("Y = beta + epsilon
       beta ~ dnorm(0,1)
@@ -855,7 +855,7 @@ test_that("handles =", {
     "^JAGS code must include at least one observed stochastic variable node[.]$"
   )
 
-  set.seed(101)
+  withr::local_seed(101)
   expect_equal(
     sims_simulate("Y = beta + epsilon
       beta ~ dnorm(0,1)
@@ -863,7 +863,7 @@ test_that("handles =", {
     nlist::nlists(nlist(beta = 0.51630333187765, epsilon = -1.08797836234103))
   )
 
-  set.seed(101)
+  withr::local_seed(101)
   expect_equal(
     sims_simulate("Y = beta + epsilon
       beta ~ dnorm(0,1)
@@ -876,7 +876,7 @@ test_that("handles =", {
 })
 
 test_that("with [] latent variables", {
-  set.seed(101)
+  withr::local_seed(101)
   expect_equal(
     sims_simulate("a ~ dt(theta[1],theta[2],df)",
       parameters = nlist(df = 1, theta = c(1, 1))
@@ -886,14 +886,14 @@ test_that("with [] latent variables", {
 })
 
 test_that("strips comments before", {
-  set.seed(101)
+  withr::local_seed(101)
   expect_equal(
     sims_simulate("b ~ dnorm(a, 1)
                              # a ~ dunif(1)", parameters = list(a = 1)),
     nlist::nlists(nlist(b = -0.0879783623410262))
   )
 
-  set.seed(101)
+  withr::local_seed(101)
   expect_equal(
     sims_simulate("a ~ dunif(0,1)
                              # x <- a"),
@@ -902,17 +902,17 @@ test_that("strips comments before", {
 })
 
 test_that("with R code", {
-  set.seed(101)
+  withr::local_seed(101)
   expect_equal(
     sims_simulate("a <- runif(1, 0, 1)", stochastic = NA),
     nlist::nlists(nlist(a = 0.637362094961879))
   )
-  set.seed(101)
+  withr::local_seed(101)
   expect_equal(
     sims_simulate("a <- runif(1, 0, 1)", stochastic = NA),
     nlist::nlists(nlist(a = 0.637362094961879))
   )
-  set.seed(100)
+  withr::local_seed(100)
   expect_equal(
     sims_simulate("a <- runif(1, 0, 1)", stochastic = NA),
     nlist::nlists(nlist(a = 0.959129601367507))
@@ -977,7 +977,7 @@ test_that("with R code", {
 
 
 test_that("with R code in parallel", {
-  set.seed(101)
+  withr::local_seed(101)
   expect_equal(
     sims_simulate("a <- runif(1, 0, 1)", nsims = 2, ),
     nlist::nlists(
@@ -988,7 +988,7 @@ test_that("with R code in parallel", {
 
   use_local_plan(future::multisession)
   
-  set.seed(101)
+  withr::local_seed(101)
   expect_equal(
     sims_simulate("a <- runif(1, 0, 1)", nsims = 2),
     nlist::nlists(
@@ -999,17 +999,17 @@ test_that("with R code in parallel", {
 })
 
 test_that("with R code and single stochastic node", {
-  set.seed(101)
+  withr::local_seed(101)
   expect_equal(
     sims_simulate("a <- runif(1, 0, 1)", stochastic = TRUE),
     nlist::nlists(nlist(a = 0.637362094961879))
   )
-  set.seed(101)
+  withr::local_seed(101)
   expect_equal(
     sims_simulate("a <- runif(1, 0, 1)", stochastic = NA),
     nlist::nlists(nlist(a = 0.637362094961879))
   )
-  set.seed(101)
+  withr::local_seed(101)
   expect_equal(
     sims_simulate("a <- runif(1, 0, 1)", stochastic = FALSE,
                   rdists = character(0)),
@@ -1025,26 +1025,26 @@ test_that("with R code and single stochastic node", {
 })
 
 test_that("with R code and stochastic and deterministic nodes", {
-  set.seed(101)
+  withr::local_seed(101)
   expect_equal(
     sims_simulate("a <- runif(1, 0, 1)
                              b <- 1", stochastic = TRUE),
     nlist::nlists(nlist(a = 0.637362094961879))
   )
-  set.seed(101)
+  withr::local_seed(101)
   expect_equal(
     sims_simulate("a <- runif(1, 0, 1)
                              b <- 1", stochastic = NA),
     nlist::nlists(nlist(a = 0.637362094961879, b = 1))
   )
-  set.seed(101)
+  withr::local_seed(101)
   expect_equal(
     sims_simulate("a <- runif(1, 0, 1)
                              b <- 1",
                   stochastic = FALSE, rdists = character(0)),
     nlist::nlists(nlist(a = 0.637362094961879, b = 1))
   )
-  set.seed(101)
+  withr::local_seed(101)
   expect_equal(
     sims_simulate("a <- runif(1, 0, 1)
                              b <- 1", stochastic = FALSE),
@@ -1053,21 +1053,21 @@ test_that("with R code and stochastic and deterministic nodes", {
 })
 
 test_that("with R code & stochastic & deterministic nodes & different rdist", {
-  set.seed(101)
+  withr::local_seed(101)
   expect_equal(
     sims_simulate("a <- runif(1, 0, 1)
                              runif <- 1
                              b <- runif", stochastic = TRUE),
     nlist::nlists(nlist(a = 0.637362094961879))
   )
-  set.seed(101)
+  withr::local_seed(101)
   expect_equal(
     sims_simulate("a <- runif(1, 0, 1)
                              runif <- 1
                              b <- runif", stochastic = NA, latent = FALSE),
     nlist::nlists(nlist(a = 0.637362094961879, b = 1))
   )
-  set.seed(101)
+  withr::local_seed(101)
   expect_equal(
     sims_simulate("a <- runif(1, 0, 1)
                              runif <- 1
@@ -1075,7 +1075,7 @@ test_that("with R code & stochastic & deterministic nodes & different rdist", {
                   latent = FALSE, rdists = character(0)),
     nlist::nlists(nlist(a = 0.637362094961879, b = 1))
   )
-  set.seed(101)
+  withr::local_seed(101)
   expect_equal(
     sims_simulate("a <- runif(1, 0, 1)
                              runif <- 1
@@ -1088,7 +1088,7 @@ test_that("save parallel", {
   tempdir <- withr::local_tempdir()
   unlink(tempdir, recursive = TRUE)
 
-  set.seed(1)
+  withr::local_seed(1)
 
   use_local_plan(future::multisession)
   
@@ -1105,7 +1105,7 @@ test_that("save parallel", {
 })
 
 test_that("simulate array", {
-  set.seed(10)
+  withr::local_seed(10)
   sims <- sims::sims_simulate("for(i in 1:2) {
   M[i,1] ~ dnorm(0,1)
   M[i,2] <- 2}")
@@ -1116,7 +1116,7 @@ test_that("simulate array", {
 })
 
 test_that("progress", {
-  set.seed(1)
+  withr::local_seed(1)
   progressr::with_progress(x <- sims_simulate("a ~ dunif(0,1)", nsims = 1L))
   expect_equal(
     x,
@@ -1132,7 +1132,7 @@ test_that("save getwd", {
   tempdir <- withr::local_tempdir()
   unlink(tempdir, recursive = TRUE)
 
-  set.seed(1)
+  withr::local_seed(1)
 
   dir.create(tempdir)
   wd <- setwd(tempdir)

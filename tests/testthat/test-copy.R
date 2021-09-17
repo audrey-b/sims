@@ -3,7 +3,7 @@ test_that("sims_copy", {
   unlink(tempdir, recursive = TRUE)
   unlink(paste0(tempdir, "_copy"), recursive = TRUE)
 
-  set.seed(101)
+  withr::local_seed(101)
   expect_true(sims_simulate("a ~ dunif(0,1)",
     nsims = 2L,
     path = tempdir, save = TRUE
@@ -173,7 +173,7 @@ test_that("sims_copy only deletes existing sims compatible files", {
   unlink(tempdir, recursive = TRUE)
   unlink(paste0(tempdir, "_copy"), recursive = TRUE)
 
-  set.seed(101)
+  withr::local_seed(101)
   expect_true(sims_simulate("a ~ dunif(0,1)",
     nsims = 2L,
     path = tempdir, save = TRUE
@@ -236,7 +236,7 @@ test_that("sims_copy does not copy sims incompatible files", {
   unlink(tempdir, recursive = TRUE)
   unlink(paste0(tempdir, "_copy"), recursive = TRUE)
 
-  set.seed(101)
+  withr::local_seed(101)
   expect_true(sims_simulate("a ~ dunif(0,1)",
     nsims = 2L,
     path = tempdir, save = TRUE
