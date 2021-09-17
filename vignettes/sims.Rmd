@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-sims is an R package to generate datasets from [JAGS](http://mcmc-jags.sourceforge.net) or R code for use in simulation studies.
+sims is an R package to generate datasets from [JAGS](https://mcmc-jags.sourceforge.io/) or R code for use in simulation studies.
 
 ## Simulating as `nlists` Objects
 

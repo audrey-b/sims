@@ -23,7 +23,7 @@ knitr::opts_chunk$set(
 ![CRAN downloads](http://cranlogs.r-pkg.org/badges/sims)
 <!-- badges: end -->
 
-sims is an R package to generate datasets from R or [JAGS](http://mcmc-jags.sourceforge.net) code for use in simulation studies.
+sims is an R package to generate datasets from R or [JAGS](https://mcmc-jags.sourceforge.io/) code for use in simulation studies.
 The datasets are returned as an [nlists](https://github.com/poissonconsulting/nlist) object and/or saved to file as individual .rds files.
 Parallelization is implemented using the  [future](https://github.com/HenrikBengtsson/future) package.
 Progress is reported using the [progressr](https://github.com/HenrikBengtsson/progressr) package.

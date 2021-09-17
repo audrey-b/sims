@@ -18,7 +18,7 @@ status](https://www.r-pkg.org/badges/version/sims)](https://cran.r-project.org/p
 <!-- badges: end -->
 
 sims is an R package to generate datasets from R or
-[JAGS](http://mcmc-jags.sourceforge.net) code for use in simulation
+[JAGS](https://mcmc-jags.sourceforge.io/) code for use in simulation
 studies. The datasets are returned as an
 [nlists](https://github.com/poissonconsulting/nlist) object and/or saved
 to file as individual .rds files. Parallelization is implemented using
