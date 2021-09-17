@@ -1130,13 +1130,10 @@ test_that("progress", {
 test_that("save getwd", {
   skip("only test getwd at console")
   tempdir <- withr::local_tempdir()
-  unlink(tempdir, recursive = TRUE)
 
   withr::local_seed(1)
 
-  dir.create(tempdir)
-  wd <- setwd(tempdir)
-  on.exit(setwd(wd))
+  withr::local_dir(tempdir)
   expect_true(sims_simulate("a ~ dunif(0,1)",
     save = TRUE, exists = NA,
     ask = FALSE
