@@ -335,9 +335,7 @@ test_that("sims_add parallel", {
   tempdir <- file.path(tempdir(), "sims")
   unlink(tempdir, recursive = TRUE)
 
-  options(mc.cores = 2)
-  future::plan(future::multisession)
-  teardown(future::plan(future::sequential))
+  use_local_plan(future::multisession)
 
   set.seed(101)
   expect_true(sims_simulate("a ~ dunif(0,1)", path = tempdir, save = TRUE))

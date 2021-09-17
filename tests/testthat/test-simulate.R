@@ -582,10 +582,8 @@ test_that("parallel with registered", {
     nlist::nlists(nlist(a = 0.342673102637473))
   )
 
-  options(mc.cores = 2)
-  future::plan(future::multisession)
-  teardown(future::plan(future::sequential))
-
+  use_local_plan(future::multisession)
+  
   set.seed(101)
   expect_equal(
     sims_simulate("a ~ dunif(0,1)"),
@@ -632,10 +630,8 @@ test_that("parallel with registered files", {
     nlist(a = 0.771283060089858)
   )
 
-  options(mc.cores = 2)
-  future::plan(future::multisession)
-  teardown(future::plan(future::sequential))
-
+  use_local_plan(future::multisession)
+  
   set.seed(101)
   expect_true(sims_simulate("a ~ dunif(0,1)",
     nsims = 2L, path = tempdir, save = TRUE,
@@ -990,10 +986,8 @@ test_that("with R code in parallel", {
     )
   )
 
-  options(mc.cores = 2)
-  future::plan(future::multisession)
-  teardown(future::plan(future::sequential))
-
+  use_local_plan(future::multisession)
+  
   set.seed(101)
   expect_equal(
     sims_simulate("a <- runif(1, 0, 1)", nsims = 2),
@@ -1091,16 +1085,13 @@ test_that("with R code & stochastic & deterministic nodes & different rdist", {
 })
 
 test_that("save parallel", {
-  tempdir <- file.path(tempdir(), "sims")
+  tempdir <- withr::local_tempdir()
   unlink(tempdir, recursive = TRUE)
-  teardown(unlink(tempdir, recursive = TRUE))
 
   set.seed(1)
 
-  options(mc.cores = 2)
-  future::plan(future::multisession)
-  teardown(future::plan(future::sequential))
-
+  use_local_plan(future::multisession)
+  
   expect_true(sims_simulate("a ~ dunif(0,1)",
     save = TRUE, exists = FALSE,
     path = tempdir,
@@ -1138,9 +1129,8 @@ test_that("progress", {
 
 test_that("save getwd", {
   skip("only test getwd at console")
-  tempdir <- file.path(tempdir(), "sims")
+  tempdir <- withr::local_tempdir()
   unlink(tempdir, recursive = TRUE)
-  teardown(unlink(tempdir, recursive = TRUE))
 
   set.seed(1)
 
