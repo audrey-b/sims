@@ -7,7 +7,7 @@
 #' @export
 #' @examples
 #' set.seed(10)
-#' sims_simulate("a ~ dunif(0,1)", path = tempdir(), exists = NA, ask = FALSE)
+#' sims_simulate("a <- runif(1)", path = tempdir(), exists = NA, ask = FALSE)
 #' sims_info(tempdir())
 sims_info <- function(path = ".") {
   chk_string(path)

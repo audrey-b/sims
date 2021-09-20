@@ -11,7 +11,7 @@
 #'
 #' @examples
 #' set.seed(10)
-#' sims_simulate("a ~ dunif(0,1)",
+#' sims_simulate("a <- runif(1)",
 #'   save = TRUE, path = tempdir(), exists = NA,
 #'   ask = FALSE
 #' )

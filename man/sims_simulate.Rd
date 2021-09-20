@@ -105,7 +105,7 @@ Parallelization is implemented using the future package.
 }
 \examples{
 set.seed(101)
-sims_simulate("a ~ dunif(0, 1)", path = tempdir(), exists = NA, ask = FALSE)
+sims_simulate("a <- runif(1)", path = tempdir(), exists = NA, ask = FALSE)
 }
 \seealso{
 \code{\link[=sims_rdists]{sims_rdists()}}

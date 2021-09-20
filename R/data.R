@@ -8,7 +8,7 @@
 #' @export
 #' @examples
 #' set.seed(10)
-#' sims_simulate("a ~ dunif(0,1)",
+#' sims_simulate("a <- runif(1)",
 #'   nsims = 10L, path = tempdir(),
 #'   exists = NA, ask = FALSE
 #' )

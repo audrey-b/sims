@@ -41,7 +41,7 @@
 #' @export
 #' @examples
 #' set.seed(101)
-#' sims_simulate("a ~ dunif(0, 1)", path = tempdir(), exists = NA, ask = FALSE)
+#' sims_simulate("a <- runif(1)", path = tempdir(), exists = NA, ask = FALSE)
 sims_simulate <- function(code,
                           constants = nlist::nlist(),
                           parameters = nlist::nlist(),

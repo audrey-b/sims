@@ -53,9 +53,9 @@ of an [nlists](https://github.com/poissonconsulting/nlist) object.
 ``` r
 library(sims)
 set.seed(10)
-sims_simulate("a ~ dunif(0,1)", nsims = 2L)
+sims_simulate("a <- runif(1)", nsims = 2L)
 #> $a
-#> [1] 0.6857306
+#> [1] 0.2213763
 #> 
 #> an nlists object of 2 nlist objects each with 1 numeric element
 ```
@@ -65,13 +65,13 @@ file in `path`.
 
 ``` r
 set.seed(10)
-sims_simulate("a ~ dunif(0,1)", nsims = 2L, save = TRUE, path = tempdir(), exists = NA)
+sims_simulate("a <- runif(1)", nsims = 2L, save = TRUE, path = tempdir(), exists = NA)
 #> [1] TRUE
 sims_data_files(tempdir())
 #> [1] "data0000001.rds" "data0000002.rds"
 sims_data(tempdir())
 #> $a
-#> [1] 0.6857306
+#> [1] 0.2213763
 #> 
 #> an nlists object of 2 nlist objects each with 1 numeric element
 ```

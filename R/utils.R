@@ -7,7 +7,6 @@ set_class <- function(x, class) {
 
 str_extract_all <- function(x, y) regmatches(x, gregexpr(y, x, perl = TRUE))
 
-
 get_random_seed <- function() {
   if (!exists(".Random.seed")) runif(1)
   .Random.seed

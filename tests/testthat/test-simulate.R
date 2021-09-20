@@ -27,6 +27,8 @@ test_that("test inputs", {
 })
 
 test_that("test nodes not already defined", {
+  skip_if_not_installed("rjags")
+  
   expect_error(
     sims_simulate("a ~ dunif(1)", nlist(a = 1)),
     "^The following variable nodes are defined in constants: 'a'[.]$"
@@ -34,6 +36,8 @@ test_that("test nodes not already defined", {
 })
 
 test_that("test match at least one node", {
+  skip_if_not_installed("rjags")
+  
   expect_error(
     sims_simulate("a ~ dunif(1)", list(x = 1),
       monitor = "b",
@@ -92,6 +96,8 @@ test_that("test match at least one node", {
 })
 
 test_that("not in model or data block", {
+  skip_if_not_installed("rjags")
+  
   expect_error(
     sims_simulate("model {a ~ dunif(1)}", nlist(x = 1), monitor = "a"),
     "^JAGS code must not be in a data or model block."
@@ -103,6 +109,8 @@ test_that("not in model or data block", {
 })
 
 test_that("generates data with replicability", {
+  skip_if_not_installed("rjags")
+  
   withr::local_seed(1)
   expect_equal(
     sims_simulate("a ~ dunif(0,1)"),
@@ -126,6 +134,8 @@ test_that("generates data with replicability", {
 })
 
 test_that("generates data with replicability if repeated calls", {
+  skip_if_not_installed("rjags")
+  
   withr::local_seed(1)
   expect_equal(
     sims_simulate("a ~ dunif(0,1)"),
@@ -158,6 +168,8 @@ test_that("generates data with replicability if repeated calls", {
 })
 
 test_that("save", {
+  skip_if_not_installed("rjags")
+  
   tempdir <- file.path(tempdir(), "sims")
   unlink(tempdir, recursive = TRUE)
 
@@ -193,6 +205,8 @@ test_that("save", {
 })
 
 test_that("gets deterministic nodes", {
+  skip_if_not_installed("rjags")
+  
   generative_model <- "
 for (i in 1:length(year)) {
   cc[i] ~ dpois(lambda[i])
@@ -250,6 +264,8 @@ test_that("gets deterministic nodes with R code", {
 })
 
 test_that("nsims can take numeric", {
+  skip_if_not_installed("rjags")
+  
   withr::local_seed(101)
   expect_equal(
     sims_simulate("a ~ dunif(0,1)"),
@@ -258,6 +274,8 @@ test_that("nsims can take numeric", {
 })
 
 test_that("nsims > 1", {
+  skip_if_not_installed("rjags")
+  
   withr::local_seed(101)
   expect_equal(
     sims_simulate("a ~ dunif(0,1)", nsims = 2L),
@@ -277,6 +295,8 @@ test_that("nsims > 1", {
 })
 
 test_that("write replicable", {
+  skip_if_not_installed("rjags")
+  
   tempdir <- file.path(tempdir(), "sims")
   unlink(tempdir, recursive = TRUE)
 
@@ -444,6 +464,8 @@ test_that("write replicable", {
 })
 
 test_that("write replicable > 1", {
+  skip_if_not_installed("rjags")
+  
   tempdir <- file.path(tempdir(), "sims")
   unlink(tempdir, recursive = TRUE)
 
@@ -513,6 +535,8 @@ test_that("write replicable > 1", {
 })
 
 test_that("monitor", {
+  skip_if_not_installed("rjags")
+  
   withr::local_seed(101)
   expect_equal(
     sims_simulate("a ~ dunif(0,1)"),
@@ -556,6 +580,8 @@ test_that("monitor", {
 })
 
 test_that("append constants", {
+  skip_if_not_installed("rjags")
+  
   expect_error(
     sims_simulate("ab ~ dunif(0,1)",
       monitor = c("a", "a"),
@@ -576,6 +602,8 @@ test_that("append constants", {
 })
 
 test_that("parallel with registered", {
+  skip_if_not_installed("rjags")
+  
   withr::local_seed(101)
   expect_equal(
     sims_simulate("a ~ dunif(0,1)"),
@@ -601,6 +629,8 @@ test_that("parallel with registered", {
 })
 
 test_that("parallel with registered files", {
+  skip_if_not_installed("rjags")
+  
   tempdir <- file.path(tempdir(), "sims")
   unlink(tempdir, recursive = TRUE)
 
@@ -650,6 +680,8 @@ test_that("parallel with registered files", {
 })
 
 test_that("write existing with random file not touched", {
+  skip_if_not_installed("rjags")
+  
   tempdir <- file.path(tempdir(), "sims")
   unlink(tempdir, recursive = TRUE)
 
@@ -696,6 +728,8 @@ test_that("write existing with random file not touched", {
 })
 
 test_that("names with dots and underscores", {
+  skip_if_not_installed("rjags")
+  
   withr::local_seed(101)
   expect_equal(
     sims_simulate("x.y ~ dunif(0,1)", nsims = 2L),
@@ -715,6 +749,8 @@ test_that("names with dots and underscores", {
 })
 
 test_that("stochastic nodes", {
+  skip_if_not_installed("rjags")
+  
   withr::local_seed(101)
   expect_equal(
     sims_simulate("x ~ dunif(0,1)
@@ -736,6 +772,8 @@ test_that("stochastic nodes", {
 })
 
 test_that("latent nodes", {
+  skip_if_not_installed("rjags")
+  
   withr::local_seed(101)
   expect_equal(
     sims_simulate("x ~ dunif(0,1)
@@ -757,6 +795,8 @@ test_that("latent nodes", {
 })
 
 test_that("latent, stochastic nodes", {
+  skip_if_not_installed("rjags")
+  
   withr::local_seed(101)
   expect_equal(
     sims_simulate("x ~ dunif(0,1)
@@ -836,6 +876,8 @@ test_that("latent, stochastic nodes", {
 })
 
 test_that("latent, stochastic nodes with dots on end", {
+  skip_if_not_installed("rjags")
+  
   withr::local_seed(101)
   expect_equal(
     sims_simulate("x ~ dunif(0,1)
@@ -847,6 +889,8 @@ test_that("latent, stochastic nodes with dots on end", {
 })
 
 test_that("handles =", {
+  skip_if_not_installed("rjags")
+  
   withr::local_seed(101)
   expect_error(
     sims_simulate("Y = beta + epsilon
@@ -876,6 +920,8 @@ test_that("handles =", {
 })
 
 test_that("with [] latent variables", {
+  skip_if_not_installed("rjags")
+  
   withr::local_seed(101)
   expect_equal(
     sims_simulate("a ~ dt(theta[1],theta[2],df)",
@@ -886,6 +932,8 @@ test_that("with [] latent variables", {
 })
 
 test_that("strips comments before", {
+  skip_if_not_installed("rjags")
+  
   withr::local_seed(101)
   expect_equal(
     sims_simulate("b ~ dnorm(a, 1)
@@ -1085,6 +1133,8 @@ test_that("with R code & stochastic & deterministic nodes & different rdist", {
 })
 
 test_that("save parallel", {
+  skip_if_not_installed("rjags")
+  
   tempdir <- withr::local_tempdir()
   unlink(tempdir, recursive = TRUE)
 
@@ -1105,6 +1155,8 @@ test_that("save parallel", {
 })
 
 test_that("simulate array", {
+  skip_if_not_installed("rjags")
+  
   withr::local_seed(10)
   sims <- sims::sims_simulate("for(i in 1:2) {
   M[i,1] ~ dnorm(0,1)
@@ -1116,6 +1168,8 @@ test_that("simulate array", {
 })
 
 test_that("progress", {
+  skip_if_not_installed("rjags")
+  
   withr::local_seed(1)
   progressr::with_progress(x <- sims_simulate("a ~ dunif(0,1)", nsims = 1L))
   expect_equal(
@@ -1128,6 +1182,8 @@ test_that("progress", {
 })
 
 test_that("save getwd", {
+  skip_if_not_installed("rjags")
+  
   skip("only test getwd at console")
   tempdir <- withr::local_tempdir()
 

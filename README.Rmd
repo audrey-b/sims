@@ -52,13 +52,13 @@ By default, `sims_simulate()` returns the simulated datasets in the form of an [
 ```{r example}
 library(sims)
 set.seed(10)
-sims_simulate("a ~ dunif(0,1)", nsims = 2L)
+sims_simulate("a <- runif(1)", nsims = 2L)
 ```
 
 If, however, `save = TRUE` then each nlist object is saved as an `.rds` file in `path`.
 ```{r}
 set.seed(10)
-sims_simulate("a ~ dunif(0,1)", nsims = 2L, save = TRUE, path = tempdir(), exists = NA)
+sims_simulate("a <- runif(1)", nsims = 2L, save = TRUE, path = tempdir(), exists = NA)
 sims_data_files(tempdir())
 sims_data(tempdir())
 ```
