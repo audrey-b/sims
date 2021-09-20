@@ -86,9 +86,9 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">sims</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>
-<span class="fu"><a href="../reference/sims_simulate.html">sims_simulate</a></span><span class="op">(</span><span class="st">"a ~ dunif(0,1)"</span>, nsims <span class="op">=</span> <span class="fl">2L</span><span class="op">)</span>
+<span class="fu"><a href="../reference/sims_simulate.html">sims_simulate</a></span><span class="op">(</span><span class="st">"a &lt;- runif(1)"</span>, nsims <span class="op">=</span> <span class="fl">2L</span><span class="op">)</span>
 <span class="co">#&gt; $a</span>
-<span class="co">#&gt; [1] 0.6857306</span>
+<span class="co">#&gt; [1] 0.2213763</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; an nlists object of 2 nlist objects each with 1 numeric element</span></code></pre></div>
 </div>
@@ -98,7 +98,7 @@
 <p>If, however, <code>save = TRUE</code> then each nlist object is saved as an <code>.rds</code> file in <code>path</code>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>
-<span class="fu"><a href="../reference/sims_simulate.html">sims_simulate</a></span><span class="op">(</span><span class="st">"a ~ dunif(0,1)"</span>, nsims <span class="op">=</span> <span class="fl">2L</span>, save <span class="op">=</span> <span class="cn">TRUE</span>, path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, exists <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span>
+<span class="fu"><a href="../reference/sims_simulate.html">sims_simulate</a></span><span class="op">(</span><span class="st">"a &lt;- runif(1)"</span>, nsims <span class="op">=</span> <span class="fl">2L</span>, save <span class="op">=</span> <span class="cn">TRUE</span>, path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, exists <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span>
 <span class="co">#&gt; [1] TRUE</span>
 <span class="fu"><a href="../reference/sims_data_files.html">sims_data_files</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; [1] "data0000001.rds" "data0000002.rds"</span></code></pre></div>
@@ -109,7 +109,7 @@
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/sims_data.html">sims_data</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; $a</span>
-<span class="co">#&gt; [1] 0.6857306</span>
+<span class="co">#&gt; [1] 0.2213763</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; an nlists object of 2 nlist objects each with 1 numeric element</span></code></pre></div>
 </div>
@@ -120,7 +120,7 @@
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/sims_info.html">sims_info</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>
 <span class="co">#&gt; $code</span>
-<span class="co">#&gt; [1] "model{a ~ dunif(0,1)}\n"</span>
+<span class="co">#&gt; [1] "a &lt;- runif(1)"</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $constants</span>
 <span class="co">#&gt; an nlist object with 0 numeric elements</span>
@@ -173,9 +173,9 @@
 <span class="fu"><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan</a></span><span class="op">(</span><span class="va">multisession</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>
-<span class="fu"><a href="../reference/sims_simulate.html">sims_simulate</a></span><span class="op">(</span><span class="st">"a ~ dunif(0,1)"</span>, nsims <span class="op">=</span> <span class="fl">2L</span><span class="op">)</span>
+<span class="fu"><a href="../reference/sims_simulate.html">sims_simulate</a></span><span class="op">(</span><span class="st">"a &lt;- runif(1)"</span>, nsims <span class="op">=</span> <span class="fl">2L</span><span class="op">)</span>
 <span class="co">#&gt; $a</span>
-<span class="co">#&gt; [1] 0.6857306</span>
+<span class="co">#&gt; [1] 0.2213763</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; an nlists object of 2 nlist objects each with 1 numeric element</span></code></pre></div>
 </div>
@@ -185,9 +185,9 @@
 <p>Progress is reported using the <a href="https://github.com/HenrikBengtsson/progressr" class="external-link">progressr</a> package as follows.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://progressr.futureverse.org" class="external-link">progressr</a></span><span class="op">)</span>
-<span class="fu"><a href="https://progressr.futureverse.org/reference/with_progress.html" class="external-link">with_progress</a></span><span class="op">(</span><span class="fu"><a href="../reference/sims_simulate.html">sims_simulate</a></span><span class="op">(</span><span class="st">"a ~ dunif(0,1)"</span>, nsims <span class="op">=</span> <span class="fl">1000L</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://progressr.futureverse.org/reference/with_progress.html" class="external-link">with_progress</a></span><span class="op">(</span><span class="fu"><a href="../reference/sims_simulate.html">sims_simulate</a></span><span class="op">(</span><span class="st">"a &lt;- runif(1)"</span>, nsims <span class="op">=</span> <span class="fl">1000L</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; $a</span>
-<span class="co">#&gt; [1] 0.4919414</span>
+<span class="co">#&gt; [1] 0.5248719</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; an nlists object of 1000 nlist objects each with 1 numeric element</span></code></pre></div>
 </div>
