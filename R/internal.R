@@ -234,16 +234,30 @@ generate_r <- function(code, data, monitor) {
 }
 
 generate_dataset <- function(sim, code, is_jags, constants, parameters, monitor,
-                             save, path, parallel, p) {
+                             save, path, parallel, p, reject=NULL) {
   if(!is.null(p)) p(message = "none")
   data <- c(constants, parameters)
   class(data) <- NULL
-
-  nlist <- if (is_jags) {
-    generate_jags(code = code, data = data, monitor = monitor)
-  } else {
-    generate_r(code = code, data = data, monitor = monitor)
+  
+  if(!is.null(reject)){
+    pass <- F
+    while(!pass){
+      nlist <- if (is_jags) {
+        generate_jags(code = code, data = data, monitor = monitor)
+      } else {
+        generate_r(code = code, data = data, monitor = monitor)
+      }
+      pass <- !reject(nlist)
+    }
+  }else{
+    nlist <- if (is_jags) {
+      generate_jags(code = code, data = data, monitor = monitor)
+    } else {
+      generate_r(code = code, data = data, monitor = monitor)
+    }
   }
+  
+
 
   nlist <- c(nlist, constants)
   if (!isFALSE(save)) saveRDS(nlist, file.path(path, data_file_name(sim)))
