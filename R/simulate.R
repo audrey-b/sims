@@ -54,7 +54,8 @@ sims_simulate <- function(code,
                           exists = FALSE,
                           rdists = sims_rdists(),
                           ask = getOption("sims.ask", TRUE),
-                          silent = FALSE) {
+                          silent = FALSE,
+                          reject = NULL) {
   if (is.list(constants) && !is_nlist(constants)) class(constants) <- "nlist"
   if (is.list(parameters) && !is_nlist(parameters)) class(parameters) <- "nlist"
 
@@ -93,6 +94,6 @@ sims_simulate <- function(code,
   generate_datasets(code, constants, parameters,
     monitor = monitor,
     nsims = nsims, save = save,
-    path = path
+    path = path, reject = reject
   )
 }

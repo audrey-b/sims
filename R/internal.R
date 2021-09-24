@@ -267,7 +267,7 @@ save_args <- function(path, ...) {
 }
 
 generate_datasets <- function(code, constants, parameters, monitor, nsims,
-                              save, path) {
+                              save, path, reject=NULL) {
   seed <- get_random_seed()
   on.exit(set_random_seed(seed, advance = TRUE))
 
@@ -297,7 +297,7 @@ generate_datasets <- function(code, constants, parameters, monitor, nsims,
     code = code, is_jags = is_jags,
     constants = constants, parameters = parameters,
     monitor = monitor, save = save,
-    path = path, future.seed = get_seed_streams(nsims), p = p
+    path = path, future.seed = get_seed_streams(nsims), p = p, reject=reject
   )
   if (isTRUE(save)) {
     return(TRUE)
