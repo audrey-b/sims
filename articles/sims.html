@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">sims</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.3.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.3.9000</span>
       </span>
     </div>
 
@@ -79,9 +79,9 @@
     
     
 <p>sims is an R package to generate datasets from <a href="https://mcmc-jags.sourceforge.io/" class="external-link">JAGS</a> or R code for use in simulation studies.</p>
-<div id="simulating-as-nlists-objects" class="section level2">
-<h2 class="hasAnchor">
-<a href="#simulating-as-nlists-objects" class="anchor" aria-hidden="true"></a>Simulating as <code>nlists</code> Objects</h2>
+<div class="section level2">
+<h2 id="simulating-as-nlists-objects">Simulating as <code>nlists</code> Objects<a class="anchor" aria-label="anchor" href="#simulating-as-nlists-objects"></a>
+</h2>
 <p>By default, <code><a href="../reference/sims_simulate.html">sims_simulate()</a></code> returns the simulated datasets in the form of an <a href="https://github.com/poissonconsulting/nlist" class="external-link">nlists</a> object.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">sims</span><span class="op">)</span>
@@ -92,9 +92,9 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; an nlists object of 2 nlist objects each with 1 numeric element</span></code></pre></div>
 </div>
-<div id="saving-as--rds-files" class="section level2">
-<h2 class="hasAnchor">
-<a href="#saving-as--rds-files" class="anchor" aria-hidden="true"></a>Saving as <code>.rds</code> Files</h2>
+<div class="section level2">
+<h2 id="saving-as--rds-files">Saving as <code>.rds</code> Files<a class="anchor" aria-label="anchor" href="#saving-as--rds-files"></a>
+</h2>
 <p>If, however, <code>save = TRUE</code> then each nlist object is saved as an <code>.rds</code> file in <code>path</code>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>
@@ -102,9 +102,9 @@
 <span class="co">#&gt; [1] TRUE</span>
 <span class="fu"><a href="../reference/sims_data_files.html">sims_data_files</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; [1] "data0000001.rds" "data0000002.rds"</span></code></pre></div>
-<div id="importing--rds-files" class="section level3">
-<h3 class="hasAnchor">
-<a href="#importing--rds-files" class="anchor" aria-hidden="true"></a>Importing <code>.rds</code> Files</h3>
+<div class="section level3">
+<h3 id="importing--rds-files">Importing <code>.rds</code> Files<a class="anchor" aria-label="anchor" href="#importing--rds-files"></a>
+</h3>
 <p>The datasets in the <code>.rds</code> files can be imported as an <code>nlists</code> object using <code><a href="../reference/sims_data.html">sims_data()</a></code>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/sims_data.html">sims_data</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
@@ -113,9 +113,9 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; an nlists object of 2 nlist objects each with 1 numeric element</span></code></pre></div>
 </div>
-<div id="adding--rds-files" class="section level3">
-<h3 class="hasAnchor">
-<a href="#adding--rds-files" class="anchor" aria-hidden="true"></a>Adding <code>.rds</code> Files</h3>
+<div class="section level3">
+<h3 id="adding--rds-files">Adding <code>.rds</code> Files<a class="anchor" aria-label="anchor" href="#adding--rds-files"></a>
+</h3>
 <p>The values including the <code>.Random.seed</code> (not printed) that were used to generate the datasets are saved in <code>.sims_args.rds</code> which can be imported using <code><a href="../reference/sims_info.html">sims_info()</a></code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/sims_info.html">sims_info</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>
@@ -141,31 +141,33 @@
 <span class="co">#&gt; [1] "data0000001.rds" "data0000002.rds" "data0000003.rds" "data0000004.rds"</span>
 <span class="co">#&gt; [5] "data0000005.rds"</span></code></pre></div>
 </div>
-<div id="copying--rds-files" class="section level3">
-<h3 class="hasAnchor">
-<a href="#copying--rds-files" class="anchor" aria-hidden="true"></a>Copying <code>.rds</code> Files</h3>
+<div class="section level3">
+<h3 id="copying--rds-files">Copying <code>.rds</code> Files<a class="anchor" aria-label="anchor" href="#copying--rds-files"></a>
+</h3>
 <p>If the user wishes to duplicate the datasets then they can either regenerate them by specifying a different path but the same seed (using <code><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed()</a></code>). Alternatively, they can copy the existing <code>.sims.rds</code> and datasets files to a new directory using <code><a href="../reference/sims_copy.html">sims_copy()</a></code></p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/sims_copy.html">sims_copy</a></span><span class="op">(</span>path_from <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, path_to <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"_copy"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; [1] "data0000001.rds" "data0000002.rds" "data0000003.rds" "data0000004.rds"</span>
 <span class="co">#&gt; [5] "data0000005.rds"</span></code></pre></div>
 </div>
-<div id="checking--rds-files" class="section level3">
-<h3 class="hasAnchor">
-<a href="#checking--rds-files" class="anchor" aria-hidden="true"></a>Checking <code>.rds</code> Files</h3>
+<div class="section level3">
+<h3 id="checking--rds-files">Checking <code>.rds</code> Files<a class="anchor" aria-label="anchor" href="#checking--rds-files"></a>
+</h3>
 <p>A user can check that all the datasets specified in <code>.sims.rds</code> are present using <code><a href="../reference/sims_check.html">sims_check()</a></code>.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/sims_check.html">sims_check</a></span><span class="op">(</span>path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"_copy"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.remove</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"_copy"</span><span class="op">)</span>, <span class="st">"data0000005.rds"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; [1] TRUE</span>
+
 <span class="fu"><a href="../reference/sims_check.html">sims_check</a></span><span class="op">(</span>path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"_copy"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; Error: Number of data files (4) does not match number of simulations (5).</span></code></pre></div>
+<span class="co">#&gt; <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;"> in `err()`:</span></span>
+<span class="co">#&gt; <span style="color: #BBBB00;">!</span> Number of data files (4) does not match number of simulations (5).</span></code></pre></div>
 </div>
 </div>
-<div id="parallelization" class="section level2">
-<h2 class="hasAnchor">
-<a href="#parallelization" class="anchor" aria-hidden="true"></a>Parallelization</h2>
+<div class="section level2">
+<h2 id="parallelization">Parallelization<a class="anchor" aria-label="anchor" href="#parallelization"></a>
+</h2>
 <p>Parallelization is implemented using the <a href="https://github.com/HenrikBengtsson/future" class="external-link">future</a> package.</p>
 <p>To use all available cores on the local machine simply execute the following code before calling <code><a href="../reference/sims_simulate.html">sims_simulate()</a></code>.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
@@ -179,9 +181,9 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; an nlists object of 2 nlist objects each with 1 numeric element</span></code></pre></div>
 </div>
-<div id="progress" class="section level2">
-<h2 class="hasAnchor">
-<a href="#progress" class="anchor" aria-hidden="true"></a>Progress</h2>
+<div class="section level2">
+<h2 id="progress">Progress<a class="anchor" aria-label="anchor" href="#progress"></a>
+</h2>
 <p>Progress is reported using the <a href="https://github.com/HenrikBengtsson/progressr" class="external-link">progressr</a> package as follows.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://progressr.futureverse.org" class="external-link">progressr</a></span><span class="op">)</span>
@@ -210,7 +212,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link external-link">pkgdown</a> 1.6.1.9001.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.9000.</p>
 </div>
 
       </footer>
