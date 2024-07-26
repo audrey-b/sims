@@ -18,7 +18,7 @@ Description: Generates data from R or 'JAGS' code for use in simulation
     the 'progressr' package.
 License: MIT + file LICENSE
 Depends: 
-    R (>= 3.6.0)
+    R (>= 4.0.0)
 Imports:
     chk,
     future.apply,
