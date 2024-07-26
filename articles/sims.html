@@ -12,20 +12,19 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="Get Started with sims">
-<meta property="og:description" content="sims">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
-    
+
 
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -55,7 +54,14 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-<ul class="nav navbar-nav navbar-right"></ul>
+<ul class="nav navbar-nav navbar-right">
+<li>
+  <a href="https://github.com/poissonconsulting/sims/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
+
+  </a>
+</li>
+      </ul>
 </div>
 <!--/.nav-collapse -->
   </div>
@@ -63,143 +69,157 @@
 </div>
 <!--/.navbar -->
 
-      
 
-      </header><script src="sims_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Get Started with sims</h1>
             
       
-      
+      <small class="dont-index">Source: <a href="https://github.com/poissonconsulting/sims/blob/main/vignettes/sims.Rmd" class="external-link"><code>vignettes/sims.Rmd</code></a></small>
       <div class="hidden name"><code>sims.Rmd</code></div>
 
     </div>
 
     
     
-<p>sims is an R package to generate datasets from <a href="https://mcmc-jags.sourceforge.io/" class="external-link">JAGS</a> or R code for use in simulation studies.</p>
+<p>sims is an R package to generate datasets from <a href="https://mcmc-jags.sourceforge.io/" class="external-link">JAGS</a> or R code for use in
+simulation studies.</p>
 <div class="section level2">
 <h2 id="simulating-as-nlists-objects">Simulating as <code>nlists</code> Objects<a class="anchor" aria-label="anchor" href="#simulating-as-nlists-objects"></a>
 </h2>
-<p>By default, <code><a href="../reference/sims_simulate.html">sims_simulate()</a></code> returns the simulated datasets in the form of an <a href="https://github.com/poissonconsulting/nlist" class="external-link">nlists</a> object.</p>
+<p>By default, <code><a href="../reference/sims_simulate.html">sims_simulate()</a></code> returns the simulated
+datasets in the form of an <a href="https://github.com/poissonconsulting/nlist" class="external-link">nlists</a> object.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">sims</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>
-<span class="fu"><a href="../reference/sims_simulate.html">sims_simulate</a></span><span class="op">(</span><span class="st">"a &lt;- runif(1)"</span>, nsims <span class="op">=</span> <span class="fl">2L</span><span class="op">)</span>
-<span class="co">#&gt; $a</span>
-<span class="co">#&gt; [1] 0.2213763</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; an nlists object of 2 nlist objects each with 1 numeric element</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/poissonconsulting/sims" class="external-link">sims</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/sims_simulate.html">sims_simulate</a></span><span class="op">(</span><span class="st">"a &lt;- runif(1)"</span>, nsims <span class="op">=</span> <span class="fl">2L</span><span class="op">)</span></span>
+<span><span class="co">#&gt; $a</span></span>
+<span><span class="co">#&gt; [1] 0.2213763</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; an nlists object of 2 nlist objects each with 1 numeric element</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="saving-as--rds-files">Saving as <code>.rds</code> Files<a class="anchor" aria-label="anchor" href="#saving-as--rds-files"></a>
 </h2>
-<p>If, however, <code>save = TRUE</code> then each nlist object is saved as an <code>.rds</code> file in <code>path</code>.</p>
+<p>If, however, <code>save = TRUE</code> then each nlist object is saved
+as an <code>.rds</code> file in <code>path</code>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>
-<span class="fu"><a href="../reference/sims_simulate.html">sims_simulate</a></span><span class="op">(</span><span class="st">"a &lt;- runif(1)"</span>, nsims <span class="op">=</span> <span class="fl">2L</span>, save <span class="op">=</span> <span class="cn">TRUE</span>, path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, exists <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span>
-<span class="co">#&gt; [1] TRUE</span>
-<span class="fu"><a href="../reference/sims_data_files.html">sims_data_files</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] "data0000001.rds" "data0000002.rds"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/sims_simulate.html">sims_simulate</a></span><span class="op">(</span><span class="st">"a &lt;- runif(1)"</span>, nsims <span class="op">=</span> <span class="fl">2L</span>, save <span class="op">=</span> <span class="cn">TRUE</span>, path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, exists <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] TRUE</span></span>
+<span><span class="fu"><a href="../reference/sims_data_files.html">sims_data_files</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "data0000001.rds" "data0000002.rds"</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="importing--rds-files">Importing <code>.rds</code> Files<a class="anchor" aria-label="anchor" href="#importing--rds-files"></a>
 </h3>
-<p>The datasets in the <code>.rds</code> files can be imported as an <code>nlists</code> object using <code><a href="../reference/sims_data.html">sims_data()</a></code>.</p>
+<p>The datasets in the <code>.rds</code> files can be imported as an
+<code>nlists</code> object using <code><a href="../reference/sims_data.html">sims_data()</a></code>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/sims_data.html">sims_data</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; $a</span>
-<span class="co">#&gt; [1] 0.2213763</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; an nlists object of 2 nlist objects each with 1 numeric element</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/sims_data.html">sims_data</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; $a</span></span>
+<span><span class="co">#&gt; [1] 0.2213763</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; an nlists object of 2 nlist objects each with 1 numeric element</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="adding--rds-files">Adding <code>.rds</code> Files<a class="anchor" aria-label="anchor" href="#adding--rds-files"></a>
 </h3>
-<p>The values including the <code>.Random.seed</code> (not printed) that were used to generate the datasets are saved in <code>.sims_args.rds</code> which can be imported using <code><a href="../reference/sims_info.html">sims_info()</a></code>.</p>
+<p>The values including the <code>.Random.seed</code> (not printed) that
+were used to generate the datasets are saved in
+<code>.sims_args.rds</code> which can be imported using
+<code><a href="../reference/sims_info.html">sims_info()</a></code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/sims_info.html">sims_info</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>
-<span class="co">#&gt; $code</span>
-<span class="co">#&gt; [1] "a &lt;- runif(1)"</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $constants</span>
-<span class="co">#&gt; an nlist object with 0 numeric elements</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $parameters</span>
-<span class="co">#&gt; an nlist object with 0 numeric elements</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $monitor</span>
-<span class="co">#&gt; [1] "a"</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $nsims</span>
-<span class="co">#&gt; [1] 2</span></code></pre></div>
-<p>The fact that the arguments to <code><a href="../reference/sims_simulate.html">sims_simulate()</a></code> are saved to file allows additional <code>.rds</code> datasets to be generated using <code><a href="../reference/sims_add.html">sims_add()</a></code>.</p>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/sims_info.html">sims_info</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span>
+<span><span class="co">#&gt; $code</span></span>
+<span><span class="co">#&gt; [1] "a &lt;- runif(1)"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $constants</span></span>
+<span><span class="co">#&gt; an nlist object with 0 numeric elements</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $parameters</span></span>
+<span><span class="co">#&gt; an nlist object with 0 numeric elements</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $monitor</span></span>
+<span><span class="co">#&gt; [1] "a"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $nsims</span></span>
+<span><span class="co">#&gt; [1] 2</span></span></code></pre></div>
+<p>The fact that the arguments to <code><a href="../reference/sims_simulate.html">sims_simulate()</a></code> are saved
+to file allows additional <code>.rds</code> datasets to be generated
+using <code><a href="../reference/sims_add.html">sims_add()</a></code>.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/sims_add.html">sims_add</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, nsims <span class="op">=</span> <span class="fl">3L</span><span class="op">)</span>
-<span class="co">#&gt; [1] "data0000003.rds" "data0000004.rds" "data0000005.rds"</span>
-<span class="fu"><a href="../reference/sims_data_files.html">sims_data_files</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] "data0000001.rds" "data0000002.rds" "data0000003.rds" "data0000004.rds"</span>
-<span class="co">#&gt; [5] "data0000005.rds"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/sims_add.html">sims_add</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, nsims <span class="op">=</span> <span class="fl">3L</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "data0000003.rds" "data0000004.rds" "data0000005.rds"</span></span>
+<span><span class="fu"><a href="../reference/sims_data_files.html">sims_data_files</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "data0000001.rds" "data0000002.rds" "data0000003.rds" "data0000004.rds"</span></span>
+<span><span class="co">#&gt; [5] "data0000005.rds"</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="copying--rds-files">Copying <code>.rds</code> Files<a class="anchor" aria-label="anchor" href="#copying--rds-files"></a>
 </h3>
-<p>If the user wishes to duplicate the datasets then they can either regenerate them by specifying a different path but the same seed (using <code><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed()</a></code>). Alternatively, they can copy the existing <code>.sims.rds</code> and datasets files to a new directory using <code><a href="../reference/sims_copy.html">sims_copy()</a></code></p>
+<p>If the user wishes to duplicate the datasets then they can either
+regenerate them by specifying a different path but the same seed (using
+<code><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed()</a></code>). Alternatively, they can copy the existing
+<code>.sims.rds</code> and datasets files to a new directory using
+<code><a href="../reference/sims_copy.html">sims_copy()</a></code></p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/sims_copy.html">sims_copy</a></span><span class="op">(</span>path_from <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, path_to <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"_copy"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] "data0000001.rds" "data0000002.rds" "data0000003.rds" "data0000004.rds"</span>
-<span class="co">#&gt; [5] "data0000005.rds"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/sims_copy.html">sims_copy</a></span><span class="op">(</span>path_from <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, path_to <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"_copy"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "data0000001.rds" "data0000002.rds" "data0000003.rds" "data0000004.rds"</span></span>
+<span><span class="co">#&gt; [5] "data0000005.rds"</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="checking--rds-files">Checking <code>.rds</code> Files<a class="anchor" aria-label="anchor" href="#checking--rds-files"></a>
 </h3>
-<p>A user can check that all the datasets specified in <code>.sims.rds</code> are present using <code><a href="../reference/sims_check.html">sims_check()</a></code>.</p>
+<p>A user can check that all the datasets specified in
+<code>.sims.rds</code> are present using <code><a href="../reference/sims_check.html">sims_check()</a></code>.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/sims_check.html">sims_check</a></span><span class="op">(</span>path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"_copy"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/sims_check.html">sims_check</a></span><span class="op">(</span>path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"_copy"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.remove</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"_copy"</span><span class="op">)</span>, <span class="st">"data0000005.rds"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] TRUE</span>
-
-<span class="fu"><a href="../reference/sims_check.html">sims_check</a></span><span class="op">(</span>path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"_copy"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;"> in `err()`:</span></span>
-<span class="co">#&gt; <span style="color: #BBBB00;">!</span> Number of data files (4) does not match number of simulations (5).</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.remove</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"_copy"</span><span class="op">)</span>, <span class="st">"data0000005.rds"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] TRUE</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/sims_check.html">sims_check</a></span><span class="op">(</span>path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"_copy"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;">:</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> Number of data files (4) does not match number of simulations (5).</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="parallelization">Parallelization<a class="anchor" aria-label="anchor" href="#parallelization"></a>
 </h2>
 <p>Parallelization is implemented using the <a href="https://github.com/HenrikBengtsson/future" class="external-link">future</a> package.</p>
-<p>To use all available cores on the local machine simply execute the following code before calling <code><a href="../reference/sims_simulate.html">sims_simulate()</a></code>.</p>
+<p>To use all available cores on the local machine simply execute the
+following code before calling <code><a href="../reference/sims_simulate.html">sims_simulate()</a></code>.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://future.futureverse.org" class="external-link">future</a></span><span class="op">)</span>
-<span class="fu"><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan</a></span><span class="op">(</span><span class="va">multisession</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://future.futureverse.org" class="external-link">future</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan</a></span><span class="op">(</span><span class="va">multisession</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>
-<span class="fu"><a href="../reference/sims_simulate.html">sims_simulate</a></span><span class="op">(</span><span class="st">"a &lt;- runif(1)"</span>, nsims <span class="op">=</span> <span class="fl">2L</span><span class="op">)</span>
-<span class="co">#&gt; $a</span>
-<span class="co">#&gt; [1] 0.2213763</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; an nlists object of 2 nlist objects each with 1 numeric element</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/sims_simulate.html">sims_simulate</a></span><span class="op">(</span><span class="st">"a &lt;- runif(1)"</span>, nsims <span class="op">=</span> <span class="fl">2L</span><span class="op">)</span></span>
+<span><span class="co">#&gt; $a</span></span>
+<span><span class="co">#&gt; [1] 0.2213763</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; an nlists object of 2 nlist objects each with 1 numeric element</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="progress">Progress<a class="anchor" aria-label="anchor" href="#progress"></a>
 </h2>
-<p>Progress is reported using the <a href="https://github.com/HenrikBengtsson/progressr" class="external-link">progressr</a> package as follows.</p>
+<p>Progress is reported using the <a href="https://github.com/HenrikBengtsson/progressr" class="external-link">progressr</a>
+package as follows.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://progressr.futureverse.org" class="external-link">progressr</a></span><span class="op">)</span>
-<span class="fu"><a href="https://progressr.futureverse.org/reference/with_progress.html" class="external-link">with_progress</a></span><span class="op">(</span><span class="fu"><a href="../reference/sims_simulate.html">sims_simulate</a></span><span class="op">(</span><span class="st">"a &lt;- runif(1)"</span>, nsims <span class="op">=</span> <span class="fl">1000L</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; $a</span>
-<span class="co">#&gt; [1] 0.5248719</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; an nlists object of 1000 nlist objects each with 1 numeric element</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://progressr.futureverse.org" class="external-link">progressr</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://progressr.futureverse.org/reference/with_progress.html" class="external-link">with_progress</a></span><span class="op">(</span><span class="fu"><a href="../reference/sims_simulate.html">sims_simulate</a></span><span class="op">(</span><span class="st">"a &lt;- runif(1)"</span>, nsims <span class="op">=</span> <span class="fl">1000L</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; $a</span></span>
+<span><span class="co">#&gt; [1] 0.5248719</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; an nlists object of 1000 nlist objects each with 1 numeric element</span></span></code></pre></div>
 </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
-    </nav>
-</div>
+      </div>
 
 </div>
 
@@ -212,16 +232,16 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.9000.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
 </div>
 
       </footer>
 </div>
 
-  
 
 
-  
+
+
 
   </body>
 </html>
