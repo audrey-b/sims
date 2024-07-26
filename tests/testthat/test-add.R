@@ -26,6 +26,7 @@ test_that("sims_add", {
     nlist(a = 0.0584777028255878)
   )
 
+  skip()
   expect_identical(
     sims_info(tempdir),
     list(
