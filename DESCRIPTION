@@ -4,11 +4,11 @@ Version: 0.0.3.9000
 Authors@R: 
     c(person(given = "Audrey",
              family = "Beliveau",
-             role = "aut",
+             role = c("aut", "cre"),,
              email = "audrey.beliveau@uwaterloo.ca"),
       person(given = "Joe",
              family = "Thorley",
-             role = c("aut", "cre"),
+             role = c("aut"),
              email = "joe@poissonconsulting.ca",
              comment = c(ORCID = "0000-0002-7683-4592")))
 Description: Generates data from R or 'JAGS' code for use in simulation
