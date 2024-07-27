@@ -4,12 +4,8 @@ Version: 0.0.4
 Authors@R: 
     c(person(given = "Audrey",
              family = "Beliveau",
-             role = c("aut"),,
+             role = c("aut", "cre"),,
              email = "audrey.beliveau@uwaterloo.ca"),
-      person(given = "Ayla",
-             family = "P",
-             role = c("cre"),,
-             email = "ayla@poissonconsulting.ca"),
       person(given = "Joe",
              family = "Thorley",
              role = c("aut"),
