@@ -1,26 +1,27 @@
 ## Test environments
 
-release 4.1.1
+This patch release updates the maintainer of the package and does some basic housekeeping and updates. The previous maintainer is aware of the change.
+
+release 4.4.1
 
 * OSX (local) - release
 * OSX (actions) - release
-* Ubuntu (actions) - 3.6, oldrel, release and devel
-* Windows (actions) - release
+* Ubuntu (actions) - dev, release, oldrel-1, oldrel-2, oldrel-3, oldrel-4
+* Windows (actions) - release, 4.1
 * Windows (winbuilder) - devel
 
 ## R CMD check results
 
-0 errors | 0 warnings | 0 notes
+0 errors | 0 warnings | 1 notes
 
-## CRAN Package Check Results
+- checking CRAN incoming feasibility ... NOTE Maintainer: 'Audrey Beliveau audrey.beliveau@uwaterloo.ca'
 
-> We fixed all CRAN Package Check Results except for the ERROR on r-release-macos-arm64 (https://www.r-project.org/nosvn/R.check/r-release-macos-arm64/sims-00check.html) which is due to the rjags Package Check ERROR (https://cran.r-project.org/web/checks/check_results_rjags.html).
+New maintainer: Audrey Beliveau audrey.beliveau@uwaterloo.ca Old maintainer(s): Joe Thorley joe@poissonconsulting.ca
 
-But that is precisely the issue:
 
-You have rjags in Suggests, hence the package must pass the checks even if the suggested (rjags) package or its SytstemRequirements are unavailable.
-Please only run such code conditionally on the availability of the *weak* dependencies.
+## Reverse Dependencies
 
-Please fix and resubmit.
+There are zero reverse dependencies. 
 
-DONE!
+OK: 0
+BROKEN: 0
