@@ -31,7 +31,6 @@ Suggests:
     future,
     knitr,
     progressr,
-    rjags,
     rmarkdown,
     spelling,
     testthat (>= 3.0.0),
