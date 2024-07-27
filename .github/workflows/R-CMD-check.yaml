@@ -76,8 +76,10 @@ jobs:
           needs: check
           
       - name: Install dependencies
+        if: runner.os == 'macOS'
         run: |
           install.packages("future")  ## needed by parallel workers
+           install.packages("rjags", type = "source")
         shell: Rscript {0}
 
       - uses: r-lib/actions/check-r-package@v2
