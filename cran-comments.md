@@ -12,7 +12,15 @@ release 4.4.1
 
 ## R CMD check results
 
-0 errors | 0 warnings | 0 notes
+0 errors | 0 warnings | 1 notes
+
+checking CRAN incoming feasibility ... [11s] NOTE
+Maintainer: 'Audrey Beliveau <audrey.beliveau@uwaterloo.ca>'
+
+New maintainer:
+  Audrey Beliveau <audrey.beliveau@uwaterloo.ca>
+Old maintainer(s):
+  Joe Thorley <joe@poissonconsulting.ca>
 
 ## Reverse Dependencies
 
