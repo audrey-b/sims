@@ -1,1 +1,4 @@
-destination: docs
+url: https://poissonconsulting.github.io/sims/
+template:
+  bootstrap: 5
+
