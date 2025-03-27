@@ -211,6 +211,7 @@ data_file_name <- function(sim) p0("data", sprintf("%07d", sim), ".rds")
 
 generate_jags <- function(code, data, monitor) {
   code <- textConnection(code)
+  on.exit(close(code))
 
   inits <- list(.RNG.name = "base::Wichmann-Hill")
   inits$.RNG.seed <- abs(rinteger(1))
