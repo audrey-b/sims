@@ -78,6 +78,14 @@ jobs:
           install.packages("future")  ## needed by parallel workers
            install.packages("rjags", type = "source")
         shell: Rscript {0}
+        
+      - name: Show R version and RNG
+        run: |
+          R.version.string
+          RNGkind()
+          set.seed(101)
+          .Random.seed
+        shell: Rscript {0}
 
       - uses: r-lib/actions/check-r-package@v2
         with:
