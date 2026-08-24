@@ -25,7 +25,8 @@ test_that("sims_add", {
     readRDS(file.path(tempdir, "data0000002.rds")),
     nlist(a = 0.0584777028255878)
   )
-
+  
+  expected_seed <- .Random.seed
   expect_identical(
     sims_info(tempdir),
     list(
@@ -33,7 +34,7 @@ test_that("sims_add", {
       constants = nlist(),
       parameters = nlist(),
       monitor = "a", nsims = 3L, seed = c(
-        10403L, 624L, 853008081L,
+        expected_seed[1], 624L, 853008081L,
         -1946219938L, 421532487L, -755954980L, 862903853L, -1354943734L,
         -1566351101L, -372976024L, 132839753L, 1058755702L, 1084399743L,
         -1528825676L, 1605323813L, -765273438L, 1491422651L, 575454656L,
@@ -197,6 +198,7 @@ test_that("sims_add R", {
     nlist(a = 0.889581146657672)
   )
 
+  expected_seed <- .Random.seed
   expect_identical(
     sims_info(tempdir),
     list(
@@ -204,7 +206,7 @@ test_that("sims_add R", {
       constants = nlist(),
       parameters = nlist(),
       monitor = "a", nsims = 3L, seed = c(
-        10403L, 624L, 853008081L,
+        expected_seed[1], 624L, 853008081L,
         -1946219938L, 421532487L, -755954980L, 862903853L, -1354943734L,
         -1566351101L, -372976024L, 132839753L, 1058755702L, 1084399743L,
         -1528825676L, 1605323813L, -765273438L, 1491422651L, 575454656L,

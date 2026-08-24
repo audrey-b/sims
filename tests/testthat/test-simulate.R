@@ -325,14 +325,15 @@ test_that("write replicable", {
     readRDS(file.path(tempdir, "data0000001.rds")),
     nlist(a = 0.342673102637473)
   )
-
+  
+  expected_seed <- .Random.seed
   expect_identical(
     sims_info(tempdir),
     list(
       code = "model{a ~ dunif(0,1)}\n", constants = nlist(),
       parameters = nlist(),
       monitor = "a", nsims = 1L, seed = c(
-        10403L, 624L, 853008081L,
+        expected_seed[1], 624L, 853008081L,
         -1946219938L, 421532487L, -755954980L, 862903853L, -1354943734L,
         -1566351101L, -372976024L, 132839753L, 1058755702L, 1084399743L,
         -1528825676L, 1605323813L, -765273438L, 1491422651L, 575454656L,
