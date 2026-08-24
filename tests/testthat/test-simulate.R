@@ -971,7 +971,15 @@ test_that("with R code", {
     nlist::nlists(nlist(a = 0.267390680177431))
   )
 
-  expect_error(sims_simulate("a <- TRUE", stochastic = NA),
+  expect_error(
+    withCallingHandlers(
+      sims_simulate("a <- TRUE", stochastic = NA),
+      warning = function(w) {
+        if (grepl("Caught chk_error\\. Canceling all iterations", conditionMessage(w))) {
+          invokeRestart("muffleWarning")
+        }
+      }
+    ),
     "^All elements of simulations from `code` must be numeric[.]$",
     class = "chk_error"
   )
@@ -1018,8 +1026,19 @@ test_that("with R code", {
     ),
     nlist::nlists(nlist(b = 3L, c = 2))
   )
+  
   expect_error(
-    sims_simulate("a <- not_a_fun(c)", stochastic = NA),
+    withCallingHandlers(
+      sims_simulate("a <- not_a_fun(c)", stochastic = NA),
+      warning = function(w) {
+        if (grepl(
+          "Caught simpleError\\. Canceling all iterations",
+          conditionMessage(w)
+        )) {
+          invokeRestart("muffleWarning")
+        }
+      }
+    ),
     "could not find function \"not_a_fun\""
   )
 })
