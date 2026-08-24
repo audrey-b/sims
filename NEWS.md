@@ -1,8 +1,6 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
-# sims 0.0.4.9000
-
-- Fix JAGS install on Windows #2.
+# sims 0.0.5
 
 - Merge pull request #38 from HenrikBengtsson/main.
 
