@@ -12,8 +12,8 @@ Description: Generates data from R or 'JAGS' code for use in simulation
     implemented using the 'future' package.  Progress is reported using
     the 'progressr' package.
 License: MIT + file LICENSE
-URL: https://github.com/poissonconsulting/sims, https://poissonconsulting.github.io/sims/
-BugReports: https://github.com/poissonconsulting/sims/issues
+URL: https://github.com/audrey-b/sims
+BugReports: https://github.com/audrey-b/sims/issues
 Depends: 
     R (>= 4.0.0)
 Imports:
@@ -39,5 +39,5 @@ Config/testthat/edition: 3
 Encoding: UTF-8
 Language: en-US
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.2
 SystemRequirements: JAGS 4.x.y
+Config/roxygen2/version: 8.1.0
