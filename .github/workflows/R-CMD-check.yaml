@@ -28,9 +28,7 @@ jobs:
 
           - {os: windows-latest, r: 'release'}
           
-          - {os: ubuntu-latest, r: 'devel', http-user-agent: 'release', binom-kind: 'default'}
-          - {os: ubuntu-latest, r: 'devel', http-user-agent: 'release', binom-kind: 'Inversion'}
-
+          - {os: ubuntu-latest,  r: 'devel', http-user-agent: 'release'}
           - {os: ubuntu-latest,  r: 'release'}
           - {os: ubuntu-latest,  r: 'oldrel-1'}
 
@@ -88,13 +86,6 @@ jobs:
           install.packages("future")  ## needed by parallel workers
            install.packages("rjags", type = "source")
         shell: Rscript {0}
-        
-      - name: Configure binomial RNG
-        if: matrix.config.binom-kind
-        shell: bash
-        run: |
-          echo "R_PROFILE_USER=$RUNNER_TEMP/Rprofile" >> "$GITHUB_ENV"
-          echo 'RNGkind(binom.kind = "${{ matrix.config.binom-kind }}")' > "$RUNNER_TEMP/Rprofile"
         
       - name: Show R version and RNG
         run: |
