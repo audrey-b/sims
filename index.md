@@ -14,18 +14,16 @@ Progress is reported using the
 You can install the released version of sims from
 [CRAN](https://CRAN.R-project.org) with:
 
-``` r
-
+``` R
 install.packages("sims")
 ```
 
 And the development version from
-[GitHub](https://github.com/poissonconsulting/sims) with:
+[GitHub](https://github.com/audrey-b/sims) with:
 
-``` r
-
+``` R
 # install.packages("remotes")
-remotes::install_github("poissonconsulting/sims")
+remotes::install_github("audrey-b/sims")
 ```
 
 ## Demonstration
@@ -37,8 +35,7 @@ By default,
 returns the simulated datasets in the form of an
 [nlists](https://github.com/poissonconsulting/nlist) object.
 
-``` r
-
+``` R
 library(sims)
 set.seed(10)
 sims_simulate("a <- runif(1)", nsims = 2L)
@@ -51,10 +48,11 @@ sims_simulate("a <- runif(1)", nsims = 2L)
 If, however, `save = TRUE` then each nlist object is saved as an `.rds`
 file in `path`.
 
-``` r
-
+``` R
 set.seed(10)
-sims_simulate("a <- runif(1)", nsims = 2L, save = TRUE, path = tempdir(), exists = NA)
+sims_simulate("a <- runif(1)", nsims = 2L, save = TRUE, path = tempdir(), exists = NA, ask = FALSE)
+#> Warning: Deleted 2 sims data files in
+#> 'C:\Users\audre\AppData\Local\Temp\RtmpMZHt9p'.
 #> [1] TRUE
 sims_data_files(tempdir())
 #> [1] "data0000001.rds" "data0000002.rds"
@@ -65,19 +63,12 @@ sims_data(tempdir())
 #> an nlists object of 2 nlist objects each with 1 numeric element
 ```
 
-## Information
-
-For more information see the [Get
-Started](https://poissonconsulting.github.io/sims/articles/sims.html)
-vignette.
-
 ## Contribution
 
-Please report any
-[issues](https://github.com/poissonconsulting/sims/issues).
+Please report any [issues](https://github.com/audrey-b/sims/issues).
 
-[Pull requests](https://github.com/poissonconsulting/sims/pulls) are
-always welcome.
+[Pull requests](https://github.com/audrey-b/sims/pulls) are always
+welcome.
 
 ## Code of Conduct
 
