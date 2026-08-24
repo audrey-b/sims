@@ -5,4 +5,4 @@ to see their documentation.
 
 - nlist:
 
-  [`nlist`](https://rdrr.io/pkg/nlist/man/nlist.html)
+  [`nlist()`](https://rdrr.io/pkg/nlist/man/nlist.html)
