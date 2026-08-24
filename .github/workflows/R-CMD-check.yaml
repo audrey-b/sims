@@ -51,10 +51,21 @@ jobs:
         if: runner.os == 'Windows'
         shell: powershell
         run: |
-          $url = "https://downloads.sourceforge.net/project/mcmc-jags/JAGS/4.x/Windows/JAGS-4.3.2.exe"
+          $url = "https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.2.exe/download"
           $output = "$env:RUNNER_TEMP\JAGS-4.3.2.exe"
-          Invoke-WebRequest -Uri $url -OutFile $output
-          Start-Process -FilePath $output -ArgumentList "/S" -Wait
+
+          curl.exe -L --fail --retry 5 -o "$output" "$url"
+
+          $file = Get-Item $output
+          Write-Host "Downloaded: $($file.FullName)"
+          Write-Host "Size: $($file.Length) bytes"
+
+          if ($file.Length -lt 10MB) {
+            Write-Error "JAGS installer download appears invalid."
+            exit 1
+          }
+
+          Start-Process -FilePath $output -ArgumentList "/S" -Wait -NoNewWindow
 
       - uses: r-lib/actions/setup-pandoc@v2
 
