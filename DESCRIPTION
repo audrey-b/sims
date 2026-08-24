@@ -1,6 +1,6 @@
 Package: sims
 Title: Simulate Data from R or 'JAGS' Code
-Version: 0.0.4
+Version: 0.0.4.9000
 Authors@R: c(
     person("Audrey", "Beliveau", , "audrey.beliveau@uwaterloo.ca", role = c("aut", "cre")),
     person("Joe", "Thorley", , "joe@poissonconsulting.ca", role = c("aut"),
