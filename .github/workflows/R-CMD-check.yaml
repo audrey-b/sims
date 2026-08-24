@@ -51,12 +51,12 @@ jobs:
 
       - name: Download JAGS Windows
         if: runner.os == 'Windows'
-        run: (New-Object System.Net.WebClient).DownloadFile('https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.0.exe', 'C:\JAGS-4.3.0.exe')
+        run: (New-Object System.Net.WebClient).DownloadFile('https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.2.exe', 'C:\JAGS-4.3.2.exe')
         shell: powershell
         
       - name: Install JAGS Windows
         if: runner.os == 'Windows'
-        run: C:\JAGS-4.3.0.exe /S
+        run: C:\JAGS-4.3.2.exe /S
         shell: cmd
 
       - uses: r-lib/actions/setup-pandoc@v2
