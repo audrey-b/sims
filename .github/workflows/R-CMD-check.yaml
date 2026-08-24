@@ -27,8 +27,6 @@ jobs:
           - {os: macos-latest,   r: 'release'}
 
           - {os: windows-latest, r: 'release'}
-          # use 4.1 to check with rtools40's older compiler
-          - {os: windows-latest, r: '4.1'}
 
           - {os: ubuntu-latest,  r: 'devel', http-user-agent: 'release'}
           - {os: ubuntu-latest,  r: 'release'}
@@ -49,15 +47,14 @@ jobs:
         if: runner.os == 'Linux'
         run: sudo apt-get install jags
 
-      - name: Download JAGS Windows
-        if: runner.os == 'Windows'
-        run: (New-Object System.Net.WebClient).DownloadFile('https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.2.exe', 'C:\JAGS-4.3.2.exe')
-        shell: powershell
-        
       - name: Install JAGS Windows
         if: runner.os == 'Windows'
-        run: C:\JAGS-4.3.2.exe /S
-        shell: cmd
+        shell: powershell
+        run: |
+          $url = "https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.2.exe/download"
+          $output = "$env:RUNNER_TEMP\JAGS-4.3.2.exe"
+          Invoke-WebRequest -Uri $url -OutFile $output
+          Start-Process -FilePath $output -ArgumentList "/S" -Wait
 
       - uses: r-lib/actions/setup-pandoc@v2
 
