@@ -16,8 +16,8 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
-[![R-CMD-check](https://github.com/poissonconsulting/sims/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/poissonconsulting/sims/actions/workflows/R-CMD-check.yaml)
-[![Codecov](https://codecov.io/gh/poissonconsulting/sims/graph/badge.svg)](https://app.codecov.io/gh/poissonconsulting/sims)
+[![R-CMD-check](https://github.com/audrey-b/sims/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/audrey-b/sims/actions/workflows/R-CMD-check.yaml)
+[![Codecov](https://codecov.io/gh/audrey-b/sims/graph/badge.svg)](https://app.codecov.io/gh/audrey-b/sims)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 [![CRAN status](https://www.r-pkg.org/badges/version/sims)](https://cran.r-project.org/package=sims)
 ![CRAN downloads](http://cranlogs.r-pkg.org/badges/sims)
@@ -36,11 +36,11 @@ You can install the released version of sims from [CRAN](https://CRAN.R-project.
 install.packages("sims")
 ```
 
-And the development version from [GitHub](https://github.com/poissonconsulting/sims) with:
+And the development version from [GitHub](https://github.com/audrey-b/sims) with:
 
 ``` r
 # install.packages("remotes")
-remotes::install_github("poissonconsulting/sims")
+remotes::install_github("audrey-b/sims")
 ```
 
 ## Demonstration
@@ -58,20 +58,16 @@ sims_simulate("a <- runif(1)", nsims = 2L)
 If, however, `save = TRUE` then each nlist object is saved as an `.rds` file in `path`.
 ```{r}
 set.seed(10)
-sims_simulate("a <- runif(1)", nsims = 2L, save = TRUE, path = tempdir(), exists = NA)
+sims_simulate("a <- runif(1)", nsims = 2L, save = TRUE, path = tempdir(), exists = NA, ask = FALSE)
 sims_data_files(tempdir())
 sims_data(tempdir())
 ```
 
-## Information
-
-For more information see the [Get Started](https://poissonconsulting.github.io/sims/articles/sims.html) vignette.
-
 ## Contribution
 
-Please report any [issues](https://github.com/poissonconsulting/sims/issues).
+Please report any [issues](https://github.com/audrey-b/sims/issues).
 
-[Pull requests](https://github.com/poissonconsulting/sims/pulls) are always welcome.
+[Pull requests](https://github.com/audrey-b/sims/pulls) are always welcome.
 
 ## Code of Conduct
 

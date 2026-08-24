@@ -1,4 +1,3 @@
-
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 # sims
@@ -7,8 +6,8 @@
 
 [![Lifecycle:
 stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
-[![R-CMD-check](https://github.com/poissonconsulting/sims/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/poissonconsulting/sims/actions/workflows/R-CMD-check.yaml)
-[![Codecov](https://codecov.io/gh/poissonconsulting/sims/graph/badge.svg)](https://app.codecov.io/gh/poissonconsulting/sims)
+[![R-CMD-check](https://github.com/audrey-b/sims/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/audrey-b/sims/actions/workflows/R-CMD-check.yaml)
+[![Codecov](https://codecov.io/gh/audrey-b/sims/graph/badge.svg)](https://app.codecov.io/gh/audrey-b/sims)
 [![License:
 MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 [![CRAN
@@ -30,17 +29,13 @@ Progress is reported using the
 You can install the released version of sims from
 [CRAN](https://CRAN.R-project.org) with:
 
-``` r
-install.packages("sims")
-```
+    install.packages("sims")
 
 And the development version from
-[GitHub](https://github.com/poissonconsulting/sims) with:
+[GitHub](https://github.com/audrey-b/sims) with:
 
-``` r
-# install.packages("remotes")
-remotes::install_github("poissonconsulting/sims")
-```
+    # install.packages("remotes")
+    remotes::install_github("audrey-b/sims")
 
 ## Demonstration
 
@@ -49,45 +44,36 @@ remotes::install_github("poissonconsulting/sims")
 By default, `sims_simulate()` returns the simulated datasets in the form
 of an [nlists](https://github.com/poissonconsulting/nlist) object.
 
-``` r
-library(sims)
-set.seed(10)
-sims_simulate("a <- runif(1)", nsims = 2L)
-#> $a
-#> [1] 0.2213763
-#> 
-#> an nlists object of 2 nlist objects each with 1 numeric element
-```
+    library(sims)
+    set.seed(10)
+    sims_simulate("a <- runif(1)", nsims = 2L)
+    #> $a
+    #> [1] 0.2213763
+    #> 
+    #> an nlists object of 2 nlist objects each with 1 numeric element
 
 If, however, `save = TRUE` then each nlist object is saved as an `.rds`
 file in `path`.
 
-``` r
-set.seed(10)
-sims_simulate("a <- runif(1)", nsims = 2L, save = TRUE, path = tempdir(), exists = NA)
-#> [1] TRUE
-sims_data_files(tempdir())
-#> [1] "data0000001.rds" "data0000002.rds"
-sims_data(tempdir())
-#> $a
-#> [1] 0.2213763
-#> 
-#> an nlists object of 2 nlist objects each with 1 numeric element
-```
-
-## Information
-
-For more information see the [Get
-Started](https://poissonconsulting.github.io/sims/articles/sims.html)
-vignette.
+    set.seed(10)
+    sims_simulate("a <- runif(1)", nsims = 2L, save = TRUE, path = tempdir(), exists = NA, ask = FALSE)
+    #> Warning: Deleted 2 sims data files in
+    #> 'C:\Users\audre\AppData\Local\Temp\RtmpMZHt9p'.
+    #> [1] TRUE
+    sims_data_files(tempdir())
+    #> [1] "data0000001.rds" "data0000002.rds"
+    sims_data(tempdir())
+    #> $a
+    #> [1] 0.2213763
+    #> 
+    #> an nlists object of 2 nlist objects each with 1 numeric element
 
 ## Contribution
 
-Please report any
-[issues](https://github.com/poissonconsulting/sims/issues).
+Please report any [issues](https://github.com/audrey-b/sims/issues).
 
-[Pull requests](https://github.com/poissonconsulting/sims/pulls) are
-always welcome.
+[Pull requests](https://github.com/audrey-b/sims/pulls) are always
+welcome.
 
 ## Code of Conduct
 
