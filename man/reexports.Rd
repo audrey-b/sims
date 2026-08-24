@@ -11,6 +11,6 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{nlist}{\code{\link[nlist]{nlist}}}
+  \item{nlist}{\code{\link[nlist:nlist]{nlist()}}}
 }}
 

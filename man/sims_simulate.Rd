@@ -66,13 +66,13 @@ compatible files.}
 \item{silent}{A flag specifying whether to suppress warnings.}
 }
 \value{
-By default an \code{\link[nlist:nlists]{nlist::nlists_object()}} of the simulated data.
+By default an \code{\link[nlist:nlists_object]{nlist::nlists_object()}} of the simulated data.
 Otherwise if \code{path} is defined saves the datasets as individual \code{.rds}
 files and returns TRUE.
 }
 \description{
 Simulates datasets using JAGS or R code. By default
-returns the datasets as an \code{\link[nlist:nlists]{nlist::nlists_object()}}.
+returns the datasets as an \code{\link[nlist:nlists_object]{nlist::nlists_object()}}.
 If \code{path} is provided then the datasets are written to the directory
 as individual \code{.rds} files.
 }
