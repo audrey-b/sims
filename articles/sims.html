@@ -169,7 +169,7 @@ regenerate them by specifying a different path but the same seed (using
 <div class="section level2">
 <h2 id="parallelization">Parallelization<a class="anchor" aria-label="anchor" href="#parallelization"></a>
 </h2>
-<p>Parallelization is implemented using the <a href="https://github.com/HenrikBengtsson/future" class="external-link">future</a> package.</p>
+<p>Parallelization is implemented using the <a href="https://github.com/futureverse/future" class="external-link">future</a> package.</p>
 <p>To use all available cores on the local machine simply execute the
 following code before calling <code><a href="../reference/sims_simulate.html">sims_simulate()</a></code>.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
@@ -188,8 +188,8 @@ following code before calling <code><a href="../reference/sims_simulate.html">si
 <div class="section level2">
 <h2 id="progress">Progress<a class="anchor" aria-label="anchor" href="#progress"></a>
 </h2>
-<p>Progress is reported using the <a href="https://github.com/HenrikBengtsson/progressr" class="external-link">progressr</a>
-package as follows.</p>
+<p>Progress is reported using the <a href="https://github.com/futureverse/progressr" class="external-link">progressr</a> package as
+follows.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://progressr.futureverse.org" class="external-link">progressr</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://progressr.futureverse.org/reference/with_progress.html" class="external-link">with_progress</a></span><span class="op">(</span><span class="fu"><a href="../reference/sims_simulate.html">sims_simulate</a></span><span class="op">(</span><span class="st">"a &lt;- runif(1)"</span>, nsims <span class="op">=</span> <span class="fl">1000L</span><span class="op">)</span><span class="op">)</span></span>

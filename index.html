@@ -57,7 +57,7 @@
 </h1></div>
 <!-- badges: start -->
 
-<p>sims is an R package to generate datasets from R or <a href="https://mcmc-jags.sourceforge.io/" class="external-link">JAGS</a> code for use in simulation studies. The datasets are returned as an <a href="https://github.com/poissonconsulting/nlist" class="external-link">nlists</a> object and/or saved to file as individual .rds files. Parallelization is implemented using the <a href="https://github.com/HenrikBengtsson/future" class="external-link">future</a> package. Progress is reported using the <a href="https://github.com/HenrikBengtsson/progressr" class="external-link">progressr</a> package.</p>
+<p>sims is an R package to generate datasets from R or <a href="https://mcmc-jags.sourceforge.io/" class="external-link">JAGS</a> code for use in simulation studies. The datasets are returned as an <a href="https://github.com/poissonconsulting/nlist" class="external-link">nlists</a> object and/or saved to file as individual .rds files. Parallelization is implemented using the <a href="https://github.com/futureverse/future" class="external-link">future</a> package. Progress is reported using the <a href="https://github.com/futureverse/progressr" class="external-link">progressr</a> package.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -84,16 +84,14 @@
 <p>If, however, <code>save = TRUE</code> then each nlist object is saved as an <code>.rds</code> file in <code>path</code>.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">10</span>)</span>
 <span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="fu">sims_simulate</span>(<span class="st">"a &lt;- runif(1)"</span>, <span class="at">nsims =</span> <span class="dv">2</span><span class="dt">L</span>, <span class="at">save =</span> <span class="cn">TRUE</span>, <span class="at">path =</span> <span class="fu">tempdir</span>(), <span class="at">exists =</span> <span class="cn">NA</span>, <span class="at">ask =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="co">#&gt; Warning: Deleted 2 sims data files in</span></span>
-<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="co">#&gt; 'C:\Users\audre\AppData\Local\Temp\RtmpMZHt9p'.</span></span>
-<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span>
-<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a><span class="fu">sims_data_files</span>(<span class="fu">tempdir</span>())</span>
-<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a><span class="co">#&gt; [1] "data0000001.rds" "data0000002.rds"</span></span>
-<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a><span class="fu">sims_data</span>(<span class="fu">tempdir</span>())</span>
-<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a><span class="co">#&gt; $a</span></span>
-<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a><span class="co">#&gt; [1] 0.2213763</span></span>
-<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a><span class="co">#&gt; an nlists object of 2 nlist objects each with 1 numeric element</span></span></code></pre></div>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="fu">sims_data_files</span>(<span class="fu">tempdir</span>())</span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="co">#&gt; [1] "data0000001.rds" "data0000002.rds"</span></span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a><span class="fu">sims_data</span>(<span class="fu">tempdir</span>())</span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a><span class="co">#&gt; $a</span></span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a><span class="co">#&gt; [1] 0.2213763</span></span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a><span class="co">#&gt; an nlists object of 2 nlist objects each with 1 numeric element</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">

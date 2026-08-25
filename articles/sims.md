@@ -132,7 +132,7 @@ sims_check(path = paste0(tempdir(), "_copy"))
 ## Parallelization
 
 Parallelization is implemented using the
-[future](https://github.com/HenrikBengtsson/future) package.
+[future](https://github.com/futureverse/future) package.
 
 To use all available cores on the local machine simply execute the
 following code before calling
@@ -162,7 +162,7 @@ plan(sequential)
 ## Progress
 
 Progress is reported using the
-[progressr](https://github.com/HenrikBengtsson/progressr) package as
+[progressr](https://github.com/futureverse/progressr) package as
 follows.
 
 ``` r
