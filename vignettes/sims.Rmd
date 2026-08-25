@@ -96,6 +96,10 @@ set.seed(10)
 sims_simulate("a <- runif(1)", nsims = 2L)
 ```
 
+```{r}
+plan(sequential)
+```
+
 ## Progress
 
 Progress is reported using the [progressr](https://github.com/HenrikBengtsson/progressr) package as follows.
