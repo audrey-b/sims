@@ -1,30 +1,25 @@
 ## Test environments
 
-This patch release updates the maintainer of the package and does some basic housekeeping and updates. The previous maintainer is aware of the change.
+* This is an update to an existing CRAN package.
+* This update addresses a check failure caused by the change to
+  the BTPE algorithm used by `rbinom()` in R-devel.
+  
+release 4.6.1
 
-release 4.4.1
-
-* OSX (local) - release
-* OSX (actions) - release
-* Ubuntu (actions) - dev, release, oldrel-1, oldrel-2, oldrel-3, oldrel-4
-* Windows (actions) - release, 4.1
-* Windows (winbuilder) - devel
+OSX (actions) - release
+Ubuntu (actions) - dev, release, oldrel-1
+Windows (local) - release
+Windows (actions) - release
+Windows (winbuilder) - devel
 
 ## R CMD check results
 
-0 errors | 0 warnings | 1 notes
+0 errors | 0 warnings | 0 notes
 
-checking CRAN incoming feasibility ... [11s] NOTE
-Maintainer: 'Audrey Beliveau <audrey.beliveau@uwaterloo.ca>'
+checking CRAN incoming feasibility ... OK
 
-New maintainer:
-  Audrey Beliveau <audrey.beliveau@uwaterloo.ca>
-Old maintainer(s):
-  Joe Thorley <joe@poissonconsulting.ca>
+## Reverse dependency checks
 
-## Reverse Dependencies
+There are zero reverse dependencies.
 
-There are zero reverse dependencies. 
-
-OK: 0
-BROKEN: 0
+OK: 0 BROKEN: 0
