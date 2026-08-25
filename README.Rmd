@@ -25,8 +25,8 @@ knitr::opts_chunk$set(
 
 sims is an R package to generate datasets from R or [JAGS](https://mcmc-jags.sourceforge.io/) code for use in simulation studies.
 The datasets are returned as an [nlists](https://github.com/poissonconsulting/nlist) object and/or saved to file as individual .rds files.
-Parallelization is implemented using the  [future](https://github.com/HenrikBengtsson/future) package.
-Progress is reported using the [progressr](https://github.com/HenrikBengtsson/progressr) package.
+Parallelization is implemented using the  [future](https://github.com/futureverse/future) package.
+Progress is reported using the [progressr](https://github.com/futureverse/progressr) package.
 
 ## Installation
 

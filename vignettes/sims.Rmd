@@ -83,7 +83,7 @@ unlink(paste0(tempdir(), "_copy"), recursive = TRUE, force = TRUE) # required to
 
 ## Parallelization
 
-Parallelization is implemented using the [future](https://github.com/HenrikBengtsson/future) package.
+Parallelization is implemented using the [future](https://github.com/futureverse/future) package.
 
 To use all available cores on the local machine simply execute the following code before calling `sims_simulate()`.
 ```{r}
@@ -102,7 +102,7 @@ plan(sequential)
 
 ## Progress
 
-Progress is reported using the [progressr](https://github.com/HenrikBengtsson/progressr) package as follows.
+Progress is reported using the [progressr](https://github.com/futureverse/progressr) package as follows.
 
 ```{r}
 library(progressr)

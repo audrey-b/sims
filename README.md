@@ -20,9 +20,9 @@ sims is an R package to generate datasets from R or
 studies. The datasets are returned as an
 [nlists](https://github.com/poissonconsulting/nlist) object and/or saved
 to file as individual .rds files. Parallelization is implemented using
-the [future](https://github.com/HenrikBengtsson/future) package.
-Progress is reported using the
-[progressr](https://github.com/HenrikBengtsson/progressr) package.
+the [future](https://github.com/futureverse/future) package. Progress is
+reported using the [progressr](https://github.com/futureverse/progressr)
+package.
 
 ## Installation
 
@@ -57,8 +57,6 @@ file in `path`.
 
     set.seed(10)
     sims_simulate("a <- runif(1)", nsims = 2L, save = TRUE, path = tempdir(), exists = NA, ask = FALSE)
-    #> Warning: Deleted 2 sims data files in
-    #> 'C:\Users\audre\AppData\Local\Temp\RtmpMZHt9p'.
     #> [1] TRUE
     sims_data_files(tempdir())
     #> [1] "data0000001.rds" "data0000002.rds"
