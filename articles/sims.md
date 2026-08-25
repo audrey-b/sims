@@ -154,6 +154,11 @@ sims_simulate("a <- runif(1)", nsims = 2L)
 #> an nlists object of 2 nlist objects each with 1 numeric element
 ```
 
+``` r
+
+plan(sequential)
+```
+
 ## Progress
 
 Progress is reported using the
